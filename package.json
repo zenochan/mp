@@ -3,9 +3,5 @@
   "version": "1.0.0",
   "author": "Zeno",
   "description": "Zeno 的小程序开发包",
-  "miniprogram": "dist",
-  "files": [
-    "miniprogram_dist/",
-    "README.md"
-  ]
+  "miniprogram": "dist"
 }
