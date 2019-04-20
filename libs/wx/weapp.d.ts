@@ -1,5 +1,5 @@
 // Type definitions for weapp v0.12.130400
-export {};
+export {}
 
 //<editor-fold desc="app and page">
 declare global
