@@ -6,10 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "miniprogram": "libs",
+  "miniprogram": "libs/*",
   "files": [
     "libs/",
-    "src/",
     "README.md"
   ],
   "repository": {
