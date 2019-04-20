@@ -1,5 +1,4 @@
 export * from "./Events";
-export * from "./wx/weapp";
 export * from "./rxjs-wx/Rx";
 export * from "./Data";
 export * from "./RxExt";
