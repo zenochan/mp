@@ -2,7 +2,7 @@
   "name": "mp",
   "version": "1.0.0",
   "description": "Zeno 的小程序开发包",
-  "main": "./dist/index.js",
+  "main": "./libs/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
