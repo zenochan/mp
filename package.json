@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "author": "Zeno",
   "description": "Zeno 的小程序开发包",
-  "main": "./miniprogram_dist/index.js",
-  "miniprogram": "dist",
+  "main": "./libs/index.js",
+  "miniprogram": "libs",
   "files": [
-    "miniprogram_dist/",
+    "libs/",
     "README.md"
   ]
 }
