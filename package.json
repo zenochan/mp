@@ -1,24 +1,11 @@
 {
   "name": "mp",
   "version": "1.0.0",
-  "description": "Zeno 的小程序开发包",
-  "main": "./libs/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "miniprogram": "libs/*",
-  "files": [
-    "libs/",
-    "README.md"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/zenochan/mp.git"
-  },
   "author": "Zeno",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zenochan/mp/issues"
-  },
-  "homepage": "https://github.com/zenochan/mp#readme"
+  "description": "Zeno 的小程序开发包",
+  "miniprogram": "dist",
+  "files": [
+    "miniprogram_dist/",
+    "README.md"
+  ]
 }
