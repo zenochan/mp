@@ -188,7 +188,7 @@ export class QQMapWX
   static geocoder(options: {
     address: string,
     region?: string,
-    [key:string]:any
+    [key: string]: any
   }): Observable<qqmap.GeocoderRes>
   {
     return Observable.create(sub => {
@@ -677,12 +677,12 @@ declare global
         adcode: string | number
       }
       address_components: AddressComponent
-      deviation: 1000
-      level: 9
-      location: { lng: 121.48722, lat: 31.29027 }
-      reliability: 7
-      similarity: 0.8
-      title: "中山北一路1200号"
+      deviation: number
+      level: number
+      location: { lng: number, lat: number }
+      reliability: number
+      similarity: number
+      title: string
 
     }
 
