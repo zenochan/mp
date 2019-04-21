@@ -102,6 +102,19 @@ var BasePage = /** @class */ (function () {
         }
         node[fields[fields.length - 1]] = value;
     };
+    BasePage.prototype.__getData = function (id) {
+        var node = this.data;
+        var fields = id.split(".");
+        if (fields.length > 1) {
+            node = this.data[fields[0]] || {};
+            this[fields[0]] = node;
+            // 去头去尾取节点
+            for (var i = 1; i < fields.length - 1; i++) {
+                node = node[fields[i]];
+            }
+        }
+        return node[fields[fields.length - 1]];
+    };
     BasePage.prototype.onFocus = function (e) {
         this.setData({ focus: e.currentTarget.id || null });
     };
@@ -111,6 +124,15 @@ var BasePage = /** @class */ (function () {
     };
     ;
     BasePage.prototype.onConfirm = function (e) { };
+    BasePage.prototype.toggle = function (e) {
+        var id = e.currentTarget.id;
+        if (id) {
+            var rootData = {};
+            this.__setData(rootData, id, !this.__getData(id));
+            this.setData(rootData);
+        }
+    };
+    ;
     //</editor-fold>
     //<editor-fold desc="wx open">
     /**

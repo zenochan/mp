@@ -138,6 +138,24 @@ export class BasePage implements IPage
     node[fields[fields.length - 1]] = value;
   }
 
+  private __getData(id: string)
+  {
+
+    let node = this.data;
+
+    let fields = id.split(".");
+    if (fields.length > 1) {
+      node = this.data[fields[0]] || {};
+      this[fields[0]] = node;
+      // 去头去尾取节点
+      for (let i = 1; i < fields.length - 1; i++) {
+        node = node[fields[i]]
+      }
+    }
+    return node[fields[fields.length - 1]];
+  }
+
+
   onFocus(e: WXEvent)
   {
     this.setData({focus: e.currentTarget.id || null});
@@ -150,6 +168,15 @@ export class BasePage implements IPage
 
   onConfirm(e: WXEvent) { }
 
+  toggle(e: WXEvent)
+  {
+    let id = e.currentTarget.id;
+    if (id) {
+      let rootData = {};
+      this.__setData(rootData, id, !this.__getData(id));
+      this.setData(rootData);
+    }
+  };
   //</editor-fold>
 
   //<editor-fold desc="wx open">
