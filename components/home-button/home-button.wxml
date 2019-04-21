@@ -1,0 +1,9 @@
+<div class="home-button" wx:if="{{show}}" bindtap="navIndex"
+     style="right: {{offsetX}}rpx;bottom:{{offsetY}}rpx"
+     catchtouchmove="onTouchMove"
+     bindtouchstart="onTouchStart"
+     bindtouchend="onTouchEnd"
+>
+  <image src="/assets/home.png"></image>
+  <div class="title">首页</div>
+</div>

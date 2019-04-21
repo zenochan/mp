@@ -1,0 +1,10 @@
+<div class="zclass">
+  <div class="header {{expand?'expand':'collapse'}}">
+    <slot name="header" bind:tap="clickHeader"></slot>
+  </div>
+  <div id="body" class="body">
+    <div style="margin-top: {{marginTop}}px">
+      <slot name="body"></slot>
+    </div>
+  </div>
+</div>

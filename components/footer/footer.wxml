@@ -1,0 +1,4 @@
+<div style="height: {{bodyHeight}}px;clear:both;"></div>
+<div class="fixed zclass" style="padding-bottom: {{paddingBottom}}rpx">
+  <slot></slot>
+</div>

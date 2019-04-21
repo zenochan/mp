@@ -1,0 +1,72 @@
+/* libs/components/modal.wxss */
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  right: 0;
+}
+
+.modal__mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.37);
+  animation: mask_in 200ms ease-in;
+}
+
+.modal__mask.dismiss {
+  animation: mask_out 200ms forwards ease-out;
+}
+
+.modal__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation: content_in 200ms ease-in;
+}
+
+.modal__content.dismiss {
+  animation: content_out 200ms forwards ease-out;
+}
+
+@keyframes mask_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mask_out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes content_in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes content_out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}

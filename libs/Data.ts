@@ -7,9 +7,6 @@ export class Data
   static getUser<T>(): T
   {
     let user = wx.getStorageSync(KEY_USER);
-    // if(user){
-    //   user.api_token = "89dcf1966e8cf79d91b863c0a11773c1";
-    // }
     return user;
   }
 
@@ -38,7 +35,7 @@ export class Data
   static setAsync(key: string, value: any)
   {
     if (!key) return;
-     wx.setStorage({
+    wx.setStorage({
       key: key,
       data: value
     })

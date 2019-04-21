@@ -1,0 +1,27 @@
+/* libs/components/home-button/home-button.wxss */
+
+.home-button {
+  position: fixed;
+  z-index: 999;
+  box-shadow: 0rpx 0rpx 20rpx rgba(0, 0, 0, 0.56);
+  border-radius: 50%;
+  overflow: hidden;
+
+  width: 96rpx;
+  height: 96rpx;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.home-button image {
+  display: block;
+  width: 70rpx;
+  height: 70rpx;
+  margin: -4rpx auto;
+}
+
+.title{
+  font-size: 24rpx;
+  color: white;
+  text-align: center;
+  line-height: 1em;
+}

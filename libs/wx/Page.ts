@@ -1,6 +1,6 @@
-import {UIKit} from "../uikit";
+import {UIKit} from "./uikit";
 import {Nav} from "../nav";
-import {HOOK_CONF, PageInjectors} from "../weapp";
+import {HOOK_CONF, PageInjectors} from "./weapp";
 import {Data} from "../Data";
 import {PageData} from "../page";
 
@@ -89,33 +89,54 @@ export class BasePage implements IPage
 
   //</editor-fold>
 
-  //<editor-fold desc="input">
-  // 伪双数据绑定
+  //<editor-fold desc="input 伪双数据绑定">
   onInput(e: WXEvent)
   {
     let id = e.currentTarget.id;
     if (id) {
       let rootData = {};
-      let node = rootData;
-
-      let fields = id.split(".");
-      if (fields.length > 1) {
-        node = this.data[fields[0]] || {};
-        rootData[fields[0]] = node;
-        // 去头去尾取节点
-        for (let i = 1; i < fields.length - 1; i++) {
-          node = node[fields[i]]
-        }
-      }
-
-      node[fields[fields.length - 1]] = e.detail.value;
+      this.__setData(rootData, id, e.detail.value);
       if (e.detail.code) {
-        node[id + "Code"] = e.detail.code
+        // 选择器地区 code
+        this.__setData(rootData, id + "Code", e.detail.code);
       }
-
       this.setData(rootData);
     }
   };
+
+
+  clear(e: WXEvent)
+  {
+    let id = e.currentTarget.dataset.name;
+    if (id) {
+      let rootData = {};
+      this.__setData(rootData, id, null);
+      this.setData(rootData);
+    }
+  };
+
+  /**
+   * @param ref
+   * @param id "a.b.c"
+   * @param value
+   * @private
+   */
+  private __setData(ref: Object, id: string, value: any)
+  {
+
+    let node = ref;
+
+    let fields = id.split(".");
+    if (fields.length > 1) {
+      node = this.data[fields[0]] || {};
+      ref[fields[0]] = node;
+      // 去头去尾取节点
+      for (let i = 1; i < fields.length - 1; i++) {
+        node = node[fields[i]]
+      }
+    }
+    node[fields[fields.length - 1]] = value;
+  }
 
   onFocus(e: WXEvent)
   {

@@ -7,9 +7,6 @@ var Data = /** @class */ (function () {
     }
     Data.getUser = function () {
         var user = wx.getStorageSync(KEY_USER);
-        // if(user){
-        //   user.api_token = "89dcf1966e8cf79d91b863c0a11773c1";
-        // }
         return user;
     };
     Data.setUser = function (user) {

@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var uikit_1 = require("./uikit");
+var uikit_1 = require("./wx/uikit");
 var Nav = /** @class */ (function () {
     function Nav() {
     }

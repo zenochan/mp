@@ -1,0 +1,55 @@
+.header {
+  position: relative;
+
+  &:after {
+    content: ' ';
+    width: 18px;
+    height: 18px;
+    border-top: 2px solid #999;
+    border-right: 2px solid #999;
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    pointer-events: none;
+  }
+
+  &.expand {
+    &:after {
+      animation: 500ms anim-expand forwards;
+    }
+
+  }
+
+  &.collapse:after {
+    animation: 500ms anim-collapse forwards;
+  }
+
+  @keyframes anim-expand {
+    from {
+      transform: rotate(135deg);
+      margin-top: -13px;
+    }
+    to {
+      transform: rotate(315deg);
+      margin-top: -4px;
+    }
+
+  }
+
+  @keyframes anim-collapse {
+    from {
+      transform: rotate(-45deg);
+      margin-top: -4px;
+    }
+    to {
+      transform: rotate(135deg);
+      margin-top: -13px;
+    }
+  }
+}
+
+.body {
+  overflow: hidden;
+  position: relative;
+}
+

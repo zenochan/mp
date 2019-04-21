@@ -1,5 +1,5 @@
 import {Data} from "./Data";
-import {UIKit} from "./uikit";
+import {UIKit} from "./wx/uikit";
 
 export class Nav
 {

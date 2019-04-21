@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-var uikit_1 = require("../uikit");
+var uikit_1 = require("./uikit");
 var nav_1 = require("../nav");
-var weapp_1 = require("../weapp");
+var weapp_1 = require("./weapp");
 var Data_1 = require("../Data");
 /**
  * onLoad -> onShow [-> onReady] -> onHide [-> onUnload]
@@ -60,30 +60,48 @@ var BasePage = /** @class */ (function () {
         this.injectors('onReady', arguments);
     };
     //</editor-fold>
-    //<editor-fold desc="input">
-    // 伪双数据绑定
+    //<editor-fold desc="input 伪双数据绑定">
     BasePage.prototype.onInput = function (e) {
         var id = e.currentTarget.id;
         if (id) {
             var rootData = {};
-            var node = rootData;
-            var fields = id.split(".");
-            if (fields.length > 1) {
-                node = this.data[fields[0]] || {};
-                rootData[fields[0]] = node;
-                // 去头去尾取节点
-                for (var i = 1; i < fields.length - 1; i++) {
-                    node = node[fields[i]];
-                }
-            }
-            node[fields[fields.length - 1]] = e.detail.value;
+            this.__setData(rootData, id, e.detail.value);
             if (e.detail.code) {
-                node[id + "Code"] = e.detail.code;
+                // 选择器地区 code
+                this.__setData(rootData, id + "Code", e.detail.code);
             }
             this.setData(rootData);
         }
     };
     ;
+    BasePage.prototype.clear = function (e) {
+        var id = e.currentTarget.dataset.name;
+        if (id) {
+            var rootData = {};
+            this.__setData(rootData, id, null);
+            this.setData(rootData);
+        }
+    };
+    ;
+    /**
+     * @param ref
+     * @param id "a.b.c"
+     * @param value
+     * @private
+     */
+    BasePage.prototype.__setData = function (ref, id, value) {
+        var node = ref;
+        var fields = id.split(".");
+        if (fields.length > 1) {
+            node = this.data[fields[0]] || {};
+            ref[fields[0]] = node;
+            // 去头去尾取节点
+            for (var i = 1; i < fields.length - 1; i++) {
+                node = node[fields[i]];
+            }
+        }
+        node[fields[fields.length - 1]] = value;
+    };
     BasePage.prototype.onFocus = function (e) {
         this.setData({ focus: e.currentTarget.id || null });
     };

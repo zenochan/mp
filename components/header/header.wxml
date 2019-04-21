@@ -1,0 +1,4 @@
+<div style="height: {{bodyHeight}}px;"></div>
+<div class="fixed zclass">
+  <slot></slot>
+</div>
