@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var uikit_1 = require("./wx/uikit");
 var Nav = /** @class */ (function () {
     function Nav() {

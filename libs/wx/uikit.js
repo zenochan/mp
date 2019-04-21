@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx = require("./rxjs-wx/Rx");
 var Rx_1 = require("./rxjs-wx/Rx");
 var UIKit = /** @class */ (function () {
