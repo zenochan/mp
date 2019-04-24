@@ -1,4 +1,3 @@
-import {Data} from "./Data";
 import {UIKit} from "./wx/uikit";
 
 export class Nav
@@ -19,12 +18,11 @@ export class Nav
    */
   static navForResult(page: IPage, url: string, data?: any): Promise<any>
   {
-    (page as any).navData = data;
+    page.navData = data;
 
     this.nav(url);
-    // @ts-ignore
     return new Promise(resolve => {
-      (page as any).onResult = function (data) {
+      page.onResult = function (data) {
         resolve(data)
       }
     });
@@ -47,12 +45,12 @@ export class Nav
     (prePage as any).onResult = null;
   }
 
-  static navBackOrIndex()
+  static navBackOrReLaunch(relaunchPage: string = "/pages/index/index")
   {
     if (getCurrentPages().length > 1) {
       wx.navigateBack()
     } else {
-      wx.reLaunch({url: "/pages/index/index"})
+      wx.reLaunch({url: relaunchPage})
     }
   }
 }

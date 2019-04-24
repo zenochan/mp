@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 微信 API rx 封装
  */
-var Rx_1 = require("./rxjs-wx/Rx");
 var Data_1 = require("./Data");
+var Rx_1 = require("./rx/Rx");
 var Events = /** @class */ (function () {
     function Events() {
     }

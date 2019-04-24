@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var PageData = /** @class */ (function () {
     function PageData() {
         this.current_page = 1;
@@ -8,4 +8,4 @@ var PageData = /** @class */ (function () {
     return PageData;
 }());
 exports.PageData = PageData;
-//# sourceMappingURL=page.js.map
+//# sourceMappingURL=laravel.js.map

@@ -19,7 +19,6 @@ var Nav = /** @class */ (function () {
     Nav.navForResult = function (page, url, data) {
         page.navData = data;
         this.nav(url);
-        // @ts-ignore
         return new Promise(function (resolve) {
             page.onResult = function (data) {
                 resolve(data);
@@ -40,12 +39,13 @@ var Nav = /** @class */ (function () {
         cb && cb(data);
         prePage.onResult = null;
     };
-    Nav.navBackOrIndex = function () {
+    Nav.navBackOrReLaunch = function (relaunchPage) {
+        if (relaunchPage === void 0) { relaunchPage = "/pages/index/index"; }
         if (getCurrentPages().length > 1) {
             wx.navigateBack();
         }
         else {
-            wx.reLaunch({ url: "/pages/index/index" });
+            wx.reLaunch({ url: relaunchPage });
         }
     };
     return Nav;

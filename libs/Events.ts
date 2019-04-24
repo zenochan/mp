@@ -1,8 +1,8 @@
 /**
  * 微信 API rx 封装
  */
-import {BehaviorSubject, Observable} from "./rxjs-wx/Rx";
 import {Data} from "./Data";
+import {Observable,BehaviorSubject} from "./rx/Rx";
 
 export class Events
 {
