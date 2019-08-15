@@ -1,4 +1,4 @@
-import Events = require("./Events");
+import {Events} from "./Events";
 
 const KEY_USER = "user_181127";
 

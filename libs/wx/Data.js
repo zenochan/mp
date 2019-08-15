@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Events = require("./Events");
+var Events_1 = require("./Events");
 var KEY_USER = "user_181127";
 var Data = /** @class */ (function () {
     function Data() {
@@ -10,7 +10,7 @@ var Data = /** @class */ (function () {
     };
     Data.setUser = function (user) {
         wx.setStorageSync(KEY_USER, user);
-        user && Events.publish("user:update", user);
+        user && Events_1.Events.publish("user:update", user);
     };
     /**
      * @param key 建议使用蛇形 key
