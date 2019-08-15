@@ -1,8 +1,8 @@
-// import { Action } from './scheduler/Action';
+import { Action } from './scheduler/Action';
 import { Subscription } from './Subscription';
 export interface IScheduler {
     now(): number;
-    // schedule<T>(work: (this: Action<T>, state?: T) => void, delay?: number, state?: T): Subscription;
+    schedule<T>(work: (this: Action<T>, state?: T) => void, delay?: number, state?: T): Subscription;
 }
 /**
  * An execution context and a data structure to order tasks and schedule their
@@ -23,7 +23,7 @@ export interface IScheduler {
 export declare class Scheduler implements IScheduler {
     private SchedulerAction;
     static now: () => number;
-    // constructor(SchedulerAction: typeof Action, now?: () => number);
+    constructor(SchedulerAction: typeof Action, now?: () => number);
     /**
      * A getter method that returns a number representing the current time
      * (at the time this function was called) according to the scheduler's own
@@ -50,5 +50,5 @@ export declare class Scheduler implements IScheduler {
      * @return {Subscription} A subscription in order to be able to unsubscribe
      * the scheduled work.
      */
-    // schedule<T>(work: (this: Action<T>, state?: T) => void, delay?: number, state?: T): Subscription;
+    schedule<T>(work: (this: Action<T>, state?: T) => void, delay?: number, state?: T): Subscription;
 }

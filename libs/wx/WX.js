@@ -1,7 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var Rx = require("./rxjs-wx/Rx");
-var Rx_1 = require("./rxjs-wx/Rx");
+Object.defineProperty(exports, "__esModule", { value: true });
+var Rx = require("../rx/Rx");
+var Rx_1 = require("../rx/Rx");
 /**
  * 微信 API rx 封装
  *
@@ -125,7 +125,7 @@ var WX = /** @class */ (function () {
                 werun: authSetting[WX.SCOPE.WE_RUN] || false,
                 record: authSetting[WX.SCOPE.RECORD] || false,
                 writePhotosAlbum: authSetting[WX.SCOPE.WRITE_PHOTOS_ALBUM] || false,
-                camera: authSetting[WX.SCOPE.CAMERA] || false
+                camera: authSetting[WX.SCOPE.CAMERA] || false,
             };
         });
     };
@@ -359,6 +359,6 @@ exports.sceneMap = {
     1044: "群聊会话中的小程序消息卡片（带 shareTicket）",
     1047: "扫描小程序码",
     1048: "长按图片识别小程序码",
-    1049: "手机相册选取小程序码"
+    1049: "手机相册选取小程序码",
 };
 //# sourceMappingURL=WX.js.map

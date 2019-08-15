@@ -3,8 +3,6 @@ import {Observable} from "../rx/Rx";
 export {};
 
 /**
- * 时间插值器
- *
  * @version 20190326
  * @author Zeno (zenochan@qq.com)
  */
@@ -42,6 +40,7 @@ export class Interceptor
 
 
 /**
+ * @param t [0,1]
  * @see http://cubic-bezier.com
  * @see https://www.cnblogs.com/yanan-boke/p/8875571.html
  * @version 20190326
@@ -49,15 +48,7 @@ export class Interceptor
  */
 export class Bezier
 {
-  /**
-   *
-   * @param x1 [0,1]
-   * @param y1 [0,1]
-   * @param x2 [0,1]
-   * @param y2 [0,1]
-   * @param t [0,1]
-   */
-  static value(x1: number, y1: number, x2: number, y2: number, t: number)
+  static value(x1, y1, x2, y2, t)
   {
 
     let cx = 3 * x1;

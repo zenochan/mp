@@ -1,0 +1,7 @@
+<picker bindchange="onChange" value="{{index}}" range="{{range}}" range-key="{{rangekey}}" disabled="{{disabled}}"
+        mode="{{mode}}"
+        start="{{dateStart}}" end="{{dateEnd}}" fields="{{dateFields}}"
+>
+  <slot></slot>
+</picker>
+

@@ -4,8 +4,8 @@ import UserInfo = wx.UserInfo;
 import GetImageInfoResult = wx.GetImageInfoResult;
 import CanvasToTempFilePathOptions = wx.CanvasToTempFilePathOptions;
 import ScanCodeResult = wx.ScanCodeResult;
-import * as Rx from "./rxjs-wx/Rx";
-import {BehaviorSubject, Observable} from "./rxjs-wx/Rx";
+import * as Rx from "../rx/Rx";
+import {BehaviorSubject, Observable} from "../rx/Rx";
 
 /**
  * 微信 API rx 封装

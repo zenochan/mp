@@ -1,4 +1,6 @@
-export {Subject, AnonymousSubject} from './Subject';
+// @ts-ignore
+export { Subject, AnonymousSubject } from './Subject';
+export { Observable } from './Observable';
 import './add/observable/bindCallback';
 import './add/observable/bindNodeCallback';
 import './add/observable/combineLatest';
@@ -128,32 +130,51 @@ import './add/operator/windowWhen';
 import './add/operator/withLatestFrom';
 import './add/operator/zip';
 import './add/operator/zipAll';
-
-export {Observable} from './Observable';
-export {Operator} from './Operator';
-export {Observer} from './Observer';
-export {Subscription} from './Subscription';
-export {Subscriber} from './Subscriber';
+export { Operator } from './Operator';
+export { Observer } from './Observer';
+export { Subscription } from './Subscription';
+export { Subscriber } from './Subscriber';
+// @ts-ignore
 export { AsyncSubject } from './AsyncSubject';
+// @ts-ignore
 export { ReplaySubject } from './ReplaySubject';
+// @ts-ignore
 export { BehaviorSubject } from './BehaviorSubject';
+// @ts-ignore
 export { ConnectableObservable } from './observable/ConnectableObservable';
+// @ts-ignore
 export { Notification } from './Notification';
+// @ts-ignore
 export { EmptyError } from './util/EmptyError';
+// @ts-ignore
 export { ArgumentOutOfRangeError } from './util/ArgumentOutOfRangeError';
+// @ts-ignore
 export { ObjectUnsubscribedError } from './util/ObjectUnsubscribedError';
+// @ts-ignore
 export { TimeoutError } from './util/TimeoutError';
+// @ts-ignore
 export { UnsubscriptionError } from './util/UnsubscriptionError';
+// @ts-ignore
 export { TimeInterval } from './operator/timeInterval';
+// @ts-ignore
 export { Timestamp } from './operators/timestamp';
+// @ts-ignore
 export { TestScheduler } from './testing/TestScheduler';
+// @ts-ignore
 export { VirtualTimeScheduler } from './scheduler/VirtualTimeScheduler';
+// @ts-ignore
 export { AjaxRequest, AjaxResponse, AjaxError, AjaxTimeoutError } from './observable/dom/AjaxObservable';
+// @ts-ignore
 export { pipe } from './util/pipe';
+// @ts-ignore
 import { AsapScheduler } from './scheduler/AsapScheduler';
+// @ts-ignore
 import { AsyncScheduler } from './scheduler/AsyncScheduler';
+// @ts-ignore
 import { QueueScheduler } from './scheduler/QueueScheduler';
+// @ts-ignore
 import { AnimationFrameScheduler } from './scheduler/AnimationFrameScheduler';
+// @ts-ignore
 import * as _operators from './operators';
 export declare const operators: typeof _operators;
 /**
@@ -170,10 +191,10 @@ export declare const operators: typeof _operators;
  * Use this for synchronizing with the platform's painting
  */
 declare let Scheduler: {
-  // asap: AsapScheduler;
-  // queue: QueueScheduler;
-  // animationFrame: AnimationFrameScheduler;
-  // async: AsyncScheduler;
+    asap: AsapScheduler;
+    queue: QueueScheduler;
+    animationFrame: AnimationFrameScheduler;
+    async: AsyncScheduler;
 };
 /**
  * @typedef {Object} Rx.Symbol
@@ -189,8 +210,8 @@ declare let Scheduler: {
  * to retrieve an iterator from an object.
  */
 declare let Symbol: {
-  rxSubscriber: any;
-  observable: any;
-  iterator: any;
+    rxSubscriber: any;
+    observable: any;
+    iterator: any;
 };
-export {Scheduler, Symbol};
+export { Scheduler, Symbol };

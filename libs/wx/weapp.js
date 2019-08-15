@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var uikit_1 = require("./uikit");
-var nav_1 = require("../nav");
-var Data_1 = require("../Data");
+var nav_1 = require("./nav");
+var UI_1 = require("./UI");
+var Data_1 = require("./Data");
 exports.HOOK_CONF = { log: true };
 exports.PageInjectors = [];
 /**
@@ -23,7 +23,7 @@ function HookPage(page) {
             if (method == "onLoad") {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
-                    uikit_1.UIKit.navTitle(this.navTitle);
+                    UI_1.UI.navTitle(this.navTitle);
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
@@ -136,8 +136,8 @@ function hookInputEvent(page) {
         var url = e.currentTarget.dataset.url;
         var urls = e.currentTarget.dataset.urls;
         wx.previewImage({
-            current: this.data.imgHost + url,
-            urls: urls.map(function (url) { return _this.data.imgHost + url; })
+            current: this.data.host + url,
+            urls: urls.map(function (url) { return _this.data.host + url; })
         });
     };
     page.call = function (e) {

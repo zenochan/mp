@@ -1,6 +1,6 @@
-import {UIKit} from "./uikit";
-import {Nav} from "../nav";
-import {Data} from "../Data";
+import {Nav} from "./nav";
+import {UI} from "./UI";
+import {Data} from "./Data";
 
 export const HOOK_CONF = {log: true};
 
@@ -47,7 +47,7 @@ export function HookPage(page: IPage = {})
 
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
-        if (this.navTitle) UIKit.navTitle(this.navTitle)
+        if (this.navTitle) UI.navTitle(this.navTitle)
       }
 
       if (method == "onUnload") {
@@ -174,8 +174,8 @@ function hookInputEvent(page)
     let url = e.currentTarget.dataset.url;
     let urls = e.currentTarget.dataset.urls;
     wx.previewImage({
-      current: this.data.imgHost + url,
-      urls: urls.map(url => this.data.imgHost + url)
+      current: this.data.host + url,
+      urls: urls.map(url => this.data.host + url)
     });
   };
 

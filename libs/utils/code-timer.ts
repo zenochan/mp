@@ -1,4 +1,4 @@
-import {Events} from "../Events";
+import {Events} from "../wx/Events";
 
 export class CodeTimer
 {

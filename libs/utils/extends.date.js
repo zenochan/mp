@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 Date.prototype.ONE_DAY = 86400000;
 // 周次
 Date.prototype.weekOfYear = function () {
@@ -30,16 +30,8 @@ Date.prototype.format = function (fmt) {
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     //星期
     if (/(E+)/.test(fmt)) {
-        var week = {
-            "0": "\u65e5",
-            "1": "\u4e00",
-            "2": "\u4e8c",
-            "3": "\u4e09",
-            "4": "\u56db",
-            "5": "\u4e94",
-            "6": "\u516d"
-        };
-        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "\u661f\u671f" : "\u5468") : "") + week[this.getDay() + ""]);
+        var week = ["日", "一", "二", "三", "四", "五", "六"];
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "星期" : "周") : "") + week[this.getDay()]);
     }
     for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt))
@@ -56,6 +48,9 @@ function now(format) {
 exports.now = now;
 String.prototype.dateFormat = function (fmt) {
     if (fmt === void 0) { fmt = "yyyy-MM-dd"; }
-    return new Date(this.replace(/-/g, '/')).format(fmt);
+    var dateStr = this;
+    if (dateStr.length < 16)
+        dateStr += '-01 00:00:00';
+    return new Date(dateStr.replace(/-/g, '/')).format(fmt);
 };
 //# sourceMappingURL=extends.date.js.map

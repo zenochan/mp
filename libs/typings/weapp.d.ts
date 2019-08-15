@@ -1,5 +1,5 @@
 // Type definitions for weapp v0.12.130400
-export {}
+export {};
 
 //<editor-fold desc="app and page">
 declare global
@@ -2678,7 +2678,7 @@ declare global
   {
     currentTarget?: Target
     // target?: Target
-    detail?: { value?: any, [key: string]: any },
+    detail?: { value?: any } | any,
     type?: string
   }
 }

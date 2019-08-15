@@ -1,22 +1,19 @@
-const KEY = "search_keys";
+const KEY = "keywords_20190424";
 
 export class Keywords
 {
-
-  static history(type?: string): string[]
+  static data(type?: string)
   {
     return wx.getStorageSync(type || KEY) || []
   }
 
-  static save(keyword, type?: string): string[]
+  static save(keyword, type?: string)
   {
-    let records = this.history(type);
+    let records = this.data(type);
     records.unshift(keyword);
     // @ts-ignore
     records = Array.from(new Set(records));
-    wx.setStorageSync(type || KEY, records);
-
-    return records;
+    wx.setStorageSync(type || KEY, records)
   }
 
   static clear(type?: string)

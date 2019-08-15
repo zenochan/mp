@@ -1,6 +1,6 @@
 "use strict";
-exports.__esModule = true;
-var Events_1 = require("../Events");
+Object.defineProperty(exports, "__esModule", { value: true });
+var Events_1 = require("../wx/Events");
 var CodeTimer = /** @class */ (function () {
     /**
      *

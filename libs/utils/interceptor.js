@@ -1,9 +1,7 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("../rx/Rx");
 /**
- * 时间插值器
- *
  * @version 20190326
  * @author Zeno (zenochan@qq.com)
  */
@@ -40,6 +38,7 @@ var Interceptor = /** @class */ (function () {
 }());
 exports.Interceptor = Interceptor;
 /**
+ * @param t [0,1]
  * @see http://cubic-bezier.com
  * @see https://www.cnblogs.com/yanan-boke/p/8875571.html
  * @version 20190326
@@ -48,14 +47,6 @@ exports.Interceptor = Interceptor;
 var Bezier = /** @class */ (function () {
     function Bezier() {
     }
-    /**
-     *
-     * @param x1 [0,1]
-     * @param y1 [0,1]
-     * @param x2 [0,1]
-     * @param y2 [0,1]
-     * @param t [0,1]
-     */
     Bezier.value = function (x1, y1, x2, y2, t) {
         var cx = 3 * x1;
         var cy = 3 * y1;
