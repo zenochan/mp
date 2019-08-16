@@ -1,5 +1,5 @@
 {
-  "isComponent": true,
+  "component": true,
   "usingComponents": {
     "tab-item": "./tab-item"
   }
