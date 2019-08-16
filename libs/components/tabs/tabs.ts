@@ -1,5 +1,8 @@
 Component({
   properties: {flex: {type: Boolean, value: false}},
+  data: {
+    active: null
+  },
   relations: {
     'tab-item': {type: "child"}
   },
@@ -11,6 +14,7 @@ Component({
     },
     active(target)
     {
+      this.data.active = target;
       this.getRelationNodes('tab-item').forEach(item => item.active(item == target));
     }
   },
@@ -21,6 +25,8 @@ Component({
   },
   ready()
   {
+    if (this.data.active) return;
+
     let first = this.getRelationNodes('tab-item')[0];
     first && first.active(true)
   }
