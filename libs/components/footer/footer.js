@@ -11,7 +11,7 @@ Component({
     },
     properties: {
         inTabs: { type: Boolean, value: false },
-        bgColor: { type: String, value: "#F7F7F7" }
+        bgColor: { type: String, value: "transparent" }
     },
     ready: function () {
         var _this = this;
