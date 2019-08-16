@@ -21,7 +21,7 @@
 - wxml
 ```html
 <tabs flex>
-  <tab-item class='tab-item' active-class="tab-item__active">tab1</tab-item>
-  <tab-item class='tab-item' active-class="tab-item__active">tab2</tab-item>
+  <tab-item class='tab-item' class-active="tab-item__active">tab1</tab-item>
+  <tab-item class='tab-item' class-active="tab-item__active">tab2</tab-item>
 </tabs>
 ```

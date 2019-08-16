@@ -1,14 +1,22 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  externalClasses: ["zclass"],
+  properties: {
+    data: {
+      type: null, value: null, observer: function () {
+        setTimeout(() => this.calcHeight(), 50);
+      }
+    }
+  },
+
+  methods: {
+    calcHeight()
+    {
+      WX.size(".fixed", this).subscribe(size => this.setData({bodyHeight: size.height}));
+    }
+  },
   ready()
   {
-    WX.queryBoundingClientRect(".fixed", this).subscribe(res => {
-      let body = res[0];
-      let bodyHeight = (body.bottom - body.top) || this.data.bodyHeight;
-      console.log(bodyHeight);
-      this.setData({bodyHeight});
-    })
+    this.calcHeight();
   }
 });
