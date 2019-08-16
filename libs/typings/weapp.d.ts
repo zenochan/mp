@@ -1446,6 +1446,8 @@ declare global
      */
     export function getSystemInfo(options: GetSystemInfoOptions): void;
 
+    export function nextTick(task:any);
+
     /**
      * 获取系统信息同步接口
      */
