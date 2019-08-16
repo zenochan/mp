@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
-    externalClasses: ["active-class"],
+    externalClasses: ["class-active"],
     relations: {
         './tabs': {
             type: 'parent',

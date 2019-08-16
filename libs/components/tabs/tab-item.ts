@@ -1,7 +1,7 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  externalClasses: ["active-class"],
+  externalClasses: ["class-active"],
 
   relations: {
     './tabs': {

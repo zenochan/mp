@@ -12,7 +12,8 @@
 ```json
 {
   "usingComponents": {
-    "tabs": "mp/components/tabs/tabs"
+    "tabs": "mp/components/tabs/tabs",
+    "tab-item": "mp/components/tabs/tab-item"
   }
 }
 ```
