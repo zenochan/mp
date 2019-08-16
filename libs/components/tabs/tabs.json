@@ -1,3 +1,6 @@
 {
-  "isComponent": true
+  "isComponent": true,
+  "usingComponents": {
+    "tab-item": "./tab-item"
+  }
 }
