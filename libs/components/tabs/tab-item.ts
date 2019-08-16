@@ -3,6 +3,14 @@ import {WX} from "../../wx/WX";
 Component({
   externalClasses: ["class-active"],
 
+  properties: {
+    active: {
+      type: Boolean, value: false, observer: function (newVal, oldVal) {
+        newVal && this.parent.active(this)
+      }
+    }
+  },
+
   relations: {
     './tabs': {
       type: 'parent',
