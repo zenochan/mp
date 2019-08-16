@@ -17,15 +17,9 @@ Component({
   ready()
   {
     // @ts-ignore
-    WX.queryBoundingClientRect(".fixed", this).retry(3, 200).subscribe(res => {
-      let body = res[0];
-      if (body) {
-        let bodyHeight = (body.bottom - body.top) || this.data.bodyHeight || 0;
-        if (bodyHeight == 0) throw "zero height";
-        this.setData({bodyHeight});
-      } else {
-        throw "not ready"
-      }
+    WX.size(".fixed", this).retry(3, 200).subscribe(res => {
+      if (res.height == 0) throw "zero height";
+      this.setData({bodyHeight: res.height});
     });
   }
 });

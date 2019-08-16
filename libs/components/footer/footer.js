@@ -16,17 +16,10 @@ Component({
     ready: function () {
         var _this = this;
         // @ts-ignore
-        WX_1.WX.queryBoundingClientRect(".fixed", this).retry(3, 200).subscribe(function (res) {
-            var body = res[0];
-            if (body) {
-                var bodyHeight = (body.bottom - body.top) || _this.data.bodyHeight || 0;
-                if (bodyHeight == 0)
-                    throw "zero height";
-                _this.setData({ bodyHeight: bodyHeight });
-            }
-            else {
-                throw "not ready";
-            }
+        WX_1.WX.size(".fixed", this).retry(3, 200).subscribe(function (res) {
+            if (res.height == 0)
+                throw "zero height";
+            _this.setData({ bodyHeight: res.height });
         });
     }
 });
