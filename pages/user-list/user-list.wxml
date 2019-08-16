@@ -1,0 +1,20 @@
+<div class="body">
+  <block wx:for="{{userList}}" wx:key="{{index}}">
+    <div class="line"></div>
+    <div class="cell">
+      <div class="cell-hd">{{item.nickname}}</div>
+      <div class="cell-bd">{{item.wechat}}</div>
+    </div>
+  </block>
+
+</div>
+
+<footer inTabs>
+  <div class="flex footer">
+    <label class="flex__item">昵称: <input bindinput="onInput" id='form.nickname' value="{{form.nickname}}"
+                                         placeholder="昵称"/></label>
+    <label class="flex__item">微信号:<input bindinput="onInput" id='form.wechat' value="{{form.wechat}}"
+                                         placeholder="微信号"/></label>
+    <button bind:tap="addUser">添加</button>
+  </div>
+</footer>

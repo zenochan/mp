@@ -70,7 +70,7 @@ exports.HookPage = HookPage;
 /**
  * @version 20190328
  * @param page
- * @author Zeno (zenochan@qq.com)
+ * @author Zeno Chan (zenochan@qq.com)
  */
 function hookInputEvent(page) {
     // 伪双数据绑定
@@ -132,12 +132,11 @@ function hookInputEvent(page) {
         originFocus && originFocus.apply(this, arguments);
     };
     page.view = function (e) {
-        var _this = this;
         var url = e.currentTarget.dataset.url;
         var urls = e.currentTarget.dataset.urls;
         wx.previewImage({
-            current: this.data.host + url,
-            urls: urls.map(function (url) { return _this.data.host + url; })
+            current: url,
+            urls: urls
         });
     };
     page.call = function (e) {

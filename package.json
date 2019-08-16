@@ -7,7 +7,7 @@
   "miniprogram": "libs",
   "files": [
     "libs/",
-    "scss/",
+    "libs/scss/",
     "sdk/",
     "README.md"
   ]

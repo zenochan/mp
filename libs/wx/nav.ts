@@ -21,7 +21,6 @@ export class Nav
     (page as any).navData = data;
 
     this.nav(url);
-    // @ts-ignore
     return new Promise(resolve => {
       (page as any).onResult = function (data) {
         resolve(data)

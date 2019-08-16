@@ -99,7 +99,7 @@ export function HookPage(page: IPage = {})
 /**
  * @version 20190328
  * @param page
- * @author Zeno (zenochan@qq.com)
+ * @author Zeno Chan (zenochan@qq.com)
  */
 function hookInputEvent(page)
 {
@@ -174,8 +174,8 @@ function hookInputEvent(page)
     let url = e.currentTarget.dataset.url;
     let urls = e.currentTarget.dataset.urls;
     wx.previewImage({
-      current: this.data.host + url,
-      urls: urls.map(url => this.data.host + url)
+      current: url,
+      urls: urls
     });
   };
 

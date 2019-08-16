@@ -1,4 +1,4 @@
-<div style="height: {{bodyHeight}}px;clear:both;"></div>
-<div class="fixed zclass" style="padding-bottom: {{paddingBottom}}rpx">
+<div style="height: {{bodyHeight}}px;clear:both;background: {{bgColor}}"></div>
+<div class="fixed zclass" style="padding-bottom: {{inTabs ?0:paddingBottom}}rpx">
   <slot></slot>
 </div>

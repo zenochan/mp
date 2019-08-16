@@ -1,13 +1,33 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/record/record",
+    "pages/user-list/user-list"
   ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "记分"
+      },
+      {
+        "pagePath": "pages/user-list/user-list",
+        "text": "用户"
+      }
+    ]
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "footer": "libs/components/footer/footer"
+  }
 }

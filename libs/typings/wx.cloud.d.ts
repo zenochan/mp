@@ -131,10 +131,8 @@ declare global
        *   console.log(res)
        * }).catch(console.error)
        * ```
-       *
-       * @param data
        */
-      add<T>(data: T): Promise<{ _id: string | number }>
+      add<T>(options: { data: T }): Promise<{ _id: string | number }>
 
       count(): Promise<{ total: number }>
 
@@ -170,6 +168,16 @@ declare global
 
     namespace cloud
     {
+
+      function init(options?: {
+        env?: string | {
+          database?: string
+          storage?: string
+          functions?: string
+        },
+        traceUser?: boolean
+      });
+
       /**
        * ```
        * const db = wx.cloud.database()
@@ -179,7 +187,7 @@ declare global
        * })
        * ```
        */
-      function database(): Database;
+      function database(options?: { env?: string }): Database;
     }
   }
 }

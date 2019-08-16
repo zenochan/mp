@@ -304,6 +304,23 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param selector
+     * @param comp
+     * @version 20190326
+     * @author ZenoToken (zenochan@qq.com)
+     */
+    WX.size = function (selector, comp) {
+        return Rx_1.Observable.create(function (sub) {
+            var query = (comp || wx).createSelectorQuery();
+            query.select(selector).boundingClientRect();
+            query.exec(function (elements) {
+                var el = elements[0];
+                el && sub.next({ width: el.right - el.left, height: el.bottom - el.top });
+                sub.complete();
+            });
+        });
+    };
     WX.rx = function (handler) {
         var options = {};
         return Rx_1.Observable.create(function (sub) {

@@ -1,0 +1,12 @@
+<block wx:if="{{flex}}">
+  <div class="flex">
+    <slot></slot>
+  </div>
+</block>
+
+
+<block wx:else>
+  <scroll-view id="tabs" scroll-x scroll-with-animation scroll-left="{{scrollLeft}}">
+    <slot></slot>
+  </scroll-view>
+</block>

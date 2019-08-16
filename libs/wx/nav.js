@@ -19,7 +19,6 @@ var Nav = /** @class */ (function () {
     Nav.navForResult = function (page, url, data) {
         page.navData = data;
         this.nav(url);
-        // @ts-ignore
         return new Promise(function (resolve) {
             page.onResult = function (data) {
                 resolve(data);

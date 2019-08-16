@@ -1,0 +1,23 @@
+:host {
+  display: inline-block;
+  //position: relative;
+  flex: 1;
+  overflow-x: hidden;
+}
+
+#body {
+  display: inline-block;
+  position: relative;
+}
+
+.area {
+  position: absolute;
+  opacity: 0;
+  background: skyblue;
+  border-radius: 0;
+  left: -2em;
+  right: -2em;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+}

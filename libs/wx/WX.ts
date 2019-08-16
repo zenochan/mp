@@ -374,6 +374,27 @@ export class WX
     });
   }
 
+
+  /**
+   * @param selector
+   * @param comp
+   * @version 20190326
+   * @author ZenoToken (zenochan@qq.com)
+   */
+  static size(selector: string, comp?: IComponent): Observable<{ width: number, height: number }>
+  {
+    return Observable.create(sub => {
+      let query = (comp || wx).createSelectorQuery();
+      query.select(selector).boundingClientRect();
+      query.exec(elements => {
+        let el = elements[0];
+        el && sub.next({width: el.right - el.left, height: el.bottom - el.top});
+        sub.complete();
+      })
+    });
+  }
+
+
   static rx<T>(handler: (options: BaseOptions) => void): Observable<T>
   {
     let options: BaseOptions = {};

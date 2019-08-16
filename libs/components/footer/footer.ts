@@ -4,20 +4,28 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  externalClasses: ["zclass"],
-
   attached()
   {
     WX.isIphoneX().subscribe(res => this.setData({paddingBottom: res ? 68 : 0}))
   },
 
+  properties: {
+    inTabs: {type: Boolean, value: false},
+    bgColor: {type: String, value: "#F7F7F7"}
+  },
+
   ready()
   {
-    WX.queryBoundingClientRect(".fixed", this).subscribe(res => {
+    // @ts-ignore
+    WX.queryBoundingClientRect(".fixed", this).retry(3, 200).subscribe(res => {
       let body = res[0];
-      let bodyHeight = (body.bottom - body.top) || this.data.bodyHeight;
-      console.log(bodyHeight);
-      this.setData({bodyHeight});
+      if (body) {
+        let bodyHeight = (body.bottom - body.top) || this.data.bodyHeight || 0;
+        if (bodyHeight == 0) throw "zero height";
+        this.setData({bodyHeight});
+      } else {
+        throw "not ready"
+      }
     });
   }
 });

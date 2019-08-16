@@ -1,4 +1,9 @@
+:host {
+  display: block;
+}
+
 .fixed {
+ background: inherit;
   position: fixed;
   bottom: 0;
   left: 0;

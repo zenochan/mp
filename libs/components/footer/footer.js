@@ -5,18 +5,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var WX_1 = require("../../wx/WX");
 Component({
-    externalClasses: ["zclass"],
     attached: function () {
         var _this = this;
         WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ paddingBottom: res ? 68 : 0 }); });
     },
+    properties: {
+        inTabs: { type: Boolean, value: false },
+        bgColor: { type: String, value: "#F7F7F7" }
+    },
     ready: function () {
         var _this = this;
-        WX_1.WX.queryBoundingClientRect(".fixed", this).subscribe(function (res) {
+        // @ts-ignore
+        WX_1.WX.queryBoundingClientRect(".fixed", this).retry(3, 200).subscribe(function (res) {
             var body = res[0];
-            var bodyHeight = (body.bottom - body.top) || _this.data.bodyHeight;
-            console.log(bodyHeight);
-            _this.setData({ bodyHeight: bodyHeight });
+            if (body) {
+                var bodyHeight = (body.bottom - body.top) || _this.data.bodyHeight || 0;
+                if (bodyHeight == 0)
+                    throw "zero height";
+                _this.setData({ bodyHeight: bodyHeight });
+            }
+            else {
+                throw "not ready";
+            }
         });
     }
 });

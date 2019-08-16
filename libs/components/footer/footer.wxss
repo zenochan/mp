@@ -1,1 +1,1 @@
-.fixed{position:fixed;bottom:0;left:0;right:0;z-index:99}
+:host{display:block}.fixed{background:inherit;position:fixed;bottom:0;left:0;right:0;z-index:99}

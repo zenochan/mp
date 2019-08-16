@@ -12,6 +12,11 @@ page {
   }
 }
 
+.line {
+  background: #eee;
+  height: 2px;
+}
+
 .flex {
   display: flex;
 
@@ -104,3 +109,60 @@ page {
 .mb-20 {
   margin-bottom: 20px;
 }
+
+
+//<editor-fold desc="cell">
+.cell {
+  display: flex;
+  background: white;
+  line-height: 50px;
+  padding: 20px 28px;
+
+  .cell-hd {
+    width: 150px;
+    font-size: 30px;
+    font-weight: 400;
+    color: #aaaaaa;
+    white-space: nowrap;
+
+    &.cell-hd__unset-width {
+      width: unset;
+      margin-right: 1em;
+    }
+  }
+
+  .cell-bd {
+    flex: 1;
+    font-size: 30px;
+    font-weight: 400;
+    color: #333333;
+  }
+
+  .cell-ft {
+    position: relative;
+
+    &.access {
+      padding-right: 28px;
+
+
+      &:after {
+        content: '';
+        width: 0.5em;
+        height: 0.5em;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        margin-top: -0.353em;
+        transform: rotate(45deg);
+        border: 2px solid;
+        border-color: #979797 #979797 transparent transparent;
+      }
+
+      &.primary:after {
+        border-color: #FF635F #FF635F transparent transparent;
+      }
+    }
+  }
+}
+
+//</editor-fold>
