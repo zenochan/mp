@@ -6,9 +6,9 @@ Component({
   properties: {
     active: {
       type: Boolean, value: false, observer: function (newVal, oldVal) {
-        wx.nextTick(() => {
-          newVal && this.parent.active(this)
-        });
+        if (newVal != oldVal && newVal) {
+          wx.nextTick(() => this.parent.active(this));
+        }
       }
     }
   },
