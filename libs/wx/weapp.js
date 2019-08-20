@@ -24,10 +24,10 @@ function HookPage(page) {
             }
             return this.__zzLife__;
         };
-        page.zzLife().next(method);
         var native = page[method];
         page[method] = function () {
             var _this = this;
+            page.zzLife().next(method);
             if (method == "onLoad") {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)

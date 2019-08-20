@@ -51,10 +51,10 @@ export function HookPage(page: IPage = {})
       }
       return this.__zzLife__
     };
-    page.zzLife().next(method);
 
     let native = page[method];
     page[method] = function () {
+      page.zzLife().next(method);
 
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
