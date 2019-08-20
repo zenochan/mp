@@ -42,7 +42,6 @@ export function HookPage(page: IPage = {})
   hookInputEvent(page);
 
 
-
   page.zzLife = function () {
     if (!this.__zzLife__) {
       this.__zzLife__ = new BehaviorSubject("onInit")
@@ -51,7 +50,9 @@ export function HookPage(page: IPage = {})
   };
 
   // 是否打印周期函数日志
-  ["onLoad", "onReady", "onShow", "onHide", "onUnload"].forEach(method => {
+  ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(method => {
+    page.__zzLife__.next(method);
+
     let native = page[method];
     page[method] = function () {
 
@@ -77,7 +78,7 @@ export function HookPage(page: IPage = {})
         } catch (ignore) { }
       });
 
-      HOOK_CONF.log && console.log(method, this.route);
+      HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
     };
   });
 

@@ -23,7 +23,8 @@ function HookPage(page) {
         return this.__zzLife__;
     };
     // 是否打印周期函数日志
-    ["onLoad", "onReady", "onShow", "onHide", "onUnload"].forEach(function (method) {
+    ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(function (method) {
+        page.__zzLife__.next(method);
         var native = page[method];
         page[method] = function () {
             var _this = this;
@@ -47,7 +48,7 @@ function HookPage(page) {
                 }
                 catch (ignore) { }
             });
-            exports.HOOK_CONF.log && console.log(method, this.route);
+            exports.HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
         };
     });
     var shareMethod = "onShareAppMessage";
