@@ -43,15 +43,16 @@ export function HookPage(page: IPage = {})
 
 
 
-  page.zzLife = function () {
-    if (!this.__zzLife__) {
-      this.__zzLife__ = new BehaviorSubject("onInit")
-    }
-    return this.__zzLife__
-  };
-
   // 是否打印周期函数日志
   ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(method => {
+    page.zzLife = function () {
+      if (!this.__zzLife__) {
+        this.__zzLife__ = new BehaviorSubject("onInit")
+      }
+      return this.__zzLife__
+    };
+
+
     let native = page[method];
     page[method] = function () {
       page.zzLife().next(method);
