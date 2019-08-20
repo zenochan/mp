@@ -1,7 +1,7 @@
 import UploadFileResult = wx.UploadFileResult;
 import IData = wx.IData;
 import {Data} from "../wx/Data";
-import {Observable, Subscription} from "../rx/Rx";
+import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
 
 /**
@@ -14,7 +14,7 @@ import {UI} from "../wx/UI";
 export class API
 {
   static counter = 0;
-  private static API_BASE = "https://admin.zunjiahui.cn/";
+  private static API_BASE = "";
   private static IMG_BASE = "";
 
   private static resHandler: Function = null;
@@ -37,25 +37,8 @@ export class API
   static get<T>(url, query: IData = null): Observable<T | any>
   {
     url = API.pathVariable(url, query);
-
-    this.counter++;
-    wx.showNavigationBarLoading();
-    return Observable.create(sub => {
-      let task: any = wx.request({
-        url: API.API_BASE + url,
-        header: this.tokenHeader(),
-        method: "GET",
-        success: res => this.handlerRes(res, sub),
-        fail: e => sub.error("网络请求失败"),
-        complete: () => {
-          sub.complete();
-          this.requestComplete();
-        }
-      });
-
-      // 返回取消订阅的操作句柄
-      return () => { task && task.abort() }
-    })
+    url = API.query(url, query);
+    return this.buildRequest({method: "GET", url: this.API_BASE + url});
   }
 
   static post<T>(url, param: IData = {}): Observable<any | T>
@@ -171,7 +154,7 @@ export class API
         let err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(",")).join(",");
         sub.error(err)
       } else {
-        sub.error((data||{}).message|| "网络请求失败")
+        sub.error((data || {}).message || "网络请求失败")
       }
     }
   }
@@ -182,7 +165,6 @@ export class API
     this.counter++;
     wx.showNavigationBarLoading();
     return Observable.create(sub => {
-
       // build callback
       options.success = res => this.handlerRes(res, sub);
       options.fail = e => sub.error("网络请求失败");
@@ -190,6 +172,7 @@ export class API
         sub.complete();
         this.requestComplete();
       };
+
       options.header = this.tokenHeader();
 
       let task: any = wx.request(options);
@@ -205,13 +188,21 @@ export class API
       if (url.indexOf(":" + key) != -1) {
         // rest api
         url = url.replace(":" + key, param[key])
-      } else {
-        url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key]
       }
     });
 
     return url;
   }
+
+  private static query(url: string, param: any)
+  {
+    Object.keys(param || {}).forEach(key => {
+      url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key]
+    });
+
+    return url;
+  }
+
 
   private static tokenHeader(origin: any = {}): any
   {

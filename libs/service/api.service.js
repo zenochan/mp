@@ -20,26 +20,10 @@ var API = /** @class */ (function () {
         this.headerInterceptor = config.headerInterceptor;
     };
     API.get = function (url, query) {
-        var _this = this;
         if (query === void 0) { query = null; }
         url = API.pathVariable(url, query);
-        this.counter++;
-        wx.showNavigationBarLoading();
-        return Rx_1.Observable.create(function (sub) {
-            var task = wx.request({
-                url: API.API_BASE + url,
-                header: _this.tokenHeader(),
-                method: "GET",
-                success: function (res) { return _this.handlerRes(res, sub); },
-                fail: function (e) { return sub.error("网络请求失败"); },
-                complete: function () {
-                    sub.complete();
-                    _this.requestComplete();
-                }
-            });
-            // 返回取消订阅的操作句柄
-            return function () { task && task.abort(); };
-        });
+        url = API.query(url, query);
+        return this.buildRequest({ method: "GET", url: this.API_BASE + url });
     };
     API.post = function (url, param) {
         if (param === void 0) { param = {}; }
@@ -171,9 +155,12 @@ var API = /** @class */ (function () {
                 // rest api
                 url = url.replace(":" + key, param[key]);
             }
-            else {
-                url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key];
-            }
+        });
+        return url;
+    };
+    API.query = function (url, param) {
+        Object.keys(param || {}).forEach(function (key) {
+            url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key];
         });
         return url;
     };
@@ -184,7 +171,7 @@ var API = /** @class */ (function () {
         }
     };
     API.counter = 0;
-    API.API_BASE = "https://admin.zunjiahui.cn/";
+    API.API_BASE = "";
     API.IMG_BASE = "";
     API.resHandler = null;
     API.headerInterceptor = null;
