@@ -88,16 +88,13 @@ var API = /** @class */ (function () {
     };
     // 补全 url 连接
     API.completeImgUrl = function (data) {
-        var imgHost = Data_1.Data.get("img_host") || "http://img.zunjiahui.cn/";
-        var dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, function (reg) { return imgHost + reg; });
-        var result = JSON.parse(dataString);
-        console.error(result);
-        return result;
+        var _this = this;
+        var dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, function (reg) { return _this.IMG_BASE + reg; });
+        return JSON.parse(dataString);
     };
     // 简化 url 连接, 上传数据时不保留图片基础链接
     API.simpleImgUrl = function (data) {
-        var imgHost = Data_1.Data.get("img_host") || "http://img.zunjiahui.cn/";
-        var dataString = JSON.stringify(data).replace(imgHost, '');
+        var dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
         return JSON.parse(dataString);
     };
     API.requestComplete = function () {

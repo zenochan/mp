@@ -112,18 +112,14 @@ export class API
   // 补全 url 连接
   static completeImgUrl(data): any
   {
-    let imgHost = Data.get("img_host") || "http://img.zunjiahui.cn/";
-    let dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, reg => imgHost + reg);
-    let result = JSON.parse(dataString);
-    console.error(result);
-    return result;
+    let dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, reg => this.IMG_BASE + reg);
+    return JSON.parse(dataString);
   }
 
   // 简化 url 连接, 上传数据时不保留图片基础链接
   static simpleImgUrl(data): any
   {
-    let imgHost = Data.get("img_host") || "http://img.zunjiahui.cn/";
-    let dataString = JSON.stringify(data).replace(imgHost, '');
+    let dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
     return JSON.parse(dataString);
   }
 
