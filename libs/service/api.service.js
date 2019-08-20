@@ -1,0 +1,194 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Data_1 = require("../wx/Data");
+var Rx_1 = require("../rx/Rx");
+var UI_1 = require("../wx/UI");
+/**
+ * ## Methods
+ * - {@link get}
+ * - {@link post}
+ * - {@link put}
+ * - {@link delete}
+ */
+var API = /** @class */ (function () {
+    function API() {
+    }
+    API.config = function (config) {
+        this.API_BASE = config.host;
+        this.IMG_BASE = config.imgBase;
+        this.resHandler = config.resHandler;
+        this.headerInterceptor = config.headerInterceptor;
+    };
+    API.get = function (url, query) {
+        var _this = this;
+        if (query === void 0) { query = null; }
+        url = API.pathVariable(url, query);
+        this.counter++;
+        wx.showNavigationBarLoading();
+        return Rx_1.Observable.create(function (sub) {
+            var task = wx.request({
+                url: API.API_BASE + url,
+                header: _this.tokenHeader(),
+                method: "GET",
+                success: function (res) { return _this.handlerRes(res, sub); },
+                fail: function (e) { return sub.error("网络请求失败"); },
+                complete: function () {
+                    sub.complete();
+                    _this.requestComplete();
+                }
+            });
+            // 返回取消订阅的操作句柄
+            return function () { task && task.abort(); };
+        });
+    };
+    API.post = function (url, param) {
+        if (param === void 0) { param = {}; }
+        param = this.simpleImgUrl(param);
+        url = API.pathVariable(url, param);
+        return this.buildRequest({ method: "POST", url: this.API_BASE + url, data: param });
+    };
+    API.put = function (url, param) {
+        if (param === void 0) { param = {}; }
+        param = this.simpleImgUrl(param);
+        return this.buildRequest({ method: "PUT", url: this.API_BASE + url, data: param });
+    };
+    API.delete = function (url) {
+        return this.buildRequest({ method: "DELETE", url: this.API_BASE + url });
+    };
+    API.upload = function (filePath, form) {
+        var _this = this;
+        if (form === void 0) { form = {}; }
+        return Rx_1.Observable.create(function (sub) {
+            wx.uploadFile({
+                url: _this.API_BASE + "upload",
+                filePath: filePath,
+                header: _this.tokenHeader(),
+                name: "photo",
+                formData: form,
+                success: function (res) {
+                    var data = JSON.parse(res.data);
+                    _this.handlerRes({ statusCode: 200, data: data }, sub);
+                },
+                fail: function (e) { return sub.error(e); },
+                complete: function () { return sub.complete(); }
+            });
+        });
+    };
+    API.uploadMore = function (filePaths) {
+        var _this = this;
+        // 上传图片必须 https 请求，这里都直接用 prod 环境
+        return Rx_1.Observable.create(function (sub) {
+            var urls = [];
+            var completed = 0;
+            filePaths.forEach(function (item) {
+                wx.uploadFile({
+                    url: _this.API_BASE + "upload",
+                    filePath: item,
+                    name: "photo",
+                    header: _this.tokenHeader(),
+                    success: function (res) {
+                        var data = JSON.parse(res.data);
+                        urls.push(data.filename);
+                    },
+                    fail: function (e) { return console.error(e); },
+                    complete: function () {
+                        completed++;
+                        if (completed == filePaths.length) {
+                            sub.next(_this.completeImgUrl(urls));
+                            sub.complete();
+                        }
+                    }
+                });
+            });
+        });
+    };
+    // 补全 url 连接
+    API.completeImgUrl = function (data) {
+        var imgHost = Data_1.Data.get("img_host") || "http://img.zunjiahui.cn/";
+        var dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, function (reg) { return imgHost + reg; });
+        var result = JSON.parse(dataString);
+        console.error(result);
+        return result;
+    };
+    // 简化 url 连接, 上传数据时不保留图片基础链接
+    API.simpleImgUrl = function (data) {
+        var imgHost = Data_1.Data.get("img_host") || "http://img.zunjiahui.cn/";
+        var dataString = JSON.stringify(data).replace(imgHost, '');
+        return JSON.parse(dataString);
+    };
+    API.requestComplete = function () {
+        this.counter--;
+        if (this.counter <= 0) {
+            wx.hideNavigationBarLoading();
+            wx.stopPullDownRefresh();
+        }
+    };
+    API.handlerRes = function (res, sub) {
+        if (this.resHandler) {
+            this.resHandler(res, sub);
+        }
+        else {
+            var data_1 = res.data;
+            if (res.statusCode < 300) {
+                sub.next(this.completeImgUrl(data_1));
+            }
+            else if (res.statusCode == 401) {
+                // 授权失败, 重启小程序
+                Data_1.Data.clear();
+                console.log(res);
+                UI_1.UI.alert("登录已失效").subscribe(function (res) { return wx.reLaunch({ url: "/pages/account/login/login" }); });
+            }
+            else if (data_1.errors) {
+                var err = Object.keys(data_1.errors).map(function (key) { return data_1.errors[key]; }).map(function (errorItem) { return errorItem.join(","); }).join(",");
+                sub.error(err);
+            }
+            else {
+                sub.error(data_1.message);
+            }
+        }
+    };
+    API.buildRequest = function (options) {
+        var _this = this;
+        this.counter++;
+        wx.showNavigationBarLoading();
+        return Rx_1.Observable.create(function (sub) {
+            // build callback
+            options.success = function (res) { return _this.handlerRes(res, sub); };
+            options.fail = function (e) { return sub.error("网络请求失败"); };
+            options.complete = function () {
+                sub.complete();
+                _this.requestComplete();
+            };
+            options.header = _this.tokenHeader();
+            var task = wx.request(options);
+            // 返回取消订阅的操作句柄
+            return function () { task && task.abort(); };
+        });
+    };
+    API.pathVariable = function (url, param) {
+        Object.keys(param || {}).forEach(function (key) {
+            if (url.indexOf(":" + key) != -1) {
+                // rest api
+                url = url.replace(":" + key, param[key]);
+            }
+            else {
+                url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key];
+            }
+        });
+        return url;
+    };
+    API.tokenHeader = function (origin) {
+        if (origin === void 0) { origin = {}; }
+        if (this.headerInterceptor) {
+            return this.headerInterceptor({});
+        }
+    };
+    API.counter = 0;
+    API.API_BASE = "https://admin.zunjiahui.cn/";
+    API.IMG_BASE = "";
+    API.resHandler = null;
+    API.headerInterceptor = null;
+    return API;
+}());
+exports.API = API;
+//# sourceMappingURL=api.service.js.map
