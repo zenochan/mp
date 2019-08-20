@@ -16,18 +16,18 @@ function HookPage(page) {
     if (page === void 0) { page = {}; }
     hookNav(page);
     hookInputEvent(page);
+    page.zzLife = function () {
+        if (!this.__zzLife__) {
+            this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
+        }
+        return this.__zzLife__;
+    };
     // 是否打印周期函数日志
     ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(function (method) {
-        page.zzLife = function () {
-            if (!this.__zzLife__) {
-                this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
-            }
-            return this.__zzLife__;
-        };
         var native = page[method];
         page[method] = function () {
             var _this = this;
-            page.zzLife().next(method);
+            page.zzLife.apply(this).next(method);
             if (method == "onLoad") {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)

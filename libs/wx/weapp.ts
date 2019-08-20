@@ -41,21 +41,20 @@ export function HookPage(page: IPage = {})
   hookNav(page);
   hookInputEvent(page);
 
-
+  page.zzLife = function () {
+    if (!this.__zzLife__) {
+      this.__zzLife__ = new BehaviorSubject("onInit")
+    }
+    return this.__zzLife__
+  };
 
   // 是否打印周期函数日志
   ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(method => {
-    page.zzLife = function () {
-      if (!this.__zzLife__) {
-        this.__zzLife__ = new BehaviorSubject("onInit")
-      }
-      return this.__zzLife__
-    };
 
 
     let native = page[method];
     page[method] = function () {
-      page.zzLife().next(method);
+      page.zzLife.apply(this).next(method);
 
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
