@@ -171,7 +171,7 @@ export class API
         let err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(",")).join(",");
         sub.error(err)
       } else {
-        sub.error(data.message)
+        sub.error((data||{}).message|| "网络请求失败")
       }
     }
   }

@@ -143,7 +143,7 @@ var API = /** @class */ (function () {
                 sub.error(err);
             }
             else {
-                sub.error(data_1.message);
+                sub.error((data_1 || {}).message || "网络请求失败");
             }
         }
     };
