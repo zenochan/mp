@@ -79,7 +79,7 @@ declare global
     /**
      * 生命收起事件
      */
-    zzLife?: () => Observable<String>
+    zzLife?: () => Observable<String>|any
 
     /**
      * 参数
