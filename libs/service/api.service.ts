@@ -110,7 +110,7 @@ export class API
   }
 
   // 补全 url 连接
-  private static completeImgUrl(data): any
+  static completeImgUrl(data): any
   {
     let imgHost = Data.get("img_host") || "http://img.zunjiahui.cn/";
     let dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, reg => imgHost + reg);
@@ -120,7 +120,7 @@ export class API
   }
 
   // 简化 url 连接, 上传数据时不保留图片基础链接
-  private static simpleImgUrl(data): any
+  static simpleImgUrl(data): any
   {
     let imgHost = Data.get("img_host") || "http://img.zunjiahui.cn/";
     let dataString = JSON.stringify(data).replace(imgHost, '');
