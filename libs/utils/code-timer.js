@@ -52,4 +52,22 @@ var CodeTimer = /** @class */ (function () {
     return CodeTimer;
 }());
 exports.CodeTimer = CodeTimer;
+function enableTimer(page, codeType, during) {
+    if (codeType === void 0) { codeType = "code"; }
+    if (during === void 0) { during = 60; }
+    page.zzLife().subscribe(function (event) {
+        switch (event) {
+            case "onLoad":
+                page.setData({ timer: new CodeTimer(codeType, during) });
+                Events_1.Events.subscribe(page.data.timer.key(), function () {
+                    page.setData({ timer: page.data.timer });
+                });
+                break;
+            case "onHide":
+                page.data.timer.saveStatus();
+                break;
+        }
+    });
+}
+exports.enableTimer = enableTimer;
 //# sourceMappingURL=code-timer.js.map

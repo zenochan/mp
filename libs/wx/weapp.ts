@@ -1,6 +1,7 @@
 import {Nav} from "./nav";
 import {UI} from "./UI";
 import {Data} from "./Data";
+import {BehaviorSubject} from "../rx/Rx";
 
 export const HOOK_CONF = {log: true};
 
@@ -39,6 +40,15 @@ export function HookPage(page: IPage = {})
 {
   hookNav(page);
   hookInputEvent(page);
+
+
+
+  page.zzLife = function () {
+    if (!this.__zzLife__) {
+      this.__zzLife__ = new BehaviorSubject("onInit")
+    }
+    return this.__zzLife__
+  };
 
   // 是否打印周期函数日志
   ["onLoad", "onReady", "onShow", "onHide", "onUnload"].forEach(method => {

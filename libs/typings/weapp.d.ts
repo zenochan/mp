@@ -1,4 +1,6 @@
 // Type definitions for weapp v0.12.130400
+import {Observable} from "../rx/Rx";
+
 export {};
 
 //<editor-fold desc="app and page">
@@ -72,6 +74,12 @@ declare global
     /** 20190416 */
     navTitle?: string;
     replace?: (url: string) => void;
+
+
+    /**
+     * 生命收起事件
+     */
+    zzLife?: () => Observable<String>
 
     /**
      * 参数

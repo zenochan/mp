@@ -52,3 +52,21 @@ export class CodeTimer
     return `code:wait:${this.type}`
   }
 }
+
+export function enableTimer(page: IPage, codeType: string = "code", during: number = 60)
+{
+
+  page.zzLife().subscribe(event => {
+    switch (event) {
+      case "onLoad":
+        page.setData({timer: new CodeTimer(codeType, during)});
+        Events.subscribe(page.data.timer.key(), () => {
+          page.setData({timer: page.data.timer});
+        });
+        break;
+      case "onHide":
+        page.data.timer.saveStatus();
+        break;
+    }
+  });
+}

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var nav_1 = require("./nav");
 var UI_1 = require("./UI");
 var Data_1 = require("./Data");
+var Rx_1 = require("../rx/Rx");
 exports.HOOK_CONF = { log: true };
 exports.PageInjectors = [];
 /**
@@ -15,6 +16,12 @@ function HookPage(page) {
     if (page === void 0) { page = {}; }
     hookNav(page);
     hookInputEvent(page);
+    page.zzLife = function () {
+        if (!this.__zzLife__) {
+            this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
+        }
+        return this.__zzLife__;
+    };
     // 是否打印周期函数日志
     ["onLoad", "onReady", "onShow", "onHide", "onUnload"].forEach(function (method) {
         var native = page[method];
