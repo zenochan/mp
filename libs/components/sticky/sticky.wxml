@@ -1,0 +1,6 @@
+<div class="body" style="position: {{sticky?'fixed':'block'}};left: 0;top: 0;right: 0">
+  <slot></slot>
+</div>
+
+<!-- 占位文档流-->
+<div wx:if="{{sticky}}" style="height: {{height}}px"></div>
