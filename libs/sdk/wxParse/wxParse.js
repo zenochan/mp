@@ -13,7 +13,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * utils函数引入
  **/
-var showdown = require("./showdown");
 var html2json_1 = require("./html2json");
 exports.WX_PARSE_LOG = false;
 exports.EMOJI_BASE_URL = "/wxParse/emojis/";
@@ -31,23 +30,14 @@ wx.getSystemInfo({
 /**
  * 主函数入口区
  **/
-function wxParse(bindName, type, data, target, imagePadding) {
+function wxParse(bindName, data, target, imagePadding) {
     if (bindName === void 0) { bindName = 'wxParseData'; }
-    if (type === void 0) { type = 'html'; }
     if (data === void 0) { data = '<div class="color:red;">数据不能为空</div>'; }
     if (imagePadding === void 0) { imagePadding = 0; }
     var that = target;
     var transData = {}; //存放转化后的数据
-    if (type == 'html') {
-        transData = html2json_1.HtmlToJson.html2json(data, bindName);
-        exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
-    }
-    else if (type == 'md' || type == 'markdown') {
-        var converter = new showdown.Converter();
-        var html = converter.makeHtml(data);
-        transData = html2json_1.HtmlToJson.html2json(html, bindName);
-        exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
-    }
+    transData = html2json_1.HtmlToJson.html2json(data, bindName);
+    exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
     transData.view = {};
     transData.view.imagePadding = 0;
     if (typeof (imagePadding) != 'undefined') {

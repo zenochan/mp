@@ -12,7 +12,6 @@
 /**
  * utils函数引入
  **/
-import * as showdown from './showdown';
 import {HtmlToJson} from "./html2json";
 
 export let WX_PARSE_LOG = false;
@@ -32,19 +31,12 @@ wx.getSystemInfo({
 /**
  * 主函数入口区
  **/
-function wxParse(bindName = 'wxParseData', type = 'html', data = '<div class="color:red;">数据不能为空</div>', target, imagePadding = 0)
+function wxParse(bindName = 'wxParseData',  data = '<div class="color:red;">数据不能为空</div>', target, imagePadding = 0)
 {
   var that = target;
   var transData: any = {};//存放转化后的数据
-  if (type == 'html') {
-    transData = HtmlToJson.html2json(data, bindName);
-    WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
-  } else if (type == 'md' || type == 'markdown') {
-    var converter = new showdown.Converter();
-    var html = converter.makeHtml(data);
-    transData = HtmlToJson.html2json(html, bindName);
-    WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
-  }
+  transData = HtmlToJson.html2json(data, bindName);
+  WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
   transData.view = {};
   transData.view.imagePadding = 0;
   if (typeof (imagePadding) != 'undefined') {

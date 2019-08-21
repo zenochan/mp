@@ -12,7 +12,7 @@ Component({
             observer: function (newVal, oldVal) {
                 if (newVal == oldVal)
                     return;
-                wxParse_1.WxParse.wxParse("__html", 'html', newVal, this);
+                wxParse_1.WxParse.wxParse("__html", newVal, this);
             }
         }
     }
