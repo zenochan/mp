@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * utils函数引入
  **/
-var showdown_1 = require("./showdown");
+var showdown = require("./showdown");
 var html2json_1 = require("./html2json");
 exports.WX_PARSE_LOG = false;
 exports.EMOJI_BASE_URL = "/wxParse/emojis/";
@@ -43,7 +43,7 @@ function wxParse(bindName, type, data, target, imagePadding) {
         exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
     }
     else if (type == 'md' || type == 'markdown') {
-        var converter = new showdown_1.default.Converter();
+        var converter = new showdown.Converter();
         var html = converter.makeHtml(data);
         transData = html2json_1.HtmlToJson.html2json(html, bindName);
         exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));

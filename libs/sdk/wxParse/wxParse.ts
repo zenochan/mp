@@ -12,7 +12,7 @@
 /**
  * utils函数引入
  **/
-import showdown from './showdown';
+import * as showdown from './showdown';
 import {HtmlToJson} from "./html2json";
 
 export let WX_PARSE_LOG = false;
