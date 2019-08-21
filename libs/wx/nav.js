@@ -44,9 +44,10 @@ var Nav = /** @class */ (function () {
             wx.navigateBack();
         }
         else {
-            wx.reLaunch({ url: "/pages/index/index" });
+            wx.reLaunch({ url: this.INDEX });
         }
     };
+    Nav.INDEX = "/pages/index/index";
     return Nav;
 }());
 exports.Nav = Nav;

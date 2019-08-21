@@ -2,6 +2,7 @@ import {UI} from "./UI";
 
 export class Nav
 {
+  public static INDEX = "/pages/index/index";
   static nav(url: string): boolean
   {
     wx.navigateTo({
@@ -50,7 +51,7 @@ export class Nav
     if (getCurrentPages().length > 1) {
       wx.navigateBack()
     } else {
-      wx.reLaunch({url: "/pages/index/index"})
+      wx.reLaunch({url: this.INDEX})
     }
   }
 }
