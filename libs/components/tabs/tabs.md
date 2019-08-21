@@ -13,7 +13,7 @@
 {
   "usingComponents": {
     "tabs": "mp/components/tabs/tabs",
-    "tab-item": "mp/components/tabs/tab-item"
+    "tab": "mp/components/tabs/tab-item"
   }
 }
 ```
@@ -21,7 +21,7 @@
 - wxml
 ```html
 <tabs flex>
-  <tab-item class='tab-item' class-active="tab-item__active">tab1</tab-item>
-  <tab-item class='tab-item' class-active="tab-item__active">tab2</tab-item>
+  <tab class='tab-item' class-active="tab-item__active">tab1</tab>
+  <tab class='tab-item' class-active="tab-item__active">tab2</tab>
 </tabs>
 ```
