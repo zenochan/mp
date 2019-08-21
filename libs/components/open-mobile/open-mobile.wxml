@@ -1,0 +1,8 @@
+<view catch:tap="onClick">
+  <slot></slot>
+
+  <button catch:tap="catchTap"
+          open-type="getPhoneNumber"
+          class="open_button" bindgetphonenumber="onGetPhoneNumber"></button>
+</view>
+

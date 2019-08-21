@@ -1,0 +1,8 @@
+<slot></slot>
+<button open-type="contact" class="open_button"
+        show-message-card="{{messageCard}}"
+        send-message-title="{{messageCard.title || null}}"
+        send-message-path="{{messageCard.path || null}}"
+        send-message-img="{{messageCard.img || null}}"
+        session-from="{{messageCard.sessionFrom || null}}"
+></button>

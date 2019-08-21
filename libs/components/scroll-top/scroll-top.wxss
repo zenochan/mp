@@ -1,0 +1,1 @@
+:host{right:20rpx;bottom:80rpx}.container{position:fixed;right:inherit;bottom:inherit;z-index:999;animation:fadeIn 500ms ease-out forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}

@@ -1,0 +1,22 @@
+:host{
+  right: 20px;
+  bottom: 80px;
+}
+
+.container {
+  position: fixed;
+  right: inherit;
+  bottom: inherit;
+  z-index: 999;
+  animation: fadeIn 500ms ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+

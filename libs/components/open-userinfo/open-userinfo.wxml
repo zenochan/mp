@@ -1,0 +1,9 @@
+<view catch:tap="onClick">
+  <slot></slot>
+
+  <button wx:if="{{!granted}}"
+          catch:tap="catchTap"
+          open-type="getUserInfo"
+          class="open_userinfo" bindgetuserinfo="onGetUserInfo"></button>
+</view>
+

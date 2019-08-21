@@ -1,0 +1,3 @@
+<div class="container" catch:tap="scrollTop" wx:if="{{showTop}}">
+  <slot></slot>
+</div>
