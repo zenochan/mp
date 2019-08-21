@@ -79,7 +79,7 @@ declare global
     /**
      * 生命收起事件
      */
-    zzLife?: () => Observable<String>|any
+    zzLife?: () => Observable<String> | any
 
     /**
      * 参数
@@ -184,7 +184,7 @@ declare global
      */
     type: any;
     value: any;
-    observer?: (newVal, oldVal) => void
+    observer?: string | ((newVal, oldVal) => void)
   }
 
   interface IComponent
@@ -246,7 +246,12 @@ declare global
     /**
      * 组件间关系定义
      */
-    relations?: Object
+    relations?: {
+      [key: string]: {
+        type: "parent" | "child",
+        linked?: (target) => void
+      }
+    }
 
     /**
      * 组件接受的外部样式类，参见 外部样式类
@@ -1438,6 +1443,8 @@ declare global
        * 客户端平台
        */
       platform: string;
+
+      [key: string]: any
     }
 
     export interface GetSystemInfoOptions extends BaseOptions
@@ -1454,7 +1461,7 @@ declare global
      */
     export function getSystemInfo(options: GetSystemInfoOptions): void;
 
-    export function nextTick(task:any);
+    export function nextTick(task: () => void);
 
     /**
      * 获取系统信息同步接口

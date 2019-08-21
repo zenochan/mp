@@ -21,6 +21,7 @@
     ]
   },
   "window": {
+    "navigationStyle": "custom",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
@@ -28,6 +29,11 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "footer": "libs/components/footer/footer"
+    "zpage": "libs/components/zpage/zpage",
+    "header": "libs/components/header/header",
+    "footer": "libs/components/footer/footer",
+    "body": "libs/components/body/body",
+    "refresher": "libs/components/refresher/refresher",
+    "navigation": "libs/components/navigation/navigation"
   }
 }

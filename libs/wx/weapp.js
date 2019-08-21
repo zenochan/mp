@@ -23,7 +23,10 @@ function HookPage(page) {
         return this.__zzLife__;
     };
     // 是否打印周期函数日志
-    ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(function (method) {
+    [
+        "onLoad", "onReady", "onShow", "onHide", "onUnload",
+        "onReachBottom", "onPullDownRefresh", "onPageScroll"
+    ].forEach(function (method) {
         var native = page[method];
         page[method] = function () {
             var _this = this;

@@ -1,0 +1,19 @@
+<scroll-view
+    class="scroll"
+    style="height:{{height}};background: lightblue;"
+    scroll-y="true"
+    upper-threshold="30"
+    bindscrolltoupper="onScrollToUpper"
+    lower-threshold="100"
+    scroll-with-animation="true"
+    enable-back-to-top="true"
+    bindscroll="onScroll"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    bindtouchstart="onTouchStart"
+>
+  <view style="min-height: 100%;"
+  >
+    <slot></slot>
+  </view>
+</scroll-view>

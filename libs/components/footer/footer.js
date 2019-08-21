@@ -13,6 +13,14 @@ Component({
         inTabs: { type: Boolean, value: false },
         bgColor: { type: String, value: "transparent" }
     },
+    relations: {
+        '../zpage/zpage': {
+            type: "parent",
+            linked: function (target) {
+                this.parent = target;
+            }
+        }
+    },
     ready: function () {
         var _this = this;
         // @ts-ignore
@@ -20,6 +28,7 @@ Component({
             if (res.height == 0)
                 throw "zero height";
             _this.setData({ bodyHeight: res.height });
+            _this.parent && _this.parent.resizeBody();
         });
     }
 });

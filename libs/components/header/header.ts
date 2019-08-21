@@ -1,6 +1,7 @@
 import {WX} from "../../wx/WX";
 
 Component({
+  data: {bodyHeight: 0},
   properties: {
     data: {
       type: null, value: null, observer: function () {
@@ -8,11 +9,23 @@ Component({
       }
     }
   },
+  relations: {
+    '../zpage/zpage': {
+      type: "parent",
+      linked(target)
+      {
+        this.parent = target;
+      }
+    }
+  },
 
   methods: {
     calcHeight()
     {
-      WX.size(".fixed", this).subscribe(size => this.setData({bodyHeight: size.height}));
+      WX.size(".fixed", this).subscribe(size => {
+        this.setData({bodyHeight: size.height});
+        this.parent && this.parent.resizeBody()
+      });
     }
   },
   ready()

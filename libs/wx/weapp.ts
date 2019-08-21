@@ -49,9 +49,10 @@ export function HookPage(page: IPage = {})
   };
 
   // 是否打印周期函数日志
-  ["onLoad", "onReady", "onShow", "onHide", "onUnload", "onReachBottom", "onPullDownRefresh", "onPageScroll"].forEach(method => {
-
-
+  [
+    "onLoad", "onReady", "onShow", "onHide", "onUnload",
+    "onReachBottom", "onPullDownRefresh", "onPageScroll"
+  ].forEach(method => {
     let native = page[method];
     page[method] = function () {
       page.zzLife.apply(this).next(method);
