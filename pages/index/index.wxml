@@ -1,20 +1,22 @@
-<zpage>
+<!--<zpage>-->
 
-  <header>
-    <navigation></navigation>
-    <div style="height: 80rpx;background: yellowgreen"></div>
-  </header>
+<!--  <header>-->
+<!--    <navigation></navigation>-->
+<!--    <div style="height: 80rpx;background: yellowgreen"></div>-->
+<!--  </header>-->
 
-  <body bindonRefresh="onRefresh"
-        alreadyLoadData="{{alreadyLoadData}}"
-  >
-    <refresher></refresher>
-    <div wx:for="123333333333" wx:key="{{index}}"
-         style="margin-top: 10px;background: orange;height: 200px;"
-    ></div>
-  </body>
+<!--  <body bindonRefresh="onRefresh"-->
+<!--        alreadyLoadData="{{alreadyLoadData}}"-->
+<!--  >-->
+<!--    <refresher></refresher>-->
+<!--    <div wx:for="123333333333" wx:key="{{index}}"-->
+<!--         style="margin-top: 10px;background: orange;height: 200px;"-->
+<!--    ></div>-->
+<!--  </body>-->
 
-  <footer>
-    <div>footer</div>
-  </footer>
-</zpage>
+<!--  <footer>-->
+<!--    <div>footer</div>-->
+<!--  </footer>-->
+<!--</zpage>-->
+
+<rich-html src="{{html}}"></rich-html>

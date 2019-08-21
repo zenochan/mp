@@ -169,7 +169,7 @@ function html2json(html, bindName) {
                 }
             }
             //临时记录source资源
-            if (node.tag === 'source') {
+            if (node.tag === 'source' && node.attr) {
                 results.source = node.attr.src;
             }
             if (unary) {
