@@ -24,7 +24,7 @@ export class API
     host: string,
     imgBase: string,
     resHandler?: (res, sub) => void,
-    headerInterceptor?: (header: { authentication?: string, [key: string]: any }) => IData
+    headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => IData
   })
   {
     this.API_BASE = config.host;
