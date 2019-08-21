@@ -1,1 +1,1 @@
-{"version":3,"file":"open-contact.js","sourceRoot":"","sources":["open-contact.ts"],"names":[],"mappings":"AAAA,SAAS,CAAC;IACR,UAAU,EAAE;QACV,aAAa,EAAE;YACb,IAAI,EAAE,IAAI;YACV,KAAK,EAAE,IAAI;SACZ;KACF;CACF,CAAC,CAAC"}
+{"version":3,"file":"open-contact.js","sourceRoot":"","sources":["open-contact.ts"],"names":[],"mappings":"AAAA,SAAS,CAAC,EAAE,CAAC,CAAC"}

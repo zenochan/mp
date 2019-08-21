@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 Component({
     relations: {
         "../body/body": { type: "parent" }

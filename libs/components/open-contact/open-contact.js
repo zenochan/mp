@@ -1,9 +1,2 @@
-Component({
-    properties: {
-        "messageCard": {
-            type: null,
-            value: null
-        }
-    },
-});
+Component({});
 //# sourceMappingURL=open-contact.js.map

@@ -1,5 +1,3 @@
-import {UI} from "../../wx/UI";
-
 Component({
   relations: {
     "../body/body": {type: "parent"}

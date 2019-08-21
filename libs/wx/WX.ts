@@ -83,6 +83,18 @@ export class WX
     });
   }
 
+  static onPageScroll(handler: (scrollTop) => void)
+  {
+
+    let pages = getCurrentPages();
+    let page = pages[pages.length - 1];
+    let origin = page.onPageScroll;
+    page.onPageScroll = function (event) {
+      origin && origin(event);
+      handler(event.scrollTop);
+    };
+  }
+
   /**
    * @param timeout {@link LoginOptions.timeout}
    * @see wx.login

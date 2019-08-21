@@ -1,4 +1,4 @@
-import {WX} from "../../WX";
+import {WX} from "../../wx/WX";
 
 Component({
   data: {

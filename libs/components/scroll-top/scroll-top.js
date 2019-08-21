@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var WX_1 = require("../../WX");
+var WX_1 = require("../../wx/WX");
 Component({
     data: {
         showTop: false // 是否显示

@@ -56,6 +56,15 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    WX.onPageScroll = function (handler) {
+        var pages = getCurrentPages();
+        var page = pages[pages.length - 1];
+        var origin = page.onPageScroll;
+        page.onPageScroll = function (event) {
+            origin && origin(event);
+            handler(event.scrollTop);
+        };
+    };
     /**
      * @param timeout {@link LoginOptions.timeout}
      * @see wx.login
