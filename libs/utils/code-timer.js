@@ -29,13 +29,15 @@ var CodeTimer = /** @class */ (function () {
     // 进入等待
     CodeTimer.prototype.intoWait = function () {
         var _this = this;
-        if (this.wait == 0)
+        if (this.wait == 0) {
             this.wait = this.during;
+        }
+        Events_1.Events.publish(this.key(), this);
+        clearInterval(this.timer);
         this.timer = setTimeout(function () {
             _this.wait--;
             if (_this.wait > 0) {
                 _this.intoWait();
-                Events_1.Events.publish(_this.key(), _this);
             }
             else {
                 Events_1.Events.publish(_this.key(), _this);

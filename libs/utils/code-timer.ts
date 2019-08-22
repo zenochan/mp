@@ -15,7 +15,8 @@ export class CodeTimer
     this.init();
   }
 
-  init(){
+  init()
+  {
     let wait = wx.getStorageSync(this.key());
 
     if (!wait) return;
@@ -29,13 +30,16 @@ export class CodeTimer
   // 进入等待
   intoWait()
   {
-    if (this.wait == 0)
+    if (this.wait == 0) {
       this.wait = this.during;
+    }
+    Events.publish(this.key(), this);
+
+    clearInterval(this.timer);
     this.timer = setTimeout(() => {
       this.wait--;
       if (this.wait > 0) {
         this.intoWait();
-        Events.publish(this.key(), this)
       } else {
         Events.publish(this.key(), this)
       }
