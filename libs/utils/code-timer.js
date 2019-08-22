@@ -66,6 +66,9 @@ function enableTimer(page, codeType, during) {
             case "onHide":
                 page.data.timer.saveStatus();
                 break;
+            case "onShow":
+                page.data.timer.intoWait();
+                break;
         }
     });
 }

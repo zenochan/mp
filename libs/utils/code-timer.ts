@@ -67,6 +67,9 @@ export function enableTimer(page: IPage, codeType: string = "code", during: numb
       case "onHide":
         page.data.timer.saveStatus();
         break;
+      case "onShow":
+        page.data.timer.intoWait();
+        break;
     }
   });
 }
