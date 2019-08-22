@@ -14,6 +14,9 @@ var CodeTimer = /** @class */ (function () {
         this.during = during;
         this.wait = 0;
         this.timer = null;
+        this.init();
+    }
+    CodeTimer.prototype.init = function () {
         var wait = wx.getStorageSync(this.key());
         if (!wait)
             return;
@@ -22,7 +25,7 @@ var CodeTimer = /** @class */ (function () {
             this.wait = remain;
             this.intoWait();
         }
-    }
+    };
     // 进入等待
     CodeTimer.prototype.intoWait = function () {
         var _this = this;
@@ -67,7 +70,7 @@ function enableTimer(page, codeType, during) {
                 page.data.timer.saveStatus();
                 break;
             case "onShow":
-                page.data.timer.intoWait();
+                page.data.timer.init();
                 break;
         }
     });

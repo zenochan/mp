@@ -12,6 +12,10 @@ export class CodeTimer
    */
   constructor(public  type: string = "code", private during: number = 60)
   {
+    this.init();
+  }
+
+  init(){
     let wait = wx.getStorageSync(this.key());
 
     if (!wait) return;
@@ -68,7 +72,7 @@ export function enableTimer(page: IPage, codeType: string = "code", during: numb
         page.data.timer.saveStatus();
         break;
       case "onShow":
-        page.data.timer.intoWait();
+        page.data.timer.init();
         break;
     }
   });
