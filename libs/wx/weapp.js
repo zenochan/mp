@@ -183,13 +183,27 @@ function hookInputEvent(page) {
  */
 function hookNav(page) {
     page.nav = function (url, data) {
-        if (typeof url == "string") {
+        if (typeof url == "object") {
+            data = url.currentTarget.dataset;
+            url = url.currentTarget.dataset.url;
+        }
+        url = url.toString();
+        if (url.indexOf("tab:") == 0) {
+            nav_1.Nav.switchTab(url.replace("tab:", ""));
+        }
+        else {
             nav_1.Nav.navForResult(this, url, data);
         }
-        else if (typeof url == "object") {
-            var dataUrl = url.currentTarget.dataset.url;
-            dataUrl && nav_1.Nav.navForResult(this, dataUrl, url.currentTarget.dataset);
-        }
+        // if (typeof url == "string") {
+        //   if (url.indexOf("tab:") == 0) {
+        //     Nav.switchTab(url.replace("tab:", ""))
+        //   } else {
+        //     Nav.navForResult(this, url, data)
+        //   }
+        // } else if (typeof url == "object") {
+        //   let dataUrl = url.currentTarget.dataset.url;
+        //   dataUrl && Nav.navForResult(this, dataUrl, url.currentTarget.dataset)
+        // }
     };
     page.replace = function (url) {
         wx.redirectTo({ url: url });

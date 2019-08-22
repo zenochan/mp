@@ -225,12 +225,30 @@ function hookInputEvent(page)
 function hookNav(page: IPage)
 {
   page.nav = function (url: string | WXEvent, data?: any) {
-    if (typeof url == "string") {
-      Nav.navForResult(this, url, data)
-    } else if (typeof url == "object") {
-      let dataUrl = url.currentTarget.dataset.url;
-      dataUrl && Nav.navForResult(this, dataUrl, url.currentTarget.dataset)
+    if (typeof url == "object") {
+      data = url.currentTarget.dataset;
+      url = url.currentTarget.dataset.url;
     }
+
+    url = url.toString();
+
+    if (url.indexOf("tab:") == 0) {
+      Nav.switchTab(url.replace("tab:", ""))
+    } else {
+      Nav.navForResult(this, url, data)
+    }
+
+
+    // if (typeof url == "string") {
+    //   if (url.indexOf("tab:") == 0) {
+    //     Nav.switchTab(url.replace("tab:", ""))
+    //   } else {
+    //     Nav.navForResult(this, url, data)
+    //   }
+    // } else if (typeof url == "object") {
+    //   let dataUrl = url.currentTarget.dataset.url;
+    //   dataUrl && Nav.navForResult(this, dataUrl, url.currentTarget.dataset)
+    // }
   };
 
   page.replace = function (url: string) {
