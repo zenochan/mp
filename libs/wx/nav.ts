@@ -3,11 +3,18 @@ import {UI} from "./UI";
 export class Nav
 {
   public static INDEX = "/pages/index/index";
+
   static nav(url: string): boolean
   {
     wx.navigateTo({
       url: url,
-      fail: res => UI.toastFail(res.errMsg, 3000)
+      fail: res => {
+        if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
+          this.switchTab(url)
+        } else {
+          UI.toastFail(res.errMsg, 3000)
+        }
+      }
     });
     return true
   }
@@ -29,11 +36,20 @@ export class Nav
     });
   }
 
+
   static navData(): any | null
   {
     let pages: any[] = getCurrentPages();
     if (pages.length <= 1) return null;
     return pages[pages.length - 2].navData
+  }
+
+  static switchTab(page: string)
+  {
+    wx.switchTab({
+      url: page,
+      fail: res => UI.toastFail(res.errMsg, 2000)
+    })
   }
 
   static navBack(data?: any)

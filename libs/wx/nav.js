@@ -5,9 +5,17 @@ var Nav = /** @class */ (function () {
     function Nav() {
     }
     Nav.nav = function (url) {
+        var _this = this;
         wx.navigateTo({
             url: url,
-            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 3000); }
+            fail: function (res) {
+                if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
+                    _this.switchTab(url);
+                }
+                else {
+                    UI_1.UI.toastFail(res.errMsg, 3000);
+                }
+            }
         });
         return true;
     };
@@ -30,6 +38,12 @@ var Nav = /** @class */ (function () {
         if (pages.length <= 1)
             return null;
         return pages[pages.length - 2].navData;
+    };
+    Nav.switchTab = function (page) {
+        wx.switchTab({
+            url: page,
+            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); }
+        });
     };
     Nav.navBack = function (data) {
         var pages = getCurrentPages();
