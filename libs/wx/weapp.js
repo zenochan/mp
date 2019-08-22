@@ -191,19 +191,9 @@ function hookNav(page) {
         if (url.indexOf("tab:") == 0) {
             nav_1.Nav.switchTab(url.replace("tab:", ""));
         }
-        else {
+        else if (url) {
             nav_1.Nav.navForResult(this, url, data);
         }
-        // if (typeof url == "string") {
-        //   if (url.indexOf("tab:") == 0) {
-        //     Nav.switchTab(url.replace("tab:", ""))
-        //   } else {
-        //     Nav.navForResult(this, url, data)
-        //   }
-        // } else if (typeof url == "object") {
-        //   let dataUrl = url.currentTarget.dataset.url;
-        //   dataUrl && Nav.navForResult(this, dataUrl, url.currentTarget.dataset)
-        // }
     };
     page.replace = function (url) {
         wx.redirectTo({ url: url });

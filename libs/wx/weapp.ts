@@ -234,21 +234,9 @@ function hookNav(page: IPage)
 
     if (url.indexOf("tab:") == 0) {
       Nav.switchTab(url.replace("tab:", ""))
-    } else {
+    } else if(url){
       Nav.navForResult(this, url, data)
     }
-
-
-    // if (typeof url == "string") {
-    //   if (url.indexOf("tab:") == 0) {
-    //     Nav.switchTab(url.replace("tab:", ""))
-    //   } else {
-    //     Nav.navForResult(this, url, data)
-    //   }
-    // } else if (typeof url == "object") {
-    //   let dataUrl = url.currentTarget.dataset.url;
-    //   dataUrl && Nav.navForResult(this, dataUrl, url.currentTarget.dataset)
-    // }
   };
 
   page.replace = function (url: string) {
