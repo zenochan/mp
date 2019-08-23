@@ -25,6 +25,6 @@ export class DefaultImageOperator implements ImageOperator
 
 export class ImgUploaderService
 {
-  static imageOperator = new DefaultImageOperator();
+  static imageOperator:ImageOperator = new DefaultImageOperator();
 
 }
