@@ -4,6 +4,9 @@ import {WxParse} from "../wxParse";
  * <rich-html src="{{html data}}"></rich-html>
  */
 Component({
+  options: {
+    addGlobalClass: true
+  },
   properties: {
     src: {
       type: String,

@@ -9,13 +9,9 @@
  * # events
  * - change 数据改变
  */
-import {API} from "../../service/api.service";
 import {UI} from "../../wx/UI";
 import {WX} from "../../wx/WX";
-
-export let IMG_UPLOAD = {
-  deleteUrl: "delete"
-};
+import {ImgUploaderService} from "./img-uploader.service";
 
 Component({
   data: {
@@ -49,7 +45,7 @@ Component({
       WX.chooseImage(this.data.count - this.data.urls.length, from)
           .flatMap(filePaths => {
             this.setData({uploading: filePaths});
-            return API.uploadMore(filePaths)
+            return ImgUploaderService.imageOperator.upload(filePaths)
           }) // 上传
           .subscribe(res => {
             this.data.urls.push(...res);
@@ -68,7 +64,8 @@ Component({
     {
       UI.confirm("是否要删除图片?").subscribe(res => {
         let deleted = this.data.urls.splice(event.currentTarget.dataset.index, 1);
-        API.post(deleted, {photos: deleted}).subscribe(res => {}, e => console.error("图片删除失败", e));
+        ImgUploaderService.imageOperator.remove(deleted)
+            .subscribe(res => {}, e => console.error("图片删除失败", e));
         this.setData({urls: this.data.urls});
         this.triggerEvent("change", {value: this.data.urls})
       });

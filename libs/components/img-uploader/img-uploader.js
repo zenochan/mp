@@ -11,12 +11,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * # events
  * - change 数据改变
  */
-var api_service_1 = require("../../service/api.service");
 var UI_1 = require("../../wx/UI");
 var WX_1 = require("../../wx/WX");
-exports.IMG_UPLOAD = {
-    deleteUrl: "delete"
-};
+var img_uploader_service_1 = require("./img-uploader.service");
 Component({
     data: {
         uploading: [],
@@ -48,7 +45,7 @@ Component({
             WX_1.WX.chooseImage(this.data.count - this.data.urls.length, from)
                 .flatMap(function (filePaths) {
                 _this.setData({ uploading: filePaths });
-                return api_service_1.API.uploadMore(filePaths);
+                return img_uploader_service_1.ImgUploaderService.imageOperator.upload(filePaths);
             }) // 上传
                 .subscribe(function (res) {
                 var _a;
@@ -68,7 +65,8 @@ Component({
             var _this = this;
             UI_1.UI.confirm("是否要删除图片?").subscribe(function (res) {
                 var deleted = _this.data.urls.splice(event.currentTarget.dataset.index, 1);
-                api_service_1.API.post(deleted, { photos: deleted }).subscribe(function (res) { }, function (e) { return console.error("图片删除失败", e); });
+                img_uploader_service_1.ImgUploaderService.imageOperator.remove(deleted)
+                    .subscribe(function (res) { }, function (e) { return console.error("图片删除失败", e); });
                 _this.setData({ urls: _this.data.urls });
                 _this.triggerEvent("change", { value: _this.data.urls });
             });
