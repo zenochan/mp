@@ -16,9 +16,9 @@ Component({
             return;
           }
 
-          let arr = arrays[1].split("|");
+          let arr = arrays[1].split("||");
           arr.forEach(pipe => {
-            let pipeArr = pipe.split(":");
+            let pipeArr = pipe.split("|");
             let method = pipeArr.shift();
             if (Pipes[method]) {
               val = Pipes[method](val, ...pipeArr);
