@@ -1,6 +1,6 @@
 <div class="zclass">
   <div class="item" wx:for="{{urls}}" wx:key="{{index}}"
-       bind:tap="view" data-urls="{{urls}}" data-url="{{item}}"
+       catch:tap="view" data-urls="{{urls}}" data-url="{{item}}"
   >
     <image src="{{item + '?imageView2/0/w/200'}}" mode="aspectFill"></image>
     <image class="delete" src="/assets/common/ic_cookie_btn_delete.png"
@@ -26,7 +26,7 @@
 
 
   <!--  add -->
-  <div class="item add" bind:tap="chooseImage" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
+  <div class="item add" catch:tap="chooseImage" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
     <image src="/assets/common/selected_img_icon.png" mode="widthFixed"></image>
     <div>{{text}}</div>
   </div>
