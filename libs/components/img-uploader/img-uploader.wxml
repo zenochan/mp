@@ -1,4 +1,4 @@
-<div class="zclass">
+<div class="img-uploader">
   <div class="item" wx:for="{{urls}}" wx:key="{{index}}"
        catch:tap="view" data-urls="{{urls}}" data-url="{{item}}"
   >
