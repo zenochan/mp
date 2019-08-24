@@ -3,7 +3,7 @@
        catch:tap="view" data-urls="{{urls}}" data-url="{{item}}"
   >
     <image src="{{item + '?imageView2/0/w/200'}}" mode="aspectFill"></image>
-    <image class="delete" src="/assets/common/ic_cookie_btn_delete.png"
+    <image class="delete" src="imgs/delete.png"
            wx:if="{{!disabled}}" catch:tap="removeImage" data-index="{{index}}"
     ></image>
   </div>
@@ -24,10 +24,9 @@
     </div>
   </div>
 
-
   <!--  add -->
   <div class="item add" catch:tap="chooseImage" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
-    <image src="/assets/common/selected_img_icon.png" mode="widthFixed"></image>
+    <image src="imgs/upload.png" mode="widthFixed"></image>
     <div>{{text}}</div>
   </div>
 
