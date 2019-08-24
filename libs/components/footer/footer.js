@@ -9,9 +9,8 @@ Component({
         var _this = this;
         WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ paddingBottom: res ? 68 : 0 }); });
     },
-    properties: {
-        inTabs: { type: Boolean, value: false },
-        bgColor: { type: String, value: "transparent" }
+    options: {
+        addGlobalClass: true
     },
     relations: {
         '../zpage/zpage': {

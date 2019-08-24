@@ -9,9 +9,8 @@ Component({
     WX.isIphoneX().subscribe(res => this.setData({paddingBottom: res ? 68 : 0}))
   },
 
-  properties: {
-    inTabs: {type: Boolean, value: false},
-    bgColor: {type: String, value: "transparent"}
+  options: {
+    addGlobalClass: true
   },
 
   relations: {
