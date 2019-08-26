@@ -51,9 +51,8 @@ Component({
     },
 
     region: {
-      type: Boolean,
-      value: false,
-      observer: function () {
+      type: Boolean, value: false, observer(newVal, oldVal)
+      {
         this.setData({mode: 'region'});
       }
     },
