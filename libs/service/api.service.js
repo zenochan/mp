@@ -88,8 +88,16 @@ var API = /** @class */ (function () {
     };
     // 补全 url 连接
     API.completeImgUrl = function (data) {
-        var _this = this;
-        var dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, function (reg) { return _this.IMG_BASE + reg; });
+        var dataString = JSON.stringify(data).replace(/"([^"]+.)(png|jpg|jpeg)"/g, function (reg, a, b) {
+            var res = a + b;
+            if (res.indexOf('http') == -1) {
+                console.log(res, res.indexOf('http'));
+                res = "http://crmimg.zhuangzizai.com/" + res;
+            }
+            dataString = '"' + res + '"';
+            return res;
+        });
+        // let dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, reg => this.IMG_BASE + reg);
         return JSON.parse(dataString);
     };
     // 简化 url 连接, 上传数据时不保留图片基础链接

@@ -14,8 +14,8 @@ import {UI} from "../wx/UI";
 export class API
 {
   static counter = 0;
-  private static API_BASE = "";
-  private static IMG_BASE = "";
+  static API_BASE = "";
+  static IMG_BASE = "";
 
   private static resHandler: Function = null;
   private static headerInterceptor: Function = null;
@@ -112,7 +112,16 @@ export class API
   // 补全 url 连接
   static completeImgUrl(data): any
   {
-    let dataString = JSON.stringify(data).replace(/[^"]+.(png|jpg|jpeg)"/g, reg => this.IMG_BASE + reg);
+
+    let dataString = JSON.stringify(data).replace(/"([^"]+.)(png|jpg|jpeg)"/g, (reg: string, a, b) => {
+      let res = a + b;
+      if (res.indexOf('http') < 0) {
+        res = this.IMG_BASE + res;
+      }
+      dataString = '"' + res + '"';
+      return res;
+    });
+
     return JSON.parse(dataString);
   }
 
