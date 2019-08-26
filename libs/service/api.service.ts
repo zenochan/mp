@@ -113,13 +113,11 @@ export class API
   static completeImgUrl(data): any
   {
 
-    let dataString = JSON.stringify(data).replace(/"([^"]+.)(png|jpg|jpeg)"/g, (reg: string, a, b) => {
-      let res = a + b;
-      if (res.indexOf('http') < 0) {
-        res = this.IMG_BASE + res;
+    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
+      if (a.indexOf('http') < 0) {
+        a = this.IMG_BASE + a;
       }
-      dataString = '"' + res + '"';
-      return res;
+      return `"${a}"`;
     });
 
     return JSON.parse(dataString);
