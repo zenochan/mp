@@ -6,7 +6,7 @@ import {WX} from "../../wx/WX";
 Component({
   attached()
   {
-    WX.isIphoneX().subscribe(res => this.setData({paddingBottom: res ? 68 : 0}))
+    WX.isIphoneX().subscribe(res => this.setData({iphoneX: res ? 'iphoneX' : ''}))
   },
 
   options: {
@@ -21,6 +21,10 @@ Component({
         this.parent = target;
       }
     }
+  },
+
+  properties: {
+    'cover-view': {type: Boolean, value: false}
   },
 
   ready()

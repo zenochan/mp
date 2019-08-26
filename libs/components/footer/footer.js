@@ -7,7 +7,7 @@ var WX_1 = require("../../wx/WX");
 Component({
     attached: function () {
         var _this = this;
-        WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ paddingBottom: res ? 68 : 0 }); });
+        WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ iphoneX: res ? 'iphoneX' : '' }); });
     },
     options: {
         addGlobalClass: true
@@ -19,6 +19,9 @@ Component({
                 this.parent = target;
             }
         }
+    },
+    properties: {
+        'cover-view': { type: Boolean, value: false }
     },
     ready: function () {
         var _this = this;
