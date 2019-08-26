@@ -24,7 +24,7 @@ Component({
   },
 
   properties: {
-    'cover-view': {type: Boolean, value: false}
+    'cover': {type: Boolean, value: false}
   },
 
   ready()
