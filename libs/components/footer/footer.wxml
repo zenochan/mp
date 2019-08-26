@@ -1,12 +1,11 @@
 <div style="height: {{bodyHeight}}px;clear:both; background: transparent !important;"></div>
 
-{{cover}}
-<cover-view wx:if="{{cover}}" class="fixed footer  {{iphoneX}}"
-            style="  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; "
->
-  <slot></slot>
-</cover-view>
+<div class="fixed footer {{iphoneX}}">
+  <cover-view wx:if="{{cover}}" class="fixed footer  {{iphoneX}}" style=" position: relative;">
+    <slot></slot>
+  </cover-view>
 
-<div wxelse class="fixed footer {{iphoneX}}">
-  <slot></slot>
+  <block wxelse>
+    <slot></slot>
+  </block>
 </div>
