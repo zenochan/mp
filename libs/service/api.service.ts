@@ -124,7 +124,7 @@ export class API
   static simpleImgUrl(data): any
   {
     let dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
-    console.warn(dataString);
+    console.warn(dataString,this.IMG_BASE);
     return JSON.parse(dataString);
   }
 
