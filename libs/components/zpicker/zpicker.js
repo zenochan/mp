@@ -45,6 +45,13 @@ Component({
                 this.setData({ mode: 'date' });
             }
         },
+        region: {
+            type: Boolean,
+            value: false,
+            observer: function () {
+                this.setData({ mode: 'region' });
+            }
+        },
         dateStart: { type: String, value: "" },
         dateEnd: { type: String, value: "" },
         dateFields: { type: String, value: "day" }
