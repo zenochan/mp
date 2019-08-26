@@ -1,5 +1,5 @@
 <block wx:if="{{mode=='region'}}">
-  <picker bindchange="onChange" value="{{index}}" disabled="{{disabled}}" mode="{{mode}}">
+  <picker bindchange="onChange" disabled="{{disabled}}" mode="{{mode}}">
     <slot></slot>
   </picker>
 </block>
