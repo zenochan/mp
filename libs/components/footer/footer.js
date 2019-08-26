@@ -20,9 +20,6 @@ Component({
             }
         }
     },
-    properties: {
-        'cover': { type: Boolean, value: false }
-    },
     ready: function () {
         var _this = this;
         // @ts-ignore

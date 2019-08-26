@@ -23,10 +23,6 @@ Component({
     }
   },
 
-  properties: {
-    'cover': {type: Boolean, value: false}
-  },
-
   ready()
   {
     // @ts-ignore

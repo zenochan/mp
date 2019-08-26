@@ -1,11 +1,5 @@
 <div style="height: {{bodyHeight}}px;clear:both; background: transparent !important;"></div>
 
 <div class="fixed footer {{iphoneX}}">
-  <cover-view wx:if="{{cover}}" class="fixed footer  {{iphoneX}}" style=" position: relative;">
-    <slot></slot>
-  </cover-view>
-
-  <block wxelse>
-    <slot></slot>
-  </block>
+  <slot></slot>
 </div>
