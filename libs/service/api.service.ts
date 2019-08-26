@@ -113,13 +113,10 @@ export class API
   static completeImgUrl(data): any
   {
 
-    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
-      if (a.indexOf('http') < 0) {
-        a = this.IMG_BASE + a;
-      }
+    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string,a) => {
+      if (a.indexOf('http') == -1) a = "http://crmimg.zhuangzizai.com/" + a;
       return `"${a}"`;
     });
-
     return JSON.parse(dataString);
   }
 
@@ -127,6 +124,7 @@ export class API
   static simpleImgUrl(data): any
   {
     let dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
+    console.warn(dataString);
     return JSON.parse(dataString);
   }
 
