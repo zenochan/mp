@@ -65,6 +65,15 @@ Component({
     methods: {
         onChange: function (event) {
             var value = this.data.range[event.detail.value] || event.detail.value;
+            if (this.data.datetime) {
+                var index = this.data.multiIndex;
+                var year = this.data.multiArray[0][index[0]];
+                var month = this.data.multiArray[1][index[1]];
+                var day = this.data.multiArray[2][index[2]];
+                var hour = this.data.multiArray[3][index[3]];
+                var minute = this.data.multiArray[4][index[4]];
+                value = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+            }
             this.triggerEvent('change', { value: value });
         },
         initDatetime: function () {

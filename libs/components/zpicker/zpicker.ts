@@ -77,6 +77,17 @@ Component({
     onChange(event: WXEvent)
     {
       let value = this.data.range[event.detail.value] || event.detail.value;
+
+      if (this.data.datetime) {
+        const index = this.data.multiIndex;
+        const year = this.data.multiArray[0][index[0]];
+        const month = this.data.multiArray[1][index[1]];
+        const day = this.data.multiArray[2][index[2]];
+        const hour = this.data.multiArray[3][index[3]];
+        const minute = this.data.multiArray[4][index[4]];
+        value = `${year}-${month}-${day} ${hour}:${minute}`;
+      }
+
       this.triggerEvent('change', {value});
     },
 
