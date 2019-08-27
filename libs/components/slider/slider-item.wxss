@@ -1,0 +1,1 @@
+:host{display:flex;flex-direction:row;overflow:hidden;position:relative}movable-area movable-view{height:100%}movable-area movable-view .body{box-sizing:border-box}

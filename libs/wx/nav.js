@@ -6,6 +6,9 @@ var Nav = /** @class */ (function () {
     }
     Nav.nav = function (url) {
         var _this = this;
+        if (url.indexOf("pages/") == 0) {
+            url = '/' + url;
+        }
         wx.navigateTo({
             url: url,
             fail: function (res) {

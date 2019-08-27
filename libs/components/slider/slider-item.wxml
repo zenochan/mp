@@ -1,0 +1,18 @@
+<movable-area style="height: {{bodyHeight}}px;width: {{width}}px;" >
+  <movable-view
+      style="width: {{width}}px"
+      damping="100" out-of-bounds="true" direction="horizontal" x="{{x}}" animation="false"
+      bindchange="handleMovableChange"
+      bindtouchend="handleTouchEnd"
+      bindtouchstart="handleToucheStart">
+    <div class="body">
+      <slot name="body" calss="body"></slot>
+    </div>
+  </movable-view>
+</movable-area>
+
+<div class="buttons" style="height: {{bodyHeight}}px;line-height: {{bodyHeight}}px;" bind:tap="reset">
+  <slot name="buttons"></slot>
+</div>
+
+<div id="width" style="position: absolute;left: 0;right: 0;height: 0;background: rebeccapurple"></div>

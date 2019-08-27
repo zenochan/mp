@@ -1,10 +1,14 @@
-import {Keywords} from "../../utils/Keywords";
+import {Events} from "../../wx/Events";
 
 Component({
   methods: {
-    //点击即触发获取formId
     catchSubmit: function (e) {
-      Keywords.save(e.detail.formId, "formids");
+      let formId = e.detail.formId;
+      if (formId != "the formId is a mock one") {
+        Events.publish("formid", formId)
+      } else {
+        console.log(formId)
+      }
     }
   }
 });

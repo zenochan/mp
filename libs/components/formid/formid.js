@@ -1,11 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Keywords_1 = require("../../utils/Keywords");
+var Events_1 = require("../../wx/Events");
 Component({
     methods: {
-        //点击即触发获取formId
         catchSubmit: function (e) {
-            Keywords_1.Keywords.save(e.detail.formId, "formids");
+            var formId = e.detail.formId;
+            if (formId != "the formId is a mock one") {
+                Events_1.Events.publish("formid", formId);
+            }
+            else {
+                console.log(formId);
+            }
         }
     }
 });

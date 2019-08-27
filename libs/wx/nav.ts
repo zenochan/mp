@@ -6,6 +6,11 @@ export class Nav
 
   static nav(url: string): boolean
   {
+
+    if (url.indexOf("pages/") == 0) {
+      url = '/' + url;
+    }
+
     wx.navigateTo({
       url: url,
       fail: res => {
