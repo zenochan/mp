@@ -5,8 +5,10 @@
 </block>
 
 <block wxelse>
-  <picker bindchange="onChange" value="{{index}}" range="{{range}}" range-key="{{rangekey}}" disabled="{{disabled}}"
+  <picker bindchange="onChange" value="{{index|| multiIndex}}" range="{{multiArray ||range}}" range-key="{{rangekey}}"
+          disabled="{{disabled}}"
           mode="{{mode}}"
+          bindcolumnchange="onColumnChange"
           start="{{dateStart}}" end="{{dateEnd}}" fields="{{dateFields}}"
   >
     <slot></slot>
