@@ -28,6 +28,9 @@ var API = /** @class */ (function () {
     API.post = function (url, param) {
         if (param === void 0) { param = {}; }
         param = this.simpleImgUrl(param);
+        console.group("API");
+        console.error(param);
+        console.groupEnd();
         url = API.pathVariable(url, param);
         return this.buildRequest({ method: "POST", url: this.API_BASE + url, data: param });
     };
@@ -98,7 +101,7 @@ var API = /** @class */ (function () {
     // 简化 url 连接, 上传数据时不保留图片基础链接
     API.simpleImgUrl = function (data) {
         var dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
-        console.warn(dataString);
+        console.error(this.IMG_BASE);
         return JSON.parse(dataString);
     };
     API.requestComplete = function () {

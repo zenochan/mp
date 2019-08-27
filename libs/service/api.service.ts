@@ -44,6 +44,9 @@ export class API
   static post<T>(url, param: IData = {}): Observable<any | T>
   {
     param = this.simpleImgUrl(param);
+    console.group("API");
+    console.error(param);
+    console.groupEnd();
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "POST", url: this.API_BASE + url, data: param});
   }
@@ -124,7 +127,7 @@ export class API
   static simpleImgUrl(data): any
   {
     let dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
-    console.warn(dataString,this.IMG_BASE);
+    console.error(this.IMG_BASE);
     return JSON.parse(dataString);
   }
 
