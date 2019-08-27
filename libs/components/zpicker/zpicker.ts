@@ -104,7 +104,42 @@ Component({
         multiArray: [years, months, days, hours, minutes],
         multiIndex: [0, today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()]
       });
-    }
+    },
+
+    onColumnChange(e: WXEvent)
+    {
+      if (this.data.datetime) {
+        //获取年份
+        if (e.detail.column == 0) {
+          let choose_year = this.data.multiArray[e.detail.column][e.detail.value];
+          console.log(choose_year);
+          this.setData({choose_year})
+        }
+
+        //获取月份
+        if (e.detail.column == 1) {
+          let choose_month = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_month})
+        }
+
+        if (e.detail.column <= 1) {
+          let year = parseInt(this.data.choose_year);
+          let month = this.data.choose_month;
+          let days = monthDays(year, month);
+          this.setData({['multiArray[2]']: days});
+        }
+        var data = {
+          multiArray: this.data.multiArray,
+          multiIndex: this.data.multiIndex
+        };
+        data.multiIndex[e.detail.column] = e.detail.value;
+        this.setData(data);
+
+      }
+      // let value = this.data.range[event.detail.value] || event.detail.value;
+      // this.triggerEvent('change', {value, code: event.detail.code});
+    },
+
   },
 
   ready()
