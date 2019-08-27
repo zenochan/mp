@@ -44,9 +44,6 @@ export class API
   static post<T>(url, param: IData = {}): Observable<any | T>
   {
     param = this.simpleImgUrl(param);
-    console.group("API");
-    console.error(param);
-    console.groupEnd();
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "POST", url: this.API_BASE + url, data: param});
   }
@@ -116,7 +113,7 @@ export class API
   static completeImgUrl(data): any
   {
 
-    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string,a) => {
+    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
       if (a.indexOf('http') == -1) a = "http://crmimg.zhuangzizai.com/" + a;
       return `"${a}"`;
     });
@@ -126,8 +123,8 @@ export class API
   // 简化 url 连接, 上传数据时不保留图片基础链接
   static simpleImgUrl(data): any
   {
-    let dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
-    console.error(this.IMG_BASE);
+    let reg = new RegExp(this.IMG_BASE, 'g');
+    let dataString = JSON.stringify(data).replace(reg, '');
     return JSON.parse(dataString);
   }
 
@@ -152,7 +149,6 @@ export class API
       } else if (res.statusCode == 401) {
         // 授权失败, 重启小程序
         Data.clear();
-        console.log(res);
         UI.alert("登录已失效").subscribe(res => wx.reLaunch({url: "/pages/account/login/login"}));
       } else if (data.errors) {
         let err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(",")).join(",");

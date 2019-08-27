@@ -28,9 +28,6 @@ var API = /** @class */ (function () {
     API.post = function (url, param) {
         if (param === void 0) { param = {}; }
         param = this.simpleImgUrl(param);
-        console.group("API");
-        console.error(param);
-        console.groupEnd();
         url = API.pathVariable(url, param);
         return this.buildRequest({ method: "POST", url: this.API_BASE + url, data: param });
     };
@@ -100,8 +97,8 @@ var API = /** @class */ (function () {
     };
     // 简化 url 连接, 上传数据时不保留图片基础链接
     API.simpleImgUrl = function (data) {
-        var dataString = JSON.stringify(data).replace(this.IMG_BASE, '');
-        console.error(this.IMG_BASE);
+        var reg = new RegExp(this.IMG_BASE, 'g');
+        var dataString = JSON.stringify(data).replace(reg, '');
         return JSON.parse(dataString);
     };
     API.requestComplete = function () {
@@ -123,7 +120,6 @@ var API = /** @class */ (function () {
             else if (res.statusCode == 401) {
                 // 授权失败, 重启小程序
                 Data_1.Data.clear();
-                console.log(res);
                 UI_1.UI.alert("登录已失效").subscribe(function (res) { return wx.reLaunch({ url: "/pages/account/login/login" }); });
             }
             else if (data_1.errors) {
