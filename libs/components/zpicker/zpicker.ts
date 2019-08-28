@@ -65,6 +65,7 @@ Component({
     datetimeStart: {
       type: String, value: '2010-01-01 00:00', observer(newVal, oldVal)
       {
+        this.data.multiIndex = null;
         this.initDatetime();
       }
     },
@@ -74,6 +75,7 @@ Component({
         if (newVal == 'today') {
           this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm')
         }
+        this.data.multiIndex = null;
         this.initDatetime();
       }
     },
@@ -183,7 +185,14 @@ Component({
           multiArray[3].indexOf(n[3]),
           multiArray[4].indexOf(n[4]),
         ];
+        for (let i = 0; i < multiIndex.length; i++) {
+          if (multiIndex[i] == -1) {
+            multiIndex[i] = multiArray[i].length - 1;
+          }
+        }
       }
+
+
       this.setData({multiArray, multiIndex});
     },
 
