@@ -164,9 +164,9 @@ Component({
                     multiArray[4].indexOf(n[4]),
                 ];
                 for (var i = 0; i < multiIndex.length; i++) {
-                    if (multiIndex[i] == -1) {
-                        multiIndex[i] = multiArray[i].length - 1;
-                    }
+                    // index 修正
+                    multiIndex[i] = Math.min(multiIndex[i], multiArray[i].length - 1);
+                    multiIndex[i] = Math.max(multiIndex[i], 0);
                 }
             }
             this.setData({ multiArray: multiArray, multiIndex: multiIndex });
