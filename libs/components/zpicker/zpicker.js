@@ -103,6 +103,7 @@ Component({
             var hours = [];
             var minutes = [];
             var today = new Date();
+            var now = today.format("yyyy:MM:dd:HH:mm").split(":").map(function (item) { return parseInt(item); });
             var start = this.data.datetimeStart.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(function (item) { return parseInt(item); });
             var end = null;
             if (this.data.datetimeEnd) {
@@ -110,6 +111,11 @@ Component({
             }
             years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
             var _a = this.data, choose_year = _a.choose_year, choose_month = _a.choose_month, choose_day = _a.choose_day, choose_h = _a.choose_h, choose_m = _a.choose_m;
+            choose_year = (end || start || now)[0];
+            choose_month = (end || start || now)[1];
+            choose_day = (end || start || now)[2];
+            choose_h = (end || start || now)[3];
+            choose_m = (end || start || now)[4];
             var monthStart = 1;
             var monthEnd = 12;
             if (choose_year == start[0]) {

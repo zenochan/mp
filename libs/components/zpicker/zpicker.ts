@@ -122,6 +122,7 @@ Component({
 
 
       let today = new Date();
+      let now = today.format("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
       let start = this.data.datetimeStart.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
       let end = null;
       if (this.data.datetimeEnd) {
@@ -131,6 +132,11 @@ Component({
       years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
 
       let {choose_year, choose_month, choose_day, choose_h, choose_m} = this.data;
+      choose_year = (end || start || now)[0];
+      choose_month = (end || start || now)[1];
+      choose_day = (end || start || now)[2];
+      choose_h = (end || start || now)[3];
+      choose_m = (end || start || now)[4];
 
       let monthStart = 1;
       let monthEnd = 12;
@@ -149,6 +155,7 @@ Component({
       } else if (choose_year == end[0] && choose_month == end[1]) {
         dayEnd = end[2]
       }
+
 
       days = monthDays(choose_year, choose_month, dayStart, dayEnd);
 
