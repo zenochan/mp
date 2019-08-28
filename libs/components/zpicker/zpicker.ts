@@ -132,11 +132,11 @@ Component({
       years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
 
       let {choose_year, choose_month, choose_day, choose_h, choose_m} = this.data;
-      choose_year = (end || start || now)[0];
-      choose_month = (end || start || now)[1];
-      choose_day = (end || start || now)[2];
-      choose_h = (end || start || now)[3];
-      choose_m = (end || start || now)[4];
+      choose_year = choose_year || (end || start || now)[0];
+      choose_month = choose_month || (end || start || now)[1];
+      choose_day = choose_day || (end || start || now)[2];
+      choose_h = choose_h || (end || start || now)[3];
+      choose_m = choose_m || (end || start || now)[4];
 
       let monthStart = 1;
       let monthEnd = 12;
