@@ -4,9 +4,7 @@
   </picker>
 </block>
 
-
 <block wx:elif="{{datetime}}">
-  datetime
   <picker bindchange="onChange" range="{{multiArray}}"
           disabled="{{disabled}}"
           mode="multiSelector"
