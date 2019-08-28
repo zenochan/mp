@@ -11,11 +11,11 @@ Component({
     bottom: {type: Number, value: 88},
   },
 
-
   methods: {
     toggle()
     {
-      this.setData({open: !this.data.open})
+      this.setData({open: !this.data.open});
+      this.triggerEvent("change", {value: this.data.open});
     }
   }
 });
