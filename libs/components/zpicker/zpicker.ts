@@ -1,3 +1,5 @@
+import '../../utils/extends.date';
+
 /**
  * # Event
  * bind:change
@@ -16,6 +18,9 @@ Component({
     dateStart: '',// yyyy-MM-dd
     dateFields: 'day',
     dateEnd: '',// yyyy-MM-dd
+    datetimeStart: '',// yyyy-MM-dd HH:mm:ss
+    datetimeEnd: '',// yyyy-MM-dd HH:mm:ss
+    multiIndex: [0, 0, 0, 0, 0]
   },
 
   externalClasses: ["zclass"],
@@ -58,6 +63,21 @@ Component({
         this.initDatetime();
       }
     },
+    datetimeStart: {
+      type: String, value: '2010-01-01 00:00', observer(newVal, oldVal)
+      {
+        this.initDatetime();
+      }
+    },
+    datetimeEnd: {
+      type: String, value: null, observer(newVal, oldVal)
+      {
+        if (newVal == 'today') {
+          this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm')
+        }
+        this.initDatetime();
+      }
+    },
 
 
     region: {
@@ -93,6 +113,7 @@ Component({
 
     initDatetime()
     {
+      console.error('itniDatetime');
       const date = new Date();
       let years = [];
       let months = [];
@@ -102,48 +123,116 @@ Component({
 
 
       let today = new Date();
+      let start = this.data.datetimeStart.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
+      let end = null;
+      if (this.data.datetimeEnd) {
+        end = this.data.datetimeEnd.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
+      }
+
+      years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
+
+      let {choose_year, choose_month, choose_day, choose_h, choose_m} = this.data;
+
+      let monthStart = 1;
+      let monthEnd = 12;
+
+      if (choose_year == start[0]) {
+        monthStart = start[1]
+      } else if (choose_year == end[0]) {
+        monthEnd = end[1]
+      }
+      months = stringArray(monthStart, monthEnd);
+
+      let dayStart = 1;
+      let dayEnd = 31;
+      if (choose_year == start[0] && choose_month == start[1]) {
+        dayStart = start[2]
+      } else if (choose_year == end[0] && choose_month == end[1]) {
+        dayEnd = end[2]
+      }
+
+      days = monthDays(choose_year, choose_month, dayStart, dayEnd);
 
 
-      years = stringArray(today.getFullYear(), today.getFullYear() + 5);
+      let hStart = 0;
+      let hEnd = 23;
+      if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
+        hStart = start[3]
+      } else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
+        hEnd = end[3]
+      }
 
-      months = stringArray(1, 12);
-      days = monthDays(today.getFullYear(), today.getMonth() + 1);
-      hours = stringArray(0, 23);
-      minutes = stringArray(0, 59);
+      hours = stringArray(hStart, hEnd);
 
-      this.setData({
-        multiArray: [years, months, days, hours, minutes],
-        multiIndex: [0, today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()]
-      });
+
+      let mStart = 0;
+      let mEnd = 59;
+      if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
+        mStart = start[4]
+      } else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
+        mEnd = end[4]
+      }
+
+      minutes = stringArray(mStart, mEnd);
+
+      let multiArray = [years, months, days, hours, minutes];
+      let multiIndex = this.data.multiIndex;
+      this.setData({multiArray,multiIndex});
     },
 
     onColumnChange(e: WXEvent)
     {
+      let {choose_year, choose_month, choose_day, choose_h, choose_m} = this.data;
+
       if (this.data.datetime) {
         //获取年份
         if (e.detail.column == 0) {
-          let choose_year = this.data.multiArray[e.detail.column][e.detail.value];
-          console.log(choose_year);
-          this.setData({choose_year})
+          choose_year = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_year});
+          this.initDatetime();
         }
 
         //获取月份
         if (e.detail.column == 1) {
-          let choose_month = this.data.multiArray[e.detail.column][e.detail.value];
-          this.setData({choose_month})
+          choose_month = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_month});
+          this.initDatetime();
         }
 
-        if (e.detail.column <= 1) {
-          let year = parseInt(this.data.choose_year);
-          let month = this.data.choose_month;
-          let days = monthDays(year, month);
-          this.setData({['multiArray[2]']: days});
+        //获取日期
+        if (e.detail.column == 2) {
+          choose_day = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_day});
+          this.initDatetime();
         }
+
+        //获取h
+        if (e.detail.column == 3) {
+          choose_h = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_h});
+          this.initDatetime();
+        }
+
+
+        //获取m
+        if (e.detail.column == 4) {
+          choose_m = this.data.multiArray[e.detail.column][e.detail.value];
+          this.setData({choose_m});
+          this.initDatetime();
+        }
+
+
+        this.data.multiIndex[e.detail.column] = e.detail.value;
+
         var data = {
           multiArray: this.data.multiArray,
-          multiIndex: this.data.multiIndex
+          multiIndex: this.data.multiIndex || [0, 0, 0, 0, 0]
         };
-        data.multiIndex[e.detail.column] = e.detail.value;
+
+        data.multiIndex[0] = choose_month ? data.multiArray[0].indexOf(choose_year) : 0;
+        data.multiIndex[1] = choose_month ? data.multiArray[1].indexOf(choose_month) : 0;
+
+        // data.multiIndex[e.detail.column] = e.detail.value;
         this.setData(data);
 
       }
@@ -169,18 +258,19 @@ function stringArray(from: number, to: number)
   return array;
 }
 
-function monthDays(year: number, month: number): number[]
+function monthDays(year: number, month: number, dayStart = 1, dayEnd = 31): number[]
 {
   if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { //判断31天的月份
-    return stringArray(1, 31);
+    dayEnd = Math.min(dayEnd, 31);
   } else if (month == 4 || month == 6 || month == 9 || month == 11) { //判断30天的月份
-    return stringArray(1, 30);
+    dayEnd = Math.min(dayEnd, 28);
   } else if (month == 2) { //判断2月份天数
     if (((year % 400 == 0) || (year % 100 != 0)) && (year % 4 == 0)) {
-      return stringArray(1, 29);
+      dayEnd = Math.min(dayEnd, 29);
     } else {
-      return stringArray(1, 28);
+      dayEnd = Math.min(dayEnd, 28);
     }
   }
 
+  return stringArray(dayStart, dayEnd);
 }

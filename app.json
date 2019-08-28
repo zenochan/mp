@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/lib./index"
+    "pages/lib./index",
+    "pages/component/zpicker/index"
   ],
   "window": {
     "navigationStyle": "default",
@@ -12,6 +13,7 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "zpicker": "libs/components/zpicker/zpicker",
     "zpage": "libs/components/zpage/zpage",
     "header": "libs/components/header/header",
     "footer": "libs/components/footer/footer",
