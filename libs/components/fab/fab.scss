@@ -51,6 +51,7 @@
     position: absolute;
     right: 0;
     bottom: 140px;
+    z-index: -1;
     animation: fabIn 300ms ease-in;
   }
 }
