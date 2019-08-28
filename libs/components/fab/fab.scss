@@ -1,5 +1,10 @@
 .zz-fab {
   position: fixed;
+  padding: 0;
+
+  .zz-fab-c{
+    position: relative;
+  }
 
   .zz-fab-button {
     position: relative;
@@ -40,10 +45,10 @@
 
   .zz-fab-list {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 
     position: absolute;
-    right: -112px;
+    right: 0;
     bottom: 140px;
     animation: fadeIn 500ms ease-in;
   }
