@@ -143,7 +143,8 @@ Component({
 
       if (choose_year == start[0]) {
         monthStart = start[1]
-      } else if (choose_year == end[0]) {
+      }
+      if (choose_year == end[0]) {
         monthEnd = end[1]
       }
       months = stringArray(monthStart, monthEnd);
@@ -152,7 +153,8 @@ Component({
       let dayEnd = 31;
       if (choose_year == start[0] && choose_month == start[1]) {
         dayStart = start[2]
-      } else if (choose_year == end[0] && choose_month == end[1]) {
+      }
+      if (choose_year == end[0] && choose_month == end[1]) {
         dayEnd = end[2]
       }
 
@@ -164,7 +166,8 @@ Component({
       let hEnd = 23;
       if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
         hStart = start[3]
-      } else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
+      }
+      if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
         hEnd = end[3]
       }
 
@@ -175,7 +178,8 @@ Component({
       let mEnd = 59;
       if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
         mStart = start[4]
-      } else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
+      }
+      if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
         mEnd = end[4]
       }
 
@@ -196,8 +200,8 @@ Component({
 
       for (let i = 0; i < multiIndex.length; i++) {
         // index 修正
-        multiIndex[i] =Math.min(multiIndex[i],multiArray[i].length-1);
-        multiIndex[i] =Math.max(multiIndex[i],0);
+        multiIndex[i] = Math.min(multiIndex[i], multiArray[i].length - 1);
+        multiIndex[i] = Math.max(multiIndex[i], 0);
       }
 
 

@@ -121,7 +121,7 @@ Component({
             if (choose_year == start[0]) {
                 monthStart = start[1];
             }
-            else if (choose_year == end[0]) {
+            if (choose_year == end[0]) {
                 monthEnd = end[1];
             }
             months = stringArray(monthStart, monthEnd);
@@ -130,7 +130,7 @@ Component({
             if (choose_year == start[0] && choose_month == start[1]) {
                 dayStart = start[2];
             }
-            else if (choose_year == end[0] && choose_month == end[1]) {
+            if (choose_year == end[0] && choose_month == end[1]) {
                 dayEnd = end[2];
             }
             days = monthDays(choose_year, choose_month, dayStart, dayEnd);
@@ -139,7 +139,7 @@ Component({
             if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
                 hStart = start[3];
             }
-            else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
+            if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
                 hEnd = end[3];
             }
             hours = stringArray(hStart, hEnd);
@@ -148,7 +148,7 @@ Component({
             if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
                 mStart = start[4];
             }
-            else if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
+            if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
                 mEnd = end[4];
             }
             minutes = stringArray(mStart, mEnd);

@@ -1,3 +1,3 @@
-<zpicker datetime datetimeEnd="today" bindchange="onInput" id="datetime">
+<zpicker datetime datetimeEnd="today" bindchange="onInput" id="datetime" datetimeStart="2019-08-01 00:00" datetimeEnd="today">
   Zpicker Datetime - {{datetime || '请选择' }}
 </zpicker>
