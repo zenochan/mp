@@ -1,0 +1,58 @@
+.zz-fab {
+  position: fixed;
+
+  .zz-fab-button {
+    position: relative;
+    width: 112px;
+    height: 112px;
+    box-sizing: border-box;
+    background: black;
+    border-radius: 50%;
+    padding: 12px;
+    transition: all 300ms;
+    transform: rotateZ(45deg);
+
+    .zz-fab-icon {
+      background: inherit;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -28px;
+      margin-top: -28px;
+      width: 56px;
+      height: 56px;
+      transition: all 300ms;
+      transform: rotateZ(45deg);
+    }
+
+    .close-icon {
+      width: 56px;
+      height: 56px;
+      line-height: 44px;
+      padding-bottom: 6px;
+      box-sizing: border-box;
+      display: inline-block;
+      font-size: 56px;
+      color: white;
+      opacity: 1;
+    }
+  }
+
+  .zz-fab-list {
+    display: flex;
+    flex-direction: column-reverse;
+
+    position: absolute;
+    right: -112px;
+    bottom: 140px;
+    animation: fadeIn 500ms ease-in;
+  }
+}
+
+.zz-fab-shadow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

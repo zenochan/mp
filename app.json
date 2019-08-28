@@ -1,30 +1,13 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/record/record",
-    "pages/user-list/user-list"
+    "pages/lib./index"
   ],
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/record/record",
-        "text": "记分"
-      },
-      {
-        "pagePath": "pages/user-list/user-list",
-        "text": "用户"
-      }
-    ]
-  },
   "window": {
-    "navigationStyle": "custom",
+    "navigationStyle": "default",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Zeno‘ Lib",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
@@ -35,6 +18,7 @@
     "body": "libs/components/body/body",
     "refresher": "libs/components/refresher/refresher",
     "navigation": "libs/components/navigation/navigation",
-    "rich-html": "libs/sdk/wxParse/components/rich-html"
+    "rich-html": "libs/sdk/wxParse/components/rich-html",
+    "fab": "libs/components/fab/fab"
   }
 }

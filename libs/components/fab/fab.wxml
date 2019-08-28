@@ -1,0 +1,13 @@
+<div class="zz-fab-shadow" wx:if="{{open}}" catch:tap="toggle"></div>
+<div class="zz-fab" style="bottom: {{bottom}}rpx;right: {{right}}rpx">
+  <div style="position: relative">
+    <button class="zz-fab-button" catch:tap="toggle" style="transform: rotateZ({{open?'0':'-45'}}deg)">
+      <image class="zz-fab-icon" src="{{src}}" wx:if="{{src}}" style="opacity: {{open?0:1}}"/>
+      <div class="close-icon">×</div>
+    </button>
+
+    <div class="zz-fab-list" wx:if="{{open}}" catch:tap="toggle">
+      <slot></slot>
+    </div>
+  </div>
+</div>
