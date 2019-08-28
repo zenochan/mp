@@ -21,7 +21,6 @@ Component({
         dateEnd: '',
         datetimeStart: '',
         datetimeEnd: '',
-        multiIndex: [0, 0, 0, 0, 0]
     },
     externalClasses: ["zclass"],
     properties: {
@@ -96,8 +95,6 @@ Component({
             this.triggerEvent('change', { value: value });
         },
         initDatetime: function () {
-            console.error('itniDatetime');
-            var date = new Date();
             var years = [];
             var months = [];
             var days = [];
@@ -148,54 +145,19 @@ Component({
             }
             minutes = stringArray(mStart, mEnd);
             var multiArray = [years, months, days, hours, minutes];
-            var multiIndex = this.data.multiIndex;
+            var multiIndex = this.data.multiIndex || [0, 0, 0, 0, 0];
             this.setData({ multiArray: multiArray, multiIndex: multiIndex });
         },
         onColumnChange: function (e) {
-            var _a = this.data, choose_year = _a.choose_year, choose_month = _a.choose_month, choose_day = _a.choose_day, choose_h = _a.choose_h, choose_m = _a.choose_m;
             if (this.data.datetime) {
-                //获取年份
-                if (e.detail.column == 0) {
-                    choose_year = this.data.multiArray[e.detail.column][e.detail.value];
-                    this.setData({ choose_year: choose_year });
-                    this.initDatetime();
-                }
-                //获取月份
-                if (e.detail.column == 1) {
-                    choose_month = this.data.multiArray[e.detail.column][e.detail.value];
-                    this.setData({ choose_month: choose_month });
-                    this.initDatetime();
-                }
-                //获取日期
-                if (e.detail.column == 2) {
-                    choose_day = this.data.multiArray[e.detail.column][e.detail.value];
-                    this.setData({ choose_day: choose_day });
-                    this.initDatetime();
-                }
-                //获取h
-                if (e.detail.column == 3) {
-                    choose_h = this.data.multiArray[e.detail.column][e.detail.value];
-                    this.setData({ choose_h: choose_h });
-                    this.initDatetime();
-                }
-                //获取m
-                if (e.detail.column == 4) {
-                    choose_m = this.data.multiArray[e.detail.column][e.detail.value];
-                    this.setData({ choose_m: choose_m });
-                    this.initDatetime();
-                }
-                this.data.multiIndex[e.detail.column] = e.detail.value;
-                var data = {
-                    multiArray: this.data.multiArray,
-                    multiIndex: this.data.multiIndex || [0, 0, 0, 0, 0]
-                };
-                data.multiIndex[0] = choose_month ? data.multiArray[0].indexOf(choose_year) : 0;
-                data.multiIndex[1] = choose_month ? data.multiArray[1].indexOf(choose_month) : 0;
-                // data.multiIndex[e.detail.column] = e.detail.value;
+                var key = ['choose_year', 'choose_month', 'choose_day', 'choose_h', 'choose_m'];
+                var _a = e.detail, column = _a.column, value = _a.value;
+                var data = {};
+                data[key[column]] = this.data.multiArray[column][value];
                 this.setData(data);
+                this.data.multiIndex[column] = value;
+                this.initDatetime();
             }
-            // let value = this.data.range[event.detail.value] || event.detail.value;
-            // this.triggerEvent('change', {value, code: event.detail.code});
         },
     },
     ready: function () {
