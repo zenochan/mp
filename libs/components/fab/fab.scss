@@ -2,7 +2,7 @@
   position: fixed;
   padding: 0;
 
-  .zz-fab-c{
+  .zz-fab-c {
     position: relative;
   }
 
@@ -46,11 +46,12 @@
   .zz-fab-list {
     display: flex;
     flex-direction: column;
+    transition: all 500ms;
 
     position: absolute;
     right: 0;
     bottom: 140px;
-    animation: fadeIn 500ms ease-in;
+    animation: fabIn 300ms ease-in;
   }
 }
 
@@ -61,3 +62,22 @@
   left: 0;
   right: 0;
 }
+
+
+.fabIn {
+  animation: fabIn 500ms ease-out;
+}
+
+@keyframes fabIn {
+  from {
+    opacity: 0;
+    bottom:0;
+  }
+  50%{
+    bottom:140px;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
