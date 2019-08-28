@@ -145,7 +145,17 @@ Component({
             }
             minutes = stringArray(mStart, mEnd);
             var multiArray = [years, months, days, hours, minutes];
-            var multiIndex = this.data.multiIndex || [0, 0, 0, 0, 0];
+            var multiIndex = this.data.multiIndex;
+            if (!multiIndex) {
+                var n = today.format('yyyy:MM:dd:HH:mm').split(':');
+                multiIndex = [
+                    multiArray[0].indexOf(n[0]),
+                    multiArray[1].indexOf(n[1]),
+                    multiArray[2].indexOf(n[2]),
+                    multiArray[3].indexOf(n[3]),
+                    multiArray[4].indexOf(n[4]),
+                ];
+            }
             this.setData({ multiArray: multiArray, multiIndex: multiIndex });
         },
         onColumnChange: function (e) {
