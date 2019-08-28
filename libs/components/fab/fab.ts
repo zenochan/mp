@@ -16,6 +16,7 @@ Component({
     {
       this.setData({open: !this.data.open});
       this.triggerEvent("change", {value: this.data.open});
-    }
+    },
+    catTouch(e) { },
   }
 });

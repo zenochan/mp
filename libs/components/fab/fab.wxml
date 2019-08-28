@@ -1,4 +1,4 @@
-<div class="zz-fab-shadow" wx:if="{{open}}" catch:tap="toggle"></div>
+<div class="zz-fab-shadow" wx:if="{{open}}" catch:tap="toggle" catch:touchmove="catTouch"></div>
 <div class="zz-fab" style="bottom: {{bottom}}rpx;right: {{right}}rpx">
   <div class="zz-fab-c">
     <button class="zz-fab-button" catch:tap="toggle" style="transform: rotateZ({{open?'0':'-45'}}deg)">

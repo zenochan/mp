@@ -14,7 +14,8 @@ Component({
         toggle: function () {
             this.setData({ open: !this.data.open });
             this.triggerEvent("change", { value: this.data.open });
-        }
+        },
+        catTouch: function (e) { },
     }
 });
 //# sourceMappingURL=fab.js.map
