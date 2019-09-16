@@ -84,6 +84,10 @@ export class API
 
   static uploadMore(filePaths: string[]): Observable<string[]>
   {
+
+    let url = this.API_BASE + "upload";
+    if (this.pathInterceptor) url = this.pathInterceptor(url);
+
     // 上传图片必须 https 请求，这里都直接用 prod 环境
     return Observable.create(sub => {
       let urls = [];
@@ -91,7 +95,7 @@ export class API
 
       filePaths.forEach(item => {
         wx.uploadFile({
-          url: this.API_BASE + "upload",
+          url,
           filePath: item,
           name: "photo",
           header: this.tokenHeader(),

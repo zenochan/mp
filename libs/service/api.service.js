@@ -62,13 +62,16 @@ var API = /** @class */ (function () {
     };
     API.uploadMore = function (filePaths) {
         var _this = this;
+        var url = this.API_BASE + "upload";
+        if (this.pathInterceptor)
+            url = this.pathInterceptor(url);
         // 上传图片必须 https 请求，这里都直接用 prod 环境
         return Rx_1.Observable.create(function (sub) {
             var urls = [];
             var completed = 0;
             filePaths.forEach(function (item) {
                 wx.uploadFile({
-                    url: _this.API_BASE + "upload",
+                    url: url,
                     filePath: item,
                     name: "photo",
                     header: _this.tokenHeader(),
