@@ -1,7 +1,5 @@
 import {Observable} from "../rx/Rx";
 
-export {};
-
 /**
  * @version 20190326
  * @author Zeno (zenochan@qq.com)

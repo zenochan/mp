@@ -1,23 +1,23 @@
-const KEY = "keywords_20190424";
-
 export class Keywords
 {
-  static data(type?: string)
+  private static KEY = "keywords:";
+
+  static data(type: string = 'default')
   {
-    return wx.getStorageSync(type || KEY) || []
+    return wx.getStorageSync(this.KEY + type) || []
   }
 
-  static save(keyword, type?: string)
+  static save(keyword, type: string = 'default')
   {
     let records = this.data(type);
     records.unshift(keyword);
     // @ts-ignore
     records = Array.from(new Set(records));
-    wx.setStorageSync(type || KEY, records)
+    wx.setStorageSync(this.KEY + type, records)
   }
 
   static clear(type?: string)
   {
-    wx.setStorageSync(type || KEY, [])
+    wx.setStorageSync(type || this.KEY, [])
   }
 }

@@ -12,13 +12,7 @@ Component({
     options: { multipleSlots: true },
     externalClasses: ['zclass'],
     properties: {
-        expand: {
-            type: "boolean",
-            value: false,
-            observer: function (newVal, oldVal) {
-                // this.setData({expand: newVal})
-            }
-        }
+        expand: { type: "boolean", value: false }
     },
     data: { expand: false, marginTop: 0 },
     methods: {

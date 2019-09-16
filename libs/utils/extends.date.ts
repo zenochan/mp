@@ -72,6 +72,7 @@ export function now(format?: string)
 
 String.prototype.dateFormat = function (fmt: string = "yyyy-MM-dd") {
   let dateStr = this;
-  if (dateStr.length < 16) dateStr += '-01 00:00:00';
+  if (dateStr.length === 10) dateStr += ' 00:00:00';
+  if (dateStr.length == 7) dateStr += '-01 00:00:00';
   return new Date(dateStr.replace(/-/g, '/')).format(fmt)
 };
