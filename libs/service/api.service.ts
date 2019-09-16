@@ -122,7 +122,7 @@ export class API
   {
 
     let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
-      if (a.indexOf('http') == -1) a = "http://crmimg.zhuangzizai.com/" + a;
+      if (a.indexOf('http') == -1) a = this.IMG_BASE + a;
       return `"${a}"`;
     });
     return JSON.parse(dataString);

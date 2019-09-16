@@ -93,9 +93,10 @@ var API = /** @class */ (function () {
     };
     // 补全 url 连接
     API.completeImgUrl = function (data) {
+        var _this = this;
         var dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, function (reg, a) {
             if (a.indexOf('http') == -1)
-                a = "http://crmimg.zhuangzizai.com/" + a;
+                a = _this.IMG_BASE + a;
             return "\"" + a + "\"";
         });
         return JSON.parse(dataString);
