@@ -78,10 +78,7 @@ var API = /** @class */ (function () {
                     filePath: item,
                     name: "photo",
                     header: _this.tokenHeader(),
-                    success: function (res) {
-                        var data = JSON.parse(res.data);
-                        urls.push(data.filename);
-                    },
+                    success: function (res) { return urls.push(res); },
                     fail: function (e) { return console.error(e); },
                     complete: function () {
                         completed++;
