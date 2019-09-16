@@ -39,7 +39,7 @@ export class API
 
   static get<T>(url, query: IData = null): Observable<T | any>
   {
-    url = this.query(url, query);
+    url = this.query(url,query);
     url = API.pathVariable(url, query);
     return this.buildRequest({method: "GET", url: this.API_BASE + url});
   }
@@ -102,7 +102,10 @@ export class API
           filePath: item,
           name: "photo",
           header: this.tokenHeader(),
-          success: res => urls.push(res),
+          success: res => {
+            let data = JSON.parse(res.data);
+            urls.push(data)
+          },
           fail: e => console.error(e),
           complete: () => {
             completed++;
