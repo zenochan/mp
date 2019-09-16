@@ -39,6 +39,8 @@ export class API
 
   static get<T>(url, query: IData = null): Observable<T | any>
   {
+    url = this.query(url,query);
+    url = API.pathVariable(url, query);
     return this.buildRequest({method: "GET", url: this.API_BASE + url});
   }
 
@@ -52,6 +54,7 @@ export class API
   static put<T>(url, param: string | IData = {}): Observable<T | any>
   {
     param = this.simpleImgUrl(param);
+    url = API.pathVariable(url, param);
     return this.buildRequest({method: "PUT", url: this.API_BASE + url, data: param});
   }
 

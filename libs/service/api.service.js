@@ -22,6 +22,8 @@ var API = /** @class */ (function () {
     };
     API.get = function (url, query) {
         if (query === void 0) { query = null; }
+        url = this.query(url, query);
+        url = API.pathVariable(url, query);
         return this.buildRequest({ method: "GET", url: this.API_BASE + url });
     };
     API.post = function (url, param) {
@@ -33,6 +35,7 @@ var API = /** @class */ (function () {
     API.put = function (url, param) {
         if (param === void 0) { param = {}; }
         param = this.simpleImgUrl(param);
+        url = API.pathVariable(url, param);
         return this.buildRequest({ method: "PUT", url: this.API_BASE + url, data: param });
     };
     API.delete = function (url) {
