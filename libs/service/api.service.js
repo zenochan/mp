@@ -18,11 +18,10 @@ var API = /** @class */ (function () {
         this.IMG_BASE = config.imgBase;
         this.resHandler = config.resHandler;
         this.headerInterceptor = config.headerInterceptor;
+        this.pathInterceptor = config.pathInterceptor;
     };
     API.get = function (url, query) {
         if (query === void 0) { query = null; }
-        url = API.pathVariable(url, query);
-        url = API.query(url, query);
         return this.buildRequest({ method: "GET", url: this.API_BASE + url });
     };
     API.post = function (url, param) {
@@ -42,9 +41,12 @@ var API = /** @class */ (function () {
     API.upload = function (filePath, form) {
         var _this = this;
         if (form === void 0) { form = {}; }
+        var url = this.API_BASE + "upload";
+        if (this.pathInterceptor)
+            url = this.pathInterceptor(url);
         return Rx_1.Observable.create(function (sub) {
             wx.uploadFile({
-                url: _this.API_BASE + "upload",
+                url: url,
                 filePath: filePath,
                 header: _this.tokenHeader(),
                 name: "photo",
@@ -133,6 +135,9 @@ var API = /** @class */ (function () {
     };
     API.buildRequest = function (options) {
         var _this = this;
+        if (this.pathInterceptor)
+            options.url = this.pathInterceptor(options.url);
+        options.header = this.tokenHeader();
         this.counter++;
         wx.showNavigationBarLoading();
         return Rx_1.Observable.create(function (sub) {
@@ -143,7 +148,6 @@ var API = /** @class */ (function () {
                 sub.complete();
                 _this.requestComplete();
             };
-            options.header = _this.tokenHeader();
             var task = wx.request(options);
             // 返回取消订阅的操作句柄
             return function () { task && task.abort(); };
@@ -175,6 +179,7 @@ var API = /** @class */ (function () {
     API.IMG_BASE = "";
     API.resHandler = null;
     API.headerInterceptor = null;
+    API.pathInterceptor = null;
     return API;
 }());
 exports.API = API;

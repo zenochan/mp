@@ -19,25 +19,26 @@ export class API
 
   private static resHandler: Function = null;
   private static headerInterceptor: Function = null;
+  private static pathInterceptor: Function = null;
 
   static config(config: {
     host: string,
     imgBase: string,
     resHandler?: (res, sub) => void,
     headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => IData
+    pathInterceptor?: (path: string) => string
   })
   {
     this.API_BASE = config.host;
     this.IMG_BASE = config.imgBase;
     this.resHandler = config.resHandler;
     this.headerInterceptor = config.headerInterceptor;
+    this.pathInterceptor = config.pathInterceptor;
   }
 
 
   static get<T>(url, query: IData = null): Observable<T | any>
   {
-    url = API.pathVariable(url, query);
-    url = API.query(url, query);
     return this.buildRequest({method: "GET", url: this.API_BASE + url});
   }
 
@@ -61,9 +62,12 @@ export class API
 
   static upload(filePath: string, form: { old_file?: string } = {}): Observable<UploadFileResult>
   {
+    let url = this.API_BASE + "upload";
+    if (this.pathInterceptor) url = this.pathInterceptor(url);
+
     return Observable.create(sub => {
       wx.uploadFile({
-        url: this.API_BASE + "upload",
+        url,
         filePath: filePath,
         header: this.tokenHeader(),
         name: "photo",
@@ -161,6 +165,8 @@ export class API
 
   private static buildRequest<T>(options: wx.RequestOptions): Observable<T>
   {
+    if (this.pathInterceptor) options.url = this.pathInterceptor(options.url);
+    options.header = this.tokenHeader();
 
     this.counter++;
     wx.showNavigationBarLoading();
@@ -173,7 +179,6 @@ export class API
         this.requestComplete();
       };
 
-      options.header = this.tokenHeader();
 
       let task: any = wx.request(options);
       // 返回取消订阅的操作句柄
@@ -202,7 +207,6 @@ export class API
 
     return url;
   }
-
 
   private static tokenHeader(origin: any = {}): any
   {
