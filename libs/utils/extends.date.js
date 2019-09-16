@@ -49,8 +49,10 @@ exports.now = now;
 String.prototype.dateFormat = function (fmt) {
     if (fmt === void 0) { fmt = "yyyy-MM-dd"; }
     var dateStr = this;
+    // yyyy-MM-dd
     if (dateStr.length === 10)
         dateStr += ' 00:00:00';
+    // yyyy-MM
     if (dateStr.length == 7)
         dateStr += '-01 00:00:00';
     return new Date(dateStr.replace(/-/g, '/')).format(fmt);

@@ -141,20 +141,21 @@ Component({
       let monthStart = 1;
       let monthEnd = 12;
 
-      if (choose_year == start[0]) {
+      if (start && choose_year == start[0]) {
         monthStart = start[1]
       }
-      if (choose_year == end[0]) {
+      if (end && choose_year == end[0]) {
         monthEnd = end[1]
       }
       months = stringArray(monthStart, monthEnd);
 
       let dayStart = 1;
       let dayEnd = 31;
-      if (choose_year == start[0] && choose_month == start[1]) {
+      if (start && choose_year == start[0] && choose_month == start[1]) {
         dayStart = start[2]
       }
-      if (choose_year == end[0] && choose_month == end[1]) {
+
+      if (end && choose_year == end[0] && choose_month == end[1]) {
         dayEnd = end[2]
       }
 
@@ -164,10 +165,10 @@ Component({
 
       let hStart = 0;
       let hEnd = 23;
-      if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
+      if (start && choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
         hStart = start[3]
       }
-      if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
+      if (end && choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
         hEnd = end[3]
       }
 
@@ -176,10 +177,10 @@ Component({
 
       let mStart = 0;
       let mEnd = 59;
-      if (choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
+      if (start && choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
         mStart = start[4]
       }
-      if (choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
+      if (end && choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
         mEnd = end[4]
       }
 
