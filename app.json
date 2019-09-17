@@ -21,6 +21,7 @@
     "refresher": "libs/components/refresher/refresher",
     "navigation": "libs/components/navigation/navigation",
     "rich-html": "libs/sdk/wxParse/components/rich-html",
-    "fab": "libs/components/fab/fab"
+    "fab": "libs/components/fab/fab",
+    "zbutton": "libs/components/zbutton/index"
   }
 }

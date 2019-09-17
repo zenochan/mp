@@ -1,0 +1,8 @@
+<span catch:tap="onTap" class="z-button">
+  <spinner class="process" wx:if="{{status=='process'}}" light></spinner>
+  <view class="confirm" wx:if="{{status=='confirm'}}">确定</view>
+  <slot></slot>
+</span>
+
+<view wx:if="{{status=='confirm'}}" class="shadow" bind:touchstart="cancel"></view>
+<view wx:if="{{status=='process'}}" class="shadow process" catch:touchmove="catch" catch:tap="catch"></view>

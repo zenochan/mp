@@ -1,6 +1,5 @@
-<fab src="/assets/menu.png">
-  <div>按钮1</div>
-  <div>按钮2</div>
-  <div>按钮3</div>
-  <div>按钮4</div>
-</fab>
+<div wx:for="11111111111111" style="margin-top: 28rpx;height: 200rpx;background: orange" wx:key="{{index}}"></div>
+
+<footer>
+  <zbutton bind:tap="outerTap">提交</zbutton>
+</footer>
