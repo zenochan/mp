@@ -2,13 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
-    properties: {
-    // active: {
-    //   type: Boolean, value: false, observer: function (newVal, oldVal) {
-    //     newVal && !oldVal && wx.nextTick(() => this.parent.active(this));
-    //   }
-    // }
-    },
     options: {
         addGlobalClass: true
     },

@@ -1,14 +1,6 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  properties: {
-    // active: {
-    //   type: Boolean, value: false, observer: function (newVal, oldVal) {
-    //     newVal && !oldVal && wx.nextTick(() => this.parent.active(this));
-    //   }
-    // }
-  },
-
   options: {
     addGlobalClass: true
   },

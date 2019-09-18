@@ -2,9 +2,9 @@
 
 
 ### Properties
-
 - tabs.flex: boolean 不需要滚动
-- tab-item.active-class: tab-item 激活时的样式
+- tabs.name: string page存放activeTabIndex 的KEY
+- tabs.bind:change tabs 改变时触发
 
 ### Usage
 
