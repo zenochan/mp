@@ -1,14 +1,16 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  externalClasses: ["class-active"],
-
   properties: {
-    active: {
-      type: Boolean, value: false, observer: function (newVal, oldVal) {
-        newVal && !oldVal && wx.nextTick(() => this.parent.active(this));
-      }
-    }
+    // active: {
+    //   type: Boolean, value: false, observer: function (newVal, oldVal) {
+    //     newVal && !oldVal && wx.nextTick(() => this.parent.active(this));
+    //   }
+    // }
+  },
+
+  options: {
+    addGlobalClass: true
   },
 
   relations: {
@@ -29,7 +31,7 @@ Component({
     },
     active(active: boolean)
     {
-      this.setData({active: active ? 'active' : ''});
+      this.data.active != active && this.setData({active});
     }
   },
   ready()

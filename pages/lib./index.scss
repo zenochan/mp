@@ -8,7 +8,16 @@
 }
 
 .iphoneX {
-  .z-button,.confirm,.process {
+  .z-button, .confirm, .process {
     padding-bottom: 32px;
+  }
+}
+
+tabs {
+  text-align: center;
+  background: white;
+  line-height: 88px;
+  .active {
+    color: orange;
   }
 }

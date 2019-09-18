@@ -2,14 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
-    externalClasses: ["class-active"],
     properties: {
-        active: {
-            type: Boolean, value: false, observer: function (newVal, oldVal) {
-                var _this = this;
-                newVal && !oldVal && wx.nextTick(function () { return _this.parent.active(_this); });
-            }
-        }
+    // active: {
+    //   type: Boolean, value: false, observer: function (newVal, oldVal) {
+    //     newVal && !oldVal && wx.nextTick(() => this.parent.active(this));
+    //   }
+    // }
+    },
+    options: {
+        addGlobalClass: true
     },
     relations: {
         './tabs': {
@@ -25,7 +26,7 @@ Component({
             this.parent.active(this);
         },
         active: function (active) {
-            this.setData({ active: active ? 'active' : '' });
+            this.data.active != active && this.setData({ active: active });
         }
     },
     ready: function () {

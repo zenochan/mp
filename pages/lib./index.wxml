@@ -1,5 +1,14 @@
+<tabs flex active="1">
+  <tab-item data-abc="abc">tab 1</tab-item>
+  <tab-item>tab 2</tab-item>
+</tabs>
+
+{{tab}}
+
+
 <div wx:for="11111111111111" style="margin-top: 28rpx;height: 200rpx;background: orange" wx:key="{{index}}"></div>
 
 <footer>
   <zbutton bind:tap="outerTap">提交</zbutton>
 </footer>
+

@@ -1,4 +1,5 @@
-<div bind:tap="onClick" id="body" class="body {{active}} {{active?'class-active':''}}" style="position: relative">
+<div bind:tap="onClick" id="body" class="body {{active?'active':''}}}}"
+     style="position: relative">
   <slot></slot>
   <button class="area"></button>
 </div>
