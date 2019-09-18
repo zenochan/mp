@@ -29,6 +29,12 @@ export class WX
     CAMERA: "scope.camera"
   };
 
+  page(): IPage
+  {
+    let pages = getCurrentPages();
+    return pages[pages.length - 1];
+  }
+
   /**
    * 是否是 iPhone X, 用于兼容底部导航, 底部添加 68rxp 高度;
    *
