@@ -30,6 +30,8 @@ export const Pipes: { [key: string]: (...args) => string } = {
 
   number(val: any, format: string)
   {
+    if (val == 0) return '0';
+
     let ab: any = format.split(".");
     if (ab.length == 2) {
       ab = parseInt(ab[1])

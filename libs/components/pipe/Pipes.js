@@ -24,6 +24,8 @@ exports.Pipes = {
         return val.join(septor) || '';
     },
     number: function (val, format) {
+        if (val == 0)
+            return '0';
         var ab = format.split(".");
         if (ab.length == 2) {
             ab = parseInt(ab[1]);
