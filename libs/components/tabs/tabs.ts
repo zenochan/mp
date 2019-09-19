@@ -1,10 +1,12 @@
+import {WX} from "../../wx/WX";
+
 Component({
   properties: {
     flex: {type: Boolean, value: false},
     name: {type: String, value: 'tab'},
     active: {
       type: Number, value: 0, observer: function () {
-        this.active(this.data.active())
+        this.active(this.data.active)
       }
     }
   },
@@ -30,6 +32,8 @@ Component({
         target = items[target];
       }
 
+      if (!target) return;
+
       let active = 0;
       items.forEach((item, index) => {
         item.active(item == target);
@@ -46,13 +50,6 @@ Component({
   attached()
   {
     this.data.screenW = wx.getSystemInfoSync().windowWidth;
-
-    let pages = getCurrentPages();
-    this.page = pages[pages.length - 1];
-  },
-  ready()
-  {
-    let active = this.getRelationNodes('tab-item')[this.data.active];
-    active && active.active(true);
+    this.page = WX.page();
   }
 });
