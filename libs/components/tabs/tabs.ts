@@ -29,7 +29,7 @@ Component({
       });
       this.data.active = active;
       this.triggerEvent('change', {active, data: target.dataset});
-      let data:any = {};
+      let data: any = {};
       data[this.data.name] = active;
       this.page.setData(data);
     }
@@ -46,8 +46,5 @@ Component({
   {
     let active = this.getRelationNodes('tab-item')[this.data.active];
     active && active.active(true);
-    let data:any = {};
-    data[this.data.name] = this.data.active;
-    this.page.setData({data});
   }
 });

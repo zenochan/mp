@@ -4,9 +4,9 @@ import {API} from "../../service/api.service";
 
 export interface ImageOperator
 {
-  upload(...images: string[]): Observable<any>
+  upload(...images): Observable<any>
 
-  remove(...images: string[]): Observable<any>
+  remove(...images): Observable<any>
 }
 
 export class DefaultImageOperator implements ImageOperator

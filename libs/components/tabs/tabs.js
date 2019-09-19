@@ -38,9 +38,6 @@ Component({
     ready: function () {
         var active = this.getRelationNodes('tab-item')[this.data.active];
         active && active.active(true);
-        var data = {};
-        data[this.data.name] = this.data.active;
-        this.page.setData({ data: data });
     }
 });
 //# sourceMappingURL=tabs.js.map
