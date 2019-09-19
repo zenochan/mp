@@ -29,7 +29,7 @@ export class WX
     CAMERA: "scope.camera"
   };
 
-  page(): IPage
+  static page(): IPage
   {
     let pages = getCurrentPages();
     return pages[pages.length - 1];

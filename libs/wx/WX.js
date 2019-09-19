@@ -10,7 +10,7 @@ var Rx_1 = require("../rx/Rx");
 var WX = /** @class */ (function () {
     function WX() {
     }
-    WX.prototype.page = function () {
+    WX.page = function () {
         var pages = getCurrentPages();
         return pages[pages.length - 1];
     };

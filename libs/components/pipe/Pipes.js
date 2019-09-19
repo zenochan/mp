@@ -22,6 +22,23 @@ exports.Pipes = {
     },
     join: function (val, septor) {
         return val.join(septor) || '';
+    },
+    number: function (val, format) {
+        var ab = format.split(".");
+        if (ab.length == 2) {
+            ab = parseInt(ab[1]);
+        }
+        else {
+            ab = 0;
+        }
+        return parseFloat(val + "").toFixed(ab);
+    },
+    bigNumber: function (val) {
+        var unit = "W";
+        val = parseInt(val + "");
+        if (val < 10000)
+            return val;
+        return (val / 10000).toFixed(1) + 'W';
     }
 };
 //# sourceMappingURL=Pipes.js.map

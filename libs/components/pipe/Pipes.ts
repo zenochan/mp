@@ -26,7 +26,32 @@ export const Pipes: { [key: string]: (...args) => string } = {
   join(val: string[], septor: string)
   {
     return val.join(septor) || ''
+  },
+
+  number(val: any, format: string)
+  {
+    let ab: any = format.split(".");
+    if (ab.length == 2) {
+      ab = parseInt(ab[1])
+    } else {
+      ab = 0
+    }
+
+    return parseFloat(val + "").toFixed(ab)
+  },
+
+
+  bigNumber(val: any)
+  {
+    let unit = "W";
+    val = parseInt(val + "");
+
+    if (val < 10000)
+      return val;
+
+    return (val / 10000).toFixed(1) + 'W';
   }
+
 
 };
 
