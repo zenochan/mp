@@ -1,4 +1,2 @@
-<span wx:if="{{!equal}}">
-{{text}}
-</span>
+<span wx:if="{{!equal}}">{{text}}</span>
 <slot wx:if="{{!equal || text == equal}}"></slot>

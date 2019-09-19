@@ -2,7 +2,11 @@ Component({
     properties: {
         flex: { type: Boolean, value: false },
         name: { type: String, value: 'tab' },
-        active: { type: Number, value: 0 }
+        active: {
+            type: Number, value: 0, observer: function () {
+                this.active(this.data.active());
+            }
+        }
     },
     options: {
         addGlobalClass: true
@@ -17,6 +21,9 @@ Component({
         },
         active: function (target) {
             var items = this.getRelationNodes('tab-item');
+            if (typeof target == 'number') {
+                target = items[target];
+            }
             var active = 0;
             items.forEach(function (item, index) {
                 item.active(item == target);

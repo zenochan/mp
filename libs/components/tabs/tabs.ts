@@ -2,7 +2,11 @@ Component({
   properties: {
     flex: {type: Boolean, value: false},
     name: {type: String, value: 'tab'},
-    active: {type: Number, value: 0}
+    active: {
+      type: Number, value: 0, observer: function () {
+        this.active(this.data.active())
+      }
+    }
   },
 
   options: {
@@ -19,9 +23,13 @@ Component({
       this.setData({scrollLeft: scrollLeft})
     },
 
-    active(target)
+    active(target: any | number)
     {
       let items = this.getRelationNodes('tab-item');
+      if (typeof target == 'number') {
+        target = items[target];
+      }
+
       let active = 0;
       items.forEach((item, index) => {
         item.active(item == target);

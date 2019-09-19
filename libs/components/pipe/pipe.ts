@@ -6,7 +6,7 @@ Component({
       type: Array, value: [], observer: function (arrays: any[]) {
         try {
           let val = arrays[0];
-          if (!val) {
+          if (!val && val !== 0) {
             this.setData({text: ''});
             return;
           }

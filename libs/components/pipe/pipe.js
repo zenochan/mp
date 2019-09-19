@@ -7,7 +7,7 @@ Component({
             type: Array, value: [], observer: function (arrays) {
                 try {
                     var val_1 = arrays[0];
-                    if (!val_1) {
+                    if (!val_1 && val_1 !== 0) {
                         this.setData({ text: '' });
                         return;
                     }
