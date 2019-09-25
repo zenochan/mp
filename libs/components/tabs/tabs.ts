@@ -40,10 +40,12 @@ Component({
         if (item == target) active = index;
       });
       this.data.active = active;
-      this.triggerEvent('change', {active, data: target.dataset});
+
       let data: any = {};
       data[this.data.name] = active;
       this.page.setData(data);
+
+      this.triggerEvent('change', {active, data: target.dataset});
     }
   },
 
@@ -51,5 +53,9 @@ Component({
   {
     this.data.screenW = wx.getSystemInfoSync().windowWidth;
     this.page = WX.page();
+  },
+  ready()
+  {
+    this.active(this.data.active)
   }
 });

@@ -36,15 +36,18 @@ Component({
                     active = index;
             });
             this.data.active = active;
-            this.triggerEvent('change', { active: active, data: target.dataset });
             var data = {};
             data[this.data.name] = active;
             this.page.setData(data);
+            this.triggerEvent('change', { active: active, data: target.dataset });
         }
     },
     attached: function () {
         this.data.screenW = wx.getSystemInfoSync().windowWidth;
         this.page = WX_1.WX.page();
+    },
+    ready: function () {
+        this.active(this.data.active);
     }
 });
 //# sourceMappingURL=tabs.js.map

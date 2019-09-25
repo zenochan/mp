@@ -9,6 +9,9 @@ Component({
       }
     }
   },
+  options: {
+    addGlobalClass: true
+  },
   relations: {
     '../zpage/zpage': {
       type: "parent",
