@@ -5,7 +5,7 @@
  * @date 2017-01-10
  * @author jaysonzhou@tencent.com
  */
-import {Observable} from "../libs/rx/Rx";
+import {Observable} from "../rx/Rx";
 
 var ERROR_CONF = {
   KEY_ERR: 311,

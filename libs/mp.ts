@@ -12,5 +12,5 @@ export {Keywords} from "./utils/Keywords";
 export {ZzValidator} from "./utils/ZzValidator";
 export {Bezier, Interceptor} from "./utils/interceptor";
 export {CodeTimer} from "./utils/code-timer";
-export {QQMapWX} from "../sdk/qqmap";
+export {QQMapWX} from "./sdk/qqmap";
 

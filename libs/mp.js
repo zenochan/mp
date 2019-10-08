@@ -27,6 +27,6 @@ exports.Bezier = interceptor_1.Bezier;
 exports.Interceptor = interceptor_1.Interceptor;
 var code_timer_1 = require("./utils/code-timer");
 exports.CodeTimer = code_timer_1.CodeTimer;
-var qqmap_1 = require("../sdk/qqmap");
+var qqmap_1 = require("./sdk/qqmap");
 exports.QQMapWX = qqmap_1.QQMapWX;
 //# sourceMappingURL=mp.js.map

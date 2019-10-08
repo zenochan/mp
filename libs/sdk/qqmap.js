@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @date 2017-01-10
  * @author jaysonzhou@tencent.com
  */
-var Rx_1 = require("../libs/rx/Rx");
+var Rx_1 = require("../rx/Rx");
 var ERROR_CONF = {
     KEY_ERR: 311,
     KEY_ERR_MSG: 'key格式错误',
