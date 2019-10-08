@@ -9,8 +9,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 var interceptor_1 = require("../../utils/interceptor");
 Component({
-    options: { multipleSlots: true },
-    externalClasses: ['zclass'],
+    options: {
+        multipleSlots: true,
+        addGlobalClass: true
+    },
     properties: {
         expand: { type: "boolean", value: false }
     },

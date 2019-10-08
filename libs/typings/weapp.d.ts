@@ -2676,6 +2676,8 @@ declare global
     export function createSelectorQuery();
 
     export function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
+
+    export function getUpdateManager():any
   }
 }
 //</editor-fold>

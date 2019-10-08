@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Rx = require("../rx/Rx");
 var Rx_1 = require("../rx/Rx");
+var UI_1 = require("./UI");
 /**
  * 微信 API rx 封装
  *
@@ -13,6 +14,11 @@ var WX = /** @class */ (function () {
     WX.page = function () {
         var pages = getCurrentPages();
         return pages[pages.length - 1];
+    };
+    WX.forceUpdate = function () {
+        wx.getUpdateManager().onUpdateReady(function () {
+            UI_1.UI.alert('需要重启小程序完成更新').subscribe(function (res) { return wx.getUpdateManager().applyUpdate(); });
+        });
     };
     /**
      * 是否是 iPhone X, 用于兼容底部导航, 底部添加 68rxp 高度;

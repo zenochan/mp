@@ -8,8 +8,10 @@ import {WX} from "../../wx/WX";
 import {Interceptor} from "../../utils/interceptor";
 
 Component({
-  options: {multipleSlots: true},
-  externalClasses: ['zclass'],
+  options: {
+    multipleSlots: true,
+    addGlobalClass: true
+  },
   properties: {
     expand: {type: "boolean", value: false}
   },

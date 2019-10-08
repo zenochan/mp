@@ -6,6 +6,7 @@ import CanvasToTempFilePathOptions = wx.CanvasToTempFilePathOptions;
 import ScanCodeResult = wx.ScanCodeResult;
 import * as Rx from "../rx/Rx";
 import {BehaviorSubject, Observable} from "../rx/Rx";
+import {UI} from "./UI";
 
 /**
  * 微信 API rx 封装
@@ -33,6 +34,13 @@ export class WX
   {
     let pages = getCurrentPages();
     return pages[pages.length - 1];
+  }
+
+  static forceUpdate()
+  {
+    wx.getUpdateManager().onUpdateReady(() => {
+      UI.alert('需要重启小程序完成更新').subscribe(res => wx.getUpdateManager().applyUpdate());
+    });
   }
 
   /**
