@@ -3,6 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
     data: { top: 0, sticky: false },
+    properties: {
+        data: {
+            type: Array, value: null, observer: function () {
+                this.init();
+            }
+        }
+    },
     methods: {
         init: function () {
             var _this = this;

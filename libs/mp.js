@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @author ZenoChan zenochan@qq.com
  */
+var RxExt_1 = require("./rx/RxExt");
+exports.rxJust = RxExt_1.rxJust;
+exports.rxFromPromise = RxExt_1.rxFromPromise;
 var nav_1 = require("./wx/nav");
 exports.Nav = nav_1.Nav;
 var WX_1 = require("./wx/WX");

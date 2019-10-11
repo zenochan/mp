@@ -1,6 +1,7 @@
 /**
  * @author ZenoChan zenochan@qq.com
  */
+export {rxJust, rxFromPromise} from "./rx/RxExt";
 export {Nav} from "./wx/nav";
 export {WX} from "./wx/WX";
 export {Data} from "./wx/Data";

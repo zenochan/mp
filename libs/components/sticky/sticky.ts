@@ -2,6 +2,14 @@ import {WX} from "../../wx/WX";
 
 Component({
   data: {top: 0, sticky: false},
+  properties: {
+    data: {
+      type: Array, value: null, observer()
+      {
+        this.init();
+      }
+    }
+  },
   methods: {
     init()
     {

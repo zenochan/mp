@@ -661,11 +661,11 @@ declare global
   {
     interface AddressComponent
     {
-      province: "上海市",
-      city: "上海市",
-      district: "虹口区",
-      street: "中山北一路",
-      street_number: "1200"
+      province: string,
+      city: string,
+      district: string,
+      street: string,
+      street_number: string
     }
 
     interface GeocoderRes
