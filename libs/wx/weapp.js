@@ -16,6 +16,7 @@ function HookPage(page) {
     if (page === void 0) { page = {}; }
     hookNav(page);
     hookInputEvent(page);
+    page.onDataChange = new Rx_1.BehaviorSubject('');
     page.zzLife = function () {
         if (!this.__zzLife__) {
             this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
@@ -35,6 +36,11 @@ function HookPage(page) {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
+                this._setData = this.setData;
+                this.setData = function (data) {
+                    _this._setData(data);
+                    _this.onDataChange.next(data);
+                };
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用

@@ -4,6 +4,9 @@ import {Data} from "../wx/Data";
 import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
 
+// 正则匹配效率极低，影响数据响应速度
+const DISABLE_COMPLETE_IMG_URL = new Date().getTime() > 1572537600000;
+
 /**
  * ## Methods
  * - {@link get}
@@ -39,28 +42,28 @@ export class API
 
   static get<T>(url, query: IData = null): Observable<T | any>
   {
-    url = this.query(url,query);
+    url = this.query(url, query);
     url = API.pathVariable(url, query);
-    return this.buildRequest({method: "GET", url: this.API_BASE + url});
+    return this.buildRequest({method: "GET", url});
   }
 
   static post<T>(url, param: IData = {}): Observable<any | T>
   {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: "POST", url: this.API_BASE + url, data: param});
+    return this.buildRequest({method: "POST", url, data: param});
   }
 
   static put<T>(url, param: string | IData = {}): Observable<T | any>
   {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: "PUT", url: this.API_BASE + url, data: param});
+    return this.buildRequest({method: "PUT", url, data: param});
   }
 
   static delete(url): Observable<any> | any
   {
-    return this.buildRequest({method: "DELETE", url: this.API_BASE + url});
+    return this.buildRequest({method: "DELETE", url});
   }
 
   static upload(filePath: string, form: { old_file?: string } = {}): Observable<UploadFileResult>
@@ -154,9 +157,12 @@ export class API
       this.resHandler(res, sub)
     } else {
       const data = res.data;
-
       if (res.statusCode < 300) {
-        sub.next(this.completeImgUrl(data));
+        if (DISABLE_COMPLETE_IMG_URL) {
+          sub.next(data);
+        } else {
+          sub.next(this.completeImgUrl(data));
+        }
       } else if (res.statusCode == 401) {
         // 授权失败, 重启小程序
         Data.clear();
@@ -172,6 +178,10 @@ export class API
 
   private static buildRequest<T>(options: wx.RequestOptions): Observable<T>
   {
+    if (options.url.indexOf('http') != 0) {
+      options.url = this.API_BASE + options.url
+    }
+
     if (this.pathInterceptor) options.url = this.pathInterceptor(options.url);
     options.header = this.tokenHeader();
 

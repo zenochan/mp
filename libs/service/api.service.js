@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
+// 正则匹配效率极低，影响数据响应速度
+var DISABLE_COMPLETE_IMG_URL = new Date().getTime() > 1572537600000;
 /**
  * ## Methods
  * - {@link get}
@@ -24,22 +26,22 @@ var API = /** @class */ (function () {
         if (query === void 0) { query = null; }
         url = this.query(url, query);
         url = API.pathVariable(url, query);
-        return this.buildRequest({ method: "GET", url: this.API_BASE + url });
+        return this.buildRequest({ method: "GET", url: url });
     };
     API.post = function (url, param) {
         if (param === void 0) { param = {}; }
         param = this.simpleImgUrl(param);
         url = API.pathVariable(url, param);
-        return this.buildRequest({ method: "POST", url: this.API_BASE + url, data: param });
+        return this.buildRequest({ method: "POST", url: url, data: param });
     };
     API.put = function (url, param) {
         if (param === void 0) { param = {}; }
         param = this.simpleImgUrl(param);
         url = API.pathVariable(url, param);
-        return this.buildRequest({ method: "PUT", url: this.API_BASE + url, data: param });
+        return this.buildRequest({ method: "PUT", url: url, data: param });
     };
     API.delete = function (url) {
-        return this.buildRequest({ method: "DELETE", url: this.API_BASE + url });
+        return this.buildRequest({ method: "DELETE", url: url });
     };
     API.upload = function (filePath, form) {
         var _this = this;
@@ -124,7 +126,12 @@ var API = /** @class */ (function () {
         else {
             var data_1 = res.data;
             if (res.statusCode < 300) {
-                sub.next(this.completeImgUrl(data_1));
+                if (DISABLE_COMPLETE_IMG_URL) {
+                    sub.next(data_1);
+                }
+                else {
+                    sub.next(this.completeImgUrl(data_1));
+                }
             }
             else if (res.statusCode == 401) {
                 // 授权失败, 重启小程序
@@ -142,6 +149,9 @@ var API = /** @class */ (function () {
     };
     API.buildRequest = function (options) {
         var _this = this;
+        if (options.url.indexOf('http') != 0) {
+            options.url = this.API_BASE + options.url;
+        }
         if (this.pathInterceptor)
             options.url = this.pathInterceptor(options.url);
         options.header = this.tokenHeader();

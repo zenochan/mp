@@ -41,6 +41,7 @@ export function HookPage(page: IPage = {})
   hookNav(page);
   hookInputEvent(page);
 
+  page.onDataChange = new BehaviorSubject('');
   page.zzLife = function () {
     if (!this.__zzLife__) {
       this.__zzLife__ = new BehaviorSubject("onInit")
@@ -59,7 +60,14 @@ export function HookPage(page: IPage = {})
 
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
-        if (this.navTitle) UI.navTitle(this.navTitle)
+        if (this.navTitle) UI.navTitle(this.navTitle);
+
+        this._setData = this.setData;
+        this.setData = (data) => {
+          this._setData(data);
+          this.onDataChange.next(data);
+        }
+
       }
 
       if (method == "onUnload") {
@@ -234,7 +242,7 @@ function hookNav(page: IPage)
 
     if (url.indexOf("tab:") == 0) {
       Nav.switchTab(url.replace("tab:", ""))
-    } else if(url){
+    } else if (url) {
       Nav.navForResult(this, url, data)
     }
   };

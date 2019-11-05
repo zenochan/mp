@@ -1,5 +1,5 @@
 // Type definitions for weapp v0.12.130400
-import {Observable} from "../rx/Rx";
+import {Observable,BehaviorSubject} from "../rx/Rx";
 
 export {};
 
@@ -92,6 +92,7 @@ declare global
      * 每次小程序打开，只会初始化一次，不要赋值动态的数据
      */
     data?: any;
+    onDataChange?: BehaviorSubject | Observable<any>;
 
     /**
      * 生命周期函数--监听页面加载
@@ -2677,7 +2678,7 @@ declare global
 
     export function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
 
-    export function getUpdateManager():any
+    export function getUpdateManager(): any
   }
 }
 //</editor-fold>
