@@ -1,5 +1,3 @@
-import {WX} from "../../wx/WX";
-
 /**
  * @see https://www.jianshu.com/p/f096a47dbf6f
  */

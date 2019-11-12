@@ -1,5 +1,3 @@
-import UploadFileResult = wx.UploadFileResult;
-import IData = wx.IData;
 import {Data} from "../wx/Data";
 import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
@@ -26,7 +24,7 @@ export class API
     host: string,
     imgBase: string,
     resHandler?: (res, sub) => void,
-    headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => IData
+    headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => wx.IData
     pathInterceptor?: (path: string) => string
   })
   {
@@ -38,21 +36,21 @@ export class API
   }
 
 
-  static get<T>(url, query: IData = null): Observable<T | any>
+  static get<T>(url, query: wx.IData = null): Observable<T | any>
   {
     url = this.query(url, query);
     url = API.pathVariable(url, query);
     return this.buildRequest({method: "GET", url});
   }
 
-  static post<T>(url, param: IData = {}): Observable<any | T>
+  static post<T>(url, param: wx.IData = {}): Observable<any | T>
   {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "POST", url, data: param});
   }
 
-  static put<T>(url, param: string | IData = {}): Observable<T | any>
+  static put<T>(url, param: string | wx.IData = {}): Observable<T | any>
   {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
@@ -64,7 +62,7 @@ export class API
     return this.buildRequest({method: "DELETE", url});
   }
 
-  static upload(filePath: string, form: { old_file?: string } = {}): Observable<UploadFileResult>
+  static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult>
   {
     let url = this.API_BASE + "upload";
     if (this.pathInterceptor) url = this.pathInterceptor(url);

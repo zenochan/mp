@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @see https://www.jianshu.com/p/f096a47dbf6f
  */

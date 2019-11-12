@@ -8,7 +8,7 @@ export {Data} from "./wx/Data";
 export {UI} from "./wx/UI";
 export {API} from "./service/api.service";
 export {HookPage, PageHook, PageInjectors} from "./wx/weapp";
-export {Events} from "./wx/Events";
+export {Events} from "./wx/Events"
 export {Keywords} from "./utils/Keywords";
 export {ZzValidator} from "./utils/ZzValidator";
 export {Bezier, Interceptor} from "./utils/interceptor";

@@ -1,6 +1,15 @@
 zz-img
 ---
 
+### INSTALL
+```json
+{
+  "usingComponents": {
+    "fab": "mp/components/zz-img/index"
+  }
+}
+```
+
 #### CONFIG
 ```ts
 ZZ_IMG_CONFIG.BASE_URL = Data.get("img_host") || "http://img.zunjiahui.cn/";
