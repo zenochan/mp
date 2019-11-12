@@ -295,7 +295,7 @@ declare global
 
   }
 
-  /**(
+  /**
    * Component构造器可用于定义组件，调用Component构造器时可以指定组件的属性、数据、方法等。
    */
   function Component(component: IComponent): void;

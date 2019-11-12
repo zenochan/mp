@@ -4,8 +4,6 @@ import {Data} from "../wx/Data";
 import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
 
-// 正则匹配效率极低，影响数据响应速度
-const DISABLE_COMPLETE_IMG_URL = new Date().getTime() > 1572537600000;
 
 /**
  * ## Methods
@@ -158,11 +156,7 @@ export class API
     } else {
       const data = res.data;
       if (res.statusCode < 300) {
-        if (DISABLE_COMPLETE_IMG_URL) {
-          sub.next(data);
-        } else {
-          sub.next(this.completeImgUrl(data));
-        }
+        sub.next(data);
       } else if (res.statusCode == 401) {
         // 授权失败, 重启小程序
         Data.clear();

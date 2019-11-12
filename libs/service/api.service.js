@@ -3,8 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
-// 正则匹配效率极低，影响数据响应速度
-var DISABLE_COMPLETE_IMG_URL = new Date().getTime() > 1572537600000;
 /**
  * ## Methods
  * - {@link get}
@@ -126,12 +124,7 @@ var API = /** @class */ (function () {
         else {
             var data_1 = res.data;
             if (res.statusCode < 300) {
-                if (DISABLE_COMPLETE_IMG_URL) {
-                    sub.next(data_1);
-                }
-                else {
-                    sub.next(this.completeImgUrl(data_1));
-                }
+                sub.next(data_1);
             }
             else if (res.statusCode == 401) {
                 // 授权失败, 重启小程序
