@@ -1,5 +1,5 @@
 // Type definitions for weapp v0.12.130400
-import {Observable,BehaviorSubject} from "../rx/Rx";
+import {Observable, BehaviorSubject} from "../rx/Rx";
 
 export {};
 
@@ -412,7 +412,6 @@ declare global
 
     export interface UploadFileResult
     {
-
       /**
        * 开发者服务器返回的数据
        */

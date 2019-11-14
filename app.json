@@ -24,6 +24,7 @@
     "fab": "libs/components/fab/fab",
     "zbutton": "libs/components/zbutton/index",
     "tabs": "libs/components/tabs/tabs",
-    "tab-item": "libs/components/tabs/tab-item"
+    "tab-item": "libs/components/tabs/tab-item",
+    "tooltip": "libs/components/tooltip/index"
   }
 }

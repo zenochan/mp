@@ -8,6 +8,7 @@ import {UI} from "../wx/UI";
  * - {@link get}
  * - {@link post}
  * - {@link put}
+ * - {@link patch}
  * - {@link delete}
  */
 export class API
@@ -55,6 +56,14 @@ export class API
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "PUT", url, data: param});
+  }
+
+  static patch<T>(url, param: string | wx.IData = {}): Observable<T | any>
+  {
+    if (typeof param == "object") param._method = "PATCH";
+    param = this.simpleImgUrl(param);
+    url = API.pathVariable(url, param);
+    return this.buildRequest({method: "POST", url, data: param});
   }
 
   static delete(url): Observable<any> | any

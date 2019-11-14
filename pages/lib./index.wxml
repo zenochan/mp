@@ -1,14 +1,23 @@
-<tabs flex active="1">
-  <tab-item data-abc="abc">tab 1</tab-item>
-  <tab-item>tab 2</tab-item>
-</tabs>
+<tooltip style="margin-left: 200rpx" position="left">
+  <view slot="body">body</view>
+  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
+</tooltip>
+<div></div>
 
-{{tab}}
+<tooltip style="margin-left: 200rpx" position="right">
+  <view slot="body">body</view>
+  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
+</tooltip>
+<div></div>
 
+<tooltip style="margin-left: 200rpx" position="top">
+  <view slot="body">body</view>
+  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
+</tooltip>
+<div></div>
 
-<div wx:for="11111111111111" style="margin-top: 28rpx;height: 200rpx;background: orange" wx:key="{{index}}"></div>
-
-<footer>
-  <zbutton bind:tap="outerTap">提交</zbutton>
-</footer>
-
+<tooltip style="margin-left: 200rpx" position="bottom">
+  <view slot="body">body</view>
+  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
+</tooltip>
+<div></div>

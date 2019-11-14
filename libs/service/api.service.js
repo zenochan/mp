@@ -8,6 +8,7 @@ var UI_1 = require("../wx/UI");
  * - {@link get}
  * - {@link post}
  * - {@link put}
+ * - {@link patch}
  * - {@link delete}
  */
 var API = /** @class */ (function () {
@@ -37,6 +38,14 @@ var API = /** @class */ (function () {
         param = this.simpleImgUrl(param);
         url = API.pathVariable(url, param);
         return this.buildRequest({ method: "PUT", url: url, data: param });
+    };
+    API.patch = function (url, param) {
+        if (param === void 0) { param = {}; }
+        if (typeof param == "object")
+            param._method = "PATCH";
+        param = this.simpleImgUrl(param);
+        url = API.pathVariable(url, param);
+        return this.buildRequest({ method: "POST", url: url, data: param });
     };
     API.delete = function (url) {
         return this.buildRequest({ method: "DELETE", url: url });

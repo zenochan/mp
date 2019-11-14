@@ -1,0 +1,8 @@
+<div class="shadow" bind:tap="hide" wx:if="{{show}}" style="background-color: {{shadowColor}}"></div>
+
+<div class="tooltip-ctn">
+  <slot name="body" bind:tap="show"></slot>
+  <div class="tooltip {{position}}" wx:if="{{show}}" bind:tap="onClickTip">
+    <slot name="tip"></slot>
+  </div>
+</div>
