@@ -186,7 +186,10 @@ function hookInputEvent(page)
 
   let originFocus = page.onFocus;
   page.onFocus = function (e: WXEvent) {
-    this.setData({focus: e.currentTarget.id || null});
+    this.setData({
+      focus: e.currentTarget.id || null,
+      keyboardHeight: e.detail.height
+    });
     originFocus && originFocus.apply(this, arguments);
   };
 
@@ -214,11 +217,18 @@ function hookInputEvent(page)
     }, 200)
   };
 
+  // let originBlur = page.onBlur;
+  // page.onBlur = function (e: WXEvent) {
+  //   this.setData({focus: null});
+  //   originBlur && originBlur.apply(this, arguments);
+  // };
+
   let originBlur = page.onBlur;
   page.onBlur = function (e: WXEvent) {
-    this.setData({focus: null});
+    this.setData({focus: null, keyboardHeight: 0});
     originBlur && originBlur.apply(this, arguments);
   };
+
 }
 
 /**

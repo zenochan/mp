@@ -145,7 +145,10 @@ function hookInputEvent(page) {
     };
     var originFocus = page.onFocus;
     page.onFocus = function (e) {
-        this.setData({ focus: e.currentTarget.id || null });
+        this.setData({
+            focus: e.currentTarget.id || null,
+            keyboardHeight: e.detail.height
+        });
         originFocus && originFocus.apply(this, arguments);
     };
     page.view = function (e) {
@@ -172,9 +175,14 @@ function hookInputEvent(page) {
             _this.setData({ hideKeyboard: false });
         }, 200);
     };
+    // let originBlur = page.onBlur;
+    // page.onBlur = function (e: WXEvent) {
+    //   this.setData({focus: null});
+    //   originBlur && originBlur.apply(this, arguments);
+    // };
     var originBlur = page.onBlur;
     page.onBlur = function (e) {
-        this.setData({ focus: null });
+        this.setData({ focus: null, keyboardHeight: 0 });
         originBlur && originBlur.apply(this, arguments);
     };
 }
