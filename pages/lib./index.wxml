@@ -1,23 +1,35 @@
-<tooltip style="margin-left: 200rpx" position="left">
-  <view slot="body">body</view>
-  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
-</tooltip>
-<div></div>
+<!--<tooltip style="margin-left: 200rpx" position="left">-->
+<!--  <view slot="body">body</view>-->
+<!--  <view slot="tip" style="width: 100rpx;background: orange">tip</view>-->
+<!--</tooltip>-->
+<!--<div></div>-->
 
-<tooltip style="margin-left: 200rpx" position="right">
-  <view slot="body">body</view>
-  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
-</tooltip>
-<div></div>
+<!--<tooltip style="margin-left: 200rpx" position="right">-->
+<!--  <view slot="body">body</view>-->
+<!--  <view slot="tip" style="width: 100rpx;background: orange">tip</view>-->
+<!--</tooltip>-->
+<!--<div></div>-->
 
-<tooltip style="margin-left: 200rpx" position="top">
-  <view slot="body">body</view>
-  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
-</tooltip>
-<div></div>
+<!--<tooltip style="margin-left: 200rpx" position="top">-->
+<!--  <view slot="body">body</view>-->
+<!--  <view slot="tip" style="width: 100rpx;background: orange">tip</view>-->
+<!--</tooltip>-->
+<!--<div></div>-->
 
-<tooltip style="margin-left: 200rpx" position="bottom">
-  <view slot="body">body</view>
-  <view slot="tip" style="width: 100rpx;background: orange">tip</view>
-</tooltip>
-<div></div>
+<!--<tooltip style="margin-left: 200rpx" position="bottom">-->
+<!--  <view slot="body">body</view>-->
+<!--  <view slot="tip" style="width: 100rpx;background: orange">tip</view>-->
+<!--</tooltip>-->
+<!--<div></div>-->
+
+<tabs>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+  <tab-item> 234234 </tab-item>
+</tabs>
