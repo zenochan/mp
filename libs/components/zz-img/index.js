@@ -5,9 +5,7 @@ Component({
     properties: {
         src: {
             type: String, value: '', observer: function (src) {
-                if (src == 'undefined')
-                    console.error(src);
-                if (src.indexOf('http') != 0 && src.indexOf('/assets/') != 0) {
+                if (src.indexOf('http') != 0 && src.indexOf('/assets/') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
                     this.setData({ src: config_1.ZZ_IMG_CONFIG.BASE_URL + src });
                 }
             },
