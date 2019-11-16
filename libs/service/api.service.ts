@@ -93,9 +93,13 @@ export class API
     });
   }
 
-  static uploadMore(filePaths: string[], path: string = "upload"): Observable<string[]>
+  static uploadMore(optins: {
+    filePaths: string[],
+    path?: string,
+    formData?: Object
+  }): Observable<string[]>
   {
-    let url = this.API_BASE + path;
+    let url = this.API_BASE + (optins.path || 'upload');
     if (this.pathInterceptor) url = this.pathInterceptor(url);
 
     // 上传图片必须 https 请求，这里都直接用 prod 环境
@@ -103,11 +107,12 @@ export class API
       let urls = [];
       let completed = 0;
 
-      filePaths.forEach(item => {
+      optins.filePaths.forEach(item => {
         wx.uploadFile({
           url,
           filePath: item,
           name: "photo",
+          formData: optins.formData,
           header: this.tokenHeader(),
           success: res => {
             let data = JSON.parse(res.data);
@@ -116,7 +121,7 @@ export class API
           fail: e => console.error(e),
           complete: () => {
             completed++;
-            if (completed == filePaths.length) {
+            if (completed == optins.filePaths.length) {
               sub.next(this.completeImgUrl(urls));
               sub.complete();
             }

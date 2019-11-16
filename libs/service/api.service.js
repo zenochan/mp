@@ -72,21 +72,21 @@ var API = /** @class */ (function () {
             });
         });
     };
-    API.uploadMore = function (filePaths, path) {
+    API.uploadMore = function (optins) {
         var _this = this;
-        if (path === void 0) { path = "upload"; }
-        var url = this.API_BASE + path;
+        var url = this.API_BASE + (optins.path || 'upload');
         if (this.pathInterceptor)
             url = this.pathInterceptor(url);
         // 上传图片必须 https 请求，这里都直接用 prod 环境
         return Rx_1.Observable.create(function (sub) {
             var urls = [];
             var completed = 0;
-            filePaths.forEach(function (item) {
+            optins.filePaths.forEach(function (item) {
                 wx.uploadFile({
                     url: url,
                     filePath: item,
                     name: "photo",
+                    formData: optins.formData,
                     header: _this.tokenHeader(),
                     success: function (res) {
                         var data = JSON.parse(res.data);
@@ -95,7 +95,7 @@ var API = /** @class */ (function () {
                     fail: function (e) { return console.error(e); },
                     complete: function () {
                         completed++;
-                        if (completed == filePaths.length) {
+                        if (completed == optins.filePaths.length) {
                             sub.next(_this.completeImgUrl(urls));
                             sub.complete();
                         }
