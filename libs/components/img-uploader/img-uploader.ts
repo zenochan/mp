@@ -63,7 +63,7 @@ Component({
               urls: this.data.urls,
               uploading: []
             });
-            this.triggerEvent("change", {value: this.data.urls})
+            this.triggerChange();
           }, e => {
             if (typeof e == "string") UI.toastFail(e, 2000);
             this.setData({uploading: []});
@@ -77,12 +77,18 @@ Component({
         ImgUploaderService.imageOperator.remove(deleted)
             .subscribe(res => {}, e => console.error("图片删除失败", e));
         this.setData({urls: this.data.urls});
-        if (this.data.count == 1) {
-          this.triggerEvent("change", {value: this.data.urls[0] || null})
-        } else {
-          this.triggerEvent("change", {value: this.data.urls})
-        }
+        this.triggerChange();
       });
+    },
+
+    triggerChange()
+    {
+
+      if (this.data.count == 1) {
+        this.triggerEvent("change", {value: this.data.urls[0] || null})
+      } else {
+        this.triggerEvent("change", {value: this.data.urls})
+      }
     },
 
     view(e: WXEvent)

@@ -62,7 +62,7 @@ Component({
                     urls: _this.data.urls,
                     uploading: []
                 });
-                _this.triggerEvent("change", { value: _this.data.urls });
+                _this.triggerChange();
             }, function (e) {
                 if (typeof e == "string")
                     UI_1.UI.toastFail(e, 2000);
@@ -76,13 +76,16 @@ Component({
                 img_uploader_service_1.ImgUploaderService.imageOperator.remove(deleted)
                     .subscribe(function (res) { }, function (e) { return console.error("图片删除失败", e); });
                 _this.setData({ urls: _this.data.urls });
-                if (_this.data.count == 1) {
-                    _this.triggerEvent("change", { value: _this.data.urls[0] || null });
-                }
-                else {
-                    _this.triggerEvent("change", { value: _this.data.urls });
-                }
+                _this.triggerChange();
             });
+        },
+        triggerChange: function () {
+            if (this.data.count == 1) {
+                this.triggerEvent("change", { value: this.data.urls[0] || null });
+            }
+            else {
+                this.triggerEvent("change", { value: this.data.urls });
+            }
         },
         view: function (e) {
             var url = e.currentTarget.dataset.url;
