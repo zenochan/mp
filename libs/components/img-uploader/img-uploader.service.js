@@ -5,7 +5,7 @@ var DefaultImageOperator = /** @class */ (function () {
     function DefaultImageOperator() {
     }
     DefaultImageOperator.prototype.upload = function (options) {
-        return api_service_1.API.uploadMore(options.images);
+        return api_service_1.API.uploadMore({ filePaths: options.images });
     };
     DefaultImageOperator.prototype.remove = function () {
         var images = [];

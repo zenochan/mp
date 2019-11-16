@@ -19,7 +19,7 @@ export class DefaultImageOperator implements ImageOperator
 {
   upload(options: UploadOptions): Observable<any>
   {
-    return API.uploadMore(options.images);
+    return API.uploadMore({filePaths: options.images});
   }
 
   remove(...images): Observable<any>
