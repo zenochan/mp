@@ -7,9 +7,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * - count 最大数量，默认9
  * - text 上传按钮提示文字
  * - disabled 只读
+ * - scope 存储空间（前缀）
+ * - urls
+ * - url
  *
  * # events
- * - change 数据改变
+ * - change 数据改变, 当 [count == 1] 时， 携带的数据不是数组
  */
 var UI_1 = require("../../wx/UI");
 var WX_1 = require("../../wx/WX");
@@ -26,6 +29,11 @@ Component({
             type: Array, value: [], observer: function (newVal) {
                 if (!newVal)
                     this.setData({ urls: [] });
+            }
+        },
+        url: {
+            type: String, value: "", observer: function (newVal) {
+                this.setData({ urls: [newVal] });
             }
         },
         disabled: { type: Boolean, value: false },
@@ -45,7 +53,7 @@ Component({
             WX_1.WX.chooseImage(this.data.count - this.data.urls.length, from)
                 .flatMap(function (filePaths) {
                 _this.setData({ uploading: filePaths });
-                return img_uploader_service_1.ImgUploaderService.imageOperator.upload(filePaths);
+                return img_uploader_service_1.ImgUploaderService.imageOperator.upload({ images: filePaths, scope: _this.data.scope });
             }) // 上传
                 .subscribe(function (res) {
                 var _a;
@@ -68,7 +76,12 @@ Component({
                 img_uploader_service_1.ImgUploaderService.imageOperator.remove(deleted)
                     .subscribe(function (res) { }, function (e) { return console.error("图片删除失败", e); });
                 _this.setData({ urls: _this.data.urls });
-                _this.triggerEvent("change", { value: _this.data.urls });
+                if (_this.data.count == 1) {
+                    _this.triggerEvent("change", { value: _this.data.urls[0] || null });
+                }
+                else {
+                    _this.triggerEvent("change", { value: _this.data.urls });
+                }
             });
         },
         view: function (e) {

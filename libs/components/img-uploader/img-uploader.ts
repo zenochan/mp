@@ -5,9 +5,12 @@
  * - count 最大数量，默认9
  * - text 上传按钮提示文字
  * - disabled 只读
+ * - scope 存储空间（前缀）
+ * - urls
+ * - url
  *
  * # events
- * - change 数据改变
+ * - change 数据改变, 当 [count == 1] 时， 携带的数据不是数组
  */
 import {UI} from "../../wx/UI";
 import {WX} from "../../wx/WX";
@@ -28,6 +31,13 @@ Component({
         if (!newVal) this.setData({urls: []});
       }
     },
+
+    url: {
+      type: String, value: "", observer: function (newVal) {
+        this.setData({urls: [newVal]});
+      }
+    },
+
     disabled: {type: Boolean, value: false},
     /** 最大数量, 默认 9 */
     count: {type: Number, value: 9},
@@ -45,7 +55,7 @@ Component({
       WX.chooseImage(this.data.count - this.data.urls.length, from)
           .flatMap(filePaths => {
             this.setData({uploading: filePaths});
-            return ImgUploaderService.imageOperator.upload(filePaths)
+            return ImgUploaderService.imageOperator.upload({images: filePaths, scope: this.data.scope})
           }) // 上传
           .subscribe(res => {
             this.data.urls.push(...res);
@@ -67,7 +77,11 @@ Component({
         ImgUploaderService.imageOperator.remove(deleted)
             .subscribe(res => {}, e => console.error("图片删除失败", e));
         this.setData({urls: this.data.urls});
-        this.triggerEvent("change", {value: this.data.urls})
+        if (this.data.count == 1) {
+          this.triggerEvent("change", {value: this.data.urls[0] || null})
+        } else {
+          this.triggerEvent("change", {value: this.data.urls})
+        }
       });
     },
 
