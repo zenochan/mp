@@ -17,9 +17,9 @@ export class API
   static API_BASE = "";
   static IMG_BASE = "";
 
-  private static resHandler: Function = null;
-  private static headerInterceptor: Function = null;
-  private static pathInterceptor: Function = null;
+  static resHandler: Function = null;
+  static headerInterceptor: Function = null;
+  static pathInterceptor: Function = null;
 
   static config(config: {
     host: string,
@@ -93,10 +93,9 @@ export class API
     });
   }
 
-  static uploadMore(filePaths: string[]): Observable<string[]>
+  static uploadMore(filePaths: string[], path: string = "upload"): Observable<string[]>
   {
-
-    let url = this.API_BASE + "upload";
+    let url = this.API_BASE + path;
     if (this.pathInterceptor) url = this.pathInterceptor(url);
 
     // 上传图片必须 https 请求，这里都直接用 prod 环境

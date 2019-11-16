@@ -72,9 +72,10 @@ var API = /** @class */ (function () {
             });
         });
     };
-    API.uploadMore = function (filePaths) {
+    API.uploadMore = function (filePaths, path) {
         var _this = this;
-        var url = this.API_BASE + "upload";
+        if (path === void 0) { path = "upload"; }
+        var url = this.API_BASE + path;
         if (this.pathInterceptor)
             url = this.pathInterceptor(url);
         // 上传图片必须 https 请求，这里都直接用 prod 环境
