@@ -41,7 +41,8 @@ Component({
         count: { type: Number, value: 9 },
         /** 是否允许从相册选择 */
         cameraOnly: { type: Boolean, value: false },
-        text: { type: String, value: "上传图片" }
+        text: { type: String, value: "上传图片" },
+        scope: { type: String, value: "" }
     },
     methods: {
         chooseImage: function () {
