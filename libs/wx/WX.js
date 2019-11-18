@@ -20,7 +20,7 @@ var WX = /** @class */ (function () {
                 success: function () { return UI_1.UI.toastSuccess("图片已保存"); }
             });
         }, function (e) {
-            if ((e.errMsg || "").indexOf("authorize:fail") != 0) {
+            if ((e.errMsg || "").indexOf("authorize:fail") != -1) {
                 UI_1.UI.showModal({
                     title: "提示",
                     content: "需要保存到相册权限, 是否现在去设置？",
