@@ -15,6 +15,7 @@
 import {UI} from "../../wx/UI";
 import {WX} from "../../wx/WX";
 import {ImgUploaderService} from "./img-uploader.service";
+import {ZZ_IMG_CONFIG} from "../zz-img/config";
 
 Component({
   data: {
@@ -28,13 +29,19 @@ Component({
   properties: {
     urls: {
       type: Array, value: [], observer: function (newVal) {
-        if (!newVal) this.setData({urls: []});
+        if (!newVal) {
+          this.setData({urls: []});
+        }
+        this.completeImgUrl();
       }
     },
 
     url: {
       type: String, value: "", observer: function (newVal) {
-        this.setData({urls: [newVal]});
+        if (newVal) {
+          this.setData({urls: [newVal]});
+          this.completeImgUrl();
+        }
       }
     },
 
@@ -100,6 +107,22 @@ Component({
         current: url,
         urls: urls
       });
+    },
+
+    completeImgUrl()
+    {
+      let change = false;
+      let urls = [];
+      this.data.urls.forEach(url => {
+        if (url.indexOf('http') != 0 && url.indexOf('/assets/') != 0 && ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
+          url = ZZ_IMG_CONFIG.BASE_URL + url;
+          change = true;
+        }
+        urls.push(url)
+      });
+      if (change) {
+        this.setData({urls});
+      }
     }
   },
 });

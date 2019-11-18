@@ -8,6 +8,11 @@ Component({
   {
     WX.isIphoneX().subscribe(res => this.setData({iphoneX: res ? 'iphoneX' : ''}))
   },
+  data: {
+    type: null, value: null, observer: function () {
+      setTimeout(() => this.calcHeight(), 50);
+    }
+  },
 
   options: {
     addGlobalClass: true

@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var UI_1 = require("../../wx/UI");
 var WX_1 = require("../../wx/WX");
 var img_uploader_service_1 = require("./img-uploader.service");
+var config_1 = require("../zz-img/config");
 Component({
     data: {
         uploading: [],
@@ -27,13 +28,18 @@ Component({
     properties: {
         urls: {
             type: Array, value: [], observer: function (newVal) {
-                if (!newVal)
+                if (!newVal) {
                     this.setData({ urls: [] });
+                }
+                this.completeImgUrl();
             }
         },
         url: {
             type: String, value: "", observer: function (newVal) {
-                this.setData({ urls: [newVal] });
+                if (newVal) {
+                    this.setData({ urls: [newVal] });
+                    this.completeImgUrl();
+                }
             }
         },
         disabled: { type: Boolean, value: false },
@@ -95,6 +101,20 @@ Component({
                 current: url,
                 urls: urls
             });
+        },
+        completeImgUrl: function () {
+            var change = false;
+            var urls = [];
+            this.data.urls.forEach(function (url) {
+                if (url.indexOf('http') != 0 && url.indexOf('/assets/') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
+                    url = config_1.ZZ_IMG_CONFIG.BASE_URL + url;
+                    change = true;
+                }
+                urls.push(url);
+            });
+            if (change) {
+                this.setData({ urls: urls });
+            }
         }
     },
 });

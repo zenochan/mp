@@ -9,6 +9,12 @@ Component({
         var _this = this;
         WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ iphoneX: res ? 'iphoneX' : '' }); });
     },
+    data: {
+        type: null, value: null, observer: function () {
+            var _this = this;
+            setTimeout(function () { return _this.calcHeight(); }, 50);
+        }
+    },
     options: {
         addGlobalClass: true
     },
