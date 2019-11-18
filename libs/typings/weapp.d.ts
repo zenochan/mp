@@ -331,6 +331,20 @@ declare global
   namespace wx
   {
 
+
+    //<editor-fold desc="文件API列表">
+    export function saveFile()
+
+    export function removeSavedFile();
+
+    export function getSavedFileList();
+
+    export function getSavedFileInfo();
+
+    export function openDocument();
+
+
+    //</editor-fold>
     export interface ShareOptions
     {
 
@@ -612,6 +626,14 @@ declare global
        */
       success?: (res?: ChooseImageResult) => void;
     }
+
+    export interface SaveImageToPhotoAlbumOptions extends BaseOptions
+    {
+      // 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径
+      filePath: string
+    }
+
+    export function saveImageToPhotosAlbum(options: SaveImageToPhotoAlbumOptions);
 
     /**
      * 从本地相册选择图片或使用相机拍照。
@@ -2678,6 +2700,9 @@ declare global
     export function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
 
     export function getUpdateManager(): any
+
+
+    export function openSetting();
   }
 }
 //</editor-fold>

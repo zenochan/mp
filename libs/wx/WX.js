@@ -11,6 +11,28 @@ var UI_1 = require("./UI");
 var WX = /** @class */ (function () {
     function WX() {
     }
+    WX.saveImageToPhotosAlbum = function (src) {
+        WX.authorize("scope.writePhotosAlbum")
+            .flatMap(function (res) { return WX.getImageInfo(src); })
+            .subscribe(function (res) {
+            wx.saveImageToPhotosAlbum({
+                filePath: res.path,
+                success: function () { return UI_1.UI.toastSuccess("图片已保存"); }
+            });
+        }, function (e) {
+            if ((e.errMsg || "").indexOf("authorize:fail") != 0) {
+                UI_1.UI.showModal({
+                    title: "提示",
+                    content: "需要保存到相册权限, 是否现在去设置？",
+                    confirmText: "打开设置",
+                    cancelText: "取消"
+                }).subscribe(function (res) { return wx.openSetting(); });
+            }
+            else {
+                UI_1.UI.toastFail(e);
+            }
+        });
+    };
     WX.page = function () {
         var pages = getCurrentPages();
         return pages[pages.length - 1];

@@ -7,6 +7,7 @@ import ScanCodeResult = wx.ScanCodeResult;
 import * as Rx from "../rx/Rx";
 import {BehaviorSubject, Observable} from "../rx/Rx";
 import {UI} from "./UI";
+import {Data} from "../mp";
 
 /**
  * 微信 API rx 封装
@@ -15,6 +16,28 @@ import {UI} from "./UI";
  */
 export class WX
 {
+  static saveImageToPhotosAlbum(src)
+  {
+    WX.authorize("scope.writePhotosAlbum")
+        .flatMap(res => WX.getImageInfo(src))
+        .subscribe(res => {
+          wx.saveImageToPhotosAlbum({
+            filePath: res.path,
+            success: () => UI.toastSuccess("图片已保存")
+          });
+        }, e => {
+          if ((e.errMsg || "").indexOf("authorize:fail") != 0) {
+            UI.showModal({
+              title: "提示",
+              content: "需要保存到相册权限, 是否现在去设置？",
+              confirmText: "打开设置",
+              cancelText: "取消"
+            }).subscribe(res => wx.openSetting())
+          } else {
+            UI.toastFail(e)
+          }
+        })
+  }
 
   /**
    * @see Scope
