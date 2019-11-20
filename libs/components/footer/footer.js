@@ -18,6 +18,18 @@ Component({
     options: {
         addGlobalClass: true
     },
+    methods: {
+        calcHeight: function () {
+            var _this = this;
+            // @ts-ignore
+            WX_1.WX.size(".fixed", this).retry(3, 200).subscribe(function (res) {
+                if (res.height == 0)
+                    throw "zero height";
+                _this.setData({ bodyHeight: res.height });
+                _this.parent && _this.parent.resizeBody();
+            });
+        }
+    },
     relations: {
         '../zpage/zpage': {
             type: "parent",
@@ -27,14 +39,7 @@ Component({
         }
     },
     ready: function () {
-        var _this = this;
-        // @ts-ignore
-        WX_1.WX.size(".fixed", this).retry(3, 200).subscribe(function (res) {
-            if (res.height == 0)
-                throw "zero height";
-            _this.setData({ bodyHeight: res.height });
-            _this.parent && _this.parent.resizeBody();
-        });
+        this.calcHeight();
     }
 });
 //# sourceMappingURL=footer.js.map

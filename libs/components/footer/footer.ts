@@ -17,6 +17,16 @@ Component({
   options: {
     addGlobalClass: true
   },
+  methods:{
+    calcHeight(){
+      // @ts-ignore
+      WX.size(".fixed", this).retry(3, 200).subscribe(res => {
+        if (res.height == 0) throw "zero height";
+        this.setData({bodyHeight: res.height});
+        this.parent && this.parent.resizeBody()
+      });
+    }
+  },
 
   relations: {
     '../zpage/zpage': {
@@ -30,11 +40,6 @@ Component({
 
   ready()
   {
-    // @ts-ignore
-    WX.size(".fixed", this).retry(3, 200).subscribe(res => {
-      if (res.height == 0) throw "zero height";
-      this.setData({bodyHeight: res.height});
-      this.parent && this.parent.resizeBody()
-    });
+    this.calcHeight();
   }
 });
