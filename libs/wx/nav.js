@@ -28,7 +28,7 @@ var Nav = /** @class */ (function () {
      * @param data
      */
     Nav.navForResult = function (page, url, data) {
-        page.navData = data;
+        this.navParams = data;
         this.nav(url);
         return new Promise(function (resolve) {
             page.onResult = function (data) {
@@ -37,10 +37,10 @@ var Nav = /** @class */ (function () {
         });
     };
     Nav.navData = function () {
-        var pages = getCurrentPages();
-        if (pages.length <= 1)
-            return null;
-        return pages[pages.length - 2].navData;
+        return this.navParams || null;
+        // let pages: any[] = getCurrentPages();
+        // if (pages.length <= 1) return null;
+        // return pages[pages.length - 2].navData
     };
     Nav.switchTab = function (page) {
         wx.switchTab({

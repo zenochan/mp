@@ -1,7 +1,9 @@
 import {UI} from "./UI";
+import {WX} from "../mp";
 
 export class Nav
 {
+  private static navParams;
   public static INDEX = "/pages/index/index";
 
   static nav(url: string): boolean
@@ -31,7 +33,7 @@ export class Nav
    */
   static navForResult(page: IPage, url: string, data?: any): Promise<any>
   {
-    (page as any).navData = data;
+    this.navParams = data;
 
     this.nav(url);
     return new Promise(resolve => {
@@ -44,9 +46,10 @@ export class Nav
 
   static navData(): any | null
   {
-    let pages: any[] = getCurrentPages();
-    if (pages.length <= 1) return null;
-    return pages[pages.length - 2].navData
+    return this.navParams || null;
+    // let pages: any[] = getCurrentPages();
+    // if (pages.length <= 1) return null;
+    // return pages[pages.length - 2].navData
   }
 
   static switchTab(page: string)
