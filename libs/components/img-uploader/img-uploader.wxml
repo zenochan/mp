@@ -26,8 +26,8 @@
 
   <!--  add -->
   <div class="item add" catch:tap="chooseImage" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
-    <image src="imgs/upload.png" mode="widthFixed"></image>
-    <div>{{text}}</div>
+    <image class="add-image" src="imgs/upload.png" mode="widthFixed"></image>
+    <div class="add-div">{{text}}</div>
   </div>
 
   <div style="clear: both"></div>

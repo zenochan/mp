@@ -25,6 +25,7 @@
     "zbutton": "libs/components/zbutton/index",
     "tabs": "libs/components/tabs/tabs",
     "tab-item": "libs/components/tabs/tab-item",
-    "tooltip": "libs/components/tooltip/index"
+    "tooltip": "libs/components/tooltip/index",
+    "img-uploader": "libs/components/img-uploader/img-uploader"
   }
 }

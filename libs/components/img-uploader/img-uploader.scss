@@ -1,3 +1,7 @@
+:host{
+  display: block;
+}
+
 .item {
   position: relative;
   float: left;
@@ -42,7 +46,6 @@
 
   .add-div {
     font-size: 30px;
-    font-family: PingFangSC-Regular;
     font-weight: 400;
     color: rgba(136, 136, 136, 1);
     line-height: 42px;
