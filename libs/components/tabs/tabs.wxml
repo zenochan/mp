@@ -4,9 +4,8 @@
   </div>
 </block>
 
-
 <block wx:else>
-  <scroll-view id="tabs" scroll-x scroll-with-animation scroll-left="{{scrollLeft}}">
+  <scroll-view class="scroll-view" id="tabs" scroll-x scroll-with-animation scroll-left="{{scrollLeft}}">
     <slot></slot>
   </scroll-view>
 </block>

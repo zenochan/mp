@@ -4,6 +4,6 @@
      bindtouchstart="onTouchStart"
      bindtouchend="onTouchEnd"
 >
-  <image src="/assets/home.png"></image>
+  <image class="home-button-image" src="/assets/home.png"></image>
   <div class="title">首页</div>
 </div>

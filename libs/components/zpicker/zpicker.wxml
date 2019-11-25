@@ -1,11 +1,11 @@
 <block wx:if="{{mode=='region'}}">
-  <picker bindchange="onChange" disabled="{{disabled}}" mode="{{mode}}">
+  <picker class="picker" bindchange="onChange" disabled="{{disabled}}" mode="{{mode}}">
     <slot></slot>
   </picker>
 </block>
 
 <block wx:elif="{{datetime}}">
-  <picker bindchange="onChange" range="{{multiArray}}" value="{{multiIndex}}"
+  <picker class="picker" bindchange="onChange" range="{{multiArray}}" value="{{multiIndex}}"
           disabled="{{disabled}}"
           mode="multiSelector"
           bindcolumnchange="onColumnChange"
@@ -15,7 +15,7 @@
 </block>
 
 <block wx:else>
-  <picker bindchange="onChange" value="{{index}}" range="{{range}}" range-key="{{rangekey}}"
+  <picker class="picker" bindchange="onChange" value="{{index}}" range="{{range}}" range-key="{{rangekey}}"
           disabled="{{disabled}}"
           mode="{{mode}}"
           start="{{dateStart}}" end="{{dateEnd}}" fields="{{dateFields}}"
