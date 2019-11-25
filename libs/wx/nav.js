@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var UI_1 = require("./UI");
+var mp_1 = require("../mp");
 var Nav = /** @class */ (function () {
     function Nav() {
     }
@@ -23,24 +24,23 @@ var Nav = /** @class */ (function () {
         return true;
     };
     /**
-     * @param page
+     * @param holder
      * @param url
      * @param data
      */
-    Nav.navForResult = function (page, url, data) {
+    Nav.navForResult = function (holder, url, data) {
         this.navParams = data;
+        var page = mp_1.WX.page();
+        page.holder = holder;
         this.nav(url);
         return new Promise(function (resolve) {
-            page.onResult = function (data) {
+            page.holder.onResult = function (data) {
                 resolve(data);
             };
         });
     };
     Nav.navData = function () {
         return this.navParams || null;
-        // let pages: any[] = getCurrentPages();
-        // if (pages.length <= 1) return null;
-        // return pages[pages.length - 2].navData
     };
     Nav.switchTab = function (page) {
         wx.switchTab({
@@ -52,9 +52,9 @@ var Nav = /** @class */ (function () {
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];
         wx.navigateBack();
-        var cb = prePage.onResult;
+        var cb = prePage.holder.onResult;
         cb && cb(data);
-        prePage.onResult = null;
+        prePage.holder.onResult = null;
     };
     Nav.navBackOrIndex = function () {
         if (getCurrentPages().length > 1) {

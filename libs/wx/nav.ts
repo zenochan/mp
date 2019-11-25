@@ -27,17 +27,19 @@ export class Nav
   }
 
   /**
-   * @param page
+   * @param holder
    * @param url
    * @param data
    */
-  static navForResult(page: IPage, url: string, data?: any): Promise<any>
+  static navForResult(holder: any, url: string, data?: any): Promise<any>
   {
     this.navParams = data;
+    let page = WX.page();
+    page.holder = holder;
 
     this.nav(url);
     return new Promise(resolve => {
-      (page as any).onResult = function (data) {
+      (page.holder as any).onResult = function (data) {
         resolve(data)
       }
     });
@@ -47,9 +49,6 @@ export class Nav
   static navData(): any | null
   {
     return this.navParams || null;
-    // let pages: any[] = getCurrentPages();
-    // if (pages.length <= 1) return null;
-    // return pages[pages.length - 2].navData
   }
 
   static switchTab(page: string)
@@ -65,9 +64,9 @@ export class Nav
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
     wx.navigateBack();
-    let cb = (prePage as any).onResult;
+    let cb = (prePage.holder as any).onResult;
     cb && cb(data);
-    (prePage as any).onResult = null;
+    (prePage.holder as any).onResult = null;
   }
 
   static navBackOrIndex()
