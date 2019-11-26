@@ -83,7 +83,6 @@ Component({
       }
     },
 
-
     region: {
       type: Boolean, value: false, observer(newVal, oldVal)
       {
@@ -96,15 +95,16 @@ Component({
       type: String, value: "", observer(newVal)
       {
         if (newVal == 'today') {
-          this.data.dateStart = new Date().format('yyyy-MM-dd')
+          this.setData({dateStart: new Date().format('yyyy-MM-dd')});
         }
       }
     },
     dateEnd: {
       type: String, value: "", observer(newVal)
       {
+        console.error(newVal);
         if (newVal == 'today') {
-          this.data.dateEnd = new Date().format('yyyy-MM-dd')
+          this.setData({dateEnd: new Date().format('yyyy-MM-dd')});
         }
       }
     },

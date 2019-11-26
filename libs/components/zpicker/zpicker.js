@@ -84,14 +84,15 @@ Component({
         dateStart: {
             type: String, value: "", observer: function (newVal) {
                 if (newVal == 'today') {
-                    this.data.dateStart = new Date().format('yyyy-MM-dd');
+                    this.setData({ dateStart: new Date().format('yyyy-MM-dd') });
                 }
             }
         },
         dateEnd: {
             type: String, value: "", observer: function (newVal) {
+                console.error(newVal);
                 if (newVal == 'today') {
-                    this.data.dateEnd = new Date().format('yyyy-MM-dd');
+                    this.setData({ dateEnd: new Date().format('yyyy-MM-dd') });
                 }
             }
         },
