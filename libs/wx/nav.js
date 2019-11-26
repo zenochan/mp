@@ -49,12 +49,14 @@ var Nav = /** @class */ (function () {
         });
     };
     Nav.navBack = function (data) {
+        wx.navigateBack();
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];
-        wx.navigateBack();
-        var cb = prePage.holder.onResult;
-        cb && cb(data);
-        prePage.holder.onResult = null;
+        if (prePage && prePage.holder) {
+            var cb = prePage.holder.onResult;
+            cb && cb(data);
+            prePage.holder.onResult = null;
+        }
     };
     Nav.navBackOrIndex = function () {
         if (getCurrentPages().length > 1) {

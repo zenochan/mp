@@ -61,12 +61,14 @@ export class Nav
 
   static navBack(data?: any)
   {
+    wx.navigateBack();
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
-    wx.navigateBack();
-    let cb = (prePage.holder as any).onResult;
-    cb && cb(data);
-    (prePage.holder as any).onResult = null;
+    if (prePage && prePage.holder) {
+      let cb = (prePage.holder as any).onResult;
+      cb && cb(data);
+      (prePage.holder as any).onResult = null;
+    }
   }
 
   static navBackOrIndex()
