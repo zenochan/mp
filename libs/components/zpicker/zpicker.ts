@@ -65,6 +65,9 @@ Component({
     datetimeStart: {
       type: String, value: '2010-01-01 00:00', observer(newVal, oldVal)
       {
+        if (newVal == 'today') {
+          this.data.datetimeStart = new Date().format('yyyy-MM-dd HH:mm')
+        }
         this.data.multiIndex = null;
         this.initDatetime();
       }
