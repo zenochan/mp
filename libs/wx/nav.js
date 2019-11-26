@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var UI_1 = require("./UI");
-var mp_1 = require("../mp");
+var WX_1 = require("./WX");
 var Nav = /** @class */ (function () {
     function Nav() {
     }
@@ -30,7 +30,7 @@ var Nav = /** @class */ (function () {
      */
     Nav.navForResult = function (holder, url, data) {
         this.navParams = data;
-        var page = mp_1.WX.page();
+        var page = WX_1.WX.page();
         page.holder = holder;
         this.nav(url);
         return new Promise(function (resolve) {

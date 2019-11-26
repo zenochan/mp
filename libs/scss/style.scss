@@ -24,8 +24,20 @@ page {
 .flex {
   display: flex;
 
-  &.baseline {
+  &.baseline, &.flex-baseline {
     align-items: baseline;
+  }
+
+  &.flex-center {
+    align-items: center;
+  }
+
+  &.flex-content-center {
+    justify-content: center;
+  }
+
+  &.flex-wrap {
+    flex-wrap: wrap;
   }
 
   &.vertical {
@@ -184,4 +196,5 @@ page {
 div, button, span, view {
   font-family: 'Heiti SC';
 }
+
 //</editor-fold>

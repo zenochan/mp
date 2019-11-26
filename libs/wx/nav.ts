@@ -1,5 +1,5 @@
 import {UI} from "./UI";
-import {WX} from "../mp";
+import {WX} from "./WX";
 
 export class Nav
 {
