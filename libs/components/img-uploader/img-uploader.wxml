@@ -9,7 +9,7 @@
   </div>
 
   <div class="item" wx:for="{{uploading}}" wx:key="{{index}}">
-    <image class="add-image" src="{{item}}" mode="aspectFill"></image>
+    <image class="item-image" src="{{item}}" mode="aspectFill"></image>
 
     <div class="progress add-div">
 
