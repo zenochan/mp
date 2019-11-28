@@ -121,7 +121,9 @@ Component({
         urls.push(url)
       });
       if (change) {
-        this.setData({urls});
+        wx.nextTick(() => {
+          this.setData({urls});
+        });
       }
     }
   },

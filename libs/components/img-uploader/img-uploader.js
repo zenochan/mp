@@ -103,6 +103,7 @@ Component({
             });
         },
         completeImgUrl: function () {
+            var _this = this;
             var change = false;
             var urls = [];
             this.data.urls.forEach(function (url) {
@@ -113,7 +114,9 @@ Component({
                 urls.push(url);
             });
             if (change) {
-                this.setData({ urls: urls });
+                wx.nextTick(function () {
+                    _this.setData({ urls: urls });
+                });
             }
         }
     },
