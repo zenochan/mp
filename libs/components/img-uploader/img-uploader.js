@@ -114,9 +114,7 @@ Component({
                 urls.push(url);
             });
             if (change) {
-                wx.nextTick(function () {
-                    _this.setData({ urls: urls });
-                });
+                setTimeout(function () { return _this.setData({ urls: urls }); }, 200);
             }
         }
     },
