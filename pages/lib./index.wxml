@@ -1,2 +1,8 @@
-<img-uploader></img-uploader>
-<zpicker date dateStart="today">214</zpicker>
+<div style="height: 1500rpx;background-color: orange"></div>
+<div class="line section"></div>
+<zz-textarea placeholder="请输入信息" auto-height></zz-textarea>
+<div style="height: 1200px;background-color: orange"></div>
+
+<footer>
+ <div style="height: 200rpx;background-color: #0ea7ff"></div>
+</footer>

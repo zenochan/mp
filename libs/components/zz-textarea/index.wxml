@@ -1,0 +1,11 @@
+<div class="zz-textarea-ctn" catch:tap="focus">
+  <textarea class="zz-textarea real"
+            bindinput="onInput"
+            wx:if="{{focus}}"
+            bind:blur="onBlur" auto-focus
+            placeholder="{{placeholder}}" value="{{value}}" auto-height="{{autoHeight}}"
+  ></textarea>
+  <div class="zz-textarea text {{!value?'placeholder':''}}" wx:else>
+    <text> {{value || placeholder}}</text>
+  </div>
+</div>

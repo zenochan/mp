@@ -102,7 +102,6 @@ Component({
     dateEnd: {
       type: String, value: "", observer(newVal)
       {
-        console.error(newVal);
         if (newVal == 'today') {
           this.setData({dateEnd: new Date().format('yyyy-MM-dd')});
         }

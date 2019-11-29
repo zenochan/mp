@@ -1,0 +1,28 @@
+
+.zz-textarea-ctn {
+  overflow: hidden;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.zz-textarea {
+  width: 100%;
+  padding: 8px 0;
+  border: 1px solid transparent;
+  line-height: 32px;
+  font-size: 28px;
+  box-sizing: border-box;
+
+  &.real {
+    margin-top: -18px;
+  }
+
+  &.text {
+    margin-left: 13px;
+  }
+
+}
+
+.placeholder {
+  color: #999;
+}
