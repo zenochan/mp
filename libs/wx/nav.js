@@ -51,15 +51,14 @@ var Nav = /** @class */ (function () {
     Nav.navBack = function (data) {
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];
-        wx.navigateBack({
-            success: function () {
-                if (prePage && prePage.holder) {
-                    var cb = prePage.holder.onResult;
-                    cb && cb(data);
-                    prePage.holder.onResult = null;
-                }
-            }
-        });
+        if (prePage && prePage.holder) {
+            prePage.zzLife().filter(function (res) { return res == "onShow"; }).get(1).subscribe(function (res) {
+                var cb = prePage.holder.onResult;
+                cb && cb(data);
+                prePage.holder.onResult = null;
+            });
+        }
+        wx.navigateBack();
     };
     Nav.navBackOrIndex = function () {
         if (getCurrentPages().length > 1) {
