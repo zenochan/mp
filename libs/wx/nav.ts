@@ -64,7 +64,8 @@ export class Nav
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
     if (prePage && prePage.holder) {
-      prePage.zzLife().filter(res => res == "onShow").get(1).subscribe(res => {
+      // 需要等待上衣页面 onShow 后再传回参数, 否则后续页面的 modal 会在当前页面出现，然后跟随页面消失
+      prePage.zzLife().filter(res => res == "onShow").take(1).subscribe(res => {
         let cb = (prePage.holder as any).onResult;
         cb && cb(data);
         (prePage.holder as any).onResult = null;

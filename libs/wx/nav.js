@@ -52,7 +52,8 @@ var Nav = /** @class */ (function () {
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];
         if (prePage && prePage.holder) {
-            prePage.zzLife().filter(function (res) { return res == "onShow"; }).get(1).subscribe(function (res) {
+            // 需要等待上衣页面 onShow 后再传回参数, 否则后续页面的 modal 会在当前页面出现，然后跟随页面消失
+            prePage.zzLife().filter(function (res) { return res == "onShow"; }).take(1).subscribe(function (res) {
                 var cb = prePage.holder.onResult;
                 cb && cb(data);
                 prePage.holder.onResult = null;
