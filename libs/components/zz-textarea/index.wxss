@@ -1,1 +1,1 @@
-.zz-textarea-ctn{overflow:hidden;border:1rpx solid transparent;position:relative}.zz-textarea{width:100%;padding:8rpx 0;border:1rpx solid transparent;line-height:32rpx;font-size:28rpx;box-sizing:border-box}.zz-textarea.real{margin-top:-18rpx}.zz-textarea.text{margin-left:13rpx}.placeholder{color:#999}
+.zz-textarea-ctn{overflow:hidden;border:1rpx solid transparent;position:relative}.zz-textarea{width:100%;padding:8rpx 0;border:1rpx solid transparent;line-height:32rpx;font-size:28rpx;box-sizing:border-box}.zz-textarea.real{margin-top:-18rpx}.placeholder{color:#999}
