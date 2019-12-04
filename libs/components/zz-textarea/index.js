@@ -2,13 +2,16 @@ Component({
     properties: {
         placeholder: { type: String, value: "" },
         value: { type: String, value: "" },
-        autoHeight: { type: Boolean, value: false }
+        autoHeight: { type: Boolean, value: false },
+        disabled: { type: Boolean, value: false }
     },
     options: {
         addGlobalClass: true
     },
     methods: {
         focus: function () {
+            if (this.data.disabled)
+                return;
             this.setData({ focus: true });
         },
         onInput: function (e) {
