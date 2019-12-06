@@ -8,8 +8,7 @@ export class Nav
 
   static nav(url: string): boolean
   {
-
-    if (url.indexOf("pages/") == 0) {
+    if (/^(pages|package)/.test(url)) {
       url = '/' + url;
     }
 
