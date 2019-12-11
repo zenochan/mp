@@ -14,15 +14,19 @@ Component({
   methods: {
     calcHeight()
     {
-      WX.size(".body", this).subscribe(size => {
-        if (size.height == 0) {
-          console.log("retry");
-          setTimeout(() => this.calcHeight(), this.data.delay);
-        } else {
-          console.log(size.height);
-          this.setData({bodyHeight: size.height});
-        }
-      });
+      try {
+        WX.size(".body", this).subscribe(size => {
+          if (size.height == 0) {
+            console.log("retry");
+            setTimeout(() => this.calcHeight(), this.data.delay);
+          } else {
+            console.log(size.height);
+            this.setData({bodyHeight: size.height});
+          }
+        });
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
   ready()

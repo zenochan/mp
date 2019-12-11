@@ -15,16 +15,21 @@ Component({
     methods: {
         calcHeight: function () {
             var _this = this;
-            WX_1.WX.size(".body", this).subscribe(function (size) {
-                if (size.height == 0) {
-                    console.log("retry");
-                    setTimeout(function () { return _this.calcHeight(); }, _this.data.delay);
-                }
-                else {
-                    console.log(size.height);
-                    _this.setData({ bodyHeight: size.height });
-                }
-            });
+            try {
+                WX_1.WX.size(".body", this).subscribe(function (size) {
+                    if (size.height == 0) {
+                        console.log("retry");
+                        setTimeout(function () { return _this.calcHeight(); }, _this.data.delay);
+                    }
+                    else {
+                        console.log(size.height);
+                        _this.setData({ bodyHeight: size.height });
+                    }
+                });
+            }
+            catch (e) {
+                console.error(e);
+            }
         }
     },
     ready: function () {
