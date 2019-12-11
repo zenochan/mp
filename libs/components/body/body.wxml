@@ -17,4 +17,6 @@
   </view>
 </scroll-view>
 
-<div wx:else style="height: {{height}};"></div>
+<div wx:else style="height: {{height}};">
+  <slot></slot>
+</div>
