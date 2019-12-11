@@ -27,6 +27,7 @@ Component({
       type: Number,
       value: 60,
     },
+    scroll: {type: Boolean, value: false}
   },
 
   relations: {
