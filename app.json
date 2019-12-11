@@ -27,6 +27,7 @@
     "tab-item": "libs/components/tabs/tab-item",
     "tooltip": "libs/components/tooltip/index",
     "img-uploader": "libs/components/img-uploader/img-uploader",
-    "zz-textarea": "libs/components/zz-textarea/index"
+    "zz-textarea": "libs/components/zz-textarea/index",
+    "zz-vscroll": "libs/components/zz-vscroll/index"
   }
 }

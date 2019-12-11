@@ -1,0 +1,10 @@
+<div class="body"></div>
+
+<block wx:if="{{!bodyHeight}}">
+  <slot></slot>
+</block>
+
+
+<scroll-view scroll-y wx:else style="height:{{bodyHeight}}px;">
+  <slot></slot>
+</scroll-view>

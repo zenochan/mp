@@ -1,8 +1,7 @@
-<div style="height: 1500rpx;background-color: orange"></div>
-<div class="line section"></div>
-<zz-textarea placeholder="请输入信息" auto-height></zz-textarea>
-<div style="height: 1200px;background-color: orange"></div>
+ABC
+<zz-vscroll style="max-height: 40vh;">
 
-<footer>
- <div style="height: 200rpx;background-color: #0ea7ff"></div>
-</footer>
+  <div wx:for="111111111" wx:key="index" style="background-color: orange;height: 100px;margin-bottom: 10px"></div>
+
+</zz-vscroll>
+MLK
