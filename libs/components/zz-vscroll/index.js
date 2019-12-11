@@ -9,6 +9,9 @@ Component({
                 var _this = this;
                 setTimeout(function () { return _this.calcHeight(); }, 50);
             }
+        },
+        delay: {
+            type: Number, value: 0
         }
     },
     methods: {
@@ -16,13 +19,12 @@ Component({
             var _this = this;
             WX_1.WX.size(".body", this).subscribe(function (size) {
                 _this.setData({ bodyHeight: size.height.toFixed(0) });
-                console.error(size.height);
             });
         }
     },
     ready: function () {
-        // setTimeout(()=>this.calcHeight(),200);
-        this.calcHeight();
+        var _this = this;
+        setTimeout(function () { return _this.calcHeight(); }, this.data.delay);
     }
 });
 //# sourceMappingURL=index.js.map

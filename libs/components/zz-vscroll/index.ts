@@ -7,6 +7,9 @@ Component({
       type: null, value: null, observer: function () {
         setTimeout(() => this.calcHeight(), 50);
       }
+    },
+    delay: {
+      type: Number, value: 0
     }
   },
 
@@ -15,13 +18,11 @@ Component({
     {
       WX.size(".body", this).subscribe(size => {
         this.setData({bodyHeight: size.height.toFixed(0)});
-        console.error(size.height);
       });
     }
   },
   ready()
   {
-    // setTimeout(()=>this.calcHeight(),200);
-    this.calcHeight();
+    setTimeout(() => this.calcHeight(), this.data.delay);
   }
 });
