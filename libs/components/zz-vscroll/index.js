@@ -21,7 +21,8 @@ Component({
                     setTimeout(function () { return _this.calcHeight(); }, _this.data.delay);
                 }
                 else {
-                    _this.setData({ bodyHeight: size.height.toFixed(0) });
+                    console.log(size.height);
+                    _this.setData({ bodyHeight: size.height });
                 }
             });
         }

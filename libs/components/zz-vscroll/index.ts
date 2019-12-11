@@ -19,7 +19,8 @@ Component({
           console.log("retry");
           setTimeout(() => this.calcHeight(), this.data.delay);
         } else {
-          this.setData({bodyHeight: size.height.toFixed(0)});
+          console.log(size.height);
+          this.setData({bodyHeight: size.height});
         }
       });
     }
