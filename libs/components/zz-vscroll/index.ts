@@ -16,7 +16,7 @@ Component({
     {
       try {
         WX.size(".body", this).subscribe(size => {
-          if (size.height == 0) {
+          if (size.height == 0 || size.height > 800) {
             console.log("retry");
             setTimeout(() => this.calcHeight(), this.data.delay);
           } else {

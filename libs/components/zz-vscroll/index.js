@@ -17,7 +17,7 @@ Component({
             var _this = this;
             try {
                 WX_1.WX.size(".body", this).subscribe(function (size) {
-                    if (size.height == 0) {
+                    if (size.height == 0 || size.height > 800) {
                         console.log("retry");
                         setTimeout(function () { return _this.calcHeight(); }, _this.data.delay);
                     }
