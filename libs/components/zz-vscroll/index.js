@@ -10,21 +10,24 @@ Component({
                 setTimeout(function () { return _this.calcHeight(); }, 50);
             }
         },
-        delay: {
-            type: Number, value: 0
-        }
+        delay: { type: Number, value: 100 }
     },
     methods: {
         calcHeight: function () {
             var _this = this;
             WX_1.WX.size(".body", this).subscribe(function (size) {
-                _this.setData({ bodyHeight: size.height.toFixed(0) });
+                if (size.height == 0) {
+                    console.log("retry");
+                    setTimeout(function () { return _this.calcHeight(); }, _this.data.delay);
+                }
+                else {
+                    _this.setData({ bodyHeight: size.height.toFixed(0) });
+                }
             });
         }
     },
     ready: function () {
-        var _this = this;
-        setTimeout(function () { return _this.calcHeight(); }, this.data.delay);
+        this.calcHeight();
     }
 });
 //# sourceMappingURL=index.js.map

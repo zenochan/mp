@@ -5,6 +5,6 @@
 </block>
 
 
-<scroll-view scroll-y wx:else style="height:{{bodyHeight}}px;">
+<scroll-view class="scroll" scroll-y wx:else style="height:{{bodyHeight}}px;">
   <slot></slot>
 </scroll-view>
