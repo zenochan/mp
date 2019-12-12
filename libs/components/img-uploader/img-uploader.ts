@@ -41,6 +41,8 @@ Component({
         if (newVal) {
           this.setData({urls: [newVal]});
           this.completeImgUrl();
+        } else {
+          this.setData({urls: []});
         }
       }
     },

@@ -40,6 +40,9 @@ Component({
                     this.setData({ urls: [newVal] });
                     this.completeImgUrl();
                 }
+                else {
+                    this.setData({ urls: [] });
+                }
             }
         },
         disabled: { type: Boolean, value: false },
