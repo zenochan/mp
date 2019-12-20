@@ -43,4 +43,11 @@ Component({
       }
     },
   }
+  ,
+  methods: {
+    view()
+    {
+      wx.previewImage({urls: [this.data.src]})
+    }
+  }
 });

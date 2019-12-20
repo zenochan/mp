@@ -40,6 +40,11 @@ Component({
                     this.setData({ mode: 'widthFix' });
             }
         },
+    },
+    methods: {
+        view: function () {
+            wx.previewImage({ urls: [this.data.src] });
+        }
     }
 });
 //# sourceMappingURL=index.js.map

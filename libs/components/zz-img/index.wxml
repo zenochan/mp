@@ -1,1 +1,1 @@
-<image class="zz-img__holder" src="{{src}}" mode="{{mode}}"></image>
+<image class="zz-img__holder" src="{{src}}" mode="{{mode}}" bind:tap="view"></image>
