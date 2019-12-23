@@ -58,6 +58,8 @@ Component({
   ready()
   {
     WX.size("#zz-img__size", this).subscribe(res => {
+      res.width = res.width * ZZ_IMG_CONFIG.ratio;
+      res.height = res.height * ZZ_IMG_CONFIG.ratio;
       this.setData({size: res});
     })
   }

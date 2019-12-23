@@ -54,6 +54,8 @@ Component({
     ready: function () {
         var _this = this;
         mp_1.WX.size("#zz-img__size", this).subscribe(function (res) {
+            res.width = res.width * config_1.ZZ_IMG_CONFIG.ratio;
+            res.height = res.height * config_1.ZZ_IMG_CONFIG.ratio;
             _this.setData({ size: res });
         });
     }
