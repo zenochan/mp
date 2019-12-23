@@ -1,7 +1,1 @@
-ABC
-<zz-vscroll style="max-height: 40vh;">
-
-  <div wx:for="111111111" wx:key="index" style="background-color: orange;height: 100px;margin-bottom: 10px"></div>
-
-</zz-vscroll>
-MLK
+<zz-img src="https://eap-img.shrobam.com/goodsbg.jpg" style="width: 200rpx;height: 200rpx" width-fix></zz-img>

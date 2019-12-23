@@ -1,1 +1,4 @@
-<image class="zz-img__holder" src="{{src}}" mode="{{mode}}" bind:tap="view"></image>
+<div class="zz-img__size" id="zz-img__size"></div>
+<image class="zz-img__holder" wx:if="{{_src && size}}"
+       src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
+       bind:tap="view"></image>

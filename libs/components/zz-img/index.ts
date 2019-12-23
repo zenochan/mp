@@ -1,4 +1,5 @@
 import {ZZ_IMG_CONFIG} from "./config";
+import {WX} from "../../mp";
 
 Component({
   properties: {
@@ -6,7 +7,9 @@ Component({
       type: String, value: '', observer(src: string)
       {
         if (src.indexOf('http') != 0 && src.indexOf('/assets/') != 0 && ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
-          this.setData({src: ZZ_IMG_CONFIG.BASE_URL + src})
+          this.setData({_src: ZZ_IMG_CONFIG.BASE_URL + src})
+        } else {
+          this.setData({_src: src})
         }
       },
     },
@@ -53,5 +56,11 @@ Component({
         wx.previewImage({urls: [this.data.src]})
       }
     }
+  },
+  ready()
+  {
+    WX.size("#zz-img__size", this).subscribe(res => {
+      this.setData({size: res});
+    })
   }
 });
