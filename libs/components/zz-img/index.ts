@@ -11,6 +11,8 @@ Component({
       },
     },
 
+    view: {type: Boolean, value: false},
+
     mode: {
       type: String, value: null, observer(value)
       {
@@ -47,7 +49,9 @@ Component({
   methods: {
     view()
     {
-      wx.previewImage({urls: [this.data.src]})
+      if (this.data.view) {
+        wx.previewImage({urls: [this.data.src]})
+      }
     }
   }
 });

@@ -10,6 +10,7 @@ Component({
                 }
             },
         },
+        view: { type: Boolean, value: false },
         mode: {
             type: String, value: null, observer: function (value) {
                 if (value)
@@ -43,7 +44,9 @@ Component({
     },
     methods: {
         view: function () {
-            wx.previewImage({ urls: [this.data.src] });
+            if (this.data.view) {
+                wx.previewImage({ urls: [this.data.src] });
+            }
         }
     }
 });
