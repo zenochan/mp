@@ -47,10 +47,8 @@ Component({
         },
     },
     methods: {
-        view: function () {
-            if (this.data.view) {
-                wx.previewImage({ urls: [this.data.src] });
-            }
+        preview: function () {
+            this.data.view && this.data._src && wx.previewImage({ urls: [this.data._src] });
         }
     },
     ready: function () {

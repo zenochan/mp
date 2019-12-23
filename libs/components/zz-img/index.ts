@@ -50,11 +50,9 @@ Component({
   }
   ,
   methods: {
-    view()
+    preview()
     {
-      if (this.data.view) {
-        wx.previewImage({urls: [this.data.src]})
-      }
+      this.data.view && this.data._src && wx.previewImage({urls: [this.data._src]})
     }
   },
   ready()
