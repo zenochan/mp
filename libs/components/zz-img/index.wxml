@@ -1,4 +1,11 @@
-<image class="zz-img__holder" wx:if="{{_src && size}}"
-       src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
-       bind:tap="preview"></image>
-<div class="zz-img__size" id="zz-img__size"></div>
+<block wx:if="{{qiniu}}">
+  <image class="zz-img__holder" wx:if="{{_src && size}}"
+         src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
+         bind:tap="preview"></image>
+  <div class="zz-img__size" id="zz-img__size"></div>
+</block>
+
+<block wx:else>
+  <image class="zz-img__holder" src="{{_src}}" mode="{{mode}}" bind:tap="preview"></image>
+</block>
+

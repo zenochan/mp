@@ -15,6 +15,7 @@ Component({
             },
         },
         view: { type: Boolean, value: false },
+        qiniu: { type: Boolean, value: false },
         mode: {
             type: String, value: null, observer: function (value) {
                 if (value)
