@@ -62,7 +62,11 @@ Component({
     WX.size("#zz-img__size", this).subscribe(res => {
       res.width = res.width * ZZ_IMG_CONFIG.ratio;
       res.height = res.height * ZZ_IMG_CONFIG.ratio;
+
       this.setData({size: res});
+      if (res.width * res.height == 0 && this.data.qiniu) {
+        this.setData({qiniu: false});
+      }
     })
   }
 });

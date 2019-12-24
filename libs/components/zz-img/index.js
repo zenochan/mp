@@ -58,6 +58,9 @@ Component({
             res.width = res.width * config_1.ZZ_IMG_CONFIG.ratio;
             res.height = res.height * config_1.ZZ_IMG_CONFIG.ratio;
             _this.setData({ size: res });
+            if (res.width * res.height == 0 && _this.data.qiniu) {
+                _this.setData({ qiniu: false });
+            }
         });
     }
 });
