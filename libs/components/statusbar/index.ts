@@ -5,7 +5,7 @@ Component({
   options: {
     addGlobalClass: true
   },
-  attached()
+  created()
   {
     wx.getSystemInfo({
       success: res => {
