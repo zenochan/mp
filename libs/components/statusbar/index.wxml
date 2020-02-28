@@ -1,0 +1,1 @@
+<div class="statusbar" style="height: {{h||0}}px"></div>

@@ -29,6 +29,7 @@
     "img-uploader": "libs/components/img-uploader/img-uploader",
     "zz-textarea": "libs/components/zz-textarea/index",
     "zz-vscroll": "libs/components/zz-vscroll/index",
-    "zz-img": "libs/components/zz-img/index"
+    "zz-img": "libs/components/zz-img/index",
+    "statusbar": "libs/components/statusbar/index"
   }
 }
