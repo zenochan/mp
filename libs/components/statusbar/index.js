@@ -9,7 +9,7 @@ Component({
         var _this = this;
         wx.getSystemInfo({
             success: function (res) {
-                _this.setData({ h: res.statusBarHeight });
+                wx.nextTick(function () { return _this.setData({ h: res.statusBarHeight }); });
             }
         });
     }

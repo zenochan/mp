@@ -9,9 +9,8 @@ Component({
   {
     wx.getSystemInfo({
       success: res => {
-        this.setData({h: res.statusBarHeight});
+        wx.nextTick(() => this.setData({h: res.statusBarHeight}));
       }
     })
-
   }
 });
