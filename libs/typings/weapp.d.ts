@@ -188,6 +188,14 @@ declare global
     observer?: string | ((newVal, oldVal) => void)
   }
 
+  /**
+   * 生命周期
+   * 1. created
+   * 2. attached
+   * 3. ready
+   * 4. moved
+   * 5. detached
+   */
   interface IComponent
   {
     /**
