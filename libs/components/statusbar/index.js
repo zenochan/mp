@@ -1,8 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 Component({
     data: {
         h: 0
+    },
+    options: {
+        addGlobalClass: true
     },
     attached: function () {
         var _this = this;
