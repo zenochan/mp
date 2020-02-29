@@ -12,7 +12,8 @@ Component({
             type: Array, value: null, observer: function () {
                 this.init();
             }
-        }
+        },
+        offset: { type: Number, value: 0 }
     },
     methods: {
         init: function () {

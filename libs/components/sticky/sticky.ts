@@ -12,7 +12,8 @@ Component({
       {
         this.init();
       }
-    }
+    },
+    offset: {type: Number, value: 0}
   },
   methods: {
     init()
