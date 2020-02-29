@@ -1,7 +1,11 @@
 import {WX} from "../../wx/WX";
 
 Component({
-  data: {top: 0, sticky: false},
+  data: {
+    top: 0,
+    offset: 0,
+    sticky: false
+  },
   properties: {
     data: {
       type: Array, value: null, observer()
@@ -24,6 +28,7 @@ Component({
   attached()
   {
     WX.onPageScroll(top => {
+      top += this.data.offset;
       !this.data.sticky && this.data.top < top && this.setData({sticky: true});
       this.data.sticky && this.data.top > top && this.setData({sticky: false})
     })

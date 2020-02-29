@@ -86,7 +86,6 @@ export class WX
     });
   }
 
-
   static systemInfo(): Observable<wx.GetSystemInfoResult>
   {
     return Observable.create(sub => {
@@ -97,9 +96,7 @@ export class WX
         fail: e => sub.error(e)
       })
     });
-
   }
-
 
   static getLocation(): Observable<wx.GetLocationResult>
   {
