@@ -66,6 +66,7 @@ export class WX
     });
   }
 
+
   /**
    * 是否是 iPhone X, 用于兼容底部导航, 底部添加 68rxp 高度;
    *
@@ -84,6 +85,21 @@ export class WX
       })
     });
   }
+
+
+  static systemInfo(): Observable<wx.GetSystemInfoResult>
+  {
+    return Observable.create(sub => {
+      return wx.getSystemInfo({
+        success: res => {
+          sub.next(res)
+        },
+        fail: e => sub.error(e)
+      })
+    });
+
+  }
+
 
   static getLocation(): Observable<wx.GetLocationResult>
   {

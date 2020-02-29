@@ -59,6 +59,16 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    WX.systemInfo = function () {
+        return Rx_1.Observable.create(function (sub) {
+            return wx.getSystemInfo({
+                success: function (res) {
+                    sub.next(res);
+                },
+                fail: function (e) { return sub.error(e); }
+            });
+        });
+    };
     WX.getLocation = function () {
         return Rx_1.Observable.create(function (sub) {
             return wx.getLocation({
