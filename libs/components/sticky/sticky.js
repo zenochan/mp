@@ -7,6 +7,9 @@ Component({
         offset: 0,
         sticky: false
     },
+    options: {
+        addGlobalClass: true
+    },
     properties: {
         data: {
             type: Array, value: null, observer: function () {
