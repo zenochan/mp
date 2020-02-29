@@ -1,4 +1,4 @@
-<div class="body" style="position: {{sticky?'fixed':'block'}};left: 0;top: 0;right: 0">
+<div class="body" style="position: {{sticky?'fixed':'block'}};left: 0;top: {{offset}}px;right: 0">
   <slot></slot>
 </div>
 
