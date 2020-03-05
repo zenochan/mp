@@ -7,7 +7,6 @@ import ScanCodeResult = wx.ScanCodeResult;
 import * as Rx from "../rx/Rx";
 import {BehaviorSubject, Observable} from "../rx/Rx";
 import {UI} from "./UI";
-import {Data} from "../mp";
 
 /**
  * 微信 API rx 封装
@@ -95,6 +94,14 @@ export class WX
         },
         fail: e => sub.error(e)
       })
+    });
+  }
+
+  static navHeight(): Observable<number>
+  {
+    return WX.systemInfo().map(res => {
+      let menuRounding = wx.getMenuButtonBoundingClientRect();
+      return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height
     });
   }
 

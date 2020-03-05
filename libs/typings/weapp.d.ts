@@ -375,7 +375,8 @@ declare global
        * 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，
        * 不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
        */
-      imageUrl?: string
+      imageUrl?: string;
+      success?:Function
     }
 
     export interface IData
@@ -1473,6 +1474,9 @@ declare global
        * 客户端平台
        */
       platform: string;
+
+      /** 状态栏高度 */
+      statusBarHeight: number;
 
       [key: string]: any
     }
@@ -2668,7 +2672,7 @@ declare global
 
     export function hideShareMenu(option: any);
 
-    export function getShareInfo(option: any);
+    export function getShareInfo(option?: any);
 
     //<editor-fold desc="Tab Bar">
     export interface TabBarOptions extends BaseOptions
@@ -2711,6 +2715,18 @@ declare global
 
 
     export function openSetting();
+
+    export interface MenuButtonBounding
+    {
+      bottom: number
+      height: number
+      left: number
+      right: number
+      top: number
+      width: number
+    }
+
+    export function getMenuButtonBoundingClientRect(): MenuButtonBounding;
   }
 }
 //</editor-fold>

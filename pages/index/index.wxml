@@ -1,0 +1,6 @@
+<header>
+  <navigation title="啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈">
+  </navigation>
+</header>
+<div class="top" wx:if="{{top}}">top</div>
+<div bind:tap="toggle">toggle top</div>

@@ -69,6 +69,12 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    WX.navHeight = function () {
+        return WX.systemInfo().map(function (res) {
+            var menuRounding = wx.getMenuButtonBoundingClientRect();
+            return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+        });
+    };
     WX.getLocation = function () {
         return Rx_1.Observable.create(function (sub) {
             return wx.getLocation({

@@ -6,12 +6,14 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
 		"nodeModules": false,
 		"autoAudits": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -19,10 +21,11 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"bundle": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.6",
+	"libVersion": "2.10.2",
 	"appid": "wx8120fc56e8db0384",
 	"projectname": "mp",
 	"debugOptions": {
@@ -54,7 +57,19 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"scene": 1044,
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "k5gSqSC9ZesJjgDiBU3lNBla2xH34dMrJcvssrkIX1k@cr4dev",
+						"shareKey": "PXrQcOhLkjwiNXLIeyxefCOEpyU4cqAx3Iyo1kHwsPnHzEEgeczNoYrLkQ-W4WFU_7cyixd-i74NUNYF8xI1yA~~"
+					}
+				}
+			]
 		}
 	}
 }
