@@ -1,1 +1,16 @@
-:host{position:relative;display:block}.body{position:absolute;top:0;bottom:0}.scroll ::-webkit-scrollbar{background:transparent;width:0;height:0}
+:host {
+  position: relative;
+  display: block
+}
+
+.body {
+  position: absolute;
+  top: 0;
+  bottom: 0
+}
+
+.scroll ::-webkit-scrollbar {
+  background: transparent;
+  width: 0;
+  height: 0
+}

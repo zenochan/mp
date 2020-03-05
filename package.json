@@ -1,6 +1,6 @@
 {
   "name": "mp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Zeno",
   "description": "Zeno 的小程序开发包",
   "main": "./libs/index.js",

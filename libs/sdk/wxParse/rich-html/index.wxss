@@ -1,0 +1,7 @@
+@import "../wxParse.wxss";
+
+:host {
+  word-break: break-all;
+  overflow: auto;
+}
+

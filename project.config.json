@@ -48,30 +48,13 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 2,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/user-list/user-list",
-					"pathName": "pages/user-list/user-list",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/lib./index",
-					"pathName": "pages/lib./index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "zpicker",
-					"pathName": "pages/component/zpicker/index",
-					"scene": null
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }

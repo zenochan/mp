@@ -1,4 +1,4 @@
-import {WX} from "../../wx/WX";
+import {WX} from "../../mp";
 
 export class ZZ_IMG_CONFIG
 {
@@ -6,9 +6,4 @@ export class ZZ_IMG_CONFIG
   static ratio = 2;
 }
 
-wx.getSystemInfo({
-  success(res)
-  {
-    ZZ_IMG_CONFIG.ratio = res.pixelRatio;
-  }
-});
+WX.systemInfo().subscribe(info => ZZ_IMG_CONFIG.ratio = info.pixelRatio);

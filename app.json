@@ -1,32 +1,28 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/lib./index",
-    "pages/component/zpicker/index"
+    "pages/index/index"
   ],
   "window": {
     "navigationStyle": "default",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Zeno‘ Lib",
+    "navigationBarTitleText": "ZZ 组件库",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "zpicker": "libs/components/zpicker/zpicker",
-    "zpage": "libs/components/zpage/zpage",
-    "header": "libs/components/header/header",
-    "footer": "libs/components/footer/footer",
-    "body": "libs/components/body/body",
-    "refresher": "libs/components/refresher/refresher",
-    "navigation": "libs/components/navigation/navigation",
-    "rich-html": "libs/sdk/wxParse/components/rich-html",
-    "fab": "libs/components/fab/fab",
-    "zbutton": "libs/components/zbutton/index",
+    "zpicker": "libs/components/zz-picker/index",
+    "zpage": "libs/components/zz-page/index",
+    "header": "libs/components/header/index",
+    "footer": "libs/components/footer/index",
+    "body": "libs/components/body/index",
+    "navigation": "libs/components/navigation/index",
+    "rich-html": "libs/sdk/wxParse/rich-html/index",
+    "fab": "libs/components/fab/index",
     "tabs": "libs/components/tabs/tabs",
     "tab-item": "libs/components/tabs/tab-item",
     "tooltip": "libs/components/tooltip/index",
-    "img-uploader": "libs/components/img-uploader/img-uploader",
+    "img-uploader": "libs/components/img-uploader/index",
     "zz-textarea": "libs/components/zz-textarea/index",
     "zz-vscroll": "libs/components/zz-vscroll/index",
     "zz-img": "libs/components/zz-img/index",

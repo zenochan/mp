@@ -1,1 +1,0 @@
-.sidebar{background:white;height:100vh;margin-right:16rpx}.user-item{text-align:left;padding:16rpx 8rpx}.user-item[data-active='true']{background:#F7F7F7}.user-item .nickname{color:#333;font-size:28rpx}.user-item .wechat{font-size:24rpx;color:#999}.score-item .flex{align-items:center}.score-item .score{width:100rpx;text-align:right}.score-item input{text-align:center}

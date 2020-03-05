@@ -17,11 +17,6 @@
   line-height: 1.8;
 }
 
-view {
-  word-break: break-all;
-  overflow: auto;
-}
-
 .wxParse-inline {
   display: inline;
   margin: 0;

@@ -1,6 +1,0 @@
-@import "../wxParse.wxss";
-
-:host {
-
-}
-
