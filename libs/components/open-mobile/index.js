@@ -12,4 +12,4 @@ Component({
         catchTap: function (e) { }
     }
 });
-//# sourceMappingURL=open-mobile.js.map
+//# sourceMappingURL=index.js.map
