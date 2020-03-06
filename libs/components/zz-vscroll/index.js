@@ -22,8 +22,7 @@ Component({
                 if (res[2])
                     bottom = res[2].top;
                 var bodyHeight = bottom - top;
-                var pre = _this.data.bodyHeight;
-                if (bodyHeight != pre) {
+                if (bodyHeight != _this.data.bodyHeight) {
                     _this.setData({ bodyHeight: bodyHeight });
                 }
             });
@@ -31,10 +30,7 @@ Component({
     },
     created: function () {
         var _this = this;
-        WX_1.WX.systemInfo().map(function (res) { return _this.data.windowHeight = res.windowHeight; });
-    },
-    ready: function () {
-        var _this = this;
+        WX_1.WX.systemInfo().subscribe(function (res) { return _this.data.windowHeight = res.windowHeight; });
         setInterval(function () { return _this.calcHeight(); }, 1000);
     }
 });

@@ -26,22 +26,15 @@ Component({
         if (res[2]) bottom = res[2].top;
 
         let bodyHeight = bottom - top;
-        let pre = this.data.bodyHeight;
-
-        if (bodyHeight != pre) {
+        if (bodyHeight != this.data.bodyHeight) {
           this.setData({bodyHeight});
         }
       });
     }
   },
-
   created()
   {
-    WX.systemInfo().map(res => this.data.windowHeight = res.windowHeight);
-  },
-
-  ready()
-  {
+    WX.systemInfo().subscribe(res => this.data.windowHeight = res.windowHeight);
     setInterval(() => this.calcHeight(), 1000);
   }
 });
