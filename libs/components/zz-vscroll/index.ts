@@ -35,6 +35,10 @@ Component({
   created()
   {
     WX.systemInfo().subscribe(res => this.data.windowHeight = res.windowHeight);
-    setInterval(() => this.calcHeight(), 1000);
+    this.data.interval = setInterval(() => this.calcHeight(), 1000);
+  },
+  detached()
+  {
+    clearInterval(this.data.interval)
   }
 });

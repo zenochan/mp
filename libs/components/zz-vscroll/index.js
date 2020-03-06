@@ -31,7 +31,10 @@ Component({
     created: function () {
         var _this = this;
         WX_1.WX.systemInfo().subscribe(function (res) { return _this.data.windowHeight = res.windowHeight; });
-        setInterval(function () { return _this.calcHeight(); }, 1000);
+        this.data.interval = setInterval(function () { return _this.calcHeight(); }, 1000);
+    },
+    detached: function () {
+        clearInterval(this.data.interval);
     }
 });
 //# sourceMappingURL=index.js.map
