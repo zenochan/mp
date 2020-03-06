@@ -2,5 +2,10 @@
   <navigation title="啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈">
   </navigation>
 </header>
-<div class="top" wx:if="{{top}}">top</div>
-<div bind:tap="toggle">toggle top</div>
+<div class="top" wx:if="{{top}}" >top</div>
+<div bind:tap="toggle" id="top">toggle top</div>
+
+<zz-vscroll below="#top" above="#bottom" delay="200">
+  <div wx:for="12345666766" wx:key="index" style="margin-bottom: 20px;background: orange;height: 200px"></div>
+</zz-vscroll>
+<!--<div id="bottom" style="background: #0ea7ff;height: 20px;position: absolute;bottom: 0"></div>-->

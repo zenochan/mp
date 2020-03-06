@@ -1,36 +1,40 @@
 import {WX} from "../../wx/WX";
+import {Observable} from "../../rx/Rx";
 
 Component({
   data: {bodyHeight: 0},
   properties: {
-    data: {
-      type: null, value: null, observer: function () {
-        setTimeout(() => this.calcHeight(), 50);
-      }
-    },
-    delay: {type: Number, value: 100}
+    below: {type: String, value: ""},
+    above: {type: String, value: ""}
   },
 
   methods: {
     calcHeight()
     {
-      try {
-        WX.size(".body", this).subscribe(size => {
-          if (size.height == 0 || size.height > 800) {
-            console.log("retry");
-            setTimeout(() => this.calcHeight(), this.data.delay);
-          } else {
-            console.log(size.height);
-            this.setData({bodyHeight: size.height});
-          }
-        });
-      } catch (e) {
-        console.error(e)
-      }
+      Observable.zip(
+          WX.queryBoundingClientRect(this.data.below).map(res => res[0]),
+          WX.queryBoundingClientRect("#zz-scroll", this).map(res => res[0]),
+          WX.queryBoundingClientRect(this.data.above).map(res => res[0]),
+          WX.systemInfo()
+      ).delay(this.data.delay).subscribe(res => {
+        let top = res[1].top;
+        let bottom = res[3].windowHeight;
+
+        if (res[0]) top = res[0].bottom;
+        if (res[2]) bottom = res[2].top;
+
+        let bodyHeight = bottom - top;
+        let pre = this.data.bodyHeight;
+
+        if (bodyHeight != pre) {
+          this.setData({bodyHeight});
+        }
+      });
     }
   },
+
   ready()
   {
-    this.calcHeight();
+    setInterval(() => this.calcHeight(), 1000);
   }
 });
