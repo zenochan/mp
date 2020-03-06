@@ -1,5 +1,6 @@
 import {WX} from "../../wx/WX";
 import {Observable} from "../../rx/Rx";
+import {rxJust} from "../../mp";
 
 Component({
   data: {bodyHeight: 0},
@@ -11,14 +12,15 @@ Component({
   methods: {
     calcHeight()
     {
+      let below = this.data.below ? WX.queryBoundingClientRect(this.data.below).map(res => res[0]) : rxJust(null);
+      let above = this.data.above ? WX.queryBoundingClientRect(this.data.above).map(res => res[0]) : rxJust(null);
       Observable.zip(
-          WX.queryBoundingClientRect(this.data.below).map(res => res[0]),
+          below,
           WX.queryBoundingClientRect("#zz-scroll", this).map(res => res[0]),
-          WX.queryBoundingClientRect(this.data.above).map(res => res[0]),
-          WX.systemInfo()
+          above,
       ).subscribe(res => {
         let top = res[1].top;
-        let bottom = res[3].windowHeight;
+        let bottom = this.data.windowHeight;
 
         if (res[0]) top = res[0].bottom;
         if (res[2]) bottom = res[2].top;
@@ -31,6 +33,11 @@ Component({
         }
       });
     }
+  },
+
+  created()
+  {
+    WX.systemInfo().map(res => this.data.windowHeight = res.windowHeight);
   },
 
   ready()

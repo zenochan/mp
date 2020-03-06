@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 var Rx_1 = require("../../rx/Rx");
+var mp_1 = require("../../mp");
 Component({
     data: { bodyHeight: 0 },
     properties: {
@@ -11,9 +12,11 @@ Component({
     methods: {
         calcHeight: function () {
             var _this = this;
-            Rx_1.Observable.zip(WX_1.WX.queryBoundingClientRect(this.data.below).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect("#zz-scroll", this).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect(this.data.above).map(function (res) { return res[0]; }), WX_1.WX.systemInfo()).subscribe(function (res) {
+            var below = this.data.below ? WX_1.WX.queryBoundingClientRect(this.data.below).map(function (res) { return res[0]; }) : mp_1.rxJust(null);
+            var above = this.data.above ? WX_1.WX.queryBoundingClientRect(this.data.above).map(function (res) { return res[0]; }) : mp_1.rxJust(null);
+            Rx_1.Observable.zip(below, WX_1.WX.queryBoundingClientRect("#zz-scroll", this).map(function (res) { return res[0]; }), above).subscribe(function (res) {
                 var top = res[1].top;
-                var bottom = res[3].windowHeight;
+                var bottom = _this.data.windowHeight;
                 if (res[0])
                     top = res[0].bottom;
                 if (res[2])
@@ -25,6 +28,10 @@ Component({
                 }
             });
         }
+    },
+    created: function () {
+        var _this = this;
+        WX_1.WX.systemInfo().map(function (res) { return _this.data.windowHeight = res.windowHeight; });
     },
     ready: function () {
         var _this = this;
