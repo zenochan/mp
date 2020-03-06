@@ -11,7 +11,7 @@ Component({
     methods: {
         calcHeight: function () {
             var _this = this;
-            Rx_1.Observable.zip(WX_1.WX.queryBoundingClientRect(this.data.below).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect("#zz-scroll", this).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect(this.data.above).map(function (res) { return res[0]; }), WX_1.WX.systemInfo()).delay(this.data.delay).subscribe(function (res) {
+            Rx_1.Observable.zip(WX_1.WX.queryBoundingClientRect(this.data.below).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect("#zz-scroll", this).map(function (res) { return res[0]; }), WX_1.WX.queryBoundingClientRect(this.data.above).map(function (res) { return res[0]; }), WX_1.WX.systemInfo()).subscribe(function (res) {
                 var top = res[1].top;
                 var bottom = res[3].windowHeight;
                 if (res[0])

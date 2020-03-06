@@ -16,7 +16,7 @@ Component({
           WX.queryBoundingClientRect("#zz-scroll", this).map(res => res[0]),
           WX.queryBoundingClientRect(this.data.above).map(res => res[0]),
           WX.systemInfo()
-      ).delay(this.data.delay).subscribe(res => {
+      ).subscribe(res => {
         let top = res[1].top;
         let bottom = res[3].windowHeight;
 
