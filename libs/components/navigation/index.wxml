@@ -4,7 +4,7 @@
     <div wx:if="{{!hideNav}}" class="nav-back" bind:tap="back"></div>
     <view class='nav-title' wx:if="{{title}}">{{title}}</view>
     <slot></slot>
-    <div style="width: {{paddingR}}px"></div>
+    <div style="width: {{paddingR}}px;flex-shrink: 0"></div>
   </view>
 </div>
 

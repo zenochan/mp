@@ -10,6 +10,10 @@ Component({
     hideNav: {type: Boolean, value: false}
   },
 
+  options: {
+    addGlobalClass: true
+  },
+
   attached: function () {
     WX.systemInfo().subscribe(res => {
       let m = wx.getMenuButtonBoundingClientRect();

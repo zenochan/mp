@@ -10,6 +10,9 @@ Component({
         title: { type: String, value: null },
         hideNav: { type: Boolean, value: false }
     },
+    options: {
+        addGlobalClass: true
+    },
     attached: function () {
         var _this = this;
         WX_1.WX.systemInfo().subscribe(function (res) {
