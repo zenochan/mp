@@ -261,3 +261,15 @@ function hookNav(page: IPage)
     wx.redirectTo({url: url})
   }
 }
+
+PageInjectors.push({
+  onShow(page)
+  {
+    if (page.showed) {
+      page.autoRefresh && page.onPullDownRefresh();
+    } else {
+      page.showed = true;
+    }
+    wx.hideNavigationBarLoading();
+  }
+});

@@ -213,4 +213,15 @@ function hookNav(page) {
         wx.redirectTo({ url: url });
     };
 }
+exports.PageInjectors.push({
+    onShow: function (page) {
+        if (page.showed) {
+            page.autoRefresh && page.onPullDownRefresh();
+        }
+        else {
+            page.showed = true;
+        }
+        wx.hideNavigationBarLoading();
+    }
+});
 //# sourceMappingURL=weapp.js.map

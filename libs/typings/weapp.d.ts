@@ -1,4 +1,3 @@
-// Type definitions for weapp v0.12.130400
 import {Observable, BehaviorSubject} from "../rx/Rx";
 
 export {};
@@ -74,6 +73,12 @@ declare global
     /** 20190416 */
     navTitle?: string;
     replace?: (url: string) => void;
+
+    /**
+     * 在 page.onShow 周期调用 page.onPullDownToRefresh
+     * @since 2020年03月13日
+     */
+    autoRefresh?: boolean;
 
 
     /**
@@ -376,7 +381,7 @@ declare global
        * 不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
        */
       imageUrl?: string;
-      success?:Function
+      success?: Function
     }
 
     export interface IData
@@ -2750,6 +2755,3 @@ declare global
     type?: string
   }
 }
-
-
-
