@@ -48,6 +48,12 @@ var Nav = /** @class */ (function () {
             fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); }
         });
     };
+    /**
+     * 数据有变化， 上一个页面需要刷新
+     */
+    Nav.refreshPre = function () {
+        WX_1.WX.pagePre().subscribe(function (page) { return page.onceRefresh = true; });
+    };
     Nav.navBack = function (data) {
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];

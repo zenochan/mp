@@ -8,6 +8,12 @@ function rxJust(value) {
     });
 }
 exports.rxJust = rxJust;
+function rxEmpty() {
+    return Rx_1.Observable.create(function (sub) {
+        sub.complete();
+    });
+}
+exports.rxEmpty = rxEmpty;
 function rxFromPromise(promise) {
     return Rx_1.Observable.create(function (sub) {
         promise.then(function (res) {

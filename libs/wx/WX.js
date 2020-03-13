@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Rx = require("../rx/Rx");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("./UI");
+var mp_1 = require("../mp");
+var RxExt_1 = require("../rx/RxExt");
 /**
  * 微信 API rx 封装
  *
@@ -36,6 +38,15 @@ var WX = /** @class */ (function () {
     WX.page = function () {
         var pages = getCurrentPages();
         return pages[pages.length - 1];
+    };
+    WX.pagePre = function () {
+        var pages = getCurrentPages();
+        if (pages.length > 1) {
+            return mp_1.rxJust(pages[pages.length - 2]);
+        }
+        else {
+            RxExt_1.rxEmpty();
+        }
     };
     WX.forceUpdate = function () {
         wx.getUpdateManager().onUpdateReady(function () {

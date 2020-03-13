@@ -266,7 +266,10 @@ PageInjectors.push({
   onShow(page)
   {
     if (page.showed) {
-      page.autoRefresh && page.onPullDownRefresh();
+      if (page.autoRefresh || page.onceRefresh) {
+        page.onPullDownRefresh();         // 满足条件，刷新数据
+        page.onceRefresh = false;         // 重置刷新条件
+      }
     } else {
       page.showed = true;
     }

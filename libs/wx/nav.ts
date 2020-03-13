@@ -58,6 +58,14 @@ export class Nav
     })
   }
 
+  /**
+   * 数据有变化， 上一个页面需要刷新
+   */
+  static refreshPre()
+  {
+    WX.pagePre().subscribe(page => page.onceRefresh = true);
+  }
+
   static navBack(data?: any)
   {
     let pages = getCurrentPages();

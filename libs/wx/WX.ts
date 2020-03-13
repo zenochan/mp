@@ -7,6 +7,8 @@ import ScanCodeResult = wx.ScanCodeResult;
 import * as Rx from "../rx/Rx";
 import {BehaviorSubject, Observable} from "../rx/Rx";
 import {UI} from "./UI";
+import {rxJust} from "../mp";
+import {rxEmpty} from "../rx/RxExt";
 
 /**
  * 微信 API rx 封装
@@ -56,6 +58,16 @@ export class WX
   {
     let pages = getCurrentPages();
     return pages[pages.length - 1];
+  }
+
+  static pagePre(): Observable<IPage>
+  {
+    let pages = getCurrentPages();
+    if (pages.length > 1) {
+      return rxJust(pages[pages.length - 2]);
+    } else {
+      rxEmpty()
+    }
   }
 
   static forceUpdate()

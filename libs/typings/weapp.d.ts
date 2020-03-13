@@ -80,6 +80,11 @@ declare global
      */
     autoRefresh?: boolean;
 
+    /**
+     * 同 {@link autoRefresh}, 但仅刷新一次，适合跳到详情，数据改变后执行
+     */
+    onceRefresh?: boolean;
+
 
     /**
      * 生命收起事件

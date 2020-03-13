@@ -8,6 +8,13 @@ export function rxJust<T>(value: T): Observable<T>
   })
 }
 
+export function rxEmpty<T>(): Observable<T>
+{
+  return Observable.create(sub => {
+    sub.complete();
+  })
+}
+
 export function rxFromPromise<T>(promise: Promise<T>): Observable<T>
 {
   return Observable.create(sub => {
