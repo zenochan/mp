@@ -243,7 +243,7 @@ exports.PageInjectors.push({
 // DataChangeDetector
 function hookDataChange(page) {
     page.onDataChange = new Rx_1.BehaviorSubject('');
-    page._setData = this.setData;
+    page._setData = page.setData;
     page.setData = function (data) {
         page._setData(data);
         page.onDataChange.next(data);

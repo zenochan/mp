@@ -295,7 +295,7 @@ PageInjectors.push({
 function hookDataChange(page)
 {
   page.onDataChange = new BehaviorSubject('');
-  page._setData = this.setData;
+  page._setData = page.setData;
   page.setData = (data) => {
     page._setData(data);
     page.onDataChange.next(data);
