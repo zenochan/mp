@@ -102,7 +102,7 @@ declare global
      * 每次小程序打开，只会初始化一次，不要赋值动态的数据
      */
     data?: any;
-    onDataChange?: BehaviorSubject | Observable<any>;
+    onDataChange?: ()=>Observable<any>;
 
     /**
      * 生命周期函数--监听页面加载

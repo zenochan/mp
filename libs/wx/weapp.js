@@ -22,6 +22,12 @@ function HookPage(page) {
         }
         return this.__zzLife__;
     };
+    page.onDataChange = function () {
+        if (!this.__onDataChange__) {
+            this.__onDataChange__ = new Rx_1.BehaviorSubject("__init__").filter(function (res) { return res != '__init__'; });
+        }
+        return this.__onDataChange__;
+    };
     // 是否打印周期函数日志
     [
         "onLoad", "onReady", "onShow", "onHide", "onUnload",
@@ -35,7 +41,11 @@ function HookPage(page) {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
-                hookDataChange(this);
+                page._setData = page.setData;
+                page.setData = function (data) {
+                    page._setData(data);
+                    page.onDataChange.apply(_this).next(data);
+                };
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
@@ -240,13 +250,4 @@ exports.PageInjectors.push({
         };
     }
 });
-// DataChangeDetector
-function hookDataChange(page) {
-    page.onDataChange = new Rx_1.BehaviorSubject('');
-    page._setData = page.setData;
-    page.setData = function (data) {
-        page._setData(data);
-        page.onDataChange.next(data);
-    };
-}
 //# sourceMappingURL=weapp.js.map
