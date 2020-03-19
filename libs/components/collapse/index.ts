@@ -29,7 +29,7 @@ Component({
         Interceptor.easeOut(300).subscribe(timer => {
           if (this.data.expand) timer = 1 - timer;
           this.setData({marginTop: -bodyHeight * timer, bodyHeight});
-        }, null, () => this.data.anim = false)
+        }, null, () => this.setData({anim: false}))
       });
     },
 

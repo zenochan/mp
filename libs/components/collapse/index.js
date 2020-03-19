@@ -32,7 +32,7 @@ Component({
                     if (_this.data.expand)
                         timer = 1 - timer;
                     _this.setData({ marginTop: -bodyHeight * timer, bodyHeight: bodyHeight });
-                }, null, function () { return _this.data.anim = false; });
+                }, null, function () { return _this.setData({ anim: false }); });
             });
         },
         calcHeight: function (next) {
