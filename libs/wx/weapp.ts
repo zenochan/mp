@@ -283,18 +283,18 @@ PageInjectors.push({
   {
     page.showModal = (event: WXEvent | string) => {
       let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      let modal = page.data.modal || {};
-      modal[target] = true;
-      page.setData({modal});
+      page.data.modal = page.data.modal || {};
+      page.data.modal[target] = true;
+      page.setData({modal: page.data.modal});
 
       page.data.modal[target] = false;
     };
 
     page.hideModal = (event: WXEvent | string) => {
       let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      let modal = page.data.modal || {};
-      modal[target] = false;
-      page.setData({modal});
+      page.data.modal = page.data.modal || {};
+      page.data.modal[target] = false;
+      page.setData({modal: page.data.modal});
     };
   }
 });

@@ -232,16 +232,16 @@ exports.PageInjectors.push({
     onLoad: function (page) {
         page.showModal = function (event) {
             var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-            var modal = page.data.modal || {};
-            modal[target] = true;
-            page.setData({ modal: modal });
+            page.data.modal = page.data.modal || {};
+            page.data.modal[target] = true;
+            page.setData({ modal: page.data.modal });
             page.data.modal[target] = false;
         };
         page.hideModal = function (event) {
             var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-            var modal = page.data.modal || {};
-            modal[target] = false;
-            page.setData({ modal: modal });
+            page.data.modal = page.data.modal || {};
+            page.data.modal[target] = false;
+            page.setData({ modal: page.data.modal });
         };
     }
 });
