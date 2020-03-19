@@ -70,10 +70,18 @@ export class WX
     }
   }
 
-  static forceUpdate()
+  /**
+   * 小程序强制更新
+   * @param delayMs 延时弹框，安卓上有时候不显示
+   */
+  static forceUpdate(delayMs: number = 100)
   {
+    if (delayMs < 0) delayMs = 0;
+
     wx.getUpdateManager().onUpdateReady(() => {
-      UI.alert('需要重启小程序完成更新').subscribe(res => wx.getUpdateManager().applyUpdate());
+      setTimeout(() => {
+        UI.alert('需要重启小程序完成更新').subscribe(res => wx.getUpdateManager().applyUpdate());
+      }, delayMs);
     });
   }
 
@@ -289,7 +297,10 @@ export class WX
         count: count,
         sourceType: sourceType,
         success: res => sub.next(res.tempFilePaths),
-        fail: e => sub.error(e),
+        fail: e => {
+          // 忽略取消错误
+          if (e.errMsg.indexOf('cancel') == -1) sub.error(e)
+        },
         complete: () => sub.complete()
       })
     });
@@ -521,5 +532,3 @@ export const sceneMap = {
   1048: "长按图片识别小程序码",
   1049: "手机相册选取小程序码",
 };
-
-

@@ -48,9 +48,18 @@ var WX = /** @class */ (function () {
             RxExt_1.rxEmpty();
         }
     };
-    WX.forceUpdate = function () {
+    /**
+     * 小程序强制更新
+     * @param delayMs 延时弹框，安卓上有时候不显示
+     */
+    WX.forceUpdate = function (delayMs) {
+        if (delayMs === void 0) { delayMs = 100; }
+        if (delayMs < 0)
+            delayMs = 0;
         wx.getUpdateManager().onUpdateReady(function () {
-            UI_1.UI.alert('需要重启小程序完成更新').subscribe(function (res) { return wx.getUpdateManager().applyUpdate(); });
+            setTimeout(function () {
+                UI_1.UI.alert('需要重启小程序完成更新').subscribe(function (res) { return wx.getUpdateManager().applyUpdate(); });
+            }, delayMs);
         });
     };
     /**
@@ -235,7 +244,11 @@ var WX = /** @class */ (function () {
                 count: count,
                 sourceType: sourceType,
                 success: function (res) { return sub.next(res.tempFilePaths); },
-                fail: function (e) { return sub.error(e); },
+                fail: function (e) {
+                    // 忽略取消错误
+                    if (e.errMsg.indexOf('cancel') == -1)
+                        sub.error(e);
+                },
                 complete: function () { return sub.complete(); }
             });
         });
