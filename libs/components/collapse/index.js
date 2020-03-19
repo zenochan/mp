@@ -36,7 +36,7 @@ Component({
     },
     attached: function () {
         var _this = this;
-        WX_1.WX.page().onDataChange.delay(200).subscribe(function (res) {
+        this.sub = WX_1.WX.page().onDataChange.delay(200).subscribe(function (res) {
             WX_1.WX.queryBoundingClientRect("#body", _this).subscribe(function (res) {
                 var body = res[0];
                 var bodyHeight = body.bottom - body.top;
@@ -44,8 +44,12 @@ Component({
                     // 收起
                     _this.setData({ marginTop: -bodyHeight, bodyHeight: bodyHeight });
                 }
+            }, function (e) {
             });
         });
+    },
+    detached: function () {
+        this.sub.unsubscribe();
     },
     ready: function () {
         var _this = this;

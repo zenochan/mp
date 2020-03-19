@@ -36,7 +36,7 @@ Component({
 
   attached()
   {
-    WX.page().onDataChange.delay(200).subscribe(res => {
+    this.sub = WX.page().onDataChange.delay(200).subscribe(res => {
       WX.queryBoundingClientRect("#body", this).subscribe(res => {
         let body = res[0];
         let bodyHeight = body.bottom - body.top;
@@ -44,9 +44,17 @@ Component({
           // 收起
           this.setData({marginTop: -bodyHeight, bodyHeight});
         }
+      }, e => {
+
       });
     });
   },
+
+  detached()
+  {
+    this.sub.unsubscribe()
+  },
+
   ready()
   {
     WX.queryBoundingClientRect("#body", this).subscribe(res => {
