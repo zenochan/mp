@@ -47,13 +47,6 @@ export function HookPage(page: IPage = {})
     return this.__zzLife__
   };
 
-  page.onDataChange = function () {
-    if (!this.__onDataChange__) {
-      this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
-    }
-    return this.__onDataChange__
-  };
-
   // 是否打印周期函数日志
   [
     "onLoad", "onReady", "onShow", "onHide", "onUnload",
@@ -66,12 +59,6 @@ export function HookPage(page: IPage = {})
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
         if (this.navTitle) UI.navTitle(this.navTitle);
-
-        page._setData = page.setData;
-        page.setData = (data) => {
-          page._setData(data);
-          page.onDataChange.apply(this).next(data);
-        };
       }
 
       if (method == "onUnload") {
@@ -300,6 +287,24 @@ PageInjectors.push({
       page.data.modal[target] = false;
       page.setData({modal: page.data.modal});
     };
+  }
+});
+
+PageInjectors.push({
+  onLoad(page)
+  {
+    page.onDataChange = function () {
+      if (!this.__onDataChange__) {
+        this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
+      }
+      return this.__onDataChange__
+    };
+
+    let origin = page.setData;
+    page.setData = (value) => {
+      origin(value);
+      this.onDataChange().next(value);
+    }
   }
 });
 
