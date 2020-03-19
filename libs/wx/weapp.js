@@ -227,4 +227,22 @@ exports.PageInjectors.push({
         wx.hideNavigationBarLoading();
     }
 });
+// 注入 showModal, hideModal
+exports.PageInjectors.push({
+    onLoad: function (page) {
+        page.showModal = function (event) {
+            var target = event.currentTarget.dataset.modal;
+            var modal = page.data.modal || {};
+            modal[target] = true;
+            page.setData({ modal: modal });
+            page.data.moal[target] = false;
+        };
+        page.hideModal = function (event) {
+            var target = event.currentTarget.dataset.modal;
+            var modal = page.data.modal || {};
+            modal[target] = false;
+            page.setData({ modal: modal });
+        };
+    }
+});
 //# sourceMappingURL=weapp.js.map

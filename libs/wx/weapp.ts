@@ -276,3 +276,25 @@ PageInjectors.push({
     wx.hideNavigationBarLoading();
   }
 });
+
+// 注入 showModal, hideModal
+PageInjectors.push({
+  onLoad(page: IPage)
+  {
+    page.showModal = (event: WXEvent) => {
+      let target = event.currentTarget.dataset.modal;
+      let modal = page.data.modal || {};
+      modal[target] = true;
+      page.setData({modal});
+
+      page.data.moal[target] = false;
+    };
+
+    page.hideModal = (event: WXEvent) => {
+      let target = event.currentTarget.dataset.modal;
+      let modal = page.data.modal || {};
+      modal[target] = false;
+      page.setData({modal});
+    };
+  }
+});

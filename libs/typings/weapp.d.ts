@@ -163,6 +163,9 @@ declare global
 
     onBlur?: (event: WXEvent) => void;
 
+    showModal?: (event: WXEvent) => void;
+    hideModal?: (event: WXEvent) => void;
+
     [key: string]: any;
 
   }
