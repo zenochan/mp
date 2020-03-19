@@ -287,7 +287,7 @@ PageInjectors.push({
       modal[target] = true;
       page.setData({modal});
 
-      page.data.moal[target] = false;
+      page.data.modal[target] = false;
     };
 
     page.hideModal = (event: WXEvent | string) => {

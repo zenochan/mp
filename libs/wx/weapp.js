@@ -235,9 +235,8 @@ exports.PageInjectors.push({
             var modal = page.data.modal || {};
             modal[target] = true;
             page.setData({ modal: modal });
-            page.data.moal[target] = false;
+            page.data.modal[target] = false;
         };
-        var target = event.currentTarget.dataset.modal;
         page.hideModal = function (event) {
             var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
             var modal = page.data.modal || {};
