@@ -36,7 +36,7 @@ Component({
 
   created()
   {
-    WX.page().onDataChange.subscribe(() => {
+    WX.page().onDataChange().subscribe(() => {
       WX.queryBoundingClientRect("#body", this).subscribe(res => {
         let body = res[0];
         let bodyHeight = body.bottom - body.top;
