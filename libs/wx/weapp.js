@@ -22,11 +22,10 @@ function HookPage(page) {
         }
         return this.__zzLife__;
     };
-    page.onDataChange = function () {
-        if (!this.__dataChange__) {
-            this.__dataChange__ = new Rx_1.BehaviorSubject("onInit").filter(function (res) { return res == "onInit"; });
-        }
-        return this.__dataChange__;
+    page.onDataChange = new Rx_1.BehaviorSubject("");
+    page.zzSetData = function () {
+        this.setData.apply(this, arguments);
+        page.onDataChange.next(arguments);
     };
     // 是否打印周期函数日志
     [
@@ -41,11 +40,6 @@ function HookPage(page) {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
-                page.__zz_setData__ = page.setData;
-                page.setData = function (value) {
-                    page.__zz_setData__(value);
-                    page.onDataChange.apply(_this).next(value);
-                };
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用

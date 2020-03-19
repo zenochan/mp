@@ -34,6 +34,19 @@ Component({
     }
   },
 
+  attached()
+  {
+    WX.page().onDataChange.delay(200).subscribe(res => {
+      WX.queryBoundingClientRect("#body", this).subscribe(res => {
+        let body = res[0];
+        let bodyHeight = body.bottom - body.top;
+        if (!this.data.expand) {
+          // 收起
+          this.setData({marginTop: -bodyHeight, bodyHeight});
+        }
+      });
+    });
+  },
   ready()
   {
     WX.queryBoundingClientRect("#body", this).subscribe(res => {

@@ -87,9 +87,16 @@ declare global
 
 
     /**
-     * 生命收起事件
+     * 生命周期事件
      */
     zzLife?: () => Observable<String> | any
+
+    onDataChange?: Observable<any> | any
+    /**
+     * 调用 setData 并触发 {@link onDataChange}
+     * @param value
+     */
+    zzSetData?: (value: any) => void;
 
     /**
      * 参数
@@ -102,7 +109,6 @@ declare global
      * 每次小程序打开，只会初始化一次，不要赋值动态的数据
      */
     data?: any;
-    onDataChange?: ()=>Observable<any>;
 
     /**
      * 生命周期函数--监听页面加载
