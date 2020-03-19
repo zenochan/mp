@@ -40,8 +40,6 @@ export function HookPage(page: IPage = {})
 {
   hookNav(page);
   hookInputEvent(page);
-
-  page.onDataChange = new BehaviorSubject('');
   page.zzLife = function () {
     if (!this.__zzLife__) {
       this.__zzLife__ = new BehaviorSubject("onInit")
@@ -61,12 +59,6 @@ export function HookPage(page: IPage = {})
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
         if (this.navTitle) UI.navTitle(this.navTitle);
-
-        this._setData = this.setData;
-        this.setData = (data) => {
-          this._setData(data);
-          this.onDataChange.next(data);
-        }
 
       }
 
@@ -295,6 +287,19 @@ PageInjectors.push({
       page.data.modal = page.data.modal || {};
       page.data.modal[target] = false;
       page.setData({modal: page.data.modal});
+    };
+  }
+});
+
+// DataChangeDetector
+PageInjectors.push({
+  onLoad(page)
+  {
+    page.onDataChange = new BehaviorSubject('');
+    page._setData = this.setData;
+    page.setData = (data) => {
+      page._setData(data);
+      page.onDataChange.next(data);
     };
   }
 });

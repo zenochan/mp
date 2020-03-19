@@ -34,6 +34,10 @@ Component({
             });
         }
     },
+    created: function () {
+        var _this = this;
+        WX_1.WX.page().onDataChange.subscribe(function () { _this.ready(); });
+    },
     ready: function () {
         var _this = this;
         WX_1.WX.queryBoundingClientRect("#body", this).subscribe(function (res) {

@@ -34,6 +34,10 @@ Component({
     }
   },
 
+  created()
+  {
+    WX.page().onDataChange.subscribe(() => { this.ready() });
+  },
   ready()
   {
     WX.queryBoundingClientRect("#body", this).subscribe(res => {
