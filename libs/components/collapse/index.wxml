@@ -2,7 +2,7 @@
   <div class="header {{expand?'expand':'collapse'}}">
     <slot name="header" bind:tap="clickHeader"></slot>
   </div>
-  <div class="body" wx:if="{{ready && expand}}">
+  <div class="body" wx:if="{{ready && (expand || anim)}}">
     <div style="margin-top: {{marginTop}}px">
       <slot name="body"></slot>
     </div>
