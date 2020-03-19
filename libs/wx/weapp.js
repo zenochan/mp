@@ -35,6 +35,7 @@ function HookPage(page) {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
+                hookDataChange(this);
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
@@ -240,14 +241,12 @@ exports.PageInjectors.push({
     }
 });
 // DataChangeDetector
-exports.PageInjectors.push({
-    onLoad: function (page) {
-        page.onDataChange = new Rx_1.BehaviorSubject('');
-        page._setData = this.setData;
-        page.setData = function (data) {
-            page._setData(data);
-            page.onDataChange.next(data);
-        };
-    }
-});
+function hookDataChange(page) {
+    page.onDataChange = new Rx_1.BehaviorSubject('');
+    page._setData = this.setData;
+    page.setData = function (data) {
+        page._setData(data);
+        page.onDataChange.next(data);
+    };
+}
 //# sourceMappingURL=weapp.js.map

@@ -36,7 +36,16 @@ Component({
     },
     created: function () {
         var _this = this;
-        WX_1.WX.page().onDataChange.subscribe(function () { _this.ready(); });
+        WX_1.WX.page().onDataChange.subscribe(function () {
+            WX_1.WX.queryBoundingClientRect("#body", _this).subscribe(function (res) {
+                var body = res[0];
+                var bodyHeight = body.bottom - body.top;
+                if (!_this.data.expand) {
+                    // 收起
+                    _this.setData({ marginTop: -bodyHeight, bodyHeight: bodyHeight });
+                }
+            });
+        });
     },
     ready: function () {
         var _this = this;

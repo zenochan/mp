@@ -59,7 +59,7 @@ export function HookPage(page: IPage = {})
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
         if (this.navTitle) UI.navTitle(this.navTitle);
-
+        hookDataChange(this);
       }
 
       if (method == "onUnload") {
@@ -292,14 +292,12 @@ PageInjectors.push({
 });
 
 // DataChangeDetector
-PageInjectors.push({
-  onLoad(page)
-  {
-    page.onDataChange = new BehaviorSubject('');
-    page._setData = this.setData;
-    page.setData = (data) => {
-      page._setData(data);
-      page.onDataChange.next(data);
-    };
-  }
-});
+function hookDataChange(page)
+{
+  page.onDataChange = new BehaviorSubject('');
+  page._setData = this.setData;
+  page.setData = (data) => {
+    page._setData(data);
+    page.onDataChange.next(data);
+  };
+}
