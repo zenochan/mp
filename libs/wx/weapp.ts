@@ -47,6 +47,14 @@ export function HookPage(page: IPage = {})
     return this.__zzLife__
   };
 
+  page.onDataChange = function () {
+    if (!this.__dataChange__) {
+      this.__dataChange__ = new BehaviorSubject("onInit").filter(res => res == "onInit")
+    }
+    return this.__dataChange__
+  };
+
+
   // 是否打印周期函数日志
   [
     "onLoad", "onReady", "onShow", "onHide", "onUnload",
@@ -59,6 +67,12 @@ export function HookPage(page: IPage = {})
       if (method == "onLoad") {
         this.navParams = Nav.navData() || {};
         if (this.navTitle) UI.navTitle(this.navTitle);
+
+        page.__zz_setData__ = page.setData;
+        page.setData = (value) => {
+          page.__zz_setData__(value);
+          page.onDataChange.apply(this).next(value);
+        };
       }
 
       if (method == "onUnload") {
@@ -293,18 +307,18 @@ PageInjectors.push({
 PageInjectors.push({
   onLoad(page)
   {
-    page.onDataChange = function () {
-      if (!this.__onDataChange__) {
-        this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
-      }
-      return this.__onDataChange__
-    };
-
-    let origin = page.setData;
-    page.setData = (value) => {
-      origin(value);
-      this.onDataChange().next(value);
-    }
+    //   page.onDataChange = function () {
+    //     if (!this.__onDataChange__) {
+    //       this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
+    //     }
+    //     return this.__onDataChange__
+    //   };
+    //
+    //   let origin = page.setData;
+    //   page.setData = (value) => {
+    //     origin(value);
+    //     this.onDataChange().next(value);
+    //   }
   }
 });
 

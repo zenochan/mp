@@ -22,6 +22,12 @@ function HookPage(page) {
         }
         return this.__zzLife__;
     };
+    page.onDataChange = function () {
+        if (!this.__dataChange__) {
+            this.__dataChange__ = new Rx_1.BehaviorSubject("onInit").filter(function (res) { return res == "onInit"; });
+        }
+        return this.__dataChange__;
+    };
     // 是否打印周期函数日志
     [
         "onLoad", "onReady", "onShow", "onHide", "onUnload",
@@ -35,6 +41,11 @@ function HookPage(page) {
                 this.navParams = nav_1.Nav.navData() || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
+                page.__zz_setData__ = page.setData;
+                page.setData = function (value) {
+                    page.__zz_setData__(value);
+                    page.onDataChange.apply(_this).next(value);
+                };
             }
             if (method == "onUnload") {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
@@ -241,18 +252,18 @@ exports.PageInjectors.push({
 });
 exports.PageInjectors.push({
     onLoad: function (page) {
-        var _this = this;
-        page.onDataChange = function () {
-            if (!this.__onDataChange__) {
-                this.__onDataChange__ = new Rx_1.BehaviorSubject("__init__").filter(function (res) { return res != '__init__'; });
-            }
-            return this.__onDataChange__;
-        };
-        var origin = page.setData;
-        page.setData = function (value) {
-            origin(value);
-            _this.onDataChange().next(value);
-        };
+        //   page.onDataChange = function () {
+        //     if (!this.__onDataChange__) {
+        //       this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
+        //     }
+        //     return this.__onDataChange__
+        //   };
+        //
+        //   let origin = page.setData;
+        //   page.setData = (value) => {
+        //     origin(value);
+        //     this.onDataChange().next(value);
+        //   }
     }
 });
 //# sourceMappingURL=weapp.js.map
