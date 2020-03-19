@@ -34,7 +34,7 @@ Component({
             });
         }
     },
-    created: function () {
+    attached: function () {
         var _this = this;
         WX_1.WX.page().onDataChange().subscribe(function () {
             WX_1.WX.queryBoundingClientRect("#body", _this).subscribe(function (res) {
