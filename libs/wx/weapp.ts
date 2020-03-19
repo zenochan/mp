@@ -281,8 +281,8 @@ PageInjectors.push({
 PageInjectors.push({
   onLoad(page: IPage)
   {
-    page.showModal = (event: WXEvent) => {
-      let target = event.currentTarget.dataset.modal;
+    page.showModal = (event: WXEvent | string) => {
+      let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
       let modal = page.data.modal || {};
       modal[target] = true;
       page.setData({modal});
@@ -290,8 +290,8 @@ PageInjectors.push({
       page.data.moal[target] = false;
     };
 
-    page.hideModal = (event: WXEvent) => {
-      let target = event.currentTarget.dataset.modal;
+    page.hideModal = (event: WXEvent | string) => {
+      let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
       let modal = page.data.modal || {};
       modal[target] = false;
       page.setData({modal});

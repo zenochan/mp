@@ -231,14 +231,15 @@ exports.PageInjectors.push({
 exports.PageInjectors.push({
     onLoad: function (page) {
         page.showModal = function (event) {
-            var target = event.currentTarget.dataset.modal;
+            var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
             var modal = page.data.modal || {};
             modal[target] = true;
             page.setData({ modal: modal });
             page.data.moal[target] = false;
         };
+        var target = event.currentTarget.dataset.modal;
         page.hideModal = function (event) {
-            var target = event.currentTarget.dataset.modal;
+            var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
             var modal = page.data.modal || {};
             modal[target] = false;
             page.setData({ modal: modal });
