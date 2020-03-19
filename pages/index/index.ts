@@ -11,9 +11,9 @@ HookPage({
       }
     }
   },
-  toggle()
-  {
-    this.setData({top: !this.data.top});
+ change(){
+    this.zzSetData({datas:[12,1,1,1,1,1]});
+
   }
 
 });

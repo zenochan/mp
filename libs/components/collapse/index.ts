@@ -15,39 +15,52 @@ Component({
   properties: {
     expand: {type: "boolean", value: false}
   },
-  data: {expand: false, marginTop: 0},
+  data: {
+    expand: false,
+    marginTop: 0,
+  },
   methods: {
     clickHeader()
     {
       if (this.data.anim) return;
-
-      this.setData({expand: !this.data.expand, anim: true});
-
-      WX.queryBoundingClientRect("#body", this).subscribe(res => {
-        let body = res[0];
-        let bodyHeight = (body.bottom - body.top) || this.data.bodyHeight;
+      this.calcHeight(() => {
+        this.setData({expand: !this.data.expand, anim: true});
+        let bodyHeight = this.data.bodyHeight;
         Interceptor.easeOut(300).subscribe(timer => {
           if (this.data.expand) timer = 1 - timer;
           this.setData({marginTop: -bodyHeight * timer, bodyHeight});
         }, null, () => this.data.anim = false)
-      })
+      });
+    },
+
+    calcHeight(next?: () => void)
+    {
+      this.setData({ready: this.data.expand});
+      WX.queryBoundingClientRect(".body", this).subscribe(res => {
+        let body = res[0];
+        let bodyHeight = body.bottom - body.top;
+
+        this.setData({
+          marginTop: this.data.expand ? 0 : -bodyHeight,
+          bodyHeight,
+          ready: true
+        });
+
+        next && next();
+      });
     }
   },
 
   attached()
   {
-    this.sub = WX.page().onDataChange.delay(200).subscribe(res => {
-      WX.queryBoundingClientRect("#body", this).subscribe(res => {
-        let body = res[0];
-        let bodyHeight = body.bottom - body.top;
-        if (!this.data.expand) {
-          // 收起
-          this.setData({marginTop: -bodyHeight, bodyHeight});
-        }
-      }, e => {
+    this.sub = WX.page().onDataChange
+        .delay(200)
+        .subscribe(res => this.calcHeight());
+  },
 
-      });
-    });
+  ready()
+  {
+    this.calcHeight();
   },
 
   detached()
@@ -55,15 +68,4 @@ Component({
     this.sub.unsubscribe()
   },
 
-  ready()
-  {
-    WX.queryBoundingClientRect("#body", this).subscribe(res => {
-      let body = res[0];
-      let bodyHeight = body.bottom - body.top;
-      if (!this.data.expand) {
-        // 收起
-        this.setData({marginTop: -bodyHeight, bodyHeight});
-      }
-    });
-  }
 });

@@ -10,8 +10,8 @@ weapp_1.HookPage({
             }
         };
     },
-    toggle: function () {
-        this.setData({ top: !this.data.top });
+    change: function () {
+        this.zzSetData({ datas: [12, 1, 1, 1, 1, 1] });
     }
 });
 //# sourceMappingURL=index.js.map

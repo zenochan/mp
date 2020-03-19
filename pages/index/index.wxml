@@ -1,11 +1,9 @@
-<header>
-  <navigation title="啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈啊哈">
-  </navigation>
-</header>
-<div class="top" wx:if="{{top}}" >top</div>
-<div bind:tap="toggle" id="top">toggle top</div>
+<navigation></navigation>
 
-<zz-vscroll below="#top" above="#bottom" delay="200">
-  <div wx:for="12345666766" wx:key="index" style="margin-bottom: 20px;background: orange;height: 200px"></div>
-</zz-vscroll>
-<!--<div id="bottom" style="background: #0ea7ff;height: 20px;position: absolute;bottom: 0"></div>-->
+<div bind:tap="change">改变数据</div>
+<collapse>
+  <view slot="header">我是头</view>
+  <view slot="body">
+    <div wx:for="{{datas}}" wx:key="index">我是尾巴</div>
+  </view>
+</collapse>

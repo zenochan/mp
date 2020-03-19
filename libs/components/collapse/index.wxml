@@ -1,9 +1,14 @@
-<div class="zclass">
+<div>
   <div class="header {{expand?'expand':'collapse'}}">
     <slot name="header" bind:tap="clickHeader"></slot>
   </div>
-  <div id="body" class="body">
+  <div class="body" wx:if="{{ready}}">
     <div style="margin-top: {{marginTop}}px">
+      <slot name="body"></slot>
+    </div>
+  </div>
+  <div class="hidden" wx:else>
+    <div class="body">
       <slot name="body"></slot>
     </div>
   </div>

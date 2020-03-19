@@ -11,6 +11,7 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "collapse": "libs/components/collapse/index",
     "zpicker": "libs/components/zz-picker/index",
     "zpage": "libs/components/zz-page/index",
     "header": "libs/components/header/index",
