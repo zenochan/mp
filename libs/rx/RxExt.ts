@@ -28,6 +28,6 @@ export function rxFromPromise<T>(promise: Promise<T>): Observable<T>
 
 
 // @ts-ignore
-Observable.prototype.pipe = (transfer) => {
+Observable.prototype.pipe = function (transfer) {
   return transfer(this)
 };
