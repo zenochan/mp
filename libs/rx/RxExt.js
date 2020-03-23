@@ -1,4 +1,5 @@
 "use strict";
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("./Rx");
 function rxJust(value) {
@@ -23,4 +24,8 @@ function rxFromPromise(promise) {
     });
 }
 exports.rxFromPromise = rxFromPromise;
+// @ts-ignore
+Rx_1.Observable.prototype.pipe = function (transfer) {
+    return transfer(_this);
+};
 //# sourceMappingURL=RxExt.js.map

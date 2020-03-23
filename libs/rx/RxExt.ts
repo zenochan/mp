@@ -25,3 +25,9 @@ export function rxFromPromise<T>(promise: Promise<T>): Observable<T>
     }).catch(e => sub.error(e))
   });
 }
+
+
+// @ts-ignore
+Observable.prototype.pipe = (transfer) => {
+  return transfer(this)
+};
