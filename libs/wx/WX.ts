@@ -173,6 +173,8 @@ export class WX
   }
 
   /**
+   *  - The payload is invalid: 一定要在使用session_key 前调用wx.login, 否则解密消息时会此错误
+   *
    * @param timeout {@link LoginOptions.timeout}
    * @see wx.login
    * @return code string
