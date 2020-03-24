@@ -488,6 +488,13 @@ export class WX
     });
   }
 
+  static clipboard(data: string): Observable<any>
+  {
+    return this.rx(handler => {
+      handler.data = data;
+      wx["setClipboardData"](handler)
+    })
+  }
 
   static rx<T>(handler: (options: BaseOptions) => void): Observable<T>
   {

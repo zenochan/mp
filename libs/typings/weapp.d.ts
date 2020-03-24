@@ -357,8 +357,6 @@ declare global
 
   namespace wx
   {
-
-
     //<editor-fold desc="文件API列表">
     export function saveFile()
 
@@ -2746,6 +2744,7 @@ declare global
     }
 
     export function getMenuButtonBoundingClientRect(): MenuButtonBounding;
+
   }
 }
 //</editor-fold>

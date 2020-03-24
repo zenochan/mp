@@ -404,6 +404,12 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    WX.clipboard = function (data) {
+        return this.rx(function (handler) {
+            handler.data = data;
+            wx["setClipboardData"](handler);
+        });
+    };
     WX.rx = function (handler) {
         var options = {};
         return Rx_1.Observable.create(function (sub) {

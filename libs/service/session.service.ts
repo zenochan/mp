@@ -1,6 +1,9 @@
 import {Observable} from "../rx/Observable";
 import {Data, rxJust, WX} from "../mp";
 
+/**
+ * 小程序 session 管理
+ */
 export class SessionService
 {
   public static code2Session: (code: string) => Observable<Session> = null;

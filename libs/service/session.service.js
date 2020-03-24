@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var mp_1 = require("../mp");
+/**
+ * 小程序 session 管理
+ */
 var SessionService = /** @class */ (function () {
     function SessionService() {
     }
