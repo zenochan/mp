@@ -34,11 +34,15 @@ Component({
   },
   created()
   {
-    WX.systemInfo().subscribe(res => this.data.windowHeight = res.windowHeight);
-    this.data.interval = setInterval(() => this.calcHeight(), 1000);
+    WX.systemInfo().subscribe(res => {
+      this.data.windowHeight = res.windowHeight;
+      this.calcHeight();
+    });
+    WX.page().onDataChange.subscribe(res => this.calcHeight());
+    // this.data.interval = setInterval(() => this.calcHeight(), 1000);
   },
-  detached()
-  {
-    clearInterval(this.data.interval)
-  }
+  // detached()
+  // {
+  //   clearInterval(this.data.interval)
+  // }
 });

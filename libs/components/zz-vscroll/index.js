@@ -30,11 +30,12 @@ Component({
     },
     created: function () {
         var _this = this;
-        WX_1.WX.systemInfo().subscribe(function (res) { return _this.data.windowHeight = res.windowHeight; });
-        this.data.interval = setInterval(function () { return _this.calcHeight(); }, 1000);
+        WX_1.WX.systemInfo().subscribe(function (res) {
+            _this.data.windowHeight = res.windowHeight;
+            _this.calcHeight();
+        });
+        WX_1.WX.page().onDataChange.subscribe(function (res) { return _this.calcHeight(); });
+        // this.data.interval = setInterval(() => this.calcHeight(), 1000);
     },
-    detached: function () {
-        clearInterval(this.data.interval);
-    }
 });
 //# sourceMappingURL=index.js.map
