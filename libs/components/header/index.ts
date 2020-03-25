@@ -2,13 +2,7 @@ import {WX} from "../../wx/WX";
 
 Component({
   data: {bodyHeight: 0},
-  properties: {
-    data: {
-      type: null, value: null, observer: function () {
-        setTimeout(() => this.calcHeight(), 50);
-      }
-    }
-  },
+  properties: {},
   options: {
     addGlobalClass: true
   },
@@ -31,8 +25,17 @@ Component({
       });
     }
   },
-  ready()
+  attached()
   {
     this.calcHeight();
+    this.sub = WX.page().onDataChange.subscribe(res => {
+      this.calcHeight();
+      setTimeout(() => this.calcHeight(), 200);
+    });
+  },
+
+  detached()
+  {
+    this.sub.unsubscribe()
   }
 });

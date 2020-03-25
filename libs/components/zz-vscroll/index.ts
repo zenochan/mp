@@ -34,16 +34,22 @@ Component({
       });
     }
   },
-  ready()
+
+  attached()
   {
     WX.systemInfo().subscribe(res => {
       this.data.windowHeight = res.windowHeight;
       this.calcHeight();
 
-      WX.page().onDataChange.subscribe(res => {
+      this.sub = WX.page().onDataChange.subscribe(res => {
         this.calcHeight();
-        setTimeout(()=>this.calcHeight(),200);
+        setTimeout(() => this.calcHeight(), 200);
       });
     });
   },
+
+  detached()
+  {
+    this.sub.unsubscribe()
+  }
 });

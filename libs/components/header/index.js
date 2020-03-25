@@ -3,14 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
     data: { bodyHeight: 0 },
-    properties: {
-        data: {
-            type: null, value: null, observer: function () {
-                var _this = this;
-                setTimeout(function () { return _this.calcHeight(); }, 50);
-            }
-        }
-    },
+    properties: {},
     options: {
         addGlobalClass: true
     },
@@ -31,8 +24,16 @@ Component({
             });
         }
     },
-    ready: function () {
+    attached: function () {
+        var _this = this;
         this.calcHeight();
+        this.sub = WX_1.WX.page().onDataChange.subscribe(function (res) {
+            _this.calcHeight();
+            setTimeout(function () { return _this.calcHeight(); }, 200);
+        });
+    },
+    detached: function () {
+        this.sub.unsubscribe();
     }
 });
 //# sourceMappingURL=index.js.map

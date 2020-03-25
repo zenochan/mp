@@ -29,16 +29,19 @@ Component({
             });
         }
     },
-    ready: function () {
+    attached: function () {
         var _this = this;
         WX_1.WX.systemInfo().subscribe(function (res) {
             _this.data.windowHeight = res.windowHeight;
             _this.calcHeight();
-            WX_1.WX.page().onDataChange.subscribe(function (res) {
+            _this.sub = WX_1.WX.page().onDataChange.subscribe(function (res) {
                 _this.calcHeight();
                 setTimeout(function () { return _this.calcHeight(); }, 200);
             });
         });
     },
+    detached: function () {
+        this.sub.unsubscribe();
+    }
 });
 //# sourceMappingURL=index.js.map
