@@ -75,8 +75,8 @@ page {
   border: 1px solid orange;
   position: relative;
 
-  :after {
-    content: 'ROBAM';
+  &:after {
+    content: 'TODO';
     word-break: break-all;
     font-size: 30px;
     text-align: center;
