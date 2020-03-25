@@ -29,13 +29,16 @@ Component({
             });
         }
     },
-    attached: function () {
+    ready: function () {
         var _this = this;
         WX_1.WX.systemInfo().subscribe(function (res) {
             _this.data.windowHeight = res.windowHeight;
             _this.calcHeight();
+            WX_1.WX.page().onDataChange.subscribe(function (res) {
+                _this.calcHeight();
+                setTimeout(function () { return _this.calcHeight(); }, 200);
+            });
         });
-        WX_1.WX.page().onDataChange.subscribe(function (res) { return _this.calcHeight(); });
     },
 });
 //# sourceMappingURL=index.js.map
