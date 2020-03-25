@@ -12,6 +12,7 @@ Component({
     methods: {
         calcHeight: function () {
             var _this = this;
+            wx.pageScrollTo({ scrollTop: 0 });
             var below = this.data.below ? WX_1.WX.queryBoundingClientRect(this.data.below).map(function (res) { return res[0]; }) : mp_1.rxJust(null);
             var above = this.data.above ? WX_1.WX.queryBoundingClientRect(this.data.above).map(function (res) { return res[0]; }) : mp_1.rxJust(null);
             Rx_1.Observable.zip(below, WX_1.WX.queryBoundingClientRect("#zz-scroll", this).map(function (res) { return res[0]; }), above).subscribe(function (res) {
@@ -28,14 +29,13 @@ Component({
             });
         }
     },
-    created: function () {
+    attached: function () {
         var _this = this;
         WX_1.WX.systemInfo().subscribe(function (res) {
             _this.data.windowHeight = res.windowHeight;
             _this.calcHeight();
         });
         WX_1.WX.page().onDataChange.subscribe(function (res) { return _this.calcHeight(); });
-        // this.data.interval = setInterval(() => this.calcHeight(), 1000);
     },
 });
 //# sourceMappingURL=index.js.map

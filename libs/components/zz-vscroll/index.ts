@@ -12,6 +12,8 @@ Component({
   methods: {
     calcHeight()
     {
+      wx.pageScrollTo({scrollTop: 0});
+
       let below = this.data.below ? WX.queryBoundingClientRect(this.data.below).map(res => res[0]) : rxJust(null);
       let above = this.data.above ? WX.queryBoundingClientRect(this.data.above).map(res => res[0]) : rxJust(null);
       Observable.zip(
@@ -32,17 +34,12 @@ Component({
       });
     }
   },
-  created()
+  attached()
   {
     WX.systemInfo().subscribe(res => {
       this.data.windowHeight = res.windowHeight;
       this.calcHeight();
     });
     WX.page().onDataChange.subscribe(res => this.calcHeight());
-    // this.data.interval = setInterval(() => this.calcHeight(), 1000);
   },
-  // detached()
-  // {
-  //   clearInterval(this.data.interval)
-  // }
 });
