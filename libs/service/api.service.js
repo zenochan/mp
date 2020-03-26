@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
+var config_1 = require("../components/zz-img/config");
 /**
  * ## Methods
  * - {@link get}
@@ -17,6 +18,7 @@ var API = /** @class */ (function () {
     API.config = function (config) {
         this.API_BASE = config.host;
         this.IMG_BASE = config.imgBase;
+        config_1.ZZ_IMG_CONFIG.BASE_URL = config.imgBase;
         this.resHandler = config.resHandler;
         this.headerInterceptor = config.headerInterceptor;
         this.pathInterceptor = config.pathInterceptor;

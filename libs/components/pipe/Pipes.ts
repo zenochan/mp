@@ -1,6 +1,6 @@
 import "../../utils/extends.date";
 
-export const Pipes: { [key: string]: (...args) => string } = {
+export const Pipes: { [key: string]: (...args) => string|any } = {
 
   /**
    * 时间处理管道

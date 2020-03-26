@@ -1,6 +1,7 @@
 import {Data} from "../wx/Data";
 import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
+import {ZZ_IMG_CONFIG} from "../components/zz-img/config";
 
 
 /**
@@ -31,6 +32,8 @@ export class API
   {
     this.API_BASE = config.host;
     this.IMG_BASE = config.imgBase;
+    ZZ_IMG_CONFIG.BASE_URL = config.imgBase;
+
     this.resHandler = config.resHandler;
     this.headerInterceptor = config.headerInterceptor;
     this.pathInterceptor = config.pathInterceptor;

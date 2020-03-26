@@ -2,6 +2,7 @@ import {Nav} from "./nav";
 import {UI} from "./UI";
 import {Data} from "./Data";
 import {BehaviorSubject} from "../rx/Rx";
+import {API} from "../mp";
 
 export const HOOK_CONF = {log: true};
 
@@ -191,12 +192,12 @@ function hookInputEvent(page)
   };
 
   page.view = function (e: WXEvent) {
-    let url = e.currentTarget.dataset.url;
-    let urls = e.currentTarget.dataset.urls;
-    wx.previewImage({
-      current: url,
-      urls: urls
-    });
+    let options = {
+      current: e.currentTarget.dataset.url,
+      urls: e.currentTarget.dataset.urls
+    };
+    options = API.completeImgUrl(options);
+    wx.previewImage(options);
   };
 
   page.call = function (e: WXEvent) {

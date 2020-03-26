@@ -4,6 +4,7 @@ var nav_1 = require("./nav");
 var UI_1 = require("./UI");
 var Data_1 = require("./Data");
 var Rx_1 = require("../rx/Rx");
+var mp_1 = require("../mp");
 exports.HOOK_CONF = { log: true };
 exports.PageInjectors = [];
 /**
@@ -151,12 +152,12 @@ function hookInputEvent(page) {
         originFocus && originFocus.apply(this, arguments);
     };
     page.view = function (e) {
-        var url = e.currentTarget.dataset.url;
-        var urls = e.currentTarget.dataset.urls;
-        wx.previewImage({
-            current: url,
-            urls: urls
-        });
+        var options = {
+            current: e.currentTarget.dataset.url,
+            urls: e.currentTarget.dataset.urls
+        };
+        options = mp_1.API.completeImgUrl(options);
+        wx.previewImage(options);
     };
     page.call = function (e) {
         var mobile = e.currentTarget.dataset.mobile;
