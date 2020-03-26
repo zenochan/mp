@@ -184,7 +184,10 @@ var API = /** @class */ (function () {
     };
     API.query = function (url, param) {
         Object.keys(param || {}).forEach(function (key) {
-            url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key];
+            var value = param[key];
+            if (value != null && typeof value != 'undefined') {
+                url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + value;
+            }
         });
         return url;
     };

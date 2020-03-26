@@ -224,7 +224,10 @@ export class API
   private static query(url: string, param: any)
   {
     Object.keys(param || {}).forEach(key => {
-      url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + param[key]
+      let value = param[key];
+      if (value != null && typeof value != 'undefined') {
+        url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + value
+      }
     });
 
     return url;
