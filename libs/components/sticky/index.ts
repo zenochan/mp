@@ -12,12 +12,6 @@ Component({
   },
 
   properties: {
-    data: {
-      type: Array, value: null, observer()
-      {
-        this.init();
-      }
-    },
     offset: {type: Number, value: 0}
   },
   methods: {
@@ -37,7 +31,17 @@ Component({
       top += this.data.offset;
       !this.data.sticky && this.data.top < top && this.setData({sticky: true});
       this.data.sticky && this.data.top > top && this.setData({sticky: false})
-    })
+    });
+
+    this.sub = WX.page().onDataChange.subscribe(res => {
+      this.init();
+      setTimeout(() => this.init(), 200)
+    });
+  },
+
+  detached()
+  {
+    this.sub.unsubscribe();
   },
 
   ready()

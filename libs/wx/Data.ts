@@ -27,7 +27,11 @@ export class Data
   static set(key: string, value: any)
   {
     if (!key) return;
-    wx.setStorageSync(key, value)
+    if (value == null || typeof value == "undefined") {
+      wx.removeStorageSync(key)
+    } else {
+      wx.setStorageSync(key, value);
+    }
   }
 
   static setAsync(key: string, value: any)

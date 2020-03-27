@@ -11,11 +11,6 @@ Component({
         addGlobalClass: true
     },
     properties: {
-        data: {
-            type: Array, value: null, observer: function () {
-                this.init();
-            }
-        },
         offset: { type: Number, value: 0 }
     },
     methods: {
@@ -36,6 +31,13 @@ Component({
             !_this.data.sticky && _this.data.top < top && _this.setData({ sticky: true });
             _this.data.sticky && _this.data.top > top && _this.setData({ sticky: false });
         });
+        this.sub = WX_1.WX.page().onDataChange.subscribe(function (res) {
+            _this.init();
+            setTimeout(function () { return _this.init(); }, 200);
+        });
+    },
+    detached: function () {
+        this.sub.unsubscribe();
     },
     ready: function () {
         this.init();

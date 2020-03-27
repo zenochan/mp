@@ -23,7 +23,12 @@ var Data = /** @class */ (function () {
     Data.set = function (key, value) {
         if (!key)
             return;
-        wx.setStorageSync(key, value);
+        if (value == null || typeof value == "undefined") {
+            wx.removeStorageSync(key);
+        }
+        else {
+            wx.setStorageSync(key, value);
+        }
     };
     Data.setAsync = function (key, value) {
         if (!key)
