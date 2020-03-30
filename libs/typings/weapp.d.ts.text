@@ -1,9 +1,10 @@
-import {Observable} from "../rx/Rx";
+import {Observable, BehaviorSubject} from "../rx/Rx";
 
+export {};
+
+//<editor-fold desc="app and page">
 declare global
 {
-
-  //<editor-fold desc="app and page">
   interface LaunchOptions
   {
     /** 打开小程序的路径 */
@@ -188,9 +189,14 @@ declare global
    */
   function getCurrentPages(): IPage[];
 
-  //</editor-fold>
+}
+//</editor-fold>
 
-  //<editor-fold desc="component">
+//<editor-fold desc="component">
+
+
+declare global
+{
   interface Property
   {
     /**
@@ -234,7 +240,7 @@ declare global
      * 组件的方法，包括事件响应函数和任意的自定义方法，关于事件响应函数的使用，参见 组件事件
      */
     methods?: {
-      [key: string]: Function
+      [key:string]:Function
     }
 
     /**
@@ -330,7 +336,7 @@ declare global
      */
     definitionFilter?: Function
 
-    [key: string]: any
+    [key:string]:any
 
   }
 
@@ -338,10 +344,12 @@ declare global
    * Component构造器可用于定义组件，调用Component构造器时可以指定组件的属性、数据、方法等。
    */
   function Component(component: IComponent): void;
+}
+//</editor-fold>
 
-  //</editor-fold>
-
-  //<editor-fold desc="wx">
+//<editor-fold desc="wx">
+declare global
+{
   export interface BaseOptions
   {
 
@@ -367,30 +375,6 @@ declare global
 
   namespace wx
   {
-    interface BaseOptions
-    {
-
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?: (res) => void;
-
-      onLoad?: (options) => void;
-
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?: (e) => void;
-
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?: () => void;
-
-      [key: string]: any
-    }
-
-
     //<editor-fold desc="文件API列表">
     export function saveFile()
 
@@ -404,7 +388,7 @@ declare global
 
 
     //</editor-fold>
-    interface ShareOptions
+    export interface ShareOptions
     {
 
       /**
@@ -430,7 +414,7 @@ declare global
       success?: Function
     }
 
-    interface IData
+    export interface IData
     {
       [key: string]: any;
     }
@@ -2780,9 +2764,11 @@ declare global
     export function getMenuButtonBoundingClientRect(): MenuButtonBounding;
 
   }
+}
+//</editor-fold>
 
-  //</editor-fold>
-
+declare global
+{
   interface Target
   {
     id?: string,

@@ -3,7 +3,7 @@ import {Events, WX} from "../../mp";
 Component({
   observers: [],
   data: {
-    deny: true
+    deny: false
   },
   options: {
     addGlobalClass: true
