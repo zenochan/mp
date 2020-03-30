@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx = require("../rx/Rx");
 var UI = /** @class */ (function () {
     function UI() {
@@ -181,3 +181,4 @@ var UI = /** @class */ (function () {
     return UI;
 }());
 exports.UI = UI;
+//# sourceMappingURL=UI.js.map

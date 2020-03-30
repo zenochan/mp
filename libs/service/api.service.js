@@ -1,9 +1,8 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
-var config_1 = require("../components/zz-img/config");
 /**
  * ## Methods
  * - {@link get}
@@ -18,7 +17,6 @@ var API = /** @class */ (function () {
     API.config = function (config) {
         this.API_BASE = config.host;
         this.IMG_BASE = config.imgBase;
-        config_1.ZZ_IMG_CONFIG.BASE_URL = config.imgBase;
         this.resHandler = config.resHandler;
         this.headerInterceptor = config.headerInterceptor;
         this.pathInterceptor = config.pathInterceptor;
@@ -49,7 +47,7 @@ var API = /** @class */ (function () {
         url = API.pathVariable(url, param);
         return this.buildRequest({ method: "POST", url: url, data: param });
     };
-    API["delete"] = function (url) {
+    API.delete = function (url) {
         return this.buildRequest({ method: "DELETE", url: url });
     };
     API.upload = function (filePath, form) {
@@ -208,3 +206,4 @@ var API = /** @class */ (function () {
     return API;
 }());
 exports.API = API;
+//# sourceMappingURL=api.service.js.map

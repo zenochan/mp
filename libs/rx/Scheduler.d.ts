@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Action } from './scheduler/Action';
 import { Subscription } from './Subscription';
 export interface IScheduler {
