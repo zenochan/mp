@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 require("../../utils/extends.date");
 exports.Pipes = {
     /**
@@ -43,4 +43,3 @@ exports.Pipes = {
         return (val / 10000).toFixed(1) + 'W';
     }
 };
-//# sourceMappingURL=Pipes.js.map

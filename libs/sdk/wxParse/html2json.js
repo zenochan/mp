@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * html2Json 改造来自: https://github.com/Jxck/html2json
  *
@@ -293,4 +293,3 @@ var HtmlToJson = /** @class */ (function () {
     return HtmlToJson;
 }());
 exports.HtmlToJson = HtmlToJson;
-//# sourceMappingURL=html2json.js.map

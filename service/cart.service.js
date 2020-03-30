@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../libs/mp");
 /**
  * 购物车工具类
@@ -71,4 +71,3 @@ var CartService = /** @class */ (function () {
     return CartService;
 }());
 exports.CartService = CartService;
-//# sourceMappingURL=cart.service.js.map

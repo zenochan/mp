@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var app_1 = require("../app");
 var DbService = /** @class */ (function () {
     function DbService() {
@@ -10,4 +10,3 @@ var DbService = /** @class */ (function () {
     return DbService;
 }());
 exports.DbService = DbService;
-//# sourceMappingURL=db.service.js.map

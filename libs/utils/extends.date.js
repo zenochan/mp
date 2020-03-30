@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 Date.prototype.ONE_DAY = 86400000;
 // 周次
 Date.prototype.weekOfYear = function () {
@@ -57,4 +57,3 @@ String.prototype.dateFormat = function (fmt) {
         dateStr += '-01 00:00:00';
     return new Date(dateStr.replace(/-/g, '/')).format(fmt);
 };
-//# sourceMappingURL=extends.date.js.map

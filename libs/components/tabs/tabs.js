@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 Component({
     properties: {
@@ -50,4 +50,3 @@ Component({
         this.active(this.data.active);
     }
 });
-//# sourceMappingURL=tabs.js.map

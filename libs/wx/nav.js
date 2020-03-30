@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var UI_1 = require("./UI");
 var WX_1 = require("./WX");
 var Nav = /** @class */ (function () {
@@ -79,4 +79,3 @@ var Nav = /** @class */ (function () {
     return Nav;
 }());
 exports.Nav = Nav;
-//# sourceMappingURL=nav.js.map

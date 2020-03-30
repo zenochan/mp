@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Rx = require("../rx/Rx");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("./UI");
@@ -477,4 +477,3 @@ exports.sceneMap = {
     1048: "长按图片识别小程序码",
     1049: "手机相册选取小程序码",
 };
-//# sourceMappingURL=WX.js.map

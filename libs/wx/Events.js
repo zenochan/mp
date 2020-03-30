@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * 微信 API rx 封装
  */
@@ -42,4 +42,3 @@ var Events = /** @class */ (function () {
     return Events;
 }());
 exports.Events = Events;
-//# sourceMappingURL=Events.js.map

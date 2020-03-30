@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 Component({
     options: {
@@ -27,4 +27,3 @@ Component({
         WX_1.WX.size("#body", this).subscribe(function (size) { return _this.setData({ width: size.width }); });
     }
 });
-//# sourceMappingURL=tab-item.js.map

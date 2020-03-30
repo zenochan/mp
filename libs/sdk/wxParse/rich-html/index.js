@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var wxParse_1 = require("../wxParse");
 /**
  * <rich-html src="{{html data}}"></rich-html>
@@ -20,4 +20,3 @@ Component({
         }
     }
 });
-//# sourceMappingURL=index.js.map

@@ -4,4 +4,3 @@ Component({
         light: { type: Boolean, value: false }
     }
 });
-//# sourceMappingURL=index.js.map

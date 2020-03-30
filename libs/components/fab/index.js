@@ -18,4 +18,3 @@ Component({
         catTouch: function (e) { },
     }
 });
-//# sourceMappingURL=index.js.map

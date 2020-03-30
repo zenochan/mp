@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Keywords = /** @class */ (function () {
     function Keywords() {
     }
@@ -22,4 +22,3 @@ var Keywords = /** @class */ (function () {
     return Keywords;
 }());
 exports.Keywords = Keywords;
-//# sourceMappingURL=Keywords.js.map

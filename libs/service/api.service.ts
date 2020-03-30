@@ -3,9 +3,6 @@ import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
 import {ZZ_IMG_CONFIG} from "../components/zz-img/config";
 
-console.error("SFT");
-
-
 /**
  * ## Methods
  * - {@link get}

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * 兼容 iPhoneX 底部导航
  */
@@ -42,4 +42,3 @@ Component({
         this.calcHeight();
     }
 });
-//# sourceMappingURL=index.js.map

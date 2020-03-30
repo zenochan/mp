@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../libs/mp");
 mp_1.HookPage({
     navTitle: "拒绝定位授权",
@@ -14,4 +14,3 @@ mp_1.HookPage({
         wx.openSetting();
     },
 });
-//# sourceMappingURL=index.js.map

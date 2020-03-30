@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 require("../../utils/extends.date");
 /**
  * # Event
@@ -227,4 +227,3 @@ function monthDays(year, month, dayStart, dayEnd) {
     }
     return stringArray(dayStart, dayEnd);
 }
-//# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var nav_1 = require("./nav");
 var UI_1 = require("./UI");
 var Data_1 = require("./Data");
@@ -261,4 +261,3 @@ exports.PageInjectors.push({
         //   }
     }
 });
-//# sourceMappingURL=weapp.js.map

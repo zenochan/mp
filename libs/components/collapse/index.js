@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * <collapse>
  *   <view slot="header">header</view>
@@ -63,4 +63,3 @@ Component({
         this.sub.unsubscribe();
     },
 });
-//# sourceMappingURL=index.js.map

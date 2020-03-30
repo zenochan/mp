@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var weapp_1 = require("../../libs/wx/weapp");
 weapp_1.HookPage({
     navTitle: "Zeno Lib",
@@ -14,4 +14,3 @@ weapp_1.HookPage({
         ]
     }
 });
-//# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 Component({
     data: {
@@ -30,4 +30,3 @@ Component({
         });
     }
 });
-//# sourceMappingURL=index.js.map

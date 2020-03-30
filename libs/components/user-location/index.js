@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../mp");
 Component({
     observers: [],
@@ -32,4 +32,3 @@ Component({
         }
     }
 });
-//# sourceMappingURL=index.js.map

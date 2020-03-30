@@ -155,4 +155,3 @@ function makeMap(str) {
     return obj;
 }
 module.exports = HTMLParser;
-//# sourceMappingURL=htmlparser.js.map

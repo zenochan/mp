@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var FormValidator = /** @class */ (function () {
     function FormValidator(rules, messages) {
         this.rules = rules;
@@ -59,4 +59,3 @@ var FormValidator = /** @class */ (function () {
     return FormValidator;
 }());
 exports.FormValidator = FormValidator;
-//# sourceMappingURL=FormValidator.js.map

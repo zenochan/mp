@@ -51,4 +51,3 @@ Component({
         onTouchEnd: function (e) { this.refresher && this.refresher.onTouchEnd(e); }
     },
 });
-//# sourceMappingURL=index.js.map

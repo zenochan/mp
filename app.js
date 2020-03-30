@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 require("libs/utils/extends.date");
 var mp_1 = require("./libs/mp");
 wx.cloud.init();
@@ -15,4 +15,3 @@ mp_1.API.config({
     host: 'http://localhost:8080',
     imgBase: '',
 });
-//# sourceMappingURL=app.js.map

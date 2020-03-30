@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Events_1 = require("./Events");
 var KEY_USER = "user_181127";
 var Data = /** @class */ (function () {
@@ -44,4 +44,3 @@ var Data = /** @class */ (function () {
     return Data;
 }());
 exports.Data = Data;
-//# sourceMappingURL=Data.js.map

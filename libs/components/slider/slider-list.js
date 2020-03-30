@@ -13,4 +13,3 @@ Component({
         }
     },
 });
-//# sourceMappingURL=slider-list.js.map

@@ -9,7 +9,7 @@
  * for: 微信小程序富文本解析
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * utils函数引入
  **/
@@ -157,4 +157,3 @@ var WxParse = /** @class */ (function () {
     return WxParse;
 }());
 exports.WxParse = WxParse;
-//# sourceMappingURL=wxParse.js.map

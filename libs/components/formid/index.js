@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Events_1 = require("../../wx/Events");
 Component({
     methods: {
@@ -14,4 +14,3 @@ Component({
         }
     }
 });
-//# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var config_1 = require("./config");
 var mp_1 = require("../../mp");
 Component({
@@ -64,4 +64,3 @@ Component({
         });
     }
 });
-//# sourceMappingURL=index.js.map

@@ -2,8 +2,12 @@
   "compilerOptions": {
     "lib": [
       "dom",
+      "es5",
       "es2015"
     ]
   },
-  "target": "es5"
+  "target": "es5",
+  "exclude": [
+    "libs/rx/*"
+  ]
 }
