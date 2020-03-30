@@ -4,6 +4,7 @@ var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
 var config_1 = require("../components/zz-img/config");
+console.error("SFT");
 /**
  * ## Methods
  * - {@link get}
