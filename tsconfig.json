@@ -6,8 +6,5 @@
       "es2015"
     ]
   },
-  "target": "es5",
-  "exclude": [
-    "libs/rx/*"
-  ]
+  "target": "es5"
 }
