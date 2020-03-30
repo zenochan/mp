@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user-location": "/libs/components/user-location/index",
+    "rich-html": "/libs/sdk/wxParse/rich-html/index"
+  }
+}

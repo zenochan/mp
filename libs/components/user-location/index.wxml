@@ -1,0 +1,12 @@
+<modal show="{{deny}}">
+  <div class="modal-user-location">
+    <div class="title">
+      <div>提示</div>
+      <div class="close" bind:tap="hideModal">取消</div>
+    </div>
+
+    <div class="modal-user__content">小程序需要您授权位置权限，以体验完整的功能。</div>
+
+    <div bind:tap="openSetting" class="btn-setting">授权</div>
+  </div>
+</modal>

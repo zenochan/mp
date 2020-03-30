@@ -239,12 +239,15 @@ declare global
     /**
      * 组件的方法，包括事件响应函数和任意的自定义方法，关于事件响应函数的使用，参见 组件事件
      */
-    methods?: Object
+    methods?: {
+      [key:string]:Function
+    }
 
     /**
      * 类似于mixins和traits的组件间代码复用机制，参见 behaviors
      */
     behaviors?: string | string[],
+
 
     /**
      * 组件生命周期函数，在组件实例进入页面节点树时执行，注意此时不能调用 setData
@@ -306,19 +309,34 @@ declare global
      * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
      * @since 2.2.3
      */
-    lifetimes?: Object
+    lifetimes?: {
+      created?: Function
+      attached?: Function
+      ready?: Function
+      moved?: Function
+      detached?: Function
+    },
 
     /**
      * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
      * @since 2.2.3
      */
-    pageLifetimes?: Object
+    pageLifetimes?: {
+      show?: Function
+      hide?: Function
+      /**
+       * @since 2.4.0
+       */
+      resize?: Function
+    }
 
     /**
      *  定义段过滤器，用于自定义组件扩展
      *  @since 2.2.3
      */
     definitionFilter?: Function
+
+    [key:string]:any
 
   }
 

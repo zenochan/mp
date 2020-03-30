@@ -183,6 +183,17 @@ page {
 
 //</editor-fold>
 
+.button {
+  margin: auto;
+  display: inline-block;
+  height: 60px;
+  line-height: 60px;
+  color: white;
+  padding: 0 20px;
+  font-size: 28px;
+  border-radius: 8px;
+  background: #0ea7ff;
+}
 
 //<editor-fold desc="数字字体">
 @font-face {

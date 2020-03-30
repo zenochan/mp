@@ -1,19 +1,17 @@
 import {HookPage} from "../../libs/wx/weapp";
 
 HookPage({
-  onShareAppMessage()
-  {
-    return {
-      title: "什么鬼啊",
-      success(res)
+  navTitle: "Zeno Lib",
+  data: {
+    menu: [
       {
-        console.error("WTF", res)
+        name: "功能组件",
+        children: [
+          {name: "授权定位弹窗", page: "/pages/location-deny/index"}
+        ]
       }
-    }
-  },
- change(){
-    this.zzSetData({datas:[12,1,1,1,1,1]});
-
+    ]
   }
+
 
 });

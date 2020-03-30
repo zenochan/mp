@@ -96,6 +96,7 @@ var WX = /** @class */ (function () {
         });
     };
     WX.getLocation = function () {
+        var _this = this;
         return Rx_1.Observable.create(function (sub) {
             return wx.getLocation({
                 type: 'gcj02',
@@ -103,7 +104,15 @@ var WX = /** @class */ (function () {
                 success: function (res) {
                     sub.next(res);
                 },
-                fail: function (e) { return sub.error(e); }
+                fail: function (e) {
+                    if (e.errMsg == "getLocation:fail auth deny") {
+                        console.error("用户已拒绝定位授权");
+                        mp_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
+                    }
+                    else {
+                        sub.error(e);
+                    }
+                }
             });
         });
     };
@@ -432,6 +441,7 @@ var WX = /** @class */ (function () {
         WRITE_PHOTOS_ALBUM: "scope.writePhotosAlbum",
         CAMERA: "scope.camera"
     };
+    WX.EVENT_LOCATION_DENY = "deny:location";
     return WX;
 }());
 exports.WX = WX;

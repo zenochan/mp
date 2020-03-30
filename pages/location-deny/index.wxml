@@ -1,0 +1,9 @@
+<div class="button" bind:tap="requestLocation">发起定位</div>
+<div class="button" bind:tap="openSetting">打开设置</div>
+<image class="doc" src="http://etc.izeno.morma.cn/ipic/2020-03-30-062339.png" mode="widthFix"></image>
+
+<user-location></user-location>
+
+
+
+

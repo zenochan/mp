@@ -62,12 +62,20 @@
 					"id": -1,
 					"name": "pages/index/index",
 					"pathName": "pages/index/index",
+					"query": "",
 					"scene": 1044,
 					"shareInfo": {
 						"groupName": "测试模拟群0",
 						"shareName": "k5gSqSC9ZesJjgDiBU3lNBla2xH34dMrJcvssrkIX1k@cr4dev",
 						"shareKey": "PXrQcOhLkjwiNXLIeyxefCOEpyU4cqAx3Iyo1kHwsPnHzEEgeczNoYrLkQ-W4WFU_7cyixd-i74NUNYF8xI1yA~~"
 					}
+				},
+				{
+					"id": -1,
+					"name": "拒绝地址授权",
+					"pathName": "pages/location-deny/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

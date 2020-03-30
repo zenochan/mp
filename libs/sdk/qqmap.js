@@ -8,6 +8,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @author jaysonzhou@tencent.com
  */
 var Rx_1 = require("../rx/Rx");
+var Events_1 = require("../wx/Events");
+var mp_1 = require("../mp");
 var ERROR_CONF = {
     KEY_ERR: 311,
     KEY_ERR_MSG: 'key格式错误',
@@ -301,7 +303,15 @@ var Utils = /** @class */ (function () {
         wx.getLocation({
             type: 'gcj02',
             success: success,
-            fail: fail,
+            fail: function (e) {
+                if (e.errMsg == "getLocation:fail auth deny") {
+                    console.error("用户已拒绝定位授权");
+                    Events_1.Events.publish(mp_1.WX.EVENT_LOCATION_DENY, true);
+                }
+                else {
+                    fail && fail(e);
+                }
+            },
             complete: complete
         });
     };

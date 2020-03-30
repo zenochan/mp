@@ -6,6 +6,8 @@
  * @author jaysonzhou@tencent.com
  */
 import {Observable} from "../rx/Rx";
+import {Events} from "../wx/Events";
+import {WX} from "../mp";
 
 var ERROR_CONF = {
   KEY_ERR: 311,
@@ -492,7 +494,14 @@ export class Utils
     wx.getLocation({
       type: 'gcj02',
       success: success,
-      fail: fail,
+      fail: e => {
+        if (e.errMsg == "getLocation:fail auth deny") {
+          console.error("用户已拒绝定位授权");
+          Events.publish(WX.EVENT_LOCATION_DENY, true);
+        } else {
+          fail && fail(e);
+        }
+      },
       complete: complete
     });
   }

@@ -1,6 +1,6 @@
-<div class="modal-container"wx:if="{{show}}" catch:touchmove="catch">
-  <div class="modal__mask {{dismissing?'dismiss':''}}"  bindtap="dismiss" ></div>
+<div class="modal-container" wx:if="{{show}}" catch:touchmove="catch" bind:tap="dismiss">
+  <div class="modal__mask {{dismissing?'dismiss':''}}"></div>
   <div class="modal__content  {{dismissing?'dismiss':''}}">
-    <slot></slot>
+    <slot catch:tap="catch"></slot>
   </div>
 </div>

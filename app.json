@@ -1,7 +1,13 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/location-deny/index"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序需要使用您的位置"
+    }
+  },
   "window": {
     "navigationStyle": "default",
     "backgroundTextStyle": "light",

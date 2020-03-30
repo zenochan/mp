@@ -7,7 +7,7 @@ import ScanCodeResult = wx.ScanCodeResult;
 import * as Rx from "../rx/Rx";
 import {BehaviorSubject, Observable} from "../rx/Rx";
 import {UI} from "./UI";
-import {rxJust} from "../mp";
+import {Events, rxJust} from "../mp";
 import {rxEmpty} from "../rx/RxExt";
 
 /**
@@ -125,6 +125,7 @@ export class WX
     });
   }
 
+  static EVENT_LOCATION_DENY = "deny:location";
   static getLocation(): Observable<wx.GetLocationResult>
   {
     return Observable.create(sub => {
@@ -134,7 +135,14 @@ export class WX
         success: res => {
           sub.next(res)
         },
-        fail: e => sub.error(e)
+        fail: e => {
+          if (e.errMsg == "getLocation:fail auth deny") {
+            console.error("用户已拒绝定位授权");
+            Events.publish(this.EVENT_LOCATION_DENY, true);
+          } else {
+            sub.error(e)
+          }
+        }
       })
     });
 
@@ -231,7 +239,7 @@ export class WX
    * @since v1.2.0
    * @see wx.getSetting
    */
-  static getSetting(): Rx.Observable<Scope> | any
+  static getSetting(): Rx.Observable<Scope>
   {
     return Rx.Observable.create(emitter => {
       wx.getSetting({

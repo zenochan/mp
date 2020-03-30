@@ -1,9 +1,12 @@
-<navigation></navigation>
+<header>
+  <div class="line"></div>
+</header>
 
-<div bind:tap="change">改变数据</div>
-<collapse>
-  <view slot="header">我是头</view>
-  <view slot="body">
-    <div wx:for="{{datas}}" wx:key="index">我是尾巴</div>
-  </view>
-</collapse>
+<block wx:for="{{menu}}" wx:key="index">
+  <div class="name">{{item.name}}</div>
+  <div class="line"></div>
+  <block wx:for="{{item.children}}" wx:key="index">
+    <navigator url="{{item.page}}" class="item">{{item.name}}</navigator>
+    <div class="line"></div>
+  </block>
+</block>
