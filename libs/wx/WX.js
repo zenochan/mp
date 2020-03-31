@@ -95,12 +95,14 @@ var WX = /** @class */ (function () {
             return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
         });
     };
-    WX.getLocation = function () {
+    WX.getLocation = function (options) {
         var _this = this;
+        var isHighAccuracy = (options || {}).isHighAccuracy;
         return Rx_1.Observable.create(function (sub) {
             return wx.getLocation({
                 type: 'gcj02',
-                altitude: true,
+                isHighAccuracy: isHighAccuracy,
+                // altitude: true,
                 success: function (res) { return sub.next(res); },
                 fail: function (e) {
                     if (e.errMsg.indexOf("auth") > 0) {

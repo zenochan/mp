@@ -493,6 +493,7 @@ export class Utils
   {
     wx.getLocation({
       type: 'gcj02',
+      isHighAccuracy: true,
       success: success,
       fail: e => {
         if (e.errMsg.indexOf("auth")>0) {

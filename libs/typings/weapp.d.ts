@@ -1362,6 +1362,12 @@ declare global
        */
       type?: string;
 
+      // 高度信息
+      altitude?: boolean;
+
+      // 高精度定位
+      isHighAccuracy?: boolean;
+
       /**
        * 接口调用成功的回调函数
        */

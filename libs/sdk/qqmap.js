@@ -302,6 +302,7 @@ var Utils = /** @class */ (function () {
     Utils.getWXLocation = function (success, fail, complete) {
         wx.getLocation({
             type: 'gcj02',
+            isHighAccuracy: true,
             success: success,
             fail: function (e) {
                 if (e.errMsg.indexOf("auth") > 0) {

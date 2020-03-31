@@ -127,12 +127,15 @@ export class WX
 
   static EVENT_LOCATION_DENY = "deny:location";
 
-  static getLocation(): Observable<wx.GetLocationResult>
+  static getLocation(options?: { isHighAccuracy: boolean }): Observable<wx.GetLocationResult>
   {
+    let {isHighAccuracy} = options || {};
+
     return Observable.create(sub => {
       return wx.getLocation({
         type: 'gcj02',
-        altitude: true,
+        isHighAccuracy: isHighAccuracy,
+        // altitude: true,
         success: res => sub.next(res),
         fail: e => {
           if (e.errMsg.indexOf("auth") > 0) {
