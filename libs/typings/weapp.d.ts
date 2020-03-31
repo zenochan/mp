@@ -342,7 +342,7 @@ declare global
   //</editor-fold>
 
   //<editor-fold desc="wx">
-  export interface BaseOptions
+  interface BaseOptions
   {
 
     /**
@@ -392,15 +392,15 @@ declare global
 
 
     //<editor-fold desc="文件API列表">
-    export function saveFile()
+    function saveFile()
 
-    export function removeSavedFile();
+    function removeSavedFile();
 
-    export function getSavedFileList();
+    function getSavedFileList();
 
-    export function getSavedFileInfo();
+    function getSavedFileInfo();
 
-    export function openDocument();
+    function openDocument();
 
 
     //</editor-fold>
@@ -435,11 +435,11 @@ declare global
       [key: string]: any;
     }
 
-    export function getLaunchOptionsSync(): LaunchOptions;
+    function getLaunchOptionsSync(): LaunchOptions;
 
     // ---------------------------------- 网络API列表 ----------------------------------
     //<editor-fold desc="网络API列表">
-    export interface RequestResult
+    interface RequestResult
     {
 
       /**
@@ -450,7 +450,7 @@ declare global
       statusCode: number;
     }
 
-    export interface RequestOptions extends BaseOptions
+    interface RequestOptions extends BaseOptions
     {
 
       /**
@@ -482,9 +482,9 @@ declare global
     /**
      * 发起网络请求。`wx.request`发起的是https请求。**一个微信小程序，同时只能有5个网络请求连接**。
      */
-    export function request(options: RequestOptions): any;
+    function request(options: RequestOptions): any;
 
-    export interface UploadFileResult
+    interface UploadFileResult
     {
       /**
        * 开发者服务器返回的数据
@@ -497,7 +497,7 @@ declare global
       statusCode: number;
     }
 
-    export interface UploadFileOptions extends BaseOptions
+    interface UploadFileOptions extends BaseOptions
     {
 
       /**
@@ -536,9 +536,9 @@ declare global
      * 如页面通过 [wx.chooseImage](#wx.chooseImage) 等接口获取到一个本地资源的临时文件路径后，可通过此接口将本地资源上传到指定服务器。
      * 客户端发起一个 HTTPS POST 请求，其中 `Content-Type` 为 `multipart/form-data` 。
      */
-    export function uploadFile(options: UploadFileOptions): void;
+    function uploadFile(options: UploadFileOptions): void;
 
-    export interface DownloadFileResult
+    interface DownloadFileResult
     {
 
       /**
@@ -547,7 +547,7 @@ declare global
       tempFilePath: string;
     }
 
-    export interface DownloadFileOptions extends BaseOptions
+    interface DownloadFileOptions extends BaseOptions
     {
 
       /**
@@ -570,9 +570,9 @@ declare global
      * 下载文件资源到本地。
      * 客户端直接发起一个 HTTP GET 请求，返回文件的本地临时路径。
      */
-    export function downloadFile(options: DownloadFileOptions): void;
+    function downloadFile(options: DownloadFileOptions): void;
 
-    export interface ConnectSocketOptions extends BaseOptions
+    interface ConnectSocketOptions extends BaseOptions
     {
 
       /**
@@ -600,19 +600,19 @@ declare global
      * 创建一个 [WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket?t=1477656499061) 连接；
      * **一个微信小程序同时只能有一个 WebSocket 连接，如果当前已存在一个 WebSocket 连接，会自动关闭该连接，并重新创建一个 WebSocket 连接**。
      */
-    export function connectSocket(options: ConnectSocketOptions): void;
+    function connectSocket(options: ConnectSocketOptions): void;
 
     /**
      * 监听WebSocket连接打开事件。
      */
-    export function onSocketOpen(callback: (res?: any) => void): void;
+    function onSocketOpen(callback: (res?: any) => void): void;
 
     /**
      * 监听WebSocket错误。
      */
-    export function onSocketError(callback: (res?: any) => void): void;
+    function onSocketError(callback: (res?: any) => void): void;
 
-    export interface SendSocketMessageOptions extends BaseOptions
+    interface SendSocketMessageOptions extends BaseOptions
     {
 
       /**
@@ -624,9 +624,9 @@ declare global
     /**
      * 通过 WebSocket 连接发送数据，需要先 [wx.connectSocket](#wx.connectSocket)，并在 [wx.onSocketOpen](#wx.onSocketOpen) 回调之后才能发送。
      */
-    export function sendSocketMessage(options: SendSocketMessageOptions): void;
+    function sendSocketMessage(options: SendSocketMessageOptions): void;
 
-    export interface SocketMessageResponse
+    interface SocketMessageResponse
     {
 
       /**
@@ -638,17 +638,17 @@ declare global
     /**
      * 监听WebSocket接受到服务器的消息事件。
      */
-    export function onSocketMessage(callback: (res?: SocketMessageResponse) => void): void;
+    function onSocketMessage(callback: (res?: SocketMessageResponse) => void): void;
 
     /**
      * 关闭WebSocket连接。
      */
-    export function closeSocket(): void;
+    function closeSocket(): void;
 
     /**
      * 监听WebSocket关闭。
      */
-    export function onSocketClose(callback: (res?: any) => void): void;
+    function onSocketClose(callback: (res?: any) => void): void;
 
     //</editor-fold>
 

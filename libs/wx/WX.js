@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx = require("../rx/Rx");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("./UI");
@@ -101,18 +101,17 @@ var WX = /** @class */ (function () {
             return wx.getLocation({
                 type: 'gcj02',
                 altitude: true,
-                success: function (res) {
-                    sub.next(res);
-                },
+                success: function (res) { return sub.next(res); },
                 fail: function (e) {
-                    if (e.errMsg == "getLocation:fail auth deny") {
+                    if (e.errMsg.indexOf("auth") > 0) {
                         console.error("用户已拒绝定位授权");
                         mp_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
                     }
                     else {
                         sub.error(e);
                     }
-                }
+                },
+                complete: function () { return sub.complete(); }
             });
         });
     };
@@ -477,3 +476,4 @@ exports.sceneMap = {
     1048: "长按图片识别小程序码",
     1049: "手机相册选取小程序码",
 };
+//# sourceMappingURL=WX.js.map

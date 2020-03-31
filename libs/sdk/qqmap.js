@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 微信小程序JavaScriptSDK
  *
@@ -304,7 +304,7 @@ var Utils = /** @class */ (function () {
             type: 'gcj02',
             success: success,
             fail: function (e) {
-                if (e.errMsg == "getLocation:fail auth deny") {
+                if (e.errMsg.indexOf("auth") > 0) {
                     console.error("用户已拒绝定位授权");
                     Events_1.Events.publish(mp_1.WX.EVENT_LOCATION_DENY, true);
                 }
@@ -462,3 +462,4 @@ var Utils = /** @class */ (function () {
     return Utils;
 }());
 exports.Utils = Utils;
+//# sourceMappingURL=qqmap.js.map

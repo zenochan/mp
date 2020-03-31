@@ -4,7 +4,7 @@ var mp_1 = require("../../mp");
 Component({
     observers: [],
     data: {
-        deny: true
+        deny: false
     },
     options: {
         addGlobalClass: true

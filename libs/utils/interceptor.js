@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("../rx/Rx");
 /**
  * @version 20190326
@@ -57,3 +57,4 @@ var Bezier = /** @class */ (function () {
     return Bezier;
 }());
 exports.Bezier = Bezier;
+//# sourceMappingURL=interceptor.js.map

@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @author ZenoChan zenochan@qq.com
  */
@@ -32,3 +32,4 @@ var code_timer_1 = require("./utils/code-timer");
 exports.CodeTimer = code_timer_1.CodeTimer;
 var qqmap_1 = require("./sdk/qqmap");
 exports.QQMapWX = qqmap_1.QQMapWX;
+//# sourceMappingURL=mp.js.map

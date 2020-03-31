@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("./Rx");
 function rxJust(value) {
     return Rx_1.Observable.create(function (sub) {
@@ -19,7 +19,7 @@ function rxFromPromise(promise) {
         promise.then(function (res) {
             sub.next(res);
             sub.complete();
-        })["catch"](function (e) { return sub.error(e); });
+        }).catch(function (e) { return sub.error(e); });
     });
 }
 exports.rxFromPromise = rxFromPromise;
@@ -27,3 +27,4 @@ exports.rxFromPromise = rxFromPromise;
 Rx_1.Observable.prototype.pipe = function (transfer) {
     return transfer(this);
 };
+//# sourceMappingURL=RxExt.js.map

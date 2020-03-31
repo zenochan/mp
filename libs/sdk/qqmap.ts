@@ -495,7 +495,7 @@ export class Utils
       type: 'gcj02',
       success: success,
       fail: e => {
-        if (e.errMsg == "getLocation:fail auth deny") {
+        if (e.errMsg.indexOf("auth")>0) {
           console.error("用户已拒绝定位授权");
           Events.publish(WX.EVENT_LOCATION_DENY, true);
         } else {

@@ -126,28 +126,26 @@ export class WX
   }
 
   static EVENT_LOCATION_DENY = "deny:location";
+
   static getLocation(): Observable<wx.GetLocationResult>
   {
     return Observable.create(sub => {
       return wx.getLocation({
         type: 'gcj02',
         altitude: true,
-        success: res => {
-          sub.next(res)
-        },
+        success: res => sub.next(res),
         fail: e => {
-          if (e.errMsg == "getLocation:fail auth deny") {
+          if (e.errMsg.indexOf("auth") > 0) {
             console.error("用户已拒绝定位授权");
             Events.publish(this.EVENT_LOCATION_DENY, true);
           } else {
             sub.error(e)
           }
-        }
+        },
+        complete: () => sub.complete()
       })
     });
-
   }
-
 
   /**
    * 是否是 iPhone
