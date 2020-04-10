@@ -3,6 +3,7 @@
             bindinput="onInput"
             wx:if="{{focus}}"
             bind:blur="onBlur" auto-focus
+            maxlength="{{maxlength}}"
             placeholder="{{placeholder}}" value="{{value}}" auto-height="{{autoHeight}}"
   ></textarea>
   <div class="zz-textarea text {{!value?'placeholder':''}}" wx:else>
