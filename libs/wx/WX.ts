@@ -4,11 +4,10 @@ import UserInfo = wx.UserInfo;
 import GetImageInfoResult = wx.GetImageInfoResult;
 import CanvasToTempFilePathOptions = wx.CanvasToTempFilePathOptions;
 import ScanCodeResult = wx.ScanCodeResult;
-import * as Rx from "../rx/Rx";
-import {BehaviorSubject, Observable} from "../rx/Rx";
+import {BehaviorSubject, Observable, Subscriber} from "../rx/Rx";
 import {UI} from "./UI";
-import {Events, rxJust} from "../mp";
-import {rxEmpty} from "../rx/RxExt";
+import {rxEmpty, rxJust} from "../rx/RxExt";
+import {Events} from "./Events";
 
 /**
  * 微信 API rx 封装
@@ -188,9 +187,9 @@ export class WX
    * @see wx.login
    * @return code string
    */
-  static login(timeout?: number): Rx.Observable<string>
+  static login(timeout?: number): Observable<string>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.login({
         timeout: timeout,
         success: res => emitter.next(res),
@@ -200,9 +199,9 @@ export class WX
     }).map(res => res.code)
   }
 
-  static checkSession(): Rx.Observable<boolean>
+  static checkSession(): Observable<boolean>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.checkSession({
         //session_key 未过期，并且在本生命周期一直有效
         success: () => emitter.next(true),
@@ -222,9 +221,9 @@ export class WX
    *     - pdf417  PDF417 条码
    * @param onlyFromCamera
    */
-  static scanCode(scanType: string[] = ["qrCode"], onlyFromCamera: boolean = true): Rx.Observable<ScanCodeResult>
+  static scanCode(scanType: string[] = ["qrCode"], onlyFromCamera: boolean = true): Observable<ScanCodeResult>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.scanCode({
         scanType: scanType,
         onlyFromCamera,
@@ -240,9 +239,9 @@ export class WX
    * @since v1.2.0
    * @see wx.getSetting
    */
-  static getSetting(): Rx.Observable<Scope>
+  static getSetting(): Observable<Scope>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.getSetting({
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
@@ -264,9 +263,9 @@ export class WX
   }
 
 
-  static getUserInfo(): Rx.Observable<UserInfo>
+  static getUserInfo(): Observable<UserInfo>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.getUserInfo({
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
@@ -278,9 +277,9 @@ export class WX
   /**
    * https://developers.weixin.qq.com/miniprogram/dev/api/open-api/authorize/wx.authorize.html
    */
-  static authorize(scope: string): Rx.Observable<any>
+  static authorize(scope: string): Observable<any>
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       wx.authorize({
         scope: scope,
         success: res => emitter.next(res),
@@ -291,9 +290,9 @@ export class WX
     });
   }
 
-  static requestPayment(sign: RequestPaymentOptions): Rx.Observable<any> | any
+  static requestPayment(sign: RequestPaymentOptions): Observable<any> | any
   {
-    return Rx.Observable.create(emitter => {
+    return Observable.create(emitter => {
       sign.success = () => emitter.next();
       sign.complete = () => emitter.complete();
       sign.fail = (e) => emitter.error(e.errMsg);
@@ -303,7 +302,7 @@ export class WX
 
   static chooseImage(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<Array<string>>
   {
-    return Rx.Observable.create(sub => {
+    return Observable.create(sub => {
       wx.chooseImage({
         count: count,
         sourceType: sourceType,
@@ -322,9 +321,9 @@ export class WX
   /**
    * @see [wx.updateShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.updateShareMenu.html)
    */
-  static updateShareMenu(withShareTicket: boolean): Rx.Observable<any>
+  static updateShareMenu(withShareTicket: boolean): Observable<any>
   {
-    return Rx.Observable.create((sub: Rx.Subscriber<any>) => {
+    return Observable.create((sub: Subscriber<any>) => {
       wx.updateShareMenu({
         withShareTicket: withShareTicket,
         success: res => sub.next(res),
@@ -338,7 +337,7 @@ export class WX
    * @see [wx.showShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.showShareMenu.html)
    * @since 1.1.0
    */
-  static showShareMenu(withShareTicket: boolean = false): Rx.Observable<any>
+  static showShareMenu(withShareTicket: boolean = false): Observable<any>
   {
     let sub = new BehaviorSubject().filter(res => res);
 
@@ -352,9 +351,9 @@ export class WX
 
   }
 
-  static showActionSheet(items: string[], color: string = "#000000"): Rx.Observable<any>
+  static showActionSheet(items: string[], color: string = "#000000"): Observable<any>
   {
-    return Rx.Observable.create((sub: Rx.Subscriber<any>) => {
+    return Observable.create((sub: Subscriber<any>) => {
       wx.showActionSheet({
         itemList: items,
         itemColor: color,
@@ -370,7 +369,7 @@ export class WX
    * @see [wx.hideShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.hideShareMenu.html)
    * @since 1.1.0
    */
-  static hideShareMenu(): Rx.Observable<any>
+  static hideShareMenu(): Observable<any>
   {
     let subject = new BehaviorSubject().filter(res => res);
     wx.hideShareMenu({
@@ -387,9 +386,9 @@ export class WX
    * @param timeout since 1.9.90
    * @see [wx.getShareInfo](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.getShareInfo.html)
    */
-  static getShareInfo(shareTicket: string, timeout: number = 5000): Rx.Observable<any>
+  static getShareInfo(shareTicket: string, timeout: number = 5000): Observable<any>
   {
-    return Rx.Observable.create((sub: Rx.Subscriber<any>) => {
+    return Observable.create((sub: Subscriber<any>) => {
       wx.getShareInfo({
         shareTicket: shareTicket,
         timeout: timeout,
@@ -411,7 +410,7 @@ export class WX
    */
   static getImageInfo(src: string): Observable<GetImageInfoResult>
   {
-    return Rx.Observable.create(sub => {
+    return Observable.create(sub => {
 
       wx.getImageInfo({
         src: src,
@@ -421,7 +420,7 @@ export class WX
     });
   }
 
-  static canvasToTempFilePath(options: CanvasToTempFilePathOptions): Rx.Observable<string>
+  static canvasToTempFilePath(options: CanvasToTempFilePathOptions): Observable<string>
   {
     return Observable.create(sub => {
       options.success = res => sub.next(res.tempFilePath);
