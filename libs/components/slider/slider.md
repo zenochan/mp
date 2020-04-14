@@ -11,7 +11,7 @@
 
 ```html
 <slider-list>
-  <slider-item wx:for="{{data}}" wx:for-item="cart" wx:key="{{index}}">
+  <slider-item wx:for="{{data}}" wx:for-item="cart" wx:key="index">
     <div class="cart" slot="body">
       内容
     </div>

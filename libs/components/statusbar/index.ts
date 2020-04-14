@@ -1,16 +1,12 @@
+import {Data} from "../../wx/Data";
+
+let h = Data.get('__statusBarHeight__')
+if (!h) {
+  h = wx.getSystemInfoSync().statusBarHeight;
+  Data.set('__statusBarHeight__', h);
+}
+
 Component({
-  data: {
-    h: 0
-  },
-  options: {
-    addGlobalClass: true
-  },
-  created()
-  {
-    wx.getSystemInfo({
-      success: res => {
-        wx.nextTick(() => this.setData({h: res.statusBarHeight}));
-      }
-    })
-  }
+  data: {h},
+  options: {addGlobalClass: true},
 });

@@ -22,6 +22,13 @@ declare global
      */
     referrerInfo: object,
 
+    // 小程序直播中产品跳转时携带的产生
+    room_id: number
+    share_openid: string
+    openid: string
+    type: number
+    custom_params: string
+
     [key: string]: any
   }
 
@@ -367,13 +374,13 @@ declare global
 
   namespace wx
   {
-    interface BaseOptions
+    interface BaseOptions<T>
     {
 
       /**
        * 接口调用成功的回调函数
        */
-      success?: (res) => void;
+      success?: (res: T) => void;
 
       onLoad?: (options) => void;
 
@@ -450,7 +457,7 @@ declare global
       statusCode: number;
     }
 
-    interface RequestOptions extends BaseOptions
+    interface RequestOptions extends BaseOptions<any>
     {
 
       /**
@@ -497,7 +504,7 @@ declare global
       statusCode: number;
     }
 
-    interface UploadFileOptions extends BaseOptions
+    interface UploadFileOptions extends BaseOptions<any>
     {
 
       /**
@@ -547,7 +554,7 @@ declare global
       tempFilePath: string;
     }
 
-    interface DownloadFileOptions extends BaseOptions
+    interface DownloadFileOptions extends BaseOptions<any>
     {
 
       /**
@@ -572,7 +579,7 @@ declare global
      */
     function downloadFile(options: DownloadFileOptions): void;
 
-    interface ConnectSocketOptions extends BaseOptions
+    interface ConnectSocketOptions extends BaseOptions<any>
     {
 
       /**
@@ -612,7 +619,7 @@ declare global
      */
     function onSocketError(callback: (res?: any) => void): void;
 
-    interface SendSocketMessageOptions extends BaseOptions
+    interface SendSocketMessageOptions extends BaseOptions<any>
     {
 
       /**
@@ -654,7 +661,7 @@ declare global
 
     // ---------------------------------- 媒体API列表 ----------------------------------
     //<editor-fold desc="媒体API列表">
-    export interface ChooseImageResult
+    interface ChooseImageResult
     {
 
       /**
@@ -663,7 +670,7 @@ declare global
       tempFilePaths: string;
     }
 
-    export interface ChooseImageOptions extends BaseOptions
+    interface ChooseImageOptions extends BaseOptions<any>
     {
 
       /**
@@ -687,20 +694,20 @@ declare global
       success?: (res?: ChooseImageResult) => void;
     }
 
-    export interface SaveImageToPhotoAlbumOptions extends BaseOptions
+    interface SaveImageToPhotoAlbumOptions extends BaseOptions<any>
     {
       // 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径
       filePath: string
     }
 
-    export function saveImageToPhotosAlbum(options: SaveImageToPhotoAlbumOptions);
+    function saveImageToPhotosAlbum(options: SaveImageToPhotoAlbumOptions);
 
     /**
      * 从本地相册选择图片或使用相机拍照。
      */
     function chooseImage(options: ChooseImageOptions): void;
 
-    interface PreviewImageOptions extends BaseOptions
+    interface PreviewImageOptions extends BaseOptions<any>
     {
 
       /**
@@ -719,42 +726,18 @@ declare global
      */
     function previewImage(options: PreviewImageOptions): void;
 
-    export interface GetImageInfoResult
+    interface GetImageInfoResult
     {
-
-      /**
-       * 图片宽度，单位px 不考虑旋转。
-       */
-      width: number;
-
-      /**
-       * 图片高度 单位px 不考虑旋转。
-       */
-      height: number;
-
-      /**  图片的本地路径 */
-      path: string;
-
-      /**
-       * 拍照时设备方向
-       * @since 1.9.90
-       */
-      orientation?: string;
-
-      /**
-       * 图片格式
-       * @since 1.9.90
-       */
-      type?: string;
+      width: number;        // 图片宽度，单位px 不考虑旋转。
+      height: number;       // 图片高度 单位px 不考虑旋转。
+      path: string;         // 图片的本地路径
+      orientation: string;  // 拍照时设备方向  @since 1.9.90
+      type: string;         // 图片格式       @since 1.9.90
     }
 
-    export interface GetImageInfoOptions extends BaseOptions
+    interface GetImageInfoOptions extends BaseOptions<any>
     {
-
-      /**
-       * 图片的路径，可以是相对路径，临时文件路径，存储文件路径
-       */
-      src: string;
+      src: string;                                      //  图片的路径，可以是相对路径，临时文件路径，存储文件路径
 
       /**
        * 接口调用成功的回调函数，包含图片信息
@@ -765,9 +748,9 @@ declare global
     /**
      * 获取图片信息
      */
-    export function getImageInfo(options: GetImageInfoOptions): void;
+    function getImageInfo(options: GetImageInfoOptions): void;
 
-    export interface StartRecordResult
+    interface StartRecordResult
     {
 
       /**
@@ -776,7 +759,7 @@ declare global
       tempFilePath: string;
     }
 
-    export interface StartRecordOptions extends BaseOptions
+    interface StartRecordOptions extends BaseOptions<any>
     {
 
       /**
@@ -788,14 +771,14 @@ declare global
     /**
      * 开始录音。当主动调用 `wx.stopRecord`，或者录音超过1分钟时自动结束录音，返回录音文件的临时文件路径。
      */
-    export function startRecord(options: StartRecordOptions): void;
+    function startRecord(options: StartRecordOptions): void;
 
     /**
      *​ 主动调用停止录音。
      */
-    export function stopRecord(): void;
+    function stopRecord(): void;
 
-    export interface PlayVoiceOptions extends BaseOptions
+    interface PlayVoiceOptions extends BaseOptions<any>
     {
 
       /**
@@ -807,20 +790,20 @@ declare global
     /**
      * 开始播放语音，同时只允许一个语音文件正在播放，如果前一个语音文件还没播放完，将中断前一个语音播放。
      */
-    export function playVoice(options: PlayVoiceOptions): void;
+    function playVoice(options: PlayVoiceOptions): void;
 
     /**
      * 暂停正在播放的语音。
      * 再次调用wx.playVoice播放同一个文件时，会从暂停处开始播放。如果想从头开始播放，需要先调用 wx.stopVoice。
      */
-    export function pauseVoice(): void;
+    function pauseVoice(): void;
 
     /**
      * 结束播放语音。
      */
-    export function stopVoice(): void;
+    function stopVoice(): void;
 
-    export interface GetBackgroundAudioPlayerStateResult
+    interface GetBackgroundAudioPlayerStateResult
     {
 
       /**
@@ -849,7 +832,7 @@ declare global
       dataUrl: string;
     }
 
-    export interface GetBackgroundAudioPlayerStateOptions extends BaseOptions
+    interface GetBackgroundAudioPlayerStateOptions extends BaseOptions<any>
     {
 
       /**
@@ -861,9 +844,9 @@ declare global
     /**
      * 获取音乐播放状态。
      */
-    export function getBackgroundAudioPlayerState(options: GetBackgroundAudioPlayerStateOptions): void;
+    function getBackgroundAudioPlayerState(options: GetBackgroundAudioPlayerStateOptions): void;
 
-    export interface PlayBackgroundAudioOptions extends BaseOptions
+    interface PlayBackgroundAudioOptions extends BaseOptions<any>
     {
 
       /**
@@ -885,14 +868,14 @@ declare global
     /**
      * 播放音乐，同时只能有一首音乐正在播放。
      */
-    export function playBackgroundAudio(options: PlayBackgroundAudioOptions): void;
+    function playBackgroundAudio(options: PlayBackgroundAudioOptions): void;
 
     /**
      * 暂停播放音乐。
      */
-    export function pauseBackgroundAudio(): void;
+    function pauseBackgroundAudio(): void;
 
-    export interface SeekBackgroundAudioOptions extends BaseOptions
+    interface SeekBackgroundAudioOptions extends BaseOptions<any>
     {
 
       /**
@@ -904,29 +887,29 @@ declare global
     /**
      * 播放音乐，同时只能有一首音乐正在播放。
      */
-    export function seekBackgroundAudio(options: SeekBackgroundAudioOptions): void;
+    function seekBackgroundAudio(options: SeekBackgroundAudioOptions): void;
 
     /**
      * 停止播放音乐。
      */
-    export function stopBackgroundAudio(): void;
+    function stopBackgroundAudio(): void;
 
     /**
      * 监听音乐播放。
      */
-    export function onBackgroundAudioPlay(callback: (res?: any) => void): void;
+    function onBackgroundAudioPlay(callback: (res?: any) => void): void;
 
     /**
      * 监听音乐暂停。
      */
-    export function onBackgroundAudioPause(callback: (res?: any) => void): void;
+    function onBackgroundAudioPause(callback: (res?: any) => void): void;
 
     /**
      * 监听音乐停止。
      */
-    export function onBackgroundAudioStop(callback: (res?: any) => void): void;
+    function onBackgroundAudioStop(callback: (res?: any) => void): void;
 
-    export interface ChooseVideoResult
+    interface ChooseVideoResult
     {
 
       /**
@@ -955,7 +938,7 @@ declare global
       width: number;
     }
 
-    export interface ChooseVideoOptions extends BaseOptions
+    interface ChooseVideoOptions extends BaseOptions<any>
     {
 
       /**
@@ -982,12 +965,12 @@ declare global
     /**
      * 拍摄视频或从手机相册中选视频，返回视频的临时文件路径。
      */
-    export function chooseVideo(options: ChooseVideoOptions): void;
+    function chooseVideo(options: ChooseVideoOptions): void;
 
     /**
      * `audioContext` 通过 audioId 跟一个 audio 组件绑定，通过它可以操作一个 audio 组件。
      */
-    export interface AudioContext
+    interface AudioContext
     {
 
       /**
@@ -1014,12 +997,12 @@ declare global
     /**
      * 创建并返回 audio 上下文 `AudioContext` 对象
      */
-    export function createAudioContext(audioId: string): AudioContext;
+    function createAudioContext(audioId: string): AudioContext;
 
     /**
      * `videoContext` 通过 videoId 跟一个 video 组件绑定，通过它可以操作一个 video 组件。
      */
-    export interface VideoContext
+    interface VideoContext
     {
 
       /**
@@ -1046,9 +1029,9 @@ declare global
     /**
      * 创建并返回 video 上下文 `VideoContext` 对象
      */
-    export function createVideoContext(videoId: string): VideoContext;
+    function createVideoContext(videoId: string): VideoContext;
 
-    export interface SaveFileResult
+    interface SaveFileResult
     {
 
       /**
@@ -1057,7 +1040,7 @@ declare global
       savedFilePath: string;
     }
 
-    export interface SaveFileOptions extends BaseOptions
+    interface SaveFileOptions extends BaseOptions<any>
     {
 
       /**
@@ -1074,15 +1057,15 @@ declare global
     /**
      * 保存文件到本地。
      */
-    export function saveFile(options: SaveFileOptions): void;
+    function saveFile(options: SaveFileOptions): void;
 
-    export interface FileListItem
+    interface FileListItem
     {
 
       /**
        * 文件的本地路径
        */
-      filePath: string;
+      filePath: string
 
       /**
        * 文件的保存时的时间戳，从1970/01/01 08:00:00 到当前时间的秒数
@@ -1095,7 +1078,7 @@ declare global
       size: number;
     }
 
-    export interface GetSavedFileListResult
+    interface GetSavedFileListResult
     {
 
       /**
@@ -1109,7 +1092,7 @@ declare global
       fileList: FileListItem[];
     }
 
-    export interface GetSavedFileListOptions extends BaseOptions
+    interface GetSavedFileListOptions extends BaseOptions<any>
     {
 
       /**
@@ -1121,9 +1104,9 @@ declare global
     /**
      * 获取本地已保存的文件列表
      */
-    export function getSavedFileList(options: GetSavedFileListOptions): void;
+    function getSavedFileList(options: GetSavedFileListOptions): void;
 
-    export interface GetSavedFileInfoResult
+    interface GetSavedFileInfoResult
     {
 
       /**
@@ -1142,7 +1125,7 @@ declare global
       size: number;
     }
 
-    export interface GetSavedFileInfoOptions extends BaseOptions
+    interface GetSavedFileInfoOptions extends BaseOptions<any>
     {
 
       /**
@@ -1159,9 +1142,9 @@ declare global
     /**
      * 获取本地文件的文件信息
      */
-    export function getSavedFileInfo(options: GetSavedFileInfoOptions): void;
+    function getSavedFileInfo(options: GetSavedFileInfoOptions): void;
 
-    export interface RemoveSavedFileOptions extends BaseOptions
+    interface RemoveSavedFileOptions extends BaseOptions<any>
     {
 
       /**
@@ -1173,9 +1156,9 @@ declare global
     /**
      * 删除本地存储的文件
      */
-    export function removeSavedFile(options: RemoveSavedFileOptions): void;
+    function removeSavedFile(options: RemoveSavedFileOptions): void;
 
-    export interface OpenDocumentOptions extends BaseOptions
+    interface OpenDocumentOptions extends BaseOptions<any>
     {
 
       /**
@@ -1187,13 +1170,13 @@ declare global
     /**
      * 新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx
      */
-    export function openDocument(options: OpenDocumentOptions): void;
+    function openDocument(options: OpenDocumentOptions): void;
 
     //</editor-fold>
 
     // ---------------------------------- 数据API列表 ----------------------------------
     //<editor-fold desc="数据API列表">
-    export interface SetStorageOptions extends BaseOptions
+    interface SetStorageOptions extends BaseOptions<any>
     {
       /**
        * 本地缓存中的指定的 key
@@ -1209,14 +1192,14 @@ declare global
     /**
      * 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个异步接口。
      */
-    export function setStorage(options: SetStorageOptions): void;
+    function setStorage(options: SetStorageOptions): void;
 
     /**
      * 将 data 存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个同步接口。
      */
-    export function setStorageSync(key: string, data: any): void;
+    function setStorageSync(key: string, data: any): void;
 
-    export interface GetStorageResult
+    interface GetStorageResult
     {
 
       /**
@@ -1225,7 +1208,7 @@ declare global
       data: any;
     }
 
-    export interface GetStorageOptions extends BaseOptions
+    interface GetStorageOptions extends BaseOptions<any>
     {
 
       /**
@@ -1242,14 +1225,14 @@ declare global
     /**
      * 从本地缓存中异步获取指定 key 对应的内容。
      */
-    export function getStorage(options: GetStorageOptions): void;
+    function getStorage(options: GetStorageOptions): void;
 
     /**
      * 从本地缓存中同步获取指定 key 对应的内容。
      */
-    export function getStorageSync(key: string): any;
+    function getStorageSync(key: string): any;
 
-    export interface GetStorageInfoResult
+    interface GetStorageInfoResult
     {
 
       /**
@@ -1268,7 +1251,7 @@ declare global
       limitSize: number;
     }
 
-    export interface GetStorageInfoOptions extends BaseOptions
+    interface GetStorageInfoOptions extends BaseOptions<any>
     {
 
       /**
@@ -1280,14 +1263,14 @@ declare global
     /**
      * 从本地缓存中异步获取指定 key 对应的内容。
      */
-    export function getStorageInfo(options: GetStorageInfoOptions): void;
+    function getStorageInfo(options: GetStorageInfoOptions): void;
 
     /**
      * 从本地缓存中同步获取指定 key 对应的内容。
      */
-    export function getStorageInfoSync(): GetStorageInfoResult;
+    function getStorageInfoSync(): GetStorageInfoResult;
 
-    export interface RemoveStorageOptions extends BaseOptions
+    interface RemoveStorageOptions extends BaseOptions<any>
     {
 
       /**
@@ -1299,28 +1282,28 @@ declare global
     /**
      * 从本地缓存中异步移除指定 key 。
      */
-    export function removeStorage(options: RemoveStorageOptions): void;
+    function removeStorage(options: RemoveStorageOptions): void;
 
     /**
      * 从本地缓存中同步移除指定 key 。
      */
-    export function removeStorageSync(key: string): void;
+    function removeStorageSync(key: string): void;
 
     /**
      * 清理本地数据缓存。
      */
-    export function clearStorage(): void;
+    function clearStorage(): void;
 
     /**
      * 同步清理本地数据缓存。
      */
-    export function clearStorageSync(): void;
+    function clearStorageSync(): void;
 
     //</editor-fold>
 
     // ---------------------------------- 位置API列表 ----------------------------------
     //<editor-fold desc="位置API列表">
-    export interface Location
+    interface Location
     {
       /**
        * 纬度，浮点数，范围为-90~90，负数表示南纬
@@ -1333,7 +1316,7 @@ declare global
       longitude: number;
     }
 
-    export interface GetLocationResult extends Location
+    interface GetLocationResult extends Location
     {
 
       /**
@@ -1354,7 +1337,7 @@ declare global
       horizontalAccuracy: 65
     }
 
-    export interface GetLocationOptions extends BaseOptions
+    interface GetLocationOptions extends BaseOptions<any>
     {
 
       /**
@@ -1377,9 +1360,9 @@ declare global
     /**
      * 获取当前的地理位置、速度。
      */
-    export function getLocation(options: GetLocationOptions): void;
+    function getLocation(options: GetLocationOptions): void;
 
-    export interface ChooseLocationResult extends Location
+    interface ChooseLocationResult extends Location
     {
 
       /**
@@ -1393,7 +1376,7 @@ declare global
       address: string;
     }
 
-    export interface ChooseLocationOptions extends BaseOptions
+    interface ChooseLocationOptions extends BaseOptions<any>
     {
 
       /**
@@ -1405,9 +1388,9 @@ declare global
     /**
      * 打开地图选择位置
      */
-    export function chooseLocation(options: ChooseLocationOptions): void;
+    function chooseLocation(options: ChooseLocationOptions): void;
 
-    export interface OpenLocationOptions extends BaseOptions, Location
+    interface OpenLocationOptions extends BaseOptions<any>, Location
     {
 
       /**
@@ -1429,9 +1412,9 @@ declare global
     /**
      * 使用微信内置地图查看位置
      */
-    export function openLocation(options: OpenLocationOptions): void;
+    function openLocation(options: OpenLocationOptions): void;
 
-    export interface GetCenterLocationOptions extends BaseOptions
+    interface GetCenterLocationOptions extends BaseOptions<any>
     {
 
       /**
@@ -1443,7 +1426,7 @@ declare global
     /**
      * mapContext 通过 mapId 跟一个 <map/> 组件绑定，通过它可以操作对应的 <map/> 组件。
      */
-    export interface MapContext
+    interface MapContext
     {
 
       /**
@@ -1460,13 +1443,13 @@ declare global
     /**
      * 创建并返回 map 上下文 mapContext 对象
      */
-    export function createMapContext(mapId: string): MapContext;
+    function createMapContext(mapId: string): MapContext;
 
     //</editor-fold>
 
     // ---------------------------------- 设备API列表 ----------------------------------
     //<editor-fold desc="设备API列表">
-    export interface GetNetworkTypeResult
+    interface GetNetworkTypeResult
     {
 
       /**
@@ -1475,7 +1458,7 @@ declare global
       networkType: '2g' | '3g' | '4g' | 'wifi';
     }
 
-    export interface GetNetworkTypeOptions extends BaseOptions
+    interface GetNetworkTypeOptions extends BaseOptions<any>
     {
 
       /**
@@ -1487,58 +1470,25 @@ declare global
     /**
      * 获取网络类型。
      */
-    export function getNetworkType(options: GetNetworkTypeOptions): void;
+    function getNetworkType(options: GetNetworkTypeOptions): void;
 
-    export interface GetSystemInfoResult
+    interface GetSystemInfoResult
     {
-
-      /**
-       * 手机型号
-       */
-      model: string;
-
-      /**
-       * 设备像素比
-       */
-      pixelRatio: number;
-
-      /**
-       * 窗口宽度
-       */
-      windowWidth: number;
-
-      /**
-       * 窗口高度
-       */
-      windowHeight: number;
-
-      /**
-       * 微信设置的语言
-       */
-      language: string;
-
-      /**
-       * 微信版本号
-       */
-      version: string;
-
-      /**
-       * 操作系统版本
-       */
-      system: string;
-
-      /**
-       * 客户端平台
-       */
-      platform: string;
-
-      /** 状态栏高度 */
-      statusBarHeight: number;
+      model: string;              // 手机型号
+      pixelRatio: number;         // 设备像素比
+      windowWidth: number;        // 窗口宽度
+      windowHeight: number;       // 窗口高度
+      language: string;           // 微信设置的语言
+      version: string;            // 微信版本号
+      system: string;             // 操作系统版本
+      platform: string;           // 客户端平台
+      statusBarHeight: number;    // 状态栏高度
+      navigationHeight: number;   // custom, 导航栏高度
 
       [key: string]: any
     }
 
-    export interface GetSystemInfoOptions extends BaseOptions
+    interface GetSystemInfoOptions extends BaseOptions<any>
     {
 
       /**
@@ -1550,14 +1500,14 @@ declare global
     /**
      * 获取系统信息。
      */
-    export function getSystemInfo(options: GetSystemInfoOptions): void;
+    function getSystemInfo(options: GetSystemInfoOptions): void;
 
-    export function nextTick(task: () => void);
+    function nextTick(task: () => void);
 
     /**
      * 获取系统信息同步接口
      */
-    export function getSystemInfoSync(): GetSystemInfoResult;
+    function getSystemInfoSync(): GetSystemInfoResult;
 
     /**
      * #### 判断小程序的API，回调，参数，组件等是否在当前版本可用。
@@ -1587,9 +1537,9 @@ declare global
      * @since v1.1.1
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/api-caniuse.html">can i use</a>
      */
-    export function canIUse(api: String): Boolean;
+    function canIUse(api: String): Boolean;
 
-    export interface AccelerometerChangeResponse
+    interface AccelerometerChangeResponse
     {
 
       /**
@@ -1611,9 +1561,9 @@ declare global
     /**
      * 监听重力感应数据，频率：5次/秒
      */
-    export function onAccelerometerChange(callback: (res?: AccelerometerChangeResponse) => void): void;
+    function onAccelerometerChange(callback: (res?: AccelerometerChangeResponse) => void): void;
 
-    export interface CompassChangeResponse
+    interface CompassChangeResponse
     {
 
       /**
@@ -1625,9 +1575,9 @@ declare global
     /**
      * 监听罗盘数据，频率：5次/秒
      */
-    export function onCompassChange(callback: (res?: CompassChangeResponse) => void): void;
+    function onCompassChange(callback: (res?: CompassChangeResponse) => void): void;
 
-    export interface MakePhoneCallOptions
+    interface MakePhoneCallOptions
     {
 
       /**
@@ -1639,9 +1589,9 @@ declare global
     /**
      * 拨打电话
      */
-    export function makePhoneCall(options: MakePhoneCallOptions): void;
+    function makePhoneCall(options: MakePhoneCallOptions): void;
 
-    export interface ScanCodeResult
+    interface ScanCodeResult
     {
 
       /**
@@ -1665,7 +1615,7 @@ declare global
       path: string;
     }
 
-    export interface ScanCodeOptions extends BaseOptions
+    interface ScanCodeOptions extends BaseOptions<any>
     {
       /**
        * default false  是否只能从相机扫码，不允许从相册选择图片  1.2.0
@@ -1691,13 +1641,13 @@ declare global
     /**
      * 调起客户端扫码界面，扫码成功后返回对应的结果
      */
-    export function scanCode(options: ScanCodeOptions): void;
+    function scanCode(options: ScanCodeOptions): void;
 
     //</editor-fold>
 
     // ---------------------------------- 界面API列表 ----------------------------------
     //<editor-fold desc="界面API列表">
-    export interface ShowToastOptions extends BaseOptions
+    interface ShowToastOptions extends BaseOptions<any>
     {
 
       /**
@@ -1724,14 +1674,14 @@ declare global
     /**
      * 显示消息提示框
      */
-    export function showToast(options: ShowToastOptions): void;
+    function showToast(options: ShowToastOptions): void;
 
     /**
      * 隐藏消息提示框
      */
-    export function hideToast(): void;
+    function hideToast(): void;
 
-    export interface ShowModalResult
+    interface ShowModalResult
     {
 
       /**
@@ -1740,7 +1690,7 @@ declare global
       confirm: number;
     }
 
-    export interface ShowModalOptions extends BaseOptions
+    interface ShowModalOptions extends BaseOptions<any>
     {
 
       /**
@@ -1787,9 +1737,9 @@ declare global
     /**
      * 显示消息提示框
      */
-    export function showModal(options: ShowModalOptions): void;
+    function showModal(options: ShowModalOptions): void;
 
-    export interface ShowActionSheetResult
+    interface ShowActionSheetResult
     {
 
       /**
@@ -1803,7 +1753,7 @@ declare global
       tapIndex: number;
     }
 
-    export interface ShowActionSheetOptions extends BaseOptions
+    interface ShowActionSheetOptions extends BaseOptions<any>
     {
 
       /**
@@ -1825,9 +1775,9 @@ declare global
     /**
      * 显示操作菜单
      */
-    export function showActionSheet(options: ShowActionSheetOptions): void;
+    function showActionSheet(options: ShowActionSheetOptions): void;
 
-    export interface SetNavigationBarTitleOptions extends BaseOptions
+    interface SetNavigationBarTitleOptions extends BaseOptions<any>
     {
 
       /**
@@ -1839,10 +1789,10 @@ declare global
     /**
      * 动态设置当前页面的标题。
      */
-    export function setNavigationBarTitle(options: SetNavigationBarTitleOptions): void;
+    function setNavigationBarTitle(options: SetNavigationBarTitleOptions): void;
 
 
-    export interface NavbarColorOptions extends BaseOptions
+    interface NavbarColorOptions extends BaseOptions<any>
     {
       /** 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000 */
       frontColor: string,
@@ -1863,19 +1813,19 @@ declare global
       }
     }
 
-    export function setNavigationBarColor(options: NavbarColorOptions);
+    function setNavigationBarColor(options: NavbarColorOptions);
 
     /**
      * 在当前页面显示导航条加载动画。
      */
-    export function showNavigationBarLoading(): void;
+    function showNavigationBarLoading(): void;
 
     /**
      * 隐藏导航条加载动画。
      */
-    export function hideNavigationBarLoading(): void;
+    function hideNavigationBarLoading(): void;
 
-    export interface NavigateToOptions extends BaseOptions
+    interface NavigateToOptions extends BaseOptions<any>
     {
 
       /**
@@ -1890,7 +1840,7 @@ declare global
      */
     function navigateTo(options: NavigateToOptions): void;
 
-    interface MiniProgramOptions extends BaseOptions
+    interface MiniProgramOptions extends BaseOptions<any>
     {
       /**
        * 要打开的小程序 appId
@@ -1920,7 +1870,7 @@ declare global
 
     function navigateToMiniProgram(options: MiniProgramOptions);
 
-    interface RedirectToOptions extends BaseOptions
+    interface RedirectToOptions extends BaseOptions<any>
     {
 
       /**
@@ -1933,16 +1883,15 @@ declare global
     /**
      * 关闭当前页面，跳转到应用内的某个页面。
      */
-    export function reLaunch(options: RedirectToOptions): void;
+    function reLaunch(options: RedirectToOptions): void;
 
     /**
      * 关闭当前页面，跳转到应用内的某个页面。
      */
-    export function redirectTo(options: RedirectToOptions): void;
+    function redirectTo(options: RedirectToOptions): void;
 
-    export interface SwitchTabOptions extends BaseOptions
+    interface SwitchTabOptions extends BaseOptions<any>
     {
-
       /**
        * 需要跳转的 tabBar 页面的路径（需在 app.json 的 tabBar 字段定义的页面），路径后不能带参数
        */
@@ -1952,9 +1901,9 @@ declare global
     /**
      * 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
      */
-    export function switchTab(options: SwitchTabOptions): void;
+    function switchTab(options: SwitchTabOptions): void;
 
-    export interface NavigateBackOptions extends BaseOptions
+    interface NavigateBackOptions extends BaseOptions<any>
     {
       /**
        * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。默认值为1。
@@ -1967,12 +1916,12 @@ declare global
      * - 调用此方法成功时，会自动关闭当前页面的 loading / toast / modal 交互
      * - 需要提示的 toast / modal 需要在此方法之后调用
      */
-    export function navigateBack(options?: NavigateBackOptions): void;
+    function navigateBack(options?: NavigateBackOptions): void;
 
     /**
      * 动画实例可以调用以下方法来描述动画，调用结束后会返回自身，支持链式调用的写法。
      */
-    export interface Animation
+    interface Animation
     {
 
       /**
@@ -2139,7 +2088,7 @@ declare global
                a3: number, b3: number, c3: number, d3: number, a4: number, b4: number, c4: number, d4: number): this;
     }
 
-    export interface AnimationOptions
+    interface AnimationOptions
     {
 
       /**
@@ -2163,9 +2112,9 @@ declare global
       transformOrigin?: string;
     }
 
-    export function createAnimation(options?: AnimationOptions): Animation;
+    function createAnimation(options?: AnimationOptions): Animation;
 
-    export interface CanvasContext
+    interface CanvasContext
     {
 
       /**
@@ -2440,14 +2389,14 @@ declare global
      * 创建 canvas 绘图上下文(指定 canvasId)
      * @param canvasId 画布表示，传入定义在 <canvas/> 的 canvas-id
      */
-    export function createCanvasContext(canvasId: string): CanvasContext;
+    function createCanvasContext(canvasId: string): CanvasContext;
 
     /**
      * 创建并返回绘图上下文context对象。
      */
-    export function createContext(): CanvasContext;
+    function createContext(): CanvasContext;
 
-    export interface DrawCanvasOptions
+    interface DrawCanvasOptions
     {
 
       /**
@@ -2470,9 +2419,9 @@ declare global
     /**
      * 绘制画布
      */
-    export function drawCanvas(options: DrawCanvasOptions): void;
+    function drawCanvas(options: DrawCanvasOptions): void;
 
-    export interface CanvasToTempFilePathOptions extends BaseOptions
+    interface CanvasToTempFilePathOptions extends BaseOptions<any>
     {
 
       /**
@@ -2494,29 +2443,29 @@ declare global
     /**
      * 把当前画布的内容导出生成图片，并返回文件路径
      */
-    export function canvasToTempFilePath(options: CanvasToTempFilePathOptions): string;
+    function canvasToTempFilePath(options: CanvasToTempFilePathOptions): string;
 
     /**
      * 收起键盘。
      */
-    export function hideKeyboard(): void;
+    function hideKeyboard(): void;
 
     /**
      * 停止当前页面下拉刷新。
      */
-    export function stopPullDownRefresh(): void;
+    function stopPullDownRefresh(): void;
 
     /**
      * 开始下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/pulldown.html#wxstartpulldownrefresh"> startPullDownRefresh</a>
      * @since v1.5.0
      */
-    export function startPullDownRefresh(options?: BaseOptions): void;
+    function startPullDownRefresh(options?: BaseOptions<any>): void;
 
     //</editor-fold>
 
     // ---------------------------------- 开放接口API列表 ----------------------------------
-    export interface LoginResult
+    interface LoginResult
     {
 
       /**
@@ -2531,19 +2480,9 @@ declare global
       code: string;
     }
 
-    export interface LoginOptions extends BaseOptions
+    interface LoginOptions extends BaseOptions<LoginResult>
     {
-
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?: (res?: LoginResult) => void;
-
-      /**
-       *  超时时间， ms
-       *  @since v1.9.90
-       */
-      timeout?: number;
+      timeout?: number;     // 超时时间， ms       @since v1.9.90
     }
 
     /**
@@ -2552,9 +2491,9 @@ declare global
      * ![](https://mp.weixin.qq.com/debug/wxadoc/dev/image/api-login.jpg?t=2018626)
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/api-login.html">login</a>
      */
-    export function login(options: LoginOptions): void;
+    function login(options: LoginOptions): void;
 
-    export interface Scope
+    interface Scope
     {
       /**
        * 用户信息
@@ -2607,25 +2546,25 @@ declare global
       camera: Boolean
     }
 
-    export interface AuthorizeOptions extends BaseOptions
+    interface AuthorizeOptions extends BaseOptions<any>
     {
       scope: string
     }
 
-    export function authorize(options: AuthorizeOptions);
+    function authorize(options: AuthorizeOptions);
 
     /**
      * @param {wx.BaseOptions} options
      * @since v1.2.0
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/setting/wx.getSetting.html">get setting</a>
      */
-    export function getSetting(options: BaseOptions): void;
+    function getSetting(options: BaseOptions<any>): void;
 
-    export interface CheckSessionOptions extends BaseOptions
+    interface CheckSessionOptions extends BaseOptions<any>
     {
     }
 
-    export interface UserInfo
+    interface UserInfo
     {
       encryptedData: string
       errMsg: string
@@ -2646,9 +2585,9 @@ declare global
     /**
      * 检查登陆态是否过期
      */
-    export function checkSession(options: CheckSessionOptions): void;
+    function checkSession(options: CheckSessionOptions): void;
 
-    export interface GetUserInfoResult
+    interface GetUserInfoResult
     {
 
       /**
@@ -2672,7 +2611,7 @@ declare global
       encryptData: string;
     }
 
-    export interface GetUserInfoOptions extends BaseOptions
+    interface GetUserInfoOptions extends BaseOptions<any>
     {
 
       /**
@@ -2687,9 +2626,9 @@ declare global
      * > 请使用 <button open-type="getUserInfo"></button> 引导用户主动进行授权操作
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserInfo.html">get user info</a>
      */
-    export function getUserInfo(options: GetUserInfoOptions): void;
+    function getUserInfo(options: GetUserInfoOptions): void;
 
-    export interface RequestPaymentOptions extends BaseOptions
+    interface RequestPaymentOptions extends BaseOptions<any>
     {
 
       /**
@@ -2721,18 +2660,18 @@ declare global
     /**
      * 发起微信支付。
      */
-    export function requestPayment(options: RequestPaymentOptions): void;
+    function requestPayment(options: RequestPaymentOptions): void;
 
-    export function updateShareMenu(option: any);
+    function updateShareMenu(option: any);
 
-    export function showShareMenu(option: any);
+    function showShareMenu(option: any);
 
-    export function hideShareMenu(option: any);
+    function hideShareMenu(option: any);
 
-    export function getShareInfo(option?: any);
+    function getShareInfo(option?: any);
 
     //<editor-fold desc="Tab Bar">
-    export interface TabBarOptions extends BaseOptions
+    interface TabBarOptions extends BaseOptions<any>
     {
       /** default: false */
       animation?: boolean
@@ -2741,39 +2680,39 @@ declare global
     /**
      * 隐藏 tabBar
      */
-    export function hideTabBar(options?: TabBarOptions): void;
+    function hideTabBar(options?: TabBarOptions): void;
 
     /**
      * 显示 tabBar
      */
-    export function showTabBar(options?: TabBarOptions): void;
+    function showTabBar(options?: TabBarOptions): void;
 
-    export function setTabBarBadge(options): void;
+    function setTabBarBadge(options): void;
 
-    export function removeTabBarBadge(options): void;
+    function removeTabBarBadge(options): void;
 
-    export function hideTabBarRedDot(): void;
+    function hideTabBarRedDot(): void;
 
-    export function showTabBarRedDot(): void;
+    function showTabBarRedDot(): void;
 
-    export function setTabBarItem(): void;
+    function setTabBarItem(): void;
 
-    export function setTabBarStyle(): void;
+    function setTabBarStyle(): void;
 
     //</editor-fold>
 
-    export function sceneName(scene: number);
+    function sceneName(scene: number);
 
-    export function createSelectorQuery();
+    function createSelectorQuery();
 
-    export function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
+    function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
 
-    export function getUpdateManager(): any
+    function getUpdateManager(): any
 
 
-    export function openSetting();
+    function openSetting();
 
-    export interface MenuButtonBounding
+    interface MenuButtonBounding
     {
       bottom: number
       height: number
@@ -2783,7 +2722,7 @@ declare global
       width: number
     }
 
-    export function getMenuButtonBoundingClientRect(): MenuButtonBounding;
+    function getMenuButtonBoundingClientRect(): MenuButtonBounding;
 
   }
 

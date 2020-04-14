@@ -109,6 +109,8 @@ export class WX
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
+          let menuRounding = wx.getMenuButtonBoundingClientRect();
+          res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
           sub.next(res)
         },
         fail: e => sub.error(e)
@@ -116,6 +118,9 @@ export class WX
     });
   }
 
+  /**
+   * @deprecated use {@link systemInfo}
+   */
   static navHeight(): Observable<number>
   {
     return WX.systemInfo().map(res => {

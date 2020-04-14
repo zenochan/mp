@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Rx = require("../rx/Rx");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("./UI");
-var mp_1 = require("../mp");
 var RxExt_1 = require("../rx/RxExt");
+var Events_1 = require("./Events");
 /**
  * 微信 API rx 封装
  *
@@ -42,7 +41,7 @@ var WX = /** @class */ (function () {
     WX.pagePre = function () {
         var pages = getCurrentPages();
         if (pages.length > 1) {
-            return mp_1.rxJust(pages[pages.length - 2]);
+            return RxExt_1.rxJust(pages[pages.length - 2]);
         }
         else {
             RxExt_1.rxEmpty();
@@ -83,12 +82,17 @@ var WX = /** @class */ (function () {
         return Rx_1.Observable.create(function (sub) {
             return wx.getSystemInfo({
                 success: function (res) {
+                    var menuRounding = wx.getMenuButtonBoundingClientRect();
+                    res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
                     sub.next(res);
                 },
                 fail: function (e) { return sub.error(e); }
             });
         });
     };
+    /**
+     * @deprecated use {@link systemInfo}
+     */
     WX.navHeight = function () {
         return WX.systemInfo().map(function (res) {
             var menuRounding = wx.getMenuButtonBoundingClientRect();
@@ -107,7 +111,7 @@ var WX = /** @class */ (function () {
                 fail: function (e) {
                     if (e.errMsg.indexOf("auth") > 0) {
                         console.error("用户已拒绝定位授权");
-                        mp_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
+                        Events_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
                     }
                     else {
                         sub.error(e);
@@ -151,7 +155,7 @@ var WX = /** @class */ (function () {
      * @return code string
      */
     WX.login = function (timeout) {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.login({
                 timeout: timeout,
                 success: function (res) { return emitter.next(res); },
@@ -161,7 +165,7 @@ var WX = /** @class */ (function () {
         }).map(function (res) { return res.code; });
     };
     WX.checkSession = function () {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.checkSession({
                 //session_key 未过期，并且在本生命周期一直有效
                 success: function () { return emitter.next(true); },
@@ -183,7 +187,7 @@ var WX = /** @class */ (function () {
     WX.scanCode = function (scanType, onlyFromCamera) {
         if (scanType === void 0) { scanType = ["qrCode"]; }
         if (onlyFromCamera === void 0) { onlyFromCamera = true; }
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.scanCode({
                 scanType: scanType,
                 onlyFromCamera: onlyFromCamera,
@@ -198,7 +202,7 @@ var WX = /** @class */ (function () {
      * @see wx.getSetting
      */
     WX.getSetting = function () {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.getSetting({
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
@@ -219,7 +223,7 @@ var WX = /** @class */ (function () {
         });
     };
     WX.getUserInfo = function () {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.getUserInfo({
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
@@ -231,7 +235,7 @@ var WX = /** @class */ (function () {
      * https://developers.weixin.qq.com/miniprogram/dev/api/open-api/authorize/wx.authorize.html
      */
     WX.authorize = function (scope) {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             wx.authorize({
                 scope: scope,
                 success: function (res) { return emitter.next(res); },
@@ -241,7 +245,7 @@ var WX = /** @class */ (function () {
         });
     };
     WX.requestPayment = function (sign) {
-        return Rx.Observable.create(function (emitter) {
+        return Rx_1.Observable.create(function (emitter) {
             sign.success = function () { return emitter.next(); };
             sign.complete = function () { return emitter.complete(); };
             sign.fail = function (e) { return emitter.error(e.errMsg); };
@@ -251,7 +255,7 @@ var WX = /** @class */ (function () {
     WX.chooseImage = function (count, sourceType) {
         if (count === void 0) { count = 1; }
         if (sourceType === void 0) { sourceType = ['camera', 'album']; }
-        return Rx.Observable.create(function (sub) {
+        return Rx_1.Observable.create(function (sub) {
             wx.chooseImage({
                 count: count,
                 sourceType: sourceType,
@@ -269,7 +273,7 @@ var WX = /** @class */ (function () {
      * @see [wx.updateShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.updateShareMenu.html)
      */
     WX.updateShareMenu = function (withShareTicket) {
-        return Rx.Observable.create(function (sub) {
+        return Rx_1.Observable.create(function (sub) {
             wx.updateShareMenu({
                 withShareTicket: withShareTicket,
                 success: function (res) { return sub.next(res); },
@@ -295,7 +299,7 @@ var WX = /** @class */ (function () {
     };
     WX.showActionSheet = function (items, color) {
         if (color === void 0) { color = "#000000"; }
-        return Rx.Observable.create(function (sub) {
+        return Rx_1.Observable.create(function (sub) {
             wx.showActionSheet({
                 itemList: items,
                 itemColor: color,
@@ -325,7 +329,7 @@ var WX = /** @class */ (function () {
      */
     WX.getShareInfo = function (shareTicket, timeout) {
         if (timeout === void 0) { timeout = 5000; }
-        return Rx.Observable.create(function (sub) {
+        return Rx_1.Observable.create(function (sub) {
             wx.getShareInfo({
                 shareTicket: shareTicket,
                 timeout: timeout,
@@ -345,7 +349,7 @@ var WX = /** @class */ (function () {
      * @param src
      */
     WX.getImageInfo = function (src) {
-        return Rx.Observable.create(function (sub) {
+        return Rx_1.Observable.create(function (sub) {
             wx.getImageInfo({
                 src: src,
                 success: function (res) { return sub.next(res); },

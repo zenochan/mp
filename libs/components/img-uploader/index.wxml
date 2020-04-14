@@ -1,5 +1,5 @@
 <div class="img-uploader">
-  <div class="item" wx:for="{{urls}}" wx:key="{{index}}"
+  <div class="item" wx:for="{{urls}}" wx:key="index"
        catch:tap="view" data-urls="{{urls}}" data-url="{{item}}"
   >
     <image class="item-image" src="{{item + '?imageView2/0/w/200'}}" mode="aspectFill"></image>
@@ -8,7 +8,7 @@
     ></image>
   </div>
 
-  <div class="item" wx:for="{{uploading}}" wx:key="{{index}}">
+  <div class="item" wx:for="{{uploading}}" wx:key="index">
     <image class="item-image" src="{{item}}" mode="aspectFill"></image>
 
     <div class="progress add-div">
