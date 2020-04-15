@@ -1,13 +1,15 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @author ZenoChan zenochan@qq.com
  */
+Object.defineProperty(exports, "__esModule", { value: true });
 var RxExt_1 = require("./rx/RxExt");
 exports.rxJust = RxExt_1.rxJust;
 exports.rxFromPromise = RxExt_1.rxFromPromise;
+exports.rxEmpty = RxExt_1.rxEmpty;
 var nav_1 = require("./wx/nav");
 exports.Nav = nav_1.Nav;
+exports.NavInjectors = nav_1.NavInjectors;
 var WX_1 = require("./wx/WX");
 exports.WX = WX_1.WX;
 var Data_1 = require("./wx/Data");
@@ -16,6 +18,8 @@ var UI_1 = require("./wx/UI");
 exports.UI = UI_1.UI;
 var api_service_1 = require("./service/api.service");
 exports.API = api_service_1.API;
+var session_service_1 = require("./service/session.service");
+exports.SessionService = session_service_1.SessionService;
 var weapp_1 = require("./wx/weapp");
 exports.HookPage = weapp_1.HookPage;
 exports.PageInjectors = weapp_1.PageInjectors;

@@ -1,8 +1,9 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
 var mp_1 = require("../../mp");
 Component({
+    data: { placeholder: true },
     properties: {
         src: {
             type: String, value: '', observer: function (src) {
@@ -50,6 +51,12 @@ Component({
     methods: {
         preview: function () {
             this.data.view && this.data._src && wx.previewImage({ urls: [this.data._src] });
+        },
+        loadSuccess: function () {
+            this.setData({ placeholder: false });
+        },
+        loadFail: function () {
+            this.setData({ placeholder: true });
         }
     },
     ready: function () {
@@ -62,5 +69,6 @@ Component({
                 _this.setData({ qiniu: false });
             }
         });
-    }
+    },
 });
+//# sourceMappingURL=index.js.map

@@ -5,23 +5,51 @@ var WX_1 = require("./WX");
 var Nav = /** @class */ (function () {
     function Nav() {
     }
-    Nav.nav = function (url) {
+    Nav.nav = function (options) {
         var _this = this;
-        if (/^(pages|package)/.test(url)) {
-            url = '/' + url;
+        var op;
+        if (typeof options == 'string') {
+            op = { url: options };
         }
-        wx.navigateTo({
-            url: url,
+        else {
+            op = options;
+        }
+        var to = Route.create(op.url);
+        var from = Route.create(WX_1.WX.page().route);
+        runQueue(exports.NavInjectors, function (injector, next) {
+            if (injector.beforeNav) {
+                injector.beforeNav(to, from, next);
+            }
+            else {
+                next();
+            }
+        }, function () {
+            _this.actualNav(to, op.redirect);
+        });
+    };
+    Nav.actualNav = function (route, redirect) {
+        var _this = this;
+        if (redirect === void 0) { redirect = false; }
+        var options = {
+            url: route.page(),
             fail: function (res) {
                 if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
-                    _this.switchTab(url);
+                    _this.switchTab(route.page());
                 }
                 else {
                     UI_1.UI.toastFail(res.errMsg, 3000);
                 }
             }
-        });
-        return true;
+        };
+        if (redirect) {
+            wx.redirectTo(options);
+        }
+        else {
+            wx.navigateTo(options);
+        }
+    };
+    Nav.redirect = function (url) {
+        this.nav({ url: url, redirect: true });
     };
     /**
      * @param holder
@@ -40,7 +68,7 @@ var Nav = /** @class */ (function () {
         });
     };
     Nav.navData = function () {
-        return this.navParams || null;
+        return this.navParams;
     };
     Nav.switchTab = function (page) {
         wx.switchTab({
@@ -79,4 +107,52 @@ var Nav = /** @class */ (function () {
     return Nav;
 }());
 exports.Nav = Nav;
+var Route = /** @class */ (function () {
+    function Route() {
+    }
+    Route.prototype.page = function () {
+        var url = this.url;
+        if (this.query) {
+            url += '?' + this.query;
+        }
+        return url;
+    };
+    Route.create = function (path) {
+        var route = new Route();
+        route.url = this.checkUrl(path.split('?')[0]);
+        route.query = path.split('?')[1] || '';
+        return route;
+    };
+    Route.checkUrl = function (url) {
+        if (/^(pages|package)/.test(url)) {
+            url = '/' + url;
+        }
+        if (!/^\//.test(url)) {
+            var currUrl = '/' + WX_1.WX.page().route;
+            url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url;
+            url = url.replace(/[^/]+\/\.\.\//, '');
+        }
+        return url;
+    };
+    return Route;
+}());
+exports.Route = Route;
+exports.NavInjectors = [];
+function runQueue(queue, fn, cb) {
+    var step = function (index) {
+        if (index >= queue.length) {
+            cb();
+        }
+        else {
+            if (queue[index]) {
+                fn(queue[index], function () { return step(index + 1); });
+            }
+            else {
+                step(index + 1);
+            }
+        }
+    };
+    step(0);
+}
+exports.runQueue = runQueue;
 //# sourceMappingURL=nav.js.map

@@ -474,9 +474,9 @@ export class WX
   {
     return Observable.create(sub => {
       let query = comp ? comp.createSelectorQuery() : wx.createSelectorQuery();
-      query.select(selector).boundingClientRect();
+      query.selectAll(selector).boundingClientRect();
       query.exec(elements => {
-        sub.next(elements)
+        sub.next(elements[0])
       })
     });
   }

@@ -1,11 +1,18 @@
 <block wx:if="{{qiniu}}">
   <image class="zz-img__holder" wx:if="{{_src && size}}"
          src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
+         onload="loadSuccess" onerror="loadFail"
          bind:tap="preview"></image>
   <div class="zz-img__size" id="zz-img__size"></div>
 </block>
 
 <block wx:else>
-  <image class="zz-img__holder" src="{{_src}}" mode="{{mode}}" bind:tap="preview"></image>
+  <image class="zz-img__holder" src="{{_src}}" mode="{{mode}}" bind:tap="preview"
+         onload="loadSuccess" onerror="loadFail"
+  ></image>
 </block>
 
+
+<div class="zz-img__placeholder" wx:if="{{placeholder}}">
+  <image class="icon" src="img-holder.svg"></image>
+</div>

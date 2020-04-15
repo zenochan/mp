@@ -1,28 +1,60 @@
 import {UI} from "./UI";
 import {WX} from "./WX";
 
+
 export class Nav
 {
   private static navParams;
   public static INDEX = "/pages/index/index";
 
-  static nav(url: string): boolean
+  static nav(options: string | {
+    url: string,
+    redirect?: boolean
+  })
   {
-    if (/^(pages|package)/.test(url)) {
-      url = '/' + url;
+    let op;
+    if (typeof options == 'string') {
+      op = {url: options};
+    } else {
+      op = options;
     }
 
-    wx.navigateTo({
-      url: url,
+    let to = Route.create(op.url);
+    let from = Route.create(WX.page().route);
+    runQueue(NavInjectors, (injector, next) => {
+      if (injector.beforeNav) {
+        injector.beforeNav(to, from, next);
+      } else {
+        next()
+      }
+    }, () => {
+      this.actualNav(to, op.redirect)
+    })
+  }
+
+  private static actualNav(route: Route, redirect: boolean = false)
+  {
+    let options = {
+      url: route.page(),
       fail: res => {
         if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
-          this.switchTab(url)
+          this.switchTab(route.page())
         } else {
           UI.toastFail(res.errMsg, 3000)
         }
       }
-    });
-    return true
+    }
+
+    if (redirect) {
+      wx.redirectTo(options);
+    } else {
+      wx.navigateTo(options);
+    }
+  }
+
+  static redirect(url: string)
+  {
+    this.nav({url: url, redirect: true})
   }
 
   /**
@@ -47,7 +79,7 @@ export class Nav
 
   static navData(): any | null
   {
-    return this.navParams || null;
+    return this.navParams
   }
 
   static switchTab(page: string)
@@ -90,4 +122,74 @@ export class Nav
       wx.reLaunch({url: this.INDEX})
     }
   }
+}
+
+export class Route
+{
+  public url: string
+  public query: string
+
+  page()
+  {
+    let url = this.url;
+    if (this.query) {
+      url += '?' + this.query;
+    }
+
+    return url;
+  }
+
+  static create(path: string): Route
+  {
+    let route = new Route();
+    route.url = this.checkUrl(path.split('?')[0])
+    route.query = path.split('?')[1] || ''
+
+    return route;
+  }
+
+
+  private static checkUrl(url: string)
+  {
+    if (/^(pages|package)/.test(url)) {
+      url = '/' + url;
+    }
+
+    if (!/^\//.test(url)) {
+      let currUrl = '/' + WX.page().route;
+      url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url
+      url = url.replace(/[^/]+\/\.\.\//, '');
+    }
+
+    return url;
+  }
+}
+
+export interface NavInjector
+{
+  beforeNav?: (to: Route, from: Route, next: () => void) => void;
+  afterNav?: (to: Route, from: Route) => void;
+}
+
+export const NavInjectors: Array<NavInjector> = [];
+
+export function runQueue(
+    queue: NavInjector[],
+    fn: (injector: NavInjector, next: () => void) => void,
+    cb: () => void
+)
+{
+  let step = index => {
+    if (index >= queue.length) {
+      cb();
+    } else {
+      if (queue[index]) {
+        fn(queue[index], () => step(index + 1))
+      } else {
+        step(index + 1)
+      }
+    }
+  }
+
+  step(0);
 }

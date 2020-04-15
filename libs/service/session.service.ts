@@ -13,15 +13,18 @@ export class SessionService
   {
     if (!this.code2Session) throw "请配置 code2Session";
 
-    let cache = Data.get(this.session_key);
+    return WX.checkSession().flatMap(res => {
+      let cache = Data.get(this.session_key);
+      if (cache && res) {
+        return rxJust(cache)
+      } else {
+        return WX.login().flatMap(code => this.code2Session(code))
+      }
+    })
+  }
 
-    let fresh = WX.login()
-        .flatMap(code => this.code2Session(code))
-        .map(session => {
-          Data.set(this.session_key, session);
-          return session;
-        });
-
-    return !cache ? fresh : (WX.checkSession().flatMap(validate => validate ? rxJust(cache) : fresh))
+  static getSync(): Session | null
+  {
+    return Data.get(this.session_key) || null;
   }
 }

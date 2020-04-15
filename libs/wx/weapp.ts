@@ -64,7 +64,7 @@ export function HookPage(page: IPage = {})
       page.zzLife.apply(this).next(method);
 
       if (method == "onLoad") {
-        this.navParams = Nav.navData() || {};
+        this.navParams = Nav.navData() || this.options || {};
         if (this.navTitle) UI.navTitle(this.navTitle);
       }
 
@@ -296,22 +296,3 @@ PageInjectors.push({
     };
   }
 });
-
-PageInjectors.push({
-  onLoad(page)
-  {
-    //   page.onDataChange = function () {
-    //     if (!this.__onDataChange__) {
-    //       this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
-    //     }
-    //     return this.__onDataChange__
-    //   };
-    //
-    //   let origin = page.setData;
-    //   page.setData = (value) => {
-    //     origin(value);
-    //     this.onDataChange().next(value);
-    //   }
-  }
-});
-

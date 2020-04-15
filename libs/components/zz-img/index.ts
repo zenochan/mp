@@ -2,6 +2,8 @@ import {ZZ_IMG_CONFIG} from "./config";
 import {WX} from "../../mp";
 
 Component({
+  data: {placeholder: true},
+
   properties: {
     src: {
       type: String, value: '', observer(src: string)
@@ -55,6 +57,15 @@ Component({
     preview()
     {
       this.data.view && this.data._src && wx.previewImage({urls: [this.data._src]})
+    },
+
+    loadSuccess()
+    {
+      this.setData({placeholder: false});
+    },
+    loadFail()
+    {
+      this.setData({placeholder: true});
     }
   },
   ready()
@@ -68,5 +79,5 @@ Component({
         this.setData({qiniu: false});
       }
     })
-  }
+  },
 });

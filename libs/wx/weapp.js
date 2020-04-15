@@ -38,7 +38,7 @@ function HookPage(page) {
             var _this = this;
             page.zzLife.apply(this).next(method);
             if (method == "onLoad") {
-                this.navParams = nav_1.Nav.navData() || {};
+                this.navParams = nav_1.Nav.navData() || this.options || {};
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
             }
@@ -243,22 +243,6 @@ exports.PageInjectors.push({
             page.data.modal[target] = false;
             page.setData({ modal: page.data.modal });
         };
-    }
-});
-exports.PageInjectors.push({
-    onLoad: function (page) {
-        //   page.onDataChange = function () {
-        //     if (!this.__onDataChange__) {
-        //       this.__onDataChange__ = new BehaviorSubject("__init__").filter(res => res != '__init__')
-        //     }
-        //     return this.__onDataChange__
-        //   };
-        //
-        //   let origin = page.setData;
-        //   page.setData = (value) => {
-        //     origin(value);
-        //     this.onDataChange().next(value);
-        //   }
     }
 });
 //# sourceMappingURL=weapp.js.map

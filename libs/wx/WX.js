@@ -395,9 +395,9 @@ var WX = /** @class */ (function () {
     WX.queryBoundingClientRect = function (selector, comp) {
         return Rx_1.Observable.create(function (sub) {
             var query = comp ? comp.createSelectorQuery() : wx.createSelectorQuery();
-            query.select(selector).boundingClientRect();
+            query.selectAll(selector).boundingClientRect();
             query.exec(function (elements) {
-                sub.next(elements);
+                sub.next(elements[0]);
             });
         });
     };

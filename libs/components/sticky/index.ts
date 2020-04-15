@@ -17,17 +17,19 @@ Component({
   methods: {
     init()
     {
-      WX.queryBoundingClientRect(".body", this).subscribe(res => {
+      WX.queryBoundingClientRect(".element", this).subscribe(res => {
         this.setData({
-          top: res[0].top,
-          height: res[0].bottom - res[0].top
+          top: this.pageTop + res[0].top,
+          height: res[1].height
         });
       });
     }
   },
   attached()
   {
+    this.pageTop = 0;
     WX.onPageScroll(top => {
+      this.pageTop = top;
       top += this.data.offset;
       !this.data.sticky && this.data.top < top && this.setData({sticky: true});
       this.data.sticky && this.data.top > top && this.setData({sticky: false})
