@@ -17,6 +17,11 @@ function HookPage(page) {
     if (page === void 0) { page = {}; }
     hookNav(page);
     hookInputEvent(page);
+    exports.PageInjectors.forEach(function (item) {
+        if (item.init) {
+            item.init(page);
+        }
+    });
     page.zzLife = function () {
         if (!this.__zzLife__) {
             this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
@@ -38,7 +43,15 @@ function HookPage(page) {
             var _this = this;
             page.zzLife.apply(this).next(method);
             if (method == "onLoad") {
-                this.navParams = nav_1.Nav.navData() || this.options || {};
+                this.options.scene = mp_1.WX.parsePageScene(this);
+                this.setData({ options: this.options });
+                this.navParams = nav_1.Nav.navData() || {};
+                Object.keys(this.options).forEach(function (key) {
+                    if (!_this.navParams.hasOwnProperty(key)) {
+                        _this.navParams[key] = decodeURIComponent(_this.options[key]);
+                    }
+                });
+                this.route = '/' + this.route;
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
             }
@@ -201,6 +214,8 @@ function hookNav(page) {
             data = url.currentTarget.dataset;
             url = url.currentTarget.dataset.url;
         }
+        if (!url)
+            return;
         url = url.toString();
         if (url.indexOf("tab:") == 0) {
             nav_1.Nav.switchTab(url.replace("tab:", ""));

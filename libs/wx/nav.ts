@@ -28,24 +28,27 @@ export class Nav
         next()
       }
     }, () => {
-      this.actualNav(to, op.redirect)
+      this.actualNav(to, from, op.redirect)
     })
   }
 
-  private static actualNav(route: Route, redirect: boolean = false)
+  private static actualNav(to: Route, from: Route, redirect: boolean = false)
   {
     let options = {
-      url: route.page(),
+      url: to.page(),
       fail: res => {
-        if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
-          this.switchTab(route.page())
+        if (res.errMsg.indexOf("can not navigateTo a tab bar page") != -1) {
+          this.switchTab(to.page())
+        } else if (res.errMsg.indexOf("fail page") != -1) {
+          UI.toastFail("页面不存在");
+          console.warn("页面不存在：" + to.page());
         } else {
           UI.toastFail(res.errMsg, 3000)
         }
       }
     }
 
-    if (redirect) {
+    if (redirect || to.url == from.url) {
       wx.redirectTo(options);
     } else {
       wx.navigateTo(options);
@@ -77,6 +80,9 @@ export class Nav
   }
 
 
+  /**
+   * - 在 page 中调用 {@link IPage.navParams}
+   */
   static navData(): any | null
   {
     return this.navParams
@@ -157,8 +163,9 @@ export class Route
 
     if (!/^\//.test(url)) {
       let currUrl = '/' + WX.page().route;
-      url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url
-      url = url.replace(/[^/]+\/\.\.\//, '');
+      url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url;
+      url = url.replace(/[^/]+\/\.\.\//, '')
+          .replace(/\/\//g, '/');
     }
 
     return url;

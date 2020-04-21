@@ -72,21 +72,21 @@ var API = /** @class */ (function () {
             });
         });
     };
-    API.uploadMore = function (optins) {
+    API.uploadMore = function (options) {
         var _this = this;
-        var url = this.API_BASE + (optins.path || 'upload');
+        var url = this.API_BASE + (options.path || 'upload');
         if (this.pathInterceptor)
             url = this.pathInterceptor(url);
         // 上传图片必须 https 请求，这里都直接用 prod 环境
         return Rx_1.Observable.create(function (sub) {
             var urls = [];
             var completed = 0;
-            optins.filePaths.forEach(function (item) {
+            options.filePaths.forEach(function (item) {
                 wx.uploadFile({
                     url: url,
                     filePath: item,
                     name: "photo",
-                    formData: optins.formData,
+                    formData: options.formData,
                     header: _this.tokenHeader(),
                     success: function (res) {
                         var data = JSON.parse(res.data);
@@ -95,7 +95,7 @@ var API = /** @class */ (function () {
                     fail: function (e) { return console.error(e); },
                     complete: function () {
                         completed++;
-                        if (completed == optins.filePaths.length) {
+                        if (completed == options.filePaths.length) {
                             sub.next(_this.completeImgUrl(urls));
                             sub.complete();
                         }
@@ -140,6 +140,9 @@ var API = /** @class */ (function () {
                 // 授权失败, 重启小程序
                 Data_1.Data.clear();
                 UI_1.UI.alert("登录已失效").subscribe(function (res) { return wx.reLaunch({ url: "/pages/account/login/login" }); });
+            }
+            else if (res.statusCode == 404) {
+                sub.error("数据不存在或已失效");
             }
             else if (data_1.errors) {
                 var err = Object.keys(data_1.errors).map(function (key) { return data_1.errors[key]; }).map(function (errorItem) { return errorItem.join(","); }).join(",");

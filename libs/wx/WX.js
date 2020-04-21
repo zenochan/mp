@@ -47,6 +47,15 @@ var WX = /** @class */ (function () {
             RxExt_1.rxEmpty();
         }
     };
+    WX.pagePrePath = function () {
+        var pages = getCurrentPages();
+        if (pages.length < 2) {
+            return '';
+        }
+        else {
+            return pages[pages.length - 2].route;
+        }
+    };
     /**
      * 小程序强制更新
      * @param delayMs 延时弹框，安卓上有时候不显示
@@ -84,11 +93,19 @@ var WX = /** @class */ (function () {
                 success: function (res) {
                     var menuRounding = wx.getMenuButtonBoundingClientRect();
                     res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+                    res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
                     sub.next(res);
                 },
                 fail: function (e) { return sub.error(e); }
             });
         });
+    };
+    WX.systemInfoSync = function () {
+        var res = wx.getSystemInfoSync();
+        var menuRounding = wx.getMenuButtonBoundingClientRect();
+        res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+        res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
+        return res;
     };
     /**
      * @deprecated use {@link systemInfo}

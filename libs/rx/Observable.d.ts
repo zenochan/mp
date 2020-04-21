@@ -46,7 +46,7 @@ export declare class Observable<T> implements Subscribable<T>
   static create: Function;
   static zip: Function;
 
-  flatMap<R>(op: (any: any) => Observable<R>): Observable<R>;
+  flatMap<R>(op: (any: T) => Observable<R>): Observable<R>;
 
   map<R>(op: (res) => R): Observable<R>;
 

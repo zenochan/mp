@@ -231,7 +231,8 @@ declare global
      * 组件的对外属性，是属性名到属性设置的映射表，属性设置中可包含三个字段，
      * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
      */
-    properties?: { [key: string]: Property }
+    properties?: { [key: string]: Property | any }
+
     /**
      * 组件的内部数据，和 properties 一同用于组件的模板渲染
      */
@@ -1482,6 +1483,20 @@ declare global
       version: string;            // 微信版本号
       system: string;             // 操作系统版本
       platform: string;           // 客户端平台
+
+      // from v2.6.0
+      locationAuthorized: boolean;    // 允许微信使用定位的开关
+      safeArea: {                     // 竖屏正方向下的安全区域
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        width: number,
+        height: number,
+        paddingBottom: number        // 自定义附加，底部安全距离
+      };
+
+
       statusBarHeight: number;    // 状态栏高度
       navigationHeight: number;   // custom, 导航栏高度
 

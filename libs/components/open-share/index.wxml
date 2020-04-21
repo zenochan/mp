@@ -1,4 +1,2 @@
 <slot></slot>
-<button open-type="share" class="open_button"
-        data-message="{{message}}"
-></button>
+<button open-type="share" class="open_button" style="width: 100%" data-message="{{message}}"></button>

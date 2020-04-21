@@ -2,7 +2,7 @@ import {Nav} from "./nav";
 import {UI} from "./UI";
 import {Data} from "./Data";
 import {BehaviorSubject} from "../rx/Rx";
-import {API} from "../mp";
+import {API, WX} from "../mp";
 
 export const HOOK_CONF = {log: true};
 
@@ -22,6 +22,7 @@ export const HOOK_CONF = {log: true};
  */
 export interface PageHook
 {
+  init?: (Ipage) => void;
   onLoad?: (Ipage, options: LaunchOptions) => void;
   onReady?: (Ipage) => void;
   onShow?: (Ipage) => void;
@@ -41,6 +42,13 @@ export function HookPage(page: IPage = {})
 {
   hookNav(page);
   hookInputEvent(page);
+
+  PageInjectors.forEach(item => {
+    if (item.init) {
+      item.init(page)
+    }
+  })
+
   page.zzLife = function () {
     if (!this.__zzLife__) {
       this.__zzLife__ = new BehaviorSubject("onInit")
@@ -64,7 +72,18 @@ export function HookPage(page: IPage = {})
       page.zzLife.apply(this).next(method);
 
       if (method == "onLoad") {
-        this.navParams = Nav.navData() || this.options || {};
+        this.options.scene = WX.parsePageScene(this);
+        this.setData({options: this.options});
+
+        this.navParams = Nav.navData() || {};
+        Object.keys(this.options).forEach(key => {
+          if (!this.navParams.hasOwnProperty(key)) {
+            this.navParams[key] = decodeURIComponent(this.options[key]);
+          }
+        });
+
+        this.route = '/' + this.route;
+
         if (this.navTitle) UI.navTitle(this.navTitle);
       }
 
@@ -245,6 +264,8 @@ function hookNav(page: IPage)
       data = url.currentTarget.dataset;
       url = url.currentTarget.dataset.url;
     }
+
+    if (!url) return;
 
     url = url.toString();
 

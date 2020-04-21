@@ -1,0 +1,4 @@
+<div style="background: {{background}}">
+  <div class="divider"
+       style="height:{{height}}rpx;background: {{color}};margin-left: {{left||horizontal}}rpx;margin-right: {{right||horizontal}}rpx;margin-top: {{top||vertical}}rpx;margin-bottom: {{bottom||vertical}}rpx"></div>
+</div>

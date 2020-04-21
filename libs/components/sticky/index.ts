@@ -18,10 +18,12 @@ Component({
     init()
     {
       WX.queryBoundingClientRect(".element", this).subscribe(res => {
-        this.setData({
-          top: this.pageTop + res[0].top,
-          height: res[1].height
-        });
+        if (res.length >= 2) {
+          this.setData({
+            top: this.pageTop + res[0].top,
+            height: res[1].height
+          });
+        }
       });
     }
   },

@@ -2,13 +2,20 @@ import {ZZ_IMG_CONFIG} from "./config";
 import {WX} from "../../mp";
 
 Component({
-  data: {placeholder: true},
+  data: {
+    placeholder: true,
+    mode: 'aspectFill'
+  },
 
   properties: {
     src: {
       type: String, value: '', observer(src: string)
       {
-        if (src.indexOf('http') != 0 && src.indexOf('/assets/') != 0 && ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
+        if (src.indexOf('assets') != -1) {
+          this.setData({_src: src, placeholder: false})
+        } else if (!src) {
+          this.setData({_src: null})
+        } else if (src.indexOf('http') != 0 && ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
           this.setData({_src: ZZ_IMG_CONFIG.BASE_URL + src})
         } else {
           this.setData({_src: src})

@@ -14,13 +14,12 @@
  **/
 import {HtmlToJson} from "./html2json";
 
-export let WX_PARSE_LOG = false;
-export let EMOJI_BASE_URL = "/wxParse/emojis/";
+export let WX_PARSE_LOG = true;
 /**
  * 配置及公有属性
  **/
-var realWindowWidth = 0;
-var realWindowHeight = 0;
+let realWindowWidth = 0;
+let realWindowHeight = 0;
 wx.getSystemInfo({
   success: function (res) {
     realWindowWidth = res.windowWidth;
@@ -31,7 +30,7 @@ wx.getSystemInfo({
 /**
  * 主函数入口区
  **/
-function wxParse(bindName = 'wxParseData',  data = '<div class="color:red;">数据不能为空</div>', target, imagePadding = 0)
+function wxParse(bindName = 'wxParseData', data = '<div class="color:red;">数据不能为空</div>', target, imagePadding = 0)
 {
   var that = target;
   var transData: any = {};//存放转化后的数据
@@ -92,11 +91,11 @@ function calMoreImageInfo(e, idx, that, bindName)
   // var bindData = {};
   // bindData[bindName] = temData;
   // that.setData(bindData);
-  var index = temImages[idx].index
-  var key = `${bindName}`
+  let index = temImages[idx].index
+  let key = `${bindName}`
   for (var i of index.split('.')) key += `.nodes[${i}]`
-  var keyW = key + '.width'
-  var keyH = key + '.height'
+  let keyW = key + '.width'
+  let keyH = key + '.height'
   that.setData({
     [keyW]: recal.imageWidth,
     [keyH]: recal.imageheight,
@@ -107,10 +106,10 @@ function calMoreImageInfo(e, idx, that, bindName)
 function wxAutoImageCal(originalWidth, originalHeight, that, bindName)
 {
   //获取图片的原始长宽
-  var windowWidth = 0, windowHeight = 0;
-  var autoWidth = 0, autoHeight = 0;
-  var results: any = {};
-  var padding = that.data[bindName].view.imagePadding;
+  let windowWidth = 0, windowHeight = 0;
+  let autoWidth = 0, autoHeight = 0;
+  let results: any = {};
+  let padding = that.data[bindName].view.imagePadding;
   windowWidth = realWindowWidth - 2 * padding;
   windowHeight = realWindowHeight;
   //判断按照那种方式进行缩放
@@ -131,11 +130,11 @@ function wxAutoImageCal(originalWidth, originalHeight, that, bindName)
 
 function wxParseTemArray(temArrayName, bindNameReg, total, that)
 {
-  var array = [];
-  var temData = that.data;
-  var obj = null;
-  for (var i = 0; i < total; i++) {
-    var simArr = temData[bindNameReg + i].nodes;
+  let array = [];
+  let temData = that.data;
+  let obj = null;
+  for (let i = 0; i < total; i++) {
+    let simArr = temData[bindNameReg + i].nodes;
     array.push(simArr);
   }
 
@@ -145,20 +144,37 @@ function wxParseTemArray(temArrayName, bindNameReg, total, that)
   that.setData(obj);
 }
 
-/**
- * 配置emojis
- *
- */
-function emojisInit(reg = '', baseSrc = EMOJI_BASE_URL, emojis)
-{
-  HtmlToJson.emojisInit(reg, baseSrc, emojis);
-}
-
 export class WxParse
 {
-  static wxParse = wxParse;
+  /**
+   * 主函数入口区
+   **/
+
+  static wxParse(
+      bindName = 'wxParseData',
+      data = '<div class="color:red;">数据不能为空</div>',
+      target,
+      imagePadding = 0
+  )
+  {
+    var that = target;
+    var transData: any = {};//存放转化后的数据
+    transData = HtmlToJson.html2json(data, bindName);
+    WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
+    transData.view = {};
+    transData.view.imagePadding = 0;
+    if (typeof (imagePadding) != 'undefined') {
+      transData.view.imagePadding = imagePadding
+    }
+    var bindData = {};
+    bindData[bindName] = transData;
+    that.setData(bindData)
+    that.wxParseImgLoad = wxParseImgLoad;
+    that.wxParseImgTap = wxParseImgTap;
+  }
+
+  // static wxParse = wxParse;
   static wxParseTemArray = wxParseTemArray;
-  static emojisInit = emojisInit;
 }
 
 

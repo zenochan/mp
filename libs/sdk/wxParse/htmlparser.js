@@ -96,6 +96,7 @@ function HTMLParser(html, handler) {
     function parseStartTag(tag, tagName, rest, unary) {
         tagName = tagName.toLowerCase();
         if (block[tagName]) {
+            tagName == 'td' && console.error("WTF", tag);
             while (stack.last() && inline[stack.last()]) {
                 parseEndTag("", stack.last());
             }
@@ -150,8 +151,10 @@ function HTMLParser(html, handler) {
 ;
 function makeMap(str) {
     var obj = {}, items = str.split(",");
-    for (var i = 0; i < items.length; i++)
+    for (var i = 0; i < items.length; i++) {
         obj[items[i]] = true;
+    }
     return obj;
 }
 module.exports = HTMLParser;
+//# sourceMappingURL=htmlparser.js.map

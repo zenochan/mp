@@ -82,6 +82,7 @@ function html2json(html, bindName)
     imageUrls: []
   };
   let index = 0;
+
   HTMLParser(html, {
     start: function (tag, attrs, unary) {
       //debug(tag, attrs, unary);

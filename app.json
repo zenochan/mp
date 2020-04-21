@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/location-deny/index"
+    "pages/location-deny/index",
+    "pages/rich-html/index"
   ],
   "permission": {
     "scope.userLocation": {

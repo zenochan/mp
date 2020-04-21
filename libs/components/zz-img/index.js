@@ -3,11 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
 var mp_1 = require("../../mp");
 Component({
-    data: { placeholder: true },
+    data: {
+        placeholder: true,
+        mode: 'aspectFill'
+    },
     properties: {
         src: {
             type: String, value: '', observer: function (src) {
-                if (src.indexOf('http') != 0 && src.indexOf('/assets/') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
+                if (src.indexOf('assets') != -1) {
+                    this.setData({ _src: src, placeholder: false });
+                }
+                else if (!src) {
+                    this.setData({ _src: null });
+                }
+                else if (src.indexOf('http') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
                     this.setData({ _src: config_1.ZZ_IMG_CONFIG.BASE_URL + src });
                 }
                 else {

@@ -92,13 +92,13 @@ export class API
     });
   }
 
-  static uploadMore(optins: {
+  static uploadMore(options: {
     filePaths: string[],
     path?: string,
     formData?: Object
   }): Observable<string[]>
   {
-    let url = this.API_BASE + (optins.path || 'upload');
+    let url = this.API_BASE + (options.path || 'upload');
     if (this.pathInterceptor) url = this.pathInterceptor(url);
 
     // 上传图片必须 https 请求，这里都直接用 prod 环境
@@ -106,12 +106,12 @@ export class API
       let urls = [];
       let completed = 0;
 
-      optins.filePaths.forEach(item => {
+      options.filePaths.forEach(item => {
         wx.uploadFile({
           url,
           filePath: item,
           name: "photo",
-          formData: optins.formData,
+          formData: options.formData,
           header: this.tokenHeader(),
           success: res => {
             let data = JSON.parse(res.data);
@@ -120,7 +120,7 @@ export class API
           fail: e => console.error(e),
           complete: () => {
             completed++;
-            if (completed == optins.filePaths.length) {
+            if (completed == options.filePaths.length) {
               sub.next(this.completeImgUrl(urls));
               sub.complete();
             }
@@ -171,6 +171,8 @@ export class API
         // 授权失败, 重启小程序
         Data.clear();
         UI.alert("登录已失效").subscribe(res => wx.reLaunch({url: "/pages/account/login/login"}));
+      } else if (res.statusCode == 404) {
+        sub.error("数据不存在或已失效")
       } else if (data.errors) {
         let err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(",")).join(",");
         sub.error(err)

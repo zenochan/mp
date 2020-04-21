@@ -69,6 +69,16 @@ export class WX
     }
   }
 
+  static pagePrePath(): string
+  {
+    let pages = getCurrentPages();
+    if (pages.length < 2) {
+      return '';
+    } else {
+      return pages[pages.length - 2].route
+    }
+  }
+
   /**
    * 小程序强制更新
    * @param delayMs 延时弹框，安卓上有时候不显示
@@ -111,12 +121,24 @@ export class WX
         success: res => {
           let menuRounding = wx.getMenuButtonBoundingClientRect();
           res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+          res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
           sub.next(res)
         },
         fail: e => sub.error(e)
       })
     });
   }
+
+  static systemInfoSync(): wx.GetSystemInfoResult
+  {
+    let res = wx.getSystemInfoSync()
+
+    let menuRounding = wx.getMenuButtonBoundingClientRect();
+    res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+    res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
+    return res;
+  }
+
 
   /**
    * @deprecated use {@link systemInfo}

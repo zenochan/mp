@@ -1,6 +1,7 @@
 Component({
     properties: {
         placeholder: { type: String, value: "" },
+        maxlength: { type: Number, value: -1 },
         value: { type: String, value: "" },
         autoHeight: { type: Boolean, value: false },
         disabled: { type: Boolean, value: false }

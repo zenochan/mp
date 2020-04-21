@@ -24,24 +24,28 @@ var Nav = /** @class */ (function () {
                 next();
             }
         }, function () {
-            _this.actualNav(to, op.redirect);
+            _this.actualNav(to, from, op.redirect);
         });
     };
-    Nav.actualNav = function (route, redirect) {
+    Nav.actualNav = function (to, from, redirect) {
         var _this = this;
         if (redirect === void 0) { redirect = false; }
         var options = {
-            url: route.page(),
+            url: to.page(),
             fail: function (res) {
-                if (res.errMsg.indexOf("can not navigateTo a tabbar page") != -1) {
-                    _this.switchTab(route.page());
+                if (res.errMsg.indexOf("can not navigateTo a tab bar page") != -1) {
+                    _this.switchTab(to.page());
+                }
+                else if (res.errMsg.indexOf("fail page") != -1) {
+                    UI_1.UI.toastFail("页面不存在");
+                    console.warn("页面不存在：" + to.page());
                 }
                 else {
                     UI_1.UI.toastFail(res.errMsg, 3000);
                 }
             }
         };
-        if (redirect) {
+        if (redirect || to.url == from.url) {
             wx.redirectTo(options);
         }
         else {
@@ -67,6 +71,9 @@ var Nav = /** @class */ (function () {
             };
         });
     };
+    /**
+     * - 在 page 中调用 {@link IPage.navParams}
+     */
     Nav.navData = function () {
         return this.navParams;
     };
@@ -130,7 +137,8 @@ var Route = /** @class */ (function () {
         if (!/^\//.test(url)) {
             var currUrl = '/' + WX_1.WX.page().route;
             url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url;
-            url = url.replace(/[^/]+\/\.\.\//, '');
+            url = url.replace(/[^/]+\/\.\.\//, '')
+                .replace(/\/\//g, '/');
         }
         return url;
     };

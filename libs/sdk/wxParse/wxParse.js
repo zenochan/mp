@@ -9,13 +9,12 @@
  * for: 微信小程序富文本解析
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * utils函数引入
  **/
 var html2json_1 = require("./html2json");
-exports.WX_PARSE_LOG = false;
-exports.EMOJI_BASE_URL = "/wxParse/emojis/";
+exports.WX_PARSE_LOG = true;
 /**
  * 配置及公有属性
  **/
@@ -139,21 +138,34 @@ function wxParseTemArray(temArrayName, bindNameReg, total, that) {
     obj[temArrayName] = array;
     that.setData(obj);
 }
-/**
- * 配置emojis
- *
- */
-function emojisInit(reg, baseSrc, emojis) {
-    if (reg === void 0) { reg = ''; }
-    if (baseSrc === void 0) { baseSrc = exports.EMOJI_BASE_URL; }
-    html2json_1.HtmlToJson.emojisInit(reg, baseSrc, emojis);
-}
 var WxParse = /** @class */ (function () {
     function WxParse() {
     }
-    WxParse.wxParse = wxParse;
+    /**
+     * 主函数入口区
+     **/
+    WxParse.wxParse = function (bindName, data, target, imagePadding) {
+        if (bindName === void 0) { bindName = 'wxParseData'; }
+        if (data === void 0) { data = '<div class="color:red;">数据不能为空</div>'; }
+        if (imagePadding === void 0) { imagePadding = 0; }
+        var that = target;
+        var transData = {}; //存放转化后的数据
+        transData = html2json_1.HtmlToJson.html2json(data, bindName);
+        exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
+        transData.view = {};
+        transData.view.imagePadding = 0;
+        if (typeof (imagePadding) != 'undefined') {
+            transData.view.imagePadding = imagePadding;
+        }
+        var bindData = {};
+        bindData[bindName] = transData;
+        that.setData(bindData);
+        that.wxParseImgLoad = wxParseImgLoad;
+        that.wxParseImgTap = wxParseImgTap;
+    };
+    // static wxParse = wxParse;
     WxParse.wxParseTemArray = wxParseTemArray;
-    WxParse.emojisInit = emojisInit;
     return WxParse;
 }());
 exports.WxParse = WxParse;
+//# sourceMappingURL=wxParse.js.map

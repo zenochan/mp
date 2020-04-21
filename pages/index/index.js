@@ -8,7 +8,8 @@ weapp_1.HookPage({
             {
                 name: "功能组件",
                 children: [
-                    { name: "授权定位弹窗", page: "/pages/location-deny/index" }
+                    { name: "授权定位弹窗", page: "/pages/location-deny/index" },
+                    { name: "rich-html", page: "/pages/location-deny/index" }
                 ]
             }
         ]

@@ -3,6 +3,6 @@
         show-message-card="{{messageCard}}"
         send-message-title="{{messageCard.title || null}}"
         send-message-path="{{messageCard.path || null}}"
-        send-message-img="{{messageCard.img || null}}"
+        send-message-img="{{messageCard.imgUrl || null}}"
         session-from="{{messageCard.sessionFrom || null}}"
 ></button>

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 Component({
     data: {
@@ -17,10 +17,12 @@ Component({
         init: function () {
             var _this = this;
             WX_1.WX.queryBoundingClientRect(".element", this).subscribe(function (res) {
-                _this.setData({
-                    top: _this.pageTop + res[0].top,
-                    height: res[1].height
-                });
+                if (res.length >= 2) {
+                    _this.setData({
+                        top: _this.pageTop + res[0].top,
+                        height: res[1].height
+                    });
+                }
             });
         }
     },
@@ -45,4 +47,3 @@ Component({
         this.init();
     },
 });
-//# sourceMappingURL=index.js.map

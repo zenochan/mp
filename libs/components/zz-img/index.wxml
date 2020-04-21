@@ -3,6 +3,7 @@
          src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
          onload="loadSuccess" onerror="loadFail"
          bind:tap="preview"></image>
+
   <div class="zz-img__size" id="zz-img__size"></div>
 </block>
 

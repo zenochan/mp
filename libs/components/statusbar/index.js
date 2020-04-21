@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Data_1 = require("../../wx/Data");
 var h = Data_1.Data.get('__statusBarHeight__');
 if (!h) {
@@ -10,4 +10,3 @@ Component({
     data: { h: h },
     options: { addGlobalClass: true },
 });
-//# sourceMappingURL=index.js.map
