@@ -1,1 +1,1 @@
-:host{position:relative;display:inline-block;text-align:center}.open_userinfo{position:absolute;opacity:0;z-index:999;left:0;right:0;top:0;bottom:0}
+:host{position:relative;display:inline-block;text-align:center}.oepn-userinfo-ctn{width:100%;height:100%}.open-userinfo{position:absolute;opacity:0;z-index:999;left:0;right:0;top:0;bottom:0}

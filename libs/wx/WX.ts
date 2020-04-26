@@ -1,7 +1,5 @@
 import Scope = wx.Scope;
 import RequestPaymentOptions = wx.RequestPaymentOptions;
-import UserInfo = wx.UserInfo;
-import GetImageInfoResult = wx.GetImageInfoResult;
 import CanvasToTempFilePathOptions = wx.CanvasToTempFilePathOptions;
 import ScanCodeResult = wx.ScanCodeResult;
 import {BehaviorSubject, Observable, Subscriber} from "../rx/Rx";
@@ -290,7 +288,7 @@ export class WX
   }
 
 
-  static getUserInfo(): Observable<UserInfo>
+  static getUserInfo(): Observable<wx.UserInfo>
   {
     return Observable.create(emitter => {
       wx.getUserInfo({
@@ -435,7 +433,7 @@ export class WX
    * 所以本地图片不需要调用wx.getImageInfo()进行本地缓存
    * @param src
    */
-  static getImageInfo(src: string): Observable<GetImageInfoResult>
+  static getImageInfo(src: string): Observable<wx.GetImageInfoResult>
   {
     return Observable.create(sub => {
 

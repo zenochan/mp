@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
     data: {
@@ -11,10 +11,8 @@ Component({
         },
         onGetUserInfo: function (e) {
             if (e.detail.errMsg == "getUserInfo:ok") {
-                this.setData({
-                    granted: true,
-                    userInfo: e.detail
-                });
+                this.data.userInfo = e.detail;
+                this.setData({ granted: true });
                 this.onClick();
             }
         },
@@ -25,8 +23,11 @@ Component({
         WX_1.WX.getSetting().subscribe(function (res) {
             _this.setData({ granted: res.userInfo });
             if (_this.data.granted) {
-                WX_1.WX.getUserInfo().subscribe(function (userInfo) { return _this.setData({ userInfo: userInfo }); });
+                WX_1.WX.getUserInfo().subscribe(function (userInfo) {
+                    _this.data.userInfo = userInfo;
+                });
             }
         });
     }
 });
+//# sourceMappingURL=index.js.map

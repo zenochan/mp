@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../mp");
 var ZZ_IMG_CONFIG = /** @class */ (function () {
     function ZZ_IMG_CONFIG() {
@@ -10,4 +10,3 @@ var ZZ_IMG_CONFIG = /** @class */ (function () {
 }());
 exports.ZZ_IMG_CONFIG = ZZ_IMG_CONFIG;
 mp_1.WX.systemInfo().subscribe(function (info) { return ZZ_IMG_CONFIG.ratio = info.pixelRatio; });
-//# sourceMappingURL=config.js.map

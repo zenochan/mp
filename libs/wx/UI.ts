@@ -7,10 +7,16 @@ export class UI
   //<editor-fold desc="交互反馈">
   static showLoading(msgOrOptions: String | LoadingOptions = "加载中")
   {
-    wx.showLoading(typeof msgOrOptions === "string"
-        ? {title: msgOrOptions}
-        : msgOrOptions as LoadingOptions
-    )
+    let options: any;
+    if (typeof msgOrOptions == 'object') {
+      options = msgOrOptions;
+    } else {
+      options = {
+        title: msgOrOptions
+      };
+    }
+    options.mask = true;
+    wx.showLoading(options)
   }
 
 

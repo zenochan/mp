@@ -7,9 +7,17 @@ var UI = /** @class */ (function () {
     //<editor-fold desc="交互反馈">
     UI.showLoading = function (msgOrOptions) {
         if (msgOrOptions === void 0) { msgOrOptions = "加载中"; }
-        wx.showLoading(typeof msgOrOptions === "string"
-            ? { title: msgOrOptions }
-            : msgOrOptions);
+        var options;
+        if (typeof msgOrOptions == 'object') {
+            options = msgOrOptions;
+        }
+        else {
+            options = {
+                title: msgOrOptions
+            };
+        }
+        options.mask = true;
+        wx.showLoading(options);
     };
     UI.hideLoading = function () {
         wx.hideLoading();

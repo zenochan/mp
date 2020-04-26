@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * 微信小程序JavaScriptSDK
  *
@@ -463,4 +463,3 @@ var Utils = /** @class */ (function () {
     return Utils;
 }());
 exports.Utils = Utils;
-//# sourceMappingURL=qqmap.js.map

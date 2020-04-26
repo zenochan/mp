@@ -9,13 +9,12 @@ Component({
     {
       this.triggerEvent("tap", this.data.userInfo)
     },
+
     onGetUserInfo(e: WXEvent)
     {
       if (e.detail.errMsg == "getUserInfo:ok") {
-        this.setData({
-          granted: true,
-          userInfo: e.detail
-        });
+        this.data.userInfo = e.detail;
+        this.setData({granted: true});
         this.onClick()
       }
     },
@@ -26,7 +25,9 @@ Component({
     WX.getSetting().subscribe(res => {
       this.setData({granted: res.userInfo});
       if (this.data.granted) {
-        WX.getUserInfo().subscribe(userInfo => this.setData({userInfo}))
+        WX.getUserInfo().subscribe(userInfo => {
+          this.data.userInfo = userInfo;
+        });
       }
     });
   }
