@@ -27,7 +27,6 @@
          bindload="wxParseImgLoad"
          bindtap="wxParseImgTap"
          mode="widthFix"
-         style="width:100%"
   />
 </template>
 
