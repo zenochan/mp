@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var UI_1 = require("./UI");
 var WX_1 = require("./WX");
 var Nav = /** @class */ (function () {
@@ -163,3 +163,4 @@ function runQueue(queue, fn, cb) {
     step(0);
 }
 exports.runQueue = runQueue;
+//# sourceMappingURL=nav.js.map

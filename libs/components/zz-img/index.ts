@@ -4,13 +4,14 @@ import {WX} from "../../mp";
 Component({
   data: {
     placeholder: true,
-    mode: 'aspectFill'
+    mode: 'aspectFill',
+    width: null,          // 组件的宽度
+    specialSize: null
   },
 
   properties: {
     src: {
-      type: String, value: '', observer(src: string)
-      {
+      type: String, value: '', observer: function (src: string) {
         if (src.indexOf('assets') != -1) {
           this.setData({_src: src, placeholder: false})
         } else if (!src) {
@@ -20,6 +21,7 @@ Component({
         } else {
           this.setData({_src: src})
         }
+        this.calcImgSize();
       },
     },
 
@@ -28,56 +30,70 @@ Component({
     qiniu: {type: Boolean, value: false},
 
     mode: {
-      type: String, value: null, observer(value)
-      {
+      type: String, value: null, observer: function (value) {
         if (value) this.setData({mode: value});
       }
     },
 
     scaleToFill: {
-      type: Boolean, value: false, observer(value)
-      {
-        if (value) this.setData({mode: 'scaleToFill'});
+      type: Boolean, value: false, observer: function (value) {
+        value && wx.nextTick(() => this.setData({mode: 'scaleToFill'}));
       }
     },
     aspectFit: {
-      type: Boolean, value: false, observer(value)
-      {
-        if (value) this.setData({mode: 'aspectFit'});
+      type: Boolean, value: false, observer: function (value) {
+        value && wx.nextTick(() => this.setData({mode: 'aspectFit'}));
       }
     },
     aspectFill: {
-      type: Boolean, value: false, observer(value)
-      {
-        if (value) this.setData({mode: 'aspectFill'});
+      type: Boolean, value: false, observer: function (value) {
+        value && wx.nextTick(() => this.setData({mode: 'aspectFill'}));
       }
     },
     widthFix: {
-      type: Boolean, value: false, observer(value)
-      {
-        if (value) this.setData({mode: 'widthFix'});
+      type: Boolean, value: false, observer: function (value) {
+        value && wx.nextTick(() => this.setData({mode: 'widthFix'}));
       }
     },
   }
   ,
   methods: {
-    preview()
-    {
+    preview() {
       this.data.view && this.data._src && wx.previewImage({urls: [this.data._src]})
     },
 
-    loadSuccess()
-    {
+    loadSuccess() {
       this.setData({placeholder: false});
     },
-    loadFail()
-    {
+
+    loadFail() {
       this.setData({placeholder: true});
+    },
+
+    calcImgSize() {
+      if (!this.data._src) return;
+      wx.getImageInfo({
+        src: this.data._src,
+        success: res => {
+          let fun = () => {
+            if (this.data.width) {
+              let height = (this.data.width * res.height / res.width).toFixed(1);
+              this.setData({specialSize: `width:${this.data.width}px;height: ${height}px`});
+            } else {
+              setTimeout(fun, 100)
+            }
+          }
+
+          fun();
+        }
+      })
     }
   },
-  ready()
-  {
-    WX.size("#zz-img__size", this).subscribe(res => {
+
+  ready() {
+    WX.size(".zz-img__ctn", this).subscribe(res => this.data.width = res.width)
+
+    this.data.qiniu && WX.size(".zz-img__size", this).subscribe(res => {
       res.width = res.width * ZZ_IMG_CONFIG.ratio;
       res.height = res.height * ZZ_IMG_CONFIG.ratio;
 

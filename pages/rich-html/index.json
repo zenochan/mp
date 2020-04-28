@@ -1,3 +1,5 @@
 {
-
+  "usingComponents": {
+    "rich-html":"/libs/components/rich-html/index"
+  }
 }

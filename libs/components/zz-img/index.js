@@ -1,11 +1,13 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
 var mp_1 = require("../../mp");
 Component({
     data: {
         placeholder: true,
-        mode: 'aspectFill'
+        mode: 'aspectFill',
+        width: null,
+        specialSize: null
     },
     properties: {
         src: {
@@ -22,6 +24,7 @@ Component({
                 else {
                     this.setData({ _src: src });
                 }
+                this.calcImgSize();
             },
         },
         view: { type: Boolean, value: false },
@@ -34,26 +37,26 @@ Component({
         },
         scaleToFill: {
             type: Boolean, value: false, observer: function (value) {
-                if (value)
-                    this.setData({ mode: 'scaleToFill' });
+                var _this = this;
+                value && wx.nextTick(function () { return _this.setData({ mode: 'scaleToFill' }); });
             }
         },
         aspectFit: {
             type: Boolean, value: false, observer: function (value) {
-                if (value)
-                    this.setData({ mode: 'aspectFit' });
+                var _this = this;
+                value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFit' }); });
             }
         },
         aspectFill: {
             type: Boolean, value: false, observer: function (value) {
-                if (value)
-                    this.setData({ mode: 'aspectFill' });
+                var _this = this;
+                value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFill' }); });
             }
         },
         widthFix: {
             type: Boolean, value: false, observer: function (value) {
-                if (value)
-                    this.setData({ mode: 'widthFix' });
+                var _this = this;
+                value && wx.nextTick(function () { return _this.setData({ mode: 'widthFix' }); });
             }
         },
     },
@@ -66,11 +69,32 @@ Component({
         },
         loadFail: function () {
             this.setData({ placeholder: true });
+        },
+        calcImgSize: function () {
+            var _this = this;
+            if (!this.data._src)
+                return;
+            wx.getImageInfo({
+                src: this.data._src,
+                success: function (res) {
+                    var fun = function () {
+                        if (_this.data.width) {
+                            var height = (_this.data.width * res.height / res.width).toFixed(1);
+                            _this.setData({ specialSize: "width:" + _this.data.width + "px;height: " + height + "px" });
+                        }
+                        else {
+                            setTimeout(fun, 100);
+                        }
+                    };
+                    fun();
+                }
+            });
         }
     },
     ready: function () {
         var _this = this;
-        mp_1.WX.size("#zz-img__size", this).subscribe(function (res) {
+        mp_1.WX.size(".zz-img__ctn", this).subscribe(function (res) { return _this.data.width = res.width; });
+        this.data.qiniu && mp_1.WX.size(".zz-img__size", this).subscribe(function (res) {
             res.width = res.width * config_1.ZZ_IMG_CONFIG.ratio;
             res.height = res.height * config_1.ZZ_IMG_CONFIG.ratio;
             _this.setData({ size: res });
@@ -80,3 +104,4 @@ Component({
         });
     },
 });
+//# sourceMappingURL=index.js.map

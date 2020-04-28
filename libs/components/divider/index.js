@@ -17,4 +17,3 @@ Component({
         horizontal: { type: Number, value: 0 },
     }
 });
-//# sourceMappingURL=index.js.map

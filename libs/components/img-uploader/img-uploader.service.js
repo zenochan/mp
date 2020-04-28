@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var api_service_1 = require("../../service/api.service");
 var DefaultImageOperator = /** @class */ (function () {
     function DefaultImageOperator() {
@@ -24,3 +24,4 @@ var ImgUploaderService = /** @class */ (function () {
     return ImgUploaderService;
 }());
 exports.ImgUploaderService = ImgUploaderService;
+//# sourceMappingURL=img-uploader.service.js.map

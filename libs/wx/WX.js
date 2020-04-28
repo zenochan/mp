@@ -393,7 +393,8 @@ var WX = /** @class */ (function () {
                 sceneObj[kvArray[0]] = kvArray[1];
             });
         }
-        catch (e) { }
+        catch (e) {
+        }
         return sceneObj;
     };
     /**

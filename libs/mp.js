@@ -2,7 +2,7 @@
 /**
  * @author ZenoChan zenochan@qq.com
  */
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var RxExt_1 = require("./rx/RxExt");
 exports.rxJust = RxExt_1.rxJust;
 exports.rxFromPromise = RxExt_1.rxFromPromise;
@@ -38,3 +38,4 @@ var session_service_1 = require("./service/session.service");
 exports.SessionService = session_service_1.SessionService;
 var img_uploader_service_1 = require("./components/img-uploader/img-uploader.service");
 exports.ImgUploaderService = img_uploader_service_1.ImgUploaderService;
+//# sourceMappingURL=mp.js.map

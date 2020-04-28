@@ -1,0 +1,6 @@
+<!--
+  ~ Copyright (c) 2020. Zeno Chan.
+  -->
+
+<import src="wx-parse/wxParse"/>
+<template is="wxParse" data="{{wxParseData:__html.nodes}}"/>

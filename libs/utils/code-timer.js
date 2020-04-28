@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Events_1 = require("../wx/Events");
 var CodeTimer = /** @class */ (function () {
     /**
@@ -78,3 +78,4 @@ function enableTimer(page, codeType, during) {
     });
 }
 exports.enableTimer = enableTimer;
+//# sourceMappingURL=code-timer.js.map

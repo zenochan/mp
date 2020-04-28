@@ -12,29 +12,27 @@ import {Events} from "./Events";
  *
  * # 开放接口
  */
-export class WX
-{
-  static saveImageToPhotosAlbum(src)
-  {
+export class WX {
+  static saveImageToPhotosAlbum(src) {
     WX.authorize("scope.writePhotosAlbum")
-        .flatMap(res => WX.getImageInfo(src))
-        .subscribe(res => {
-          wx.saveImageToPhotosAlbum({
-            filePath: res.path,
-            success: () => UI.toastSuccess("图片已保存")
-          });
-        }, e => {
-          if ((e.errMsg || "").indexOf("authorize:fail") != -1) {
-            UI.showModal({
-              title: "提示",
-              content: "需要保存到相册权限, 是否现在去设置？",
-              confirmText: "打开设置",
-              cancelText: "取消"
-            }).subscribe(res => wx.openSetting())
-          } else {
-            UI.toastFail(e)
-          }
-        })
+      .flatMap(res => WX.getImageInfo(src))
+      .subscribe(res => {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: () => UI.toastSuccess("图片已保存")
+        });
+      }, e => {
+        if ((e.errMsg || "").indexOf("authorize:fail") != -1) {
+          UI.showModal({
+            title: "提示",
+            content: "需要保存到相册权限, 是否现在去设置？",
+            confirmText: "打开设置",
+            cancelText: "取消"
+          }).subscribe(res => wx.openSetting())
+        } else {
+          UI.toastFail(e)
+        }
+      })
   }
 
   /**
@@ -51,14 +49,12 @@ export class WX
     CAMERA: "scope.camera"
   };
 
-  static page(): IPage
-  {
+  static page(): IPage {
     let pages = getCurrentPages();
     return pages[pages.length - 1];
   }
 
-  static pagePre(): Observable<IPage>
-  {
+  static pagePre(): Observable<IPage> {
     let pages = getCurrentPages();
     if (pages.length > 1) {
       return rxJust(pages[pages.length - 2]);
@@ -67,8 +63,7 @@ export class WX
     }
   }
 
-  static pagePrePath(): string
-  {
+  static pagePrePath(): string {
     let pages = getCurrentPages();
     if (pages.length < 2) {
       return '';
@@ -81,8 +76,7 @@ export class WX
    * 小程序强制更新
    * @param delayMs 延时弹框，安卓上有时候不显示
    */
-  static forceUpdate(delayMs: number = 100)
-  {
+  static forceUpdate(delayMs: number = 100) {
     if (delayMs < 0) delayMs = 0;
 
     wx.getUpdateManager().onUpdateReady(() => {
@@ -100,8 +94,7 @@ export class WX
    * @version 20190327
    * @author Zeno (zenochan@qq.com)
    */
-  static isIphoneX(): Observable<boolean>
-  {
+  static isIphoneX(): Observable<boolean> {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
@@ -112,8 +105,7 @@ export class WX
     });
   }
 
-  static systemInfo(): Observable<wx.GetSystemInfoResult>
-  {
+  static systemInfo(): Observable<wx.GetSystemInfoResult> {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
@@ -127,8 +119,7 @@ export class WX
     });
   }
 
-  static systemInfoSync(): wx.GetSystemInfoResult
-  {
+  static systemInfoSync(): wx.GetSystemInfoResult {
     let res = wx.getSystemInfoSync()
 
     let menuRounding = wx.getMenuButtonBoundingClientRect();
@@ -141,8 +132,7 @@ export class WX
   /**
    * @deprecated use {@link systemInfo}
    */
-  static navHeight(): Observable<number>
-  {
+  static navHeight(): Observable<number> {
     return WX.systemInfo().map(res => {
       let menuRounding = wx.getMenuButtonBoundingClientRect();
       return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height
@@ -151,8 +141,7 @@ export class WX
 
   static EVENT_LOCATION_DENY = "deny:location";
 
-  static getLocation(options?: { isHighAccuracy: boolean }): Observable<wx.GetLocationResult>
-  {
+  static getLocation(options?: { isHighAccuracy: boolean }): Observable<wx.GetLocationResult> {
     let {isHighAccuracy} = options || {};
 
     return Observable.create(sub => {
@@ -181,8 +170,7 @@ export class WX
    * @version 20190327
    * @author Zeno (zenochan@qq.com)
    */
-  static isIphone(): Observable<boolean>
-  {
+  static isIphone(): Observable<boolean> {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
@@ -193,8 +181,7 @@ export class WX
     });
   }
 
-  static onPageScroll(handler: (scrollTop) => void)
-  {
+  static onPageScroll(handler: (scrollTop) => void) {
 
     let pages = getCurrentPages();
     let page = pages[pages.length - 1];
@@ -212,8 +199,7 @@ export class WX
    * @see wx.login
    * @return code string
    */
-  static login(timeout?: number): Observable<string>
-  {
+  static login(timeout?: number): Observable<string> {
     return Observable.create(emitter => {
       wx.login({
         timeout: timeout,
@@ -224,8 +210,7 @@ export class WX
     }).map(res => res.code)
   }
 
-  static checkSession(): Observable<boolean>
-  {
+  static checkSession(): Observable<boolean> {
     return Observable.create(emitter => {
       wx.checkSession({
         //session_key 未过期，并且在本生命周期一直有效
@@ -246,8 +231,7 @@ export class WX
    *     - pdf417  PDF417 条码
    * @param onlyFromCamera
    */
-  static scanCode(scanType: string[] = ["qrCode"], onlyFromCamera: boolean = true): Observable<ScanCodeResult>
-  {
+  static scanCode(scanType: string[] = ["qrCode"], onlyFromCamera: boolean = true): Observable<ScanCodeResult> {
     return Observable.create(emitter => {
       wx.scanCode({
         scanType: scanType,
@@ -264,8 +248,7 @@ export class WX
    * @since v1.2.0
    * @see wx.getSetting
    */
-  static getSetting(): Observable<Scope>
-  {
+  static getSetting(): Observable<Scope> {
     return Observable.create(emitter => {
       wx.getSetting({
         success: res => emitter.next(res),
@@ -288,8 +271,7 @@ export class WX
   }
 
 
-  static getUserInfo(): Observable<wx.UserInfo>
-  {
+  static getUserInfo(): Observable<wx.UserInfo> {
     return Observable.create(emitter => {
       wx.getUserInfo({
         success: res => emitter.next(res),
@@ -302,8 +284,7 @@ export class WX
   /**
    * https://developers.weixin.qq.com/miniprogram/dev/api/open-api/authorize/wx.authorize.html
    */
-  static authorize(scope: string): Observable<any>
-  {
+  static authorize(scope: string): Observable<any> {
     return Observable.create(emitter => {
       wx.authorize({
         scope: scope,
@@ -315,8 +296,7 @@ export class WX
     });
   }
 
-  static requestPayment(sign: RequestPaymentOptions): Observable<any> | any
-  {
+  static requestPayment(sign: RequestPaymentOptions): Observable<any> | any {
     return Observable.create(emitter => {
       sign.success = () => emitter.next();
       sign.complete = () => emitter.complete();
@@ -325,8 +305,7 @@ export class WX
     })
   }
 
-  static chooseImage(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<Array<string>>
-  {
+  static chooseImage(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<Array<string>> {
     return Observable.create(sub => {
       wx.chooseImage({
         count: count,
@@ -346,8 +325,7 @@ export class WX
   /**
    * @see [wx.updateShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.updateShareMenu.html)
    */
-  static updateShareMenu(withShareTicket: boolean): Observable<any>
-  {
+  static updateShareMenu(withShareTicket: boolean): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.updateShareMenu({
         withShareTicket: withShareTicket,
@@ -362,8 +340,7 @@ export class WX
    * @see [wx.showShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.showShareMenu.html)
    * @since 1.1.0
    */
-  static showShareMenu(withShareTicket: boolean = false): Observable<any>
-  {
+  static showShareMenu(withShareTicket: boolean = false): Observable<any> {
     let sub = new BehaviorSubject().filter(res => res);
 
     wx.showShareMenu({
@@ -376,8 +353,7 @@ export class WX
 
   }
 
-  static showActionSheet(items: string[], color: string = "#000000"): Observable<any>
-  {
+  static showActionSheet(items: string[], color: string = "#000000"): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.showActionSheet({
         itemList: items,
@@ -394,8 +370,7 @@ export class WX
    * @see [wx.hideShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.hideShareMenu.html)
    * @since 1.1.0
    */
-  static hideShareMenu(): Observable<any>
-  {
+  static hideShareMenu(): Observable<any> {
     let subject = new BehaviorSubject().filter(res => res);
     wx.hideShareMenu({
       success: res => subject.next(res),
@@ -411,8 +386,7 @@ export class WX
    * @param timeout since 1.9.90
    * @see [wx.getShareInfo](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.getShareInfo.html)
    */
-  static getShareInfo(shareTicket: string, timeout: number = 5000): Observable<any>
-  {
+  static getShareInfo(shareTicket: string, timeout: number = 5000): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.getShareInfo({
         shareTicket: shareTicket,
@@ -433,8 +407,7 @@ export class WX
    * 所以本地图片不需要调用wx.getImageInfo()进行本地缓存
    * @param src
    */
-  static getImageInfo(src: string): Observable<wx.GetImageInfoResult>
-  {
+  static getImageInfo(src: string): Observable<wx.GetImageInfoResult> {
     return Observable.create(sub => {
 
       wx.getImageInfo({
@@ -445,8 +418,7 @@ export class WX
     });
   }
 
-  static canvasToTempFilePath(options: CanvasToTempFilePathOptions): Observable<string>
-  {
+  static canvasToTempFilePath(options: CanvasToTempFilePathOptions): Observable<string> {
     return Observable.create(sub => {
       options.success = res => sub.next(res.tempFilePath);
       options.fail = e => sub.error(e);
@@ -456,20 +428,20 @@ export class WX
 
   }
 
-  static parsePageScene(page: IPage): { [key: string]: string }
-  {
+  static parsePageScene(page: IPage): { [key: string]: string } {
     let sceneObj: { [key: string]: string } = {};
 
     try {
       let scene = decodeURIComponent(page.options.scene || "");
 
       scene.split('&')
-          .filter(kv => /^[^=]+=[^=]+$/.test(kv))
-          .forEach(kv => {
-            let kvArray = kv.split("=");
-            sceneObj[kvArray[0]] = kvArray[1];
-          });
-    } catch (e) { }
+        .filter(kv => /^[^=]+=[^=]+$/.test(kv))
+        .forEach(kv => {
+          let kvArray = kv.split("=");
+          sceneObj[kvArray[0]] = kvArray[1];
+        });
+    } catch (e) {
+    }
 
     return sceneObj
   }
@@ -478,8 +450,7 @@ export class WX
    * 跳转小程序/小游戏
    * @param appId
    */
-  static navWeapp(appId: string)
-  {
+  static navWeapp(appId: string) {
     wx.navigateToMiniProgram({appId})
   }
 
@@ -490,8 +461,7 @@ export class WX
    * @version 20190326
    * @author Zeno (zenochan@qq.com)
    */
-  static queryBoundingClientRect(selector: string, comp?: IComponent): Observable<any[]>
-  {
+  static queryBoundingClientRect(selector: string, comp?: IComponent): Observable<any[]> {
     return Observable.create(sub => {
       let query = comp ? comp.createSelectorQuery() : wx.createSelectorQuery();
       query.selectAll(selector).boundingClientRect();
@@ -508,8 +478,7 @@ export class WX
    * @version 20190326
    * @author ZenoToken (zenochan@qq.com)
    */
-  static size(selector: string, comp?: IComponent): Observable<{ width: number, height: number }>
-  {
+  static size(selector: string, comp?: IComponent): Observable<{ width: number, height: number }> {
     return Observable.create(sub => {
       let query = (comp || wx).createSelectorQuery();
       query.select(selector).boundingClientRect();
@@ -521,16 +490,14 @@ export class WX
     });
   }
 
-  static clipboard(data: string): Observable<any>
-  {
+  static clipboard(data: string): Observable<any> {
     return this.rx(handler => {
       handler.data = data;
       wx["setClipboardData"](handler)
     })
   }
 
-  static rx<T>(handler: (options: BaseOptions) => void): Observable<T>
-  {
+  static rx<T>(handler: (options: BaseOptions) => void): Observable<T> {
     let options: BaseOptions = {};
     return Observable.create(sub => {
       options.complete = () => sub.complete();
