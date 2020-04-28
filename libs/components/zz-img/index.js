@@ -9,6 +9,9 @@ Component({
         width: null,
         specialSize: null
     },
+    options: {
+        addGlobalClass: true
+    },
     properties: {
         src: {
             type: String, value: '', observer: function (src) {
@@ -65,22 +68,30 @@ Component({
             this.data.view && this.data._src && wx.previewImage({ urls: [this.data._src] });
         },
         loadSuccess: function () {
-            this.setData({ placeholder: false });
+            var _this = this;
+            wx.nextTick(function () {
+                _this.setData({ placeholder: false });
+            });
         },
         loadFail: function () {
-            this.setData({ placeholder: true });
+            var _this = this;
+            wx.nextTick(function () {
+                _this.setData({ placeholder: true });
+            });
         },
         calcImgSize: function () {
             var _this = this;
-            if (!this.data._src)
+            if (!this.data._src || this.data.mode != 'widthFix')
                 return;
             wx.getImageInfo({
                 src: this.data._src,
                 success: function (res) {
                     var fun = function () {
                         if (_this.data.width) {
-                            var height = (_this.data.width * res.height / res.width).toFixed(1);
-                            _this.setData({ specialSize: "width:" + _this.data.width + "px;height: " + height + "px" });
+                            var height_1 = (_this.data.width * res.height / res.width).toFixed(1);
+                            wx.nextTick(function () {
+                                _this.setData({ specialSize: "width:" + _this.data.width + "px;height: " + height_1 + "px" });
+                            });
                         }
                         else {
                             setTimeout(fun, 100);

@@ -8,6 +8,9 @@ Component({
     width: null,          // 组件的宽度
     specialSize: null
   },
+  options: {
+    addGlobalClass: true
+  },
 
   properties: {
     src: {
@@ -63,22 +66,28 @@ Component({
     },
 
     loadSuccess() {
-      this.setData({placeholder: false});
+      wx.nextTick(() => {
+        this.setData({placeholder: false});
+      })
     },
 
     loadFail() {
-      this.setData({placeholder: true});
+      wx.nextTick(() => {
+        this.setData({placeholder: true});
+      })
     },
 
     calcImgSize() {
-      if (!this.data._src) return;
+      if (!this.data._src || this.data.mode != 'widthFix') return;
       wx.getImageInfo({
         src: this.data._src,
         success: res => {
           let fun = () => {
             if (this.data.width) {
               let height = (this.data.width * res.height / res.width).toFixed(1);
-              this.setData({specialSize: `width:${this.data.width}px;height: ${height}px`});
+              wx.nextTick(() => {
+                this.setData({specialSize: `width:${this.data.width}px;height: ${height}px`});
+              })
             } else {
               setTimeout(fun, 100)
             }

@@ -27,10 +27,9 @@
           data-src="{{item.attr.src}}"
           data-idx="{{item.imgIndex}}"
           src="{{item.attr.src}}"
-          mode="widthFix"
           bindload="wxParseImgLoad"
           bindtap="wxParseImgTap"
-          mode="widthFix"
+          widthFix
   />
 
 </template>

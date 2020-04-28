@@ -1,13 +1,19 @@
 :host {
   display: inline-block;
   position: relative;
-  overflow: hidden;
+}
+
+.zz-img__ctn {
+  height: 100%;
+  border-radius: inherit;
 }
 
 .zz-img__holder {
   width: 100%;
   height: 100%;
   display: block;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .zz-img__size {
@@ -32,9 +38,11 @@
   align-items: center;
   justify-content: space-around;
   background: #fafafa;
+  border-radius: inherit;
 
   .icon {
-    width: 56px;
-    height: 56px;
+    width: 56px !important;
+    height: 56px !important;
   }
 }
+
