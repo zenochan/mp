@@ -27,7 +27,7 @@ Component({
                 else {
                     this.setData({ _src: src });
                 }
-                this.calcImgSize();
+                this.getImgSize();
             },
         },
         view: { type: Boolean, value: false },
@@ -59,7 +59,10 @@ Component({
         widthFix: {
             type: Boolean, value: false, observer: function (value) {
                 var _this = this;
-                value && wx.nextTick(function () { return _this.setData({ mode: 'widthFix' }); });
+                value && wx.nextTick(function () {
+                    _this.setData({ mode: 'widthFix' });
+                    _this.getImgSize();
+                });
             }
         },
     },
@@ -79,7 +82,7 @@ Component({
                 _this.setData({ placeholder: true });
             });
         },
-        calcImgSize: function () {
+        getImgSize: function () {
             var _this = this;
             if (!this.data._src || this.data.mode != 'widthFix')
                 return;

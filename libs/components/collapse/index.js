@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * <collapse>
  *   <view slot="header">header</view>
@@ -41,10 +41,12 @@ Component({
             WX_1.WX.queryBoundingClientRect(".body", this).subscribe(function (res) {
                 var body = res[0];
                 var bodyHeight = body.bottom - body.top;
-                _this.setData({
-                    marginTop: _this.data.expand ? 0 : -bodyHeight,
-                    bodyHeight: bodyHeight,
-                    ready: true
+                wx.nextTick(function () {
+                    _this.setData({
+                        marginTop: _this.data.expand ? 0 : -bodyHeight,
+                        bodyHeight: bodyHeight,
+                        ready: true
+                    });
                 });
                 next && next();
             });
@@ -63,3 +65,4 @@ Component({
         this.sub.unsubscribe();
     },
 });
+//# sourceMappingURL=index.js.map

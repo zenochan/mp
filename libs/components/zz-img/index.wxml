@@ -24,6 +24,6 @@
 
 
   <div class="zz-img__placeholder" wx:if="{{placeholder}}">
-    <image class="icon" src="img-holder.svg" qiniu></image>
+    <image class="zz-img__placeholder-icon" src="img-holder.svg" qiniu></image>
   </div>
 </div>

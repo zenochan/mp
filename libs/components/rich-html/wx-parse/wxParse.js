@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * utils函数引入
  **/
 var html2json_1 = require("./html2json");
-exports.WX_PARSE_LOG = true;
+exports.WX_PARSE_LOG = false;
 /**
  * 配置及公有属性
  **/

@@ -24,7 +24,7 @@ Component({
         } else {
           this.setData({_src: src})
         }
-        this.calcImgSize();
+        this.getImgSize();
       },
     },
 
@@ -55,7 +55,10 @@ Component({
     },
     widthFix: {
       type: Boolean, value: false, observer: function (value) {
-        value && wx.nextTick(() => this.setData({mode: 'widthFix'}));
+        value && wx.nextTick(() => {
+          this.setData({mode: 'widthFix'});
+          this.getImgSize();
+        });
       }
     },
   }
@@ -77,7 +80,7 @@ Component({
       })
     },
 
-    calcImgSize() {
+    getImgSize() {
       if (!this.data._src || this.data.mode != 'widthFix') return;
       wx.getImageInfo({
         src: this.data._src,

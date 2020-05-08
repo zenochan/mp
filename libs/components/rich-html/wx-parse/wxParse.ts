@@ -14,7 +14,7 @@
  **/
 import {HtmlToJson} from "./html2json";
 
-export let WX_PARSE_LOG = true;
+export let WX_PARSE_LOG = false;
 /**
  * 配置及公有属性
  **/

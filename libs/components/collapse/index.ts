@@ -20,8 +20,7 @@ Component({
     marginTop: 0,
   },
   methods: {
-    clickHeader()
-    {
+    clickHeader() {
       if (this.data.anim) return;
       this.calcHeight(() => {
         this.setData({expand: !this.data.expand, anim: true});
@@ -33,38 +32,36 @@ Component({
       });
     },
 
-    calcHeight(next?: () => void)
-    {
+    calcHeight(next?: () => void) {
       this.setData({ready: this.data.expand});
       WX.queryBoundingClientRect(".body", this).subscribe(res => {
         let body = res[0];
         let bodyHeight = body.bottom - body.top;
 
-        this.setData({
-          marginTop: this.data.expand ? 0 : -bodyHeight,
-          bodyHeight,
-          ready: true
-        });
+        wx.nextTick(() => {
+          this.setData({
+            marginTop: this.data.expand ? 0 : -bodyHeight,
+            bodyHeight,
+            ready: true
+          });
+        })
 
         next && next();
       });
     }
   },
 
-  attached()
-  {
+  attached() {
     this.sub = WX.page().onDataChange
-        .delay(200)
-        .subscribe(res => this.calcHeight());
+      .delay(200)
+      .subscribe(res => this.calcHeight());
   },
 
-  ready()
-  {
+  ready() {
     this.calcHeight();
   },
 
-  detached()
-  {
+  detached() {
     this.sub.unsubscribe()
   },
 
