@@ -22,7 +22,8 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"bundle": false
+		"bundle": false,
+		"useCompilerModule": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.2",
@@ -60,8 +61,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/rich-html/index",
-					"pathName": "pages/rich-html/index",
+					"name": "pages/cropper/index",
+					"pathName": "pages/cropper/index",
 					"query": "",
 					"scene": 1044,
 					"shareInfo": {
@@ -71,7 +72,7 @@
 					}
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "拒绝地址授权",
 					"pathName": "pages/location-deny/index",
 					"query": "",

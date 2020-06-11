@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 var Rx_1 = require("../../rx/Rx");
 var mp_1 = require("../../mp");
@@ -44,3 +44,4 @@ Component({
         this.sub.unsubscribe();
     }
 });
+//# sourceMappingURL=index.js.map

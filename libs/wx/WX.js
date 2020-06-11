@@ -93,6 +93,9 @@ var WX = /** @class */ (function () {
                 success: function (res) {
                     var menuRounding = wx.getMenuButtonBoundingClientRect();
                     res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+                    if (!res.safeArea) {
+                        res.safeArea = { paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0 };
+                    }
                     res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
                     sub.next(res);
                 },
@@ -104,6 +107,9 @@ var WX = /** @class */ (function () {
         var res = wx.getSystemInfoSync();
         var menuRounding = wx.getMenuButtonBoundingClientRect();
         res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+        if (!res.safeArea) {
+            res.safeArea = { paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0 };
+        }
         res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
         return res;
     };

@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/location-deny/index",
+    "pages/cropper/index",
     "pages/rich-html/index"
   ],
   "permission": {

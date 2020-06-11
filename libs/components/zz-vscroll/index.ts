@@ -10,16 +10,15 @@ Component({
   },
 
   methods: {
-    calcHeight()
-    {
+    calcHeight() {
       wx.pageScrollTo({scrollTop: 0});
 
       let below = this.data.below ? WX.queryBoundingClientRect(this.data.below).map(res => res[0]) : rxJust(null);
       let above = this.data.above ? WX.queryBoundingClientRect(this.data.above).map(res => res[0]) : rxJust(null);
       Observable.zip(
-          below,
-          WX.queryBoundingClientRect("#zz-scroll", this).map(res => res[0]),
-          above,
+        below,
+        WX.queryBoundingClientRect("#zz-scroll", this).map(res => res[0]),
+        above,
       ).subscribe(res => {
         let top = res[1].top;
         let bottom = this.data.windowHeight;
@@ -35,8 +34,7 @@ Component({
     }
   },
 
-  attached()
-  {
+  attached() {
     WX.systemInfo().subscribe(res => {
       this.data.windowHeight = res.windowHeight;
       this.calcHeight();
@@ -48,8 +46,7 @@ Component({
     });
   },
 
-  detached()
-  {
+  detached() {
     this.sub.unsubscribe()
   }
 });
