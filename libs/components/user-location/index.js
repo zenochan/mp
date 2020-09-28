@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var mp_1 = require("../../mp");
 Component({
     observers: [],
@@ -12,7 +12,10 @@ Component({
     lifetimes: {
         attached: function () {
             var _this = this;
-            mp_1.Events.subscribe(mp_1.WX.EVENT_LOCATION_DENY, function () { return _this.setData({ deny: true }); });
+            mp_1.Events.subscribe(mp_1.WX.EVENT_LOCATION_DENY, function () {
+                mp_1.UI.hideLoading();
+                _this.setData({ deny: true });
+            });
         },
         detached: function () {
         }
@@ -32,3 +35,4 @@ Component({
         }
     }
 });
+//# sourceMappingURL=index.js.map

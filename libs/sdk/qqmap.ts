@@ -37,8 +37,7 @@ var URL_DISTANCE = BASE_URL + 'distance/v1/';
  *
  * @see https://lbs.qq.com/qqmap_wx_jssdk/index.html
  */
-export class QQMapWX
-{
+export class QQMapWX {
   static key: string;
 
   /**
@@ -63,8 +62,7 @@ export class QQMapWX
    * @see https://lbs.qq.com/qqmap_wx_jssdk/method-search.html
    * @see http://lbs.qq.com/webservice_v1/guide-search.html
    */
-  static search(options: SearchOptions): Observable<PoiResult[]>
-  {
+  static search(options: SearchOptions): Observable<PoiResult[]> {
     return Observable.create(sub => {
       options.success = res => sub.next(res.data);
       options.fail = res => sub.error(res.message);
@@ -114,8 +112,7 @@ export class QQMapWX
    * 参数对象结构可以参考
    * http://lbs.qq.com/webservice_v1/guide-suggestion.html
    */
-  static getSuggestion(options)
-  {
+  static getSuggestion(options) {
     options = options || {};
     Utils.polyfillParam(options);
 
@@ -145,8 +142,7 @@ export class QQMapWX
    * 请求参数结构可以参考
    * http://lbs.qq.com/webservice_v1/guide-gcoder.html
    */
-  static reverseGeocoder(options?: ReverseGeocoderOptions): Observable<ReverseGeocoderRes>
-  {
+  static reverseGeocoder(options?: ReverseGeocoderOptions): Observable<ReverseGeocoderRes> {
     options = options || {};
 
 
@@ -191,8 +187,7 @@ export class QQMapWX
     address: string,
     region?: string,
     [key: string]: any
-  }): Observable<qqmap.GeocoderRes>
-  {
+  }): Observable<qqmap.GeocoderRes> {
     return Observable.create(sub => {
 
       options.success = res => sub.next(res.result);
@@ -226,8 +221,7 @@ export class QQMapWX
    * 请求参数结构可以参考
    * http://lbs.qq.com/webservice_v1/guide-region.html
    */
-  static getCityList(options): Observable<any>
-  {
+  static getCityList(options): Observable<any> {
     options = options || {};
 
 
@@ -258,8 +252,7 @@ export class QQMapWX
    * 请求参数结构可以参考
    * http://lbs.qq.com/webservice_v1/guide-region.html
    */
-  static getDistrictByCityId(options)
-  {
+  static getDistrictByCityId(options) {
     options = options || {};
     Utils.polyfillParam(options);
 
@@ -289,8 +282,7 @@ export class QQMapWX
    * 请求参数结构可以参考
    * http://lbs.qq.com/webservice_v1/guide-distance.html
    */
-  static calculateDistance(options)
-  {
+  static calculateDistance(options) {
     options = options || {};
     Utils.polyfillParam(options);
 
@@ -320,8 +312,7 @@ export class QQMapWX
   }
 }
 
-export interface SearchOptions
-{
+export interface SearchOptions {
   /**
    *POI搜索关键字
    （默认周边搜索，若需要使用指定地区名称和矩形搜索，请使用region和rectangle参数，不能同时使用）
@@ -364,8 +355,7 @@ export interface SearchOptions
   [key: string]: any
 }
 
-export interface ReverseGeocoderOptions
-{
+export interface ReverseGeocoderOptions {
   /** 默认是当前位置 */
   location?: {
     latitude: string | number,
@@ -414,8 +404,7 @@ export interface ReverseGeocoderOptions
   [key: string]: any
 }
 
-export interface PoiResult
-{
+export interface PoiResult {
   address: string
   location: { lat: number, lng: number }
 
@@ -432,8 +421,7 @@ export interface PoiResult
   _distance: number
 }
 
-export interface ReverseGeocoderRes
-{
+export interface ReverseGeocoderRes {
   ad_info: {
     location: { lat: any, lng: any },
     address: string,
@@ -459,14 +447,12 @@ export interface ReverseGeocoderRes
   location: { lat: any, lng: any },
 }
 
-export class Utils
-{
+export class Utils {
   /**
    * 得到终点query字符串
    * @param data {Array|String} 检索数据
    */
-  static location2query(data)
-  {
+  static location2query(data) {
     if (typeof data == 'string') {
       return data;
     }
@@ -489,17 +475,17 @@ export class Utils
   /**
    * 使用微信接口进行定位
    */
-  static getWXLocation(success, fail, complete)
-  {
+  static getWXLocation(success, fail, complete) {
     wx.getLocation({
       type: 'gcj02',
       isHighAccuracy: true,
       success: success,
       fail: e => {
-        if (e.errMsg.indexOf("auth")>0) {
+        if (e.errMsg.indexOf("auth") > 0) {
           console.error("用户已拒绝定位授权");
           Events.publish(WX.EVENT_LOCATION_DENY, true);
         } else {
+          e.errMsg = '获取定位失败，请检查微信是否有定位权限';
           fail && fail(e);
         }
       },
@@ -510,8 +496,7 @@ export class Utils
   /**
    * 获取location参数
    */
-  static getLocationParam(location)
-  {
+  static getLocationParam(location) {
     if (typeof location == 'string') {
       var locationArr = location.split(',');
       if (locationArr.length === 2) {
@@ -529,11 +514,13 @@ export class Utils
   /**
    * 回调函数默认处理
    */
-  static polyfillParam(param)
-  {
-    param.success = param.success || function () { };
-    param.fail = param.fail || function () { };
-    param.complete = param.complete || function () { };
+  static polyfillParam(param) {
+    param.success = param.success || function () {
+    };
+    param.fail = param.fail || function () {
+    };
+    param.complete = param.complete || function () {
+    };
   }
 
   /**
@@ -542,8 +529,7 @@ export class Utils
    * @param {Object} param 接口参数
    * @param {String} key 对应参数的key
    */
-  static checkParamKeyEmpty(param, key)
-  {
+  static checkParamKeyEmpty(param, key) {
     if (!param[key]) {
       var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + key + '参数格式有误');
       param.fail(errconf);
@@ -558,8 +544,7 @@ export class Utils
    *
    * @param {Object} param 接口参数
    */
-  static checkKeyword(param)
-  {
+  static checkKeyword(param) {
     return !this.checkParamKeyEmpty(param, 'keyword');
   }
 
@@ -568,8 +553,7 @@ export class Utils
    *
    * @param {Object} param 接口参数
    */
-  static checkLocation(param)
-  {
+  static checkLocation(param) {
     var location = this.getLocationParam(param.location);
     if (!location || !location.latitude || !location.longitude) {
       var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + ' location参数格式有误')
@@ -585,8 +569,7 @@ export class Utils
    * @param {Number} errCode 错误码
    * @param {Number} errMsg 错误描述
    */
-  static buildErrorConfig(errCode, errMsg)
-  {
+  static buildErrorConfig(errCode, errMsg) {
     return {
       status: errCode,
       message: errMsg
@@ -599,8 +582,7 @@ export class Utils
    * @param {Object} param 接口参数
    * @param {Object} options 配置项
    */
-  static buildWxRequestConfig(param, options)
-  {
+  static buildWxRequestConfig(param, options) {
     var that = this;
     options.header = {"content-type": "application/json"};
     options.method = 'GET';
@@ -644,8 +626,7 @@ export class Utils
   /**
    * 处理用户参数是否传入坐标进行不同的处理
    */
-  static locationProcess(param, locationsuccess, locationfail?, locationcomplete?)
-  {
+  static locationProcess(param, locationsuccess, locationfail?, locationcomplete?) {
     var that = this;
     locationfail = locationfail || function (res) {
       res.statusCode = ERROR_CONF.WX_ERR_CODE;
@@ -665,12 +646,9 @@ export class Utils
   }
 }
 
-declare global
-{
-  namespace qqmap
-  {
-    interface AddressComponent
-    {
+declare global {
+  namespace qqmap {
+    interface AddressComponent {
       province: string,
       city: string,
       district: string,
@@ -678,8 +656,7 @@ declare global
       street_number: string
     }
 
-    interface GeocoderRes
-    {
+    interface GeocoderRes {
       ad_info: {
         /**
          * 六位数字区域代码

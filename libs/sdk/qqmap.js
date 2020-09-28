@@ -310,6 +310,7 @@ var Utils = /** @class */ (function () {
                     Events_1.Events.publish(mp_1.WX.EVENT_LOCATION_DENY, true);
                 }
                 else {
+                    e.errMsg = '获取定位失败，请检查微信是否有定位权限';
                     fail && fail(e);
                 }
             },
@@ -338,9 +339,12 @@ var Utils = /** @class */ (function () {
      * 回调函数默认处理
      */
     Utils.polyfillParam = function (param) {
-        param.success = param.success || function () { };
-        param.fail = param.fail || function () { };
-        param.complete = param.complete || function () { };
+        param.success = param.success || function () {
+        };
+        param.fail = param.fail || function () {
+        };
+        param.complete = param.complete || function () {
+        };
     };
     /**
      * 验证param对应的key值是否为空

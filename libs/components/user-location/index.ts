@@ -1,4 +1,4 @@
-import {Events, WX} from "../../mp";
+import {Events, UI, WX} from "../../mp";
 
 Component({
   observers: [],
@@ -10,31 +10,30 @@ Component({
   },
 
   lifetimes: {
-    attached()
-    {
-      Events.subscribe(WX.EVENT_LOCATION_DENY, () => this.setData({deny: true}))
+    attached() {
+      Events.subscribe(WX.EVENT_LOCATION_DENY, () => {
+          UI.hideLoading();
+          this.setData({deny: true});
+        }
+      )
     },
-    detached()
-    {
+    detached() {
 
     }
   },
 
   pageLifetimes: {
-    show()
-    {
+    show() {
       WX.getSetting().subscribe(res => res.userLocation && this.setData({deny: false}));
     }
   },
 
   methods: {
-    openSetting()
-    {
+    openSetting() {
       wx.openSetting();
     },
 
-    hideModal()
-    {
+    hideModal() {
       this.setData({deny: false});
     }
   }

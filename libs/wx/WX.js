@@ -137,7 +137,7 @@ var WX = /** @class */ (function () {
                         Events_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
                     }
                     else {
-                        sub.error(e);
+                        sub.error("获取定位失败，请检查微信是否有定位权限");
                     }
                 },
                 complete: function () { return sub.complete(); }

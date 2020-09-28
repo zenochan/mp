@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/location-deny/index",
     "pages/cropper/index",
-    "pages/rich-html/index"
+    "pages/rich-html/index",
+    "pages/wx-charts/index"
   ],
   "permission": {
     "scope.userLocation": {

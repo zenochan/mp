@@ -23,7 +23,8 @@
 			"outputPath": ""
 		},
 		"bundle": false,
-		"useCompilerModule": true
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.2",
@@ -61,8 +62,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/cropper/index",
-					"pathName": "pages/cropper/index",
+					"name": "pages/wx-charts/index",
+					"pathName": "pages/wx-charts/index",
 					"query": "",
 					"scene": 1044,
 					"shareInfo": {
