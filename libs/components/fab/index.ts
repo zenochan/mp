@@ -12,11 +12,16 @@ Component({
   },
 
   methods: {
-    toggle()
-    {
+    toggle() {
       this.setData({open: !this.data.open});
       this.triggerEvent("change", {value: this.data.open});
     },
-    catTouch(e) { },
+
+    close() {
+      this.setData({open: false});
+      this.triggerEvent("change", {value: this.data.open});
+    },
+    catTouch(e) {
+    },
   }
 });

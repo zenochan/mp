@@ -325,8 +325,8 @@ var Utils = /** @class */ (function () {
             var locationArr = location.split(',');
             if (locationArr.length === 2) {
                 location = {
-                    latitude: location.split(',')[0],
-                    longitude: location.split(',')[1]
+                    latitude: locationArr[0],
+                    longitude: locationArr[1]
                 };
             }
             else {
@@ -460,8 +460,8 @@ var Utils = /** @class */ (function () {
             that.getWXLocation(locationsuccess, locationfail, locationcomplete);
         }
         else if (that.checkLocation(param)) {
-            var location = Utils.getLocationParam(param.location);
-            locationsuccess(location);
+            var location_1 = Utils.getLocationParam(param.location);
+            locationsuccess(location_1);
         }
     };
     return Utils;

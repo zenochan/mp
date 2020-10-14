@@ -2,16 +2,14 @@ import {UI} from "./UI";
 import {WX} from "./WX";
 
 
-export class Nav
-{
+export class Nav {
   private static navParams;
   public static INDEX = "/pages/index/index";
 
   static nav(options: string | {
     url: string,
     redirect?: boolean
-  })
-  {
+  }) {
     let op;
     if (typeof options == 'string') {
       op = {url: options};
@@ -32,8 +30,7 @@ export class Nav
     })
   }
 
-  private static actualNav(to: Route, from: Route, redirect: boolean = false)
-  {
+  private static actualNav(to: Route, from: Route, redirect: boolean = false) {
     let options = {
       url: to.page(),
       fail: res => {
@@ -55,8 +52,7 @@ export class Nav
     }
   }
 
-  static redirect(url: string)
-  {
+  static redirect(url: string) {
     this.nav({url: url, redirect: true})
   }
 
@@ -65,8 +61,7 @@ export class Nav
    * @param url
    * @param data
    */
-  static navForResult(holder: any, url: string, data?: any): Promise<any>
-  {
+  static navForResult(holder: any, url: string, data?: any): Promise<any> {
     this.navParams = data;
     let page = WX.page();
     page.holder = holder;
@@ -83,13 +78,11 @@ export class Nav
   /**
    * - 在 page 中调用 {@link IPage.navParams}
    */
-  static navData(): any | null
-  {
+  static navData(): any | null {
     return this.navParams
   }
 
-  static switchTab(page: string)
-  {
+  static switchTab(page: string) {
     wx.switchTab({
       url: page,
       fail: res => UI.toastFail(res.errMsg, 2000)
@@ -99,13 +92,11 @@ export class Nav
   /**
    * 数据有变化， 上一个页面需要刷新
    */
-  static refreshPre()
-  {
+  static refreshPre() {
     WX.pagePre().subscribe(page => page.onceRefresh = true);
   }
 
-  static navBack(data?: any)
-  {
+  static navBack(data?: any) {
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
     if (prePage && prePage.holder) {
@@ -120,8 +111,7 @@ export class Nav
     wx.navigateBack();
   }
 
-  static navBackOrIndex()
-  {
+  static navBackOrIndex() {
     if (getCurrentPages().length > 1) {
       wx.navigateBack()
     } else {
@@ -130,13 +120,11 @@ export class Nav
   }
 }
 
-export class Route
-{
+export class Route {
   public url: string
   public query: string
 
-  page()
-  {
+  page() {
     let url = this.url;
     if (this.query) {
       url += '?' + this.query;
@@ -145,8 +133,7 @@ export class Route
     return url;
   }
 
-  static create(path: string): Route
-  {
+  static create(path: string): Route {
     let route = new Route();
     route.url = this.checkUrl(path.split('?')[0])
     route.query = path.split('?')[1] || ''
@@ -155,8 +142,7 @@ export class Route
   }
 
 
-  private static checkUrl(url: string)
-  {
+  private static checkUrl(url: string) {
     if (/^(pages|package)/.test(url)) {
       url = '/' + url;
     }
@@ -165,15 +151,14 @@ export class Route
       let currUrl = '/' + WX.page().route;
       url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url;
       url = url.replace(/[^/]+\/\.\.\//, '')
-          .replace(/\/\//g, '/');
+        .replace(/\/\//g, '/');
     }
 
     return url;
   }
 }
 
-export interface NavInjector
-{
+export interface NavInjector {
   beforeNav?: (to: Route, from: Route, next: () => void) => void;
   afterNav?: (to: Route, from: Route) => void;
 }
@@ -181,11 +166,10 @@ export interface NavInjector
 export const NavInjectors: Array<NavInjector> = [];
 
 export function runQueue(
-    queue: NavInjector[],
-    fn: (injector: NavInjector, next: () => void) => void,
-    cb: () => void
-)
-{
+  queue: NavInjector[],
+  fn: (injector: NavInjector, next: () => void) => void,
+  cb: () => void
+) {
   let step = index => {
     if (index >= queue.length) {
       cb();

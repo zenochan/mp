@@ -15,6 +15,12 @@ Component({
             this.setData({ open: !this.data.open });
             this.triggerEvent("change", { value: this.data.open });
         },
-        catTouch: function (e) { },
+        close: function () {
+            this.setData({ open: false });
+            this.triggerEvent("change", { value: this.data.open });
+        },
+        catTouch: function (e) {
+        },
     }
 });
+//# sourceMappingURL=index.js.map

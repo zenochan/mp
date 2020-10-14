@@ -68,7 +68,8 @@ function HookPage(page) {
                     var injectorMethod = injector[method];
                     injectorMethod && injectorMethod(_this, args);
                 }
-                catch (ignore) { }
+                catch (ignore) {
+                }
             });
             exports.HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
         };

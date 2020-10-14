@@ -20,8 +20,7 @@ export const HOOK_CONF = {log: true};
  * <div bind:tap="clear" data-input="inputId" wx:if="{{inputId}}">清除</div>
  * ```
  */
-export interface PageHook
-{
+export interface PageHook {
   init?: (Ipage) => void;
   onLoad?: (Ipage, options: LaunchOptions) => void;
   onReady?: (Ipage) => void;
@@ -38,8 +37,7 @@ export const PageInjectors: Array<PageHook> = [];
  * @param page
  * @constructor
  */
-export function HookPage(page: IPage = {})
-{
+export function HookPage(page: IPage = {}) {
   hookNav(page);
   hookInputEvent(page);
 
@@ -101,7 +99,8 @@ export function HookPage(page: IPage = {})
         try {
           let injectorMethod = injector[method];
           injectorMethod && injectorMethod(this, args)
-        } catch (ignore) { }
+        } catch (ignore) {
+        }
       });
 
       HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
@@ -138,8 +137,7 @@ export function HookPage(page: IPage = {})
  * @param page
  * @author Zeno Chan (zenochan@qq.com)
  */
-function hookInputEvent(page)
-{
+function hookInputEvent(page) {
   // 伪双数据绑定
   let originInput = page.onInput;
   page['onInput'] = function (e: WXEvent) {
@@ -221,7 +219,9 @@ function hookInputEvent(page)
 
   page.call = function (e: WXEvent) {
     let mobile = e.currentTarget.dataset.mobile;
-    if (mobile) { wx.makePhoneCall({phoneNumber: mobile}) }
+    if (mobile) {
+      wx.makePhoneCall({phoneNumber: mobile})
+    }
   };
 
   page.clearFocus = function (e: WXEvent) {
@@ -257,8 +257,7 @@ function hookInputEvent(page)
  * @version 2019-03-25
  * @author Zeno (zenochan@qq.com)
  */
-function hookNav(page: IPage)
-{
+function hookNav(page: IPage) {
   page.nav = function (url: string | WXEvent, data?: any) {
     if (typeof url == "object") {
       data = url.currentTarget.dataset;
@@ -282,8 +281,7 @@ function hookNav(page: IPage)
 }
 
 PageInjectors.push({
-  onShow(page)
-  {
+  onShow(page) {
     if (page.showed) {
       if (page.autoRefresh || page.onceRefresh) {
         page.onPullDownRefresh();         // 满足条件，刷新数据
@@ -298,8 +296,7 @@ PageInjectors.push({
 
 // 注入 showModal, hideModal
 PageInjectors.push({
-  onLoad(page: IPage)
-  {
+  onLoad(page: IPage) {
     page.showModal = (event: WXEvent | string) => {
       let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
       page.data.modal = page.data.modal || {};

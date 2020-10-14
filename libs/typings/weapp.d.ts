@@ -174,6 +174,9 @@ declare global {
     showModal?: (event: WXEvent | string) => void;
     hideModal?: (event: WXEvent | string) => void;
 
+    selectComponent?: (selector: string) => any;
+
+
     [key: string]: any;
 
   }

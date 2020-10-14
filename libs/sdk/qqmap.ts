@@ -498,11 +498,11 @@ export class Utils {
    */
   static getLocationParam(location) {
     if (typeof location == 'string') {
-      var locationArr = location.split(',');
+      const locationArr = location.split(',');
       if (locationArr.length === 2) {
         location = {
-          latitude: location.split(',')[0],
-          longitude: location.split(',')[1]
+          latitude: locationArr[0],
+          longitude: locationArr[1]
         };
       } else {
         location = {};
@@ -531,7 +531,7 @@ export class Utils {
    */
   static checkParamKeyEmpty(param, key) {
     if (!param[key]) {
-      var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + key + '参数格式有误');
+      const errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + key + '参数格式有误');
       param.fail(errconf);
       param.complete(errconf);
       return true;
@@ -640,7 +640,7 @@ export class Utils {
     if (!param.location) {
       that.getWXLocation(locationsuccess, locationfail, locationcomplete);
     } else if (that.checkLocation(param)) {
-      var location = Utils.getLocationParam(param.location);
+      const location = Utils.getLocationParam(param.location);
       locationsuccess(location);
     }
   }
@@ -670,8 +670,6 @@ declare global {
       reliability: number
       similarity: number
       title: string
-
     }
-
   }
 }
