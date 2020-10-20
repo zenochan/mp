@@ -2,6 +2,13 @@ import {Data} from "../wx/Data";
 import {Observable} from "../rx/Rx";
 import {UI} from "../wx/UI";
 
+export interface Res {
+  statusCode: Number
+  data: any
+  header?: { [key: string]: string }
+  cookies?: []
+}
+
 /**
  * ## Methods
  * - {@link get}
@@ -10,8 +17,7 @@ import {UI} from "../wx/UI";
  * - {@link patch}
  * - {@link delete}
  */
-export class API
-{
+export class API {
   static counter = 0;
   static API_BASE = "";
   static IMG_BASE = "";
@@ -23,11 +29,10 @@ export class API
   static config(config: {
     host: string,
     imgBase: string,
-    resHandler?: (res, sub) => void,
+    resHandler?: (res: Res, sub) => void,
     headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => wx.IData
     pathInterceptor?: (path: string) => string
-  })
-  {
+  }) {
     this.API_BASE = config.host;
     this.IMG_BASE = config.imgBase;
     this.resHandler = config.resHandler;
@@ -36,42 +41,36 @@ export class API
   }
 
 
-  static get<T>(url, query: wx.IData = null): Observable<T | any>
-  {
+  static get<T>(url, query: wx.IData = null): Observable<T | any> {
     url = this.query(url, query);
     url = API.pathVariable(url, query);
     return this.buildRequest({method: "GET", url});
   }
 
-  static post<T>(url, param: wx.IData = {}): Observable<any | T>
-  {
+  static post<T>(url, param: wx.IData = {}): Observable<any | T> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "POST", url, data: param});
   }
 
-  static put<T>(url, param: string | wx.IData = {}): Observable<T | any>
-  {
+  static put<T>(url, param: string | wx.IData = {}): Observable<T | any> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "PUT", url, data: param});
   }
 
-  static patch<T>(url, param: string | wx.IData = {}): Observable<T | any>
-  {
+  static patch<T>(url, param: string | wx.IData = {}): Observable<T | any> {
     if (typeof param == "object") param._method = "PATCH";
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
     return this.buildRequest({method: "POST", url, data: param});
   }
 
-  static delete(url): Observable<any> | any
-  {
+  static delete(url): Observable<any> | any {
     return this.buildRequest({method: "DELETE", url});
   }
 
-  static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult>
-  {
+  static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult> {
     let url = this.API_BASE + "upload";
     if (this.pathInterceptor) url = this.pathInterceptor(url);
 
@@ -96,8 +95,7 @@ export class API
     filePaths: string[],
     path?: string,
     formData?: Object
-  }): Observable<string[]>
-  {
+  }): Observable<string[]> {
     let url = this.API_BASE + (options.path || 'upload');
     if (this.pathInterceptor) url = this.pathInterceptor(url);
 
@@ -132,8 +130,7 @@ export class API
   }
 
   // 补全 url 连接
-  static completeImgUrl(data): any
-  {
+  static completeImgUrl(data): any {
 
     let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
       if (a.indexOf('http') == -1) a = this.IMG_BASE + a;
@@ -143,15 +140,13 @@ export class API
   }
 
   // 简化 url 连接, 上传数据时不保留图片基础链接
-  static simpleImgUrl(data): any
-  {
+  static simpleImgUrl(data): any {
     let reg = new RegExp(this.IMG_BASE, 'g');
     let dataString = JSON.stringify(data).replace(reg, '');
     return JSON.parse(dataString);
   }
 
-  private static requestComplete()
-  {
+  private static requestComplete() {
     this.counter--;
     if (this.counter <= 0) {
       wx.hideNavigationBarLoading();
@@ -159,8 +154,7 @@ export class API
     }
   }
 
-  private static handlerRes(res, sub)
-  {
+  private static handlerRes(res, sub) {
     if (this.resHandler) {
       this.resHandler(res, sub)
     } else {
@@ -182,8 +176,7 @@ export class API
     }
   }
 
-  private static buildRequest<T>(options: wx.RequestOptions): Observable<T>
-  {
+  private static buildRequest<T>(options: wx.RequestOptions): Observable<T> {
     if (options.url.indexOf('http') != 0) {
       options.url = this.API_BASE + options.url
     }
@@ -205,13 +198,14 @@ export class API
 
       let task: any = wx.request(options);
       // 返回取消订阅的操作句柄
-      return () => { task && task.abort() }
+      return () => {
+        task && task.abort()
+      }
     })
 
   }
 
-  private static pathVariable(url: string, param: any)
-  {
+  private static pathVariable(url: string, param: any) {
     Object.keys(param || {}).forEach(key => {
       if (url.indexOf(":" + key) != -1) {
         // rest api
@@ -222,8 +216,7 @@ export class API
     return url;
   }
 
-  private static query(url: string, param: any)
-  {
+  private static query(url: string, param: any) {
     Object.keys(param || {}).forEach(key => {
       let value = param[key];
       if (value != null && typeof value != 'undefined') {
@@ -234,8 +227,7 @@ export class API
     return url;
   }
 
-  private static tokenHeader(origin: any = {}): any
-  {
+  private static tokenHeader(origin: any = {}): any {
     if (this.headerInterceptor) {
       return this.headerInterceptor({});
     }

@@ -173,7 +173,9 @@ var API = /** @class */ (function () {
             };
             var task = wx.request(options);
             // 返回取消订阅的操作句柄
-            return function () { task && task.abort(); };
+            return function () {
+                task && task.abort();
+            };
         });
     };
     API.pathVariable = function (url, param) {
