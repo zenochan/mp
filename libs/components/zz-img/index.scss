@@ -1,11 +1,13 @@
 :host {
   display: inline-block;
   position: relative;
+  padding: inherit;
 }
 
 .zz-img__ctn {
   height: 100%;
   border-radius: inherit;
+  padding: inherit;
 }
 
 .zz-img__holder {
@@ -14,6 +16,7 @@
   display: block;
   overflow: hidden;
   border-radius: inherit;
+  padding: inherit;
 }
 
 .zz-img__size {

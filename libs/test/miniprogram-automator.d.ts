@@ -3,6 +3,9 @@
  */
 
 
+/**
+ * {@link https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/element.html}
+ */
 interface MiniProgramAutomator {
   connect(options: {
     wsEndpoint: string    // 开发者工具 WebSocket 地址
@@ -21,7 +24,8 @@ interface MiniProgramAutomator {
 interface MiniProgram {
   // 断开与小程序运行时的连接
   disconnect(): void;
-  reLaunch(url:string): Promise<MiniPage>
+
+  reLaunch(url: string): Promise<MiniPage>
 
   pageStack(): Promise<MiniPage>
 
@@ -110,9 +114,71 @@ interface MiniPage {
   /**
    * 调用页面指定方法
    */
-  callMethod(method:string): Promise<any>
+  callMethod(method: string): Promise<any>
 }
 
 interface MiniElement {
+  tagName: string
 
+  text(): Promise<string>
+
+  /**
+   * @param name src, class, id
+   */
+  attribute(name: string): Promise<string>
+
+  /**
+   * @param name value data-*
+   */
+  properties(name: string): Promise<any>
+
+  $(selector: string): Promise<MiniElement>
+
+  $$(selector: string): Promise<MiniElement[]>
+
+  size(): Promise<{ width: number, height: number }>
+
+  offset(): Promise<{ left: number, top: number }>
+
+  wxml(): Promise<string>
+
+  outerWxml(): Promise<string>
+
+  value(): Promise<string>
+
+  style(): Promise<string>
+
+  tap(): Promise<void>
+
+  longPress(): Promise<void>
+
+  touchstart(options: any): Promise<void>
+
+  touchmove(options: any): Promise<void>
+
+  touchend(options: any): Promise<void>
+
+  trigger(type: string, detail?: Object): Promise<void>
+
+  input(value: string): Promise<void>
+
+  callMethod(method: string, ...args: any[]): Promise<any>
+
+  data(path?: string): Promise<Object>
+
+  setData(path: Object): Promise<void>
+
+  callContextMethod(method: string, ...args: any[]): Promise<any>
+
+  scrollWidth(): Promise<number>
+
+  scrollHeight(): Promise<number>
+
+  scrollTo(x: number, y: number): Promise<void>
+
+  swipeTo(index: number): Promise<void>
+
+  moveTo(x: number, y: number): Promise<void>
+
+  slideTo(value: number): Promise<void>
 }
