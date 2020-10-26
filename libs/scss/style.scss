@@ -169,7 +169,9 @@ page {
         position: absolute;
         top: 50%;
         right: 0;
-        transform: rotate(45deg) translateY(-50%);
+        transform: rotateZ(45deg) translateY(-50%);
+        transform-origin: 100% 0;
+        box-sizing: border-box;
         border: 2px solid;
         border-color: #979797 #979797 transparent transparent;
       }
