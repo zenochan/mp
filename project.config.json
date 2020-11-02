@@ -1,85 +1,85 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"enhance": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"nodeModules": false,
-		"autoAudits": false,
-		"uglifyFileName": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"bundle": false,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.10.2",
-	"appid": "wx8120fc56e8db0384",
-	"projectname": "mp",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/wx-charts/index",
-					"pathName": "pages/wx-charts/index",
-					"query": "",
-					"scene": 1044,
-					"shareInfo": {
-						"groupName": "测试模拟群0",
-						"shareName": "k5gSqSC9ZesJjgDiBU3lNBla2xH34dMrJcvssrkIX1k@cr4dev",
-						"shareKey": "PXrQcOhLkjwiNXLIeyxefCOEpyU4cqAx3Iyo1kHwsPnHzEEgeczNoYrLkQ-W4WFU_7cyixd-i74NUNYF8xI1yA~~"
-					}
-				},
-				{
-					"id": 1,
-					"name": "拒绝地址授权",
-					"pathName": "pages/location-deny/index",
-					"query": "",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "uglifyFileName": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.10.2",
+  "appid": "wx8120fc56e8db0384",
+  "projectname": "mp",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "pages/wx-charts/index",
+          "pathName": "pages/wx-charts/index",
+          "query": "",
+          "scene": 1044,
+          "shareInfo": {
+            "groupName": "测试模拟群0",
+            "shareName": "k5gSqSC9ZesJjgDiBU3lNBla2xH34dMrJcvssrkIX1k@cr4dev",
+            "shareKey": "PXrQcOhLkjwiNXLIeyxefCOEpyU4cqAx3Iyo1kHwsPnHzEEgeczNoYrLkQ-W4WFU_7cyixd-i74NUNYF8xI1yA~~"
+          }
+        },
+        {
+          "id": 1,
+          "name": "拒绝地址授权",
+          "pathName": "pages/location-deny/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/uploader/index",
+          "pathName": "pages/uploader/index",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

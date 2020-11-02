@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var weapp_1 = require("../../libs/wx/weapp");
 weapp_1.HookPage({
     navTitle: "Zeno Lib",
@@ -9,9 +9,11 @@ weapp_1.HookPage({
                 name: "功能组件",
                 children: [
                     { name: "授权定位弹窗", page: "/pages/location-deny/index" },
-                    { name: "rich-html", page: "/pages/location-deny/index" }
+                    { name: "rich-html", page: "/pages/location-deny/index" },
+                    { name: "uploader", page: "/pages/uploader/index" }
                 ]
             }
         ]
     }
 });
+//# sourceMappingURL=index.js.map

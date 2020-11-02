@@ -688,6 +688,27 @@ declare global {
      */
     function chooseImage(options: ChooseImageOptions): void;
 
+
+    interface ChooseVideoOptions extends BaseOptions<any> {
+      sourceType?: string[]     // default
+      compressed?: boolean                  // default true
+      maxDuration?: number                  // default 60
+      camera?: 'back' | 'front'             // default back
+    }
+
+    interface ChooseVideoRes {
+      tempFilePath: string
+      duration: number
+      size: number
+      height: number
+      width: number
+    }
+
+    /**
+     * 拍摄视频或从手机相册中选视频。
+     */
+    function chooseVideo(options: ChooseVideoOptions): void;
+
     interface PreviewImageOptions extends BaseOptions<any> {
 
       /**

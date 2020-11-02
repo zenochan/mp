@@ -156,7 +156,13 @@ function hookInputEvent(page) {
         }
       }
 
-      node[fields[fields.length - 1]] = e.detail.value;
+      // vant field 组件detail即value
+      let value = e.detail;
+      if (e.detail.value) {
+        value = e.detail.value;
+      }
+      node[fields[fields.length - 1]] = value;
+
       if (e.detail.code) {
         node[id + "Code"] = e.detail.code
       }

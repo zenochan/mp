@@ -120,7 +120,12 @@ function hookInputEvent(page) {
                     node = node[fields[i]];
                 }
             }
-            node[fields[fields.length - 1]] = e.detail.value;
+            // vant field 组件detail即value
+            var value = e.detail;
+            if (e.detail.value) {
+                value = e.detail.value;
+            }
+            node[fields[fields.length - 1]] = value;
             if (e.detail.code) {
                 node[id + "Code"] = e.detail.code;
             }

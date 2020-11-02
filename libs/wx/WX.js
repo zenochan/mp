@@ -292,6 +292,22 @@ var WX = /** @class */ (function () {
             });
         });
     };
+    WX.chooseVideo = function (count, sourceType) {
+        if (count === void 0) { count = 1; }
+        if (sourceType === void 0) { sourceType = ['camera', 'album']; }
+        return Rx_1.Observable.create(function (sub) {
+            wx.chooseVideo({
+                sourceType: sourceType,
+                success: function (res) { return sub.next(res); },
+                fail: function (e) {
+                    // 忽略取消错误
+                    if (e.errMsg.indexOf('cancel') == -1)
+                        sub.error(e);
+                },
+                complete: function () { return sub.complete(); }
+            });
+        });
+    };
     /**
      * @see [wx.updateShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.updateShareMenu.html)
      */

@@ -5,6 +5,9 @@
   "description": "Zeno 的小程序开发包",
   "main": "./libs/index.js",
   "miniprogram": "libs",
+  "scripts": {
+    "run": "cli auto --project $(pwd) --auto-port 9421"
+  },
   "files": [
     "libs/",
     "libs/scss/",

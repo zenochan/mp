@@ -328,6 +328,20 @@ export class WX {
 
   }
 
+  static chooseVideo(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<wx.ChooseVideoRes> {
+    return Observable.create(sub => {
+      wx.chooseVideo({
+        sourceType: sourceType,
+        success: res => sub.next(res),
+        fail: e => {
+          // 忽略取消错误
+          if (e.errMsg.indexOf('cancel') == -1) sub.error(e)
+        },
+        complete: () => sub.complete()
+      })
+    });
+
+  }
 
   /**
    * @see [wx.updateShareMenu](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.updateShareMenu.html)
