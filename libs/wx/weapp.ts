@@ -156,9 +156,9 @@ function hookInputEvent(page) {
         }
       }
 
-      // vant field 组件detail即value
+      // vant field 组件detail即value, value 为空时  {value:'' , cursor:0,keyCode:8}
       let value = e.detail;
-      if (e.detail.value) {
+      if (value.hasOwnProperty('value')) {
         value = e.detail.value;
       }
       node[fields[fields.length - 1]] = value;
@@ -304,18 +304,18 @@ PageInjectors.push({
 PageInjectors.push({
   onLoad(page: IPage) {
     page.showModal = (event: WXEvent | string) => {
-      let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      page.data.modal = page.data.modal || {};
-      page.data.modal[target] = true;
-      page.setData({modal: page.data.modal});
+      const target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
+      const {modal = {}} = page.data;
+      modal[target] = true;
+      page.setData({modal});
 
-      page.data.modal[target] = false;
+      modal[target] = false;
     };
 
     page.hideModal = (event: WXEvent | string) => {
-      let target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      page.data.modal = page.data.modal || {};
-      page.data.modal[target] = false;
+      const target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
+      const {modal = {}} = page.data;
+      modal[target] = false;
       page.setData({modal: page.data.modal});
     };
   }

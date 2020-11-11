@@ -120,9 +120,9 @@ function hookInputEvent(page) {
                     node = node[fields[i]];
                 }
             }
-            // vant field 组件detail即value
+            // vant field 组件detail即value, value 为空时  {value:'' , cursor:0,keyCode:8}
             var value = e.detail;
-            if (e.detail.value) {
+            if (value.hasOwnProperty('value')) {
                 value = e.detail.value;
             }
             node[fields[fields.length - 1]] = value;
@@ -253,15 +253,15 @@ exports.PageInjectors.push({
     onLoad: function (page) {
         page.showModal = function (event) {
             var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-            page.data.modal = page.data.modal || {};
-            page.data.modal[target] = true;
-            page.setData({ modal: page.data.modal });
-            page.data.modal[target] = false;
+            var _a = page.data.modal, modal = _a === void 0 ? {} : _a;
+            modal[target] = true;
+            page.setData({ modal: modal });
+            modal[target] = false;
         };
         page.hideModal = function (event) {
             var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-            page.data.modal = page.data.modal || {};
-            page.data.modal[target] = false;
+            var _a = page.data.modal, modal = _a === void 0 ? {} : _a;
+            modal[target] = false;
             page.setData({ modal: page.data.modal });
         };
     }
