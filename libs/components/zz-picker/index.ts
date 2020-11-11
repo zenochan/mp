@@ -63,8 +63,7 @@ Component({
       }
     },
     datetimeStart: {
-      type: String, value: '2010-01-01 00:00', observer(newVal, oldVal)
-      {
+      type: String, value: '2010-01-01 00:00', observer(newVal, oldVal) {
         if (newVal == 'today') {
           this.data.datetimeStart = new Date().format('yyyy-MM-dd HH:mm')
         }
@@ -73,8 +72,7 @@ Component({
       }
     },
     datetimeEnd: {
-      type: String, value: null, observer(newVal, oldVal)
-      {
+      type: String, value: null, observer(newVal, oldVal) {
         if (newVal == 'today') {
           this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm')
         }
@@ -84,24 +82,21 @@ Component({
     },
 
     region: {
-      type: Boolean, value: false, observer(newVal, oldVal)
-      {
+      type: Boolean, value: false, observer(newVal, oldVal) {
         this.setData({mode: 'region'});
       }
     },
 
 
     dateStart: {
-      type: String, value: "", observer(newVal)
-      {
+      type: String, value: "", observer(newVal) {
         if (newVal == 'today') {
           this.setData({dateStart: new Date().format('yyyy-MM-dd')});
         }
       }
     },
     dateEnd: {
-      type: String, value: "", observer(newVal)
-      {
+      type: String, value: "", observer(newVal) {
         if (newVal == 'today') {
           this.setData({dateEnd: new Date().format('yyyy-MM-dd')});
         }
@@ -111,9 +106,9 @@ Component({
   },
 
   methods: {
-    onChange(event: WXEvent)
-    {
+    onChange(event: WXEvent) {
       let value = this.data.range[event.detail.value] || event.detail.value;
+      let code = event.detail.code;
 
       if (this.data.datetime) {
         const index = this.data.multiIndex;
@@ -125,11 +120,10 @@ Component({
         value = `${year}-${month}-${day} ${hour}:${minute}`;
       }
 
-      this.triggerEvent('change', {value});
+      this.triggerEvent('change', {value, code});
     },
 
-    initDatetime()
-    {
+    initDatetime() {
       let years = [];
       let months = [];
       let days = [];
@@ -225,8 +219,7 @@ Component({
       this.setData({multiArray, multiIndex});
     },
 
-    onColumnChange(e: WXEvent)
-    {
+    onColumnChange(e: WXEvent) {
       if (this.data.datetime) {
         let key = ['choose_year', 'choose_month', 'choose_day', 'choose_h', 'choose_m'];
         let {column, value} = e.detail;
@@ -241,14 +234,12 @@ Component({
 
   },
 
-  ready()
-  {
+  ready() {
   }
 });
 
 
-function stringArray(from: number, to: number)
-{
+function stringArray(from: number, to: number) {
   let array = [];
   for (let i = from; i <= to; i++) {
     array.push((i >= 10 ? "" : '0') + i);
@@ -257,8 +248,7 @@ function stringArray(from: number, to: number)
   return array;
 }
 
-function monthDays(year: number, month: number, dayStart = 1, dayEnd = 31): number[]
-{
+function monthDays(year: number, month: number, dayStart = 1, dayEnd = 31): number[] {
   if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { //判断31天的月份
     dayEnd = Math.min(dayEnd, 31);
   } else if (month == 4 || month == 6 || month == 9 || month == 11) { //判断30天的月份

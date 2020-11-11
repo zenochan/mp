@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 require("../../utils/extends.date");
 /**
  * # Event
@@ -100,6 +100,7 @@ Component({
     methods: {
         onChange: function (event) {
             var value = this.data.range[event.detail.value] || event.detail.value;
+            var code = event.detail.code;
             if (this.data.datetime) {
                 var index = this.data.multiIndex;
                 var year = this.data.multiArray[0][index[0]];
@@ -109,7 +110,7 @@ Component({
                 var minute = this.data.multiArray[4][index[4]];
                 value = year + "-" + month + "-" + day + " " + hour + ":" + minute;
             }
-            this.triggerEvent('change', { value: value });
+            this.triggerEvent('change', { value: value, code: code });
         },
         initDatetime: function () {
             var years = [];
@@ -227,3 +228,4 @@ function monthDays(year, month, dayStart, dayEnd) {
     }
     return stringArray(dayStart, dayEnd);
 }
+//# sourceMappingURL=index.js.map
