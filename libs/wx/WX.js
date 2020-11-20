@@ -13,20 +13,20 @@ var WX = /** @class */ (function () {
     function WX() {
     }
     WX.saveImageToPhotosAlbum = function (src) {
-        WX.authorize("scope.writePhotosAlbum")
+        WX.authorize('scope.writePhotosAlbum')
             .flatMap(function (res) { return WX.getImageInfo(src); })
             .subscribe(function (res) {
             wx.saveImageToPhotosAlbum({
                 filePath: res.path,
-                success: function () { return UI_1.UI.toastSuccess("图片已保存"); }
+                success: function () { return UI_1.UI.toastSuccess('图片已保存'); }
             });
         }, function (e) {
-            if ((e.errMsg || "").indexOf("authorize:fail") != -1) {
+            if ((e.errMsg || '').indexOf('authorize:fail') != -1) {
                 UI_1.UI.showModal({
-                    title: "提示",
-                    content: "需要保存到相册权限, 是否现在去设置？",
-                    confirmText: "打开设置",
-                    cancelText: "取消"
+                    title: '提示',
+                    content: '需要保存到相册权限, 是否现在去设置？',
+                    confirmText: '打开设置',
+                    cancelText: '取消'
                 }).subscribe(function (res) { return wx.openSetting(); });
             }
             else {
@@ -62,8 +62,9 @@ var WX = /** @class */ (function () {
      */
     WX.forceUpdate = function (delayMs) {
         if (delayMs === void 0) { delayMs = 100; }
-        if (delayMs < 0)
+        if (delayMs < 0) {
             delayMs = 0;
+        }
         wx.getUpdateManager().onUpdateReady(function () {
             setTimeout(function () {
                 UI_1.UI.alert('需要重启小程序完成更新').subscribe(function (res) { return wx.getUpdateManager().applyUpdate(); });
@@ -81,7 +82,7 @@ var WX = /** @class */ (function () {
         return Rx_1.Observable.create(function (sub) {
             return wx.getSystemInfo({
                 success: function (res) {
-                    sub.next(res.model.indexOf("iPhone X") != -1);
+                    sub.next(res.model.indexOf('iPhone X') != -1);
                 },
                 fail: function (e) { return sub.error(e); }
             });
@@ -132,12 +133,12 @@ var WX = /** @class */ (function () {
                 // altitude: true,
                 success: function (res) { return sub.next(res); },
                 fail: function (e) {
-                    if (e.errMsg.indexOf("auth") > 0) {
-                        console.error("用户已拒绝定位授权");
+                    if (e.errMsg.indexOf('auth') > 0) {
+                        console.error('用户已拒绝定位授权');
                         Events_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
                     }
                     else {
-                        sub.error("获取定位失败，请检查微信是否有定位权限");
+                        sub.error('获取定位失败，请检查微信是否有定位权限');
                     }
                 },
                 complete: function () { return sub.complete(); }
@@ -155,7 +156,7 @@ var WX = /** @class */ (function () {
         return Rx_1.Observable.create(function (sub) {
             return wx.getSystemInfo({
                 success: function (res) {
-                    sub.next(res.model.indexOf("iPhone") != -1);
+                    sub.next(res.model.indexOf('iPhone') != -1);
                 },
                 fail: function (e) { return sub.error(e); }
             });
@@ -190,7 +191,7 @@ var WX = /** @class */ (function () {
     WX.checkSession = function () {
         return Rx_1.Observable.create(function (emitter) {
             wx.checkSession({
-                //session_key 未过期，并且在本生命周期一直有效
+                // session_key 未过期，并且在本生命周期一直有效
                 success: function () { return emitter.next(true); },
                 // session_key 已经失效，需要重新执行登录流程
                 fail: function () { return emitter.next(false); },
@@ -208,7 +209,7 @@ var WX = /** @class */ (function () {
      * @param onlyFromCamera
      */
     WX.scanCode = function (scanType, onlyFromCamera) {
-        if (scanType === void 0) { scanType = ["qrCode"]; }
+        if (scanType === void 0) { scanType = ['qrCode']; }
         if (onlyFromCamera === void 0) { onlyFromCamera = true; }
         return Rx_1.Observable.create(function (emitter) {
             wx.scanCode({
@@ -285,8 +286,9 @@ var WX = /** @class */ (function () {
                 success: function (res) { return sub.next(res.tempFilePaths); },
                 fail: function (e) {
                     // 忽略取消错误
-                    if (e.errMsg.indexOf('cancel') == -1)
+                    if (e.errMsg.indexOf('cancel') == -1) {
                         sub.error(e);
+                    }
                 },
                 complete: function () { return sub.complete(); }
             });
@@ -301,8 +303,9 @@ var WX = /** @class */ (function () {
                 success: function (res) { return sub.next(res); },
                 fail: function (e) {
                     // 忽略取消错误
-                    if (e.errMsg.indexOf('cancel') == -1)
+                    if (e.errMsg.indexOf('cancel') == -1) {
                         sub.error(e);
+                    }
                 },
                 complete: function () { return sub.complete(); }
             });
@@ -337,7 +340,7 @@ var WX = /** @class */ (function () {
         return sub;
     };
     WX.showActionSheet = function (items, color) {
-        if (color === void 0) { color = "#000000"; }
+        if (color === void 0) { color = '#000000'; }
         return Rx_1.Observable.create(function (sub) {
             wx.showActionSheet({
                 itemList: items,
@@ -407,11 +410,11 @@ var WX = /** @class */ (function () {
     WX.parsePageScene = function (page) {
         var sceneObj = {};
         try {
-            var scene = decodeURIComponent(page.options.scene || "");
+            var scene = decodeURIComponent(page.options.scene || '');
             scene.split('&')
                 .filter(function (kv) { return /^[^=]+=[^=]+$/.test(kv); })
                 .forEach(function (kv) {
-                var kvArray = kv.split("=");
+                var kvArray = kv.split('=');
                 sceneObj[kvArray[0]] = kvArray[1];
             });
         }
@@ -461,7 +464,7 @@ var WX = /** @class */ (function () {
     WX.clipboard = function (data) {
         return this.rx(function (handler) {
             handler.data = data;
-            wx["setClipboardData"](handler);
+            wx.setClipboardData(handler);
         });
     };
     WX.rx = function (handler) {
@@ -477,49 +480,49 @@ var WX = /** @class */ (function () {
      * @see Scope
      */
     WX.SCOPE = {
-        USER_INFO: "scope.userInfo",
-        USER_LOCATION: "scope.userLocation",
-        ADDRESS: "scope.address",
-        INVOICE_TITLE: "scope.invoiceTitle",
-        WE_RUN: "scope.werun",
-        RECORD: "scope.record",
-        WRITE_PHOTOS_ALBUM: "scope.writePhotosAlbum",
-        CAMERA: "scope.camera"
+        USER_INFO: 'scope.userInfo',
+        USER_LOCATION: 'scope.userLocation',
+        ADDRESS: 'scope.address',
+        INVOICE_TITLE: 'scope.invoiceTitle',
+        WE_RUN: 'scope.werun',
+        RECORD: 'scope.record',
+        WRITE_PHOTOS_ALBUM: 'scope.writePhotosAlbum',
+        CAMERA: 'scope.camera'
     };
-    WX.EVENT_LOCATION_DENY = "deny:location";
+    WX.EVENT_LOCATION_DENY = 'deny:location';
     return WX;
 }());
 exports.WX = WX;
 wx.sceneName = function (scene) { return exports.sceneMap[scene]; };
 exports.sceneMap = {
-    1001: "发现栏小程序主入口",
-    1005: "顶部搜索框的搜索结果页",
-    1006: "发现栏小程序主入口搜索框的搜索结果页",
-    1007: "单人聊天会话中的小程序消息卡片",
-    1008: "群聊会话中的小程序消息卡片",
-    1011: "扫描二维码",
-    1012: "长按图片识别二维码",
-    1013: "手机相册选取二维码",
-    1014: "小程序模版消息",
-    1017: "前往体验版的入口页",
-    1019: "微信钱包",
-    1020: "公众号 profile 页相关小程序列表",
-    1022: "聊天顶部置顶小程序入口",
-    1023: "安卓系统桌面图标",
-    1024: "小程序 profile 页",
-    1025: "扫描一维码",
-    1028: "我的卡包",
-    1029: "卡券详情页",
-    1031: "长按图片识别一维码",
-    1032: "手机相册选取一维码",
-    1034: "微信支付完成页",
-    1035: "公众号自定义菜单",
-    1036: "App 分享消息卡片",
-    1042: "添加好友搜索框的搜索结果页",
-    1043: "公众号模板消息",
-    1044: "群聊会话中的小程序消息卡片（带 shareTicket）",
-    1047: "扫描小程序码",
-    1048: "长按图片识别小程序码",
-    1049: "手机相册选取小程序码",
+    1001: '发现栏小程序主入口',
+    1005: '顶部搜索框的搜索结果页',
+    1006: '发现栏小程序主入口搜索框的搜索结果页',
+    1007: '单人聊天会话中的小程序消息卡片',
+    1008: '群聊会话中的小程序消息卡片',
+    1011: '扫描二维码',
+    1012: '长按图片识别二维码',
+    1013: '手机相册选取二维码',
+    1014: '小程序模版消息',
+    1017: '前往体验版的入口页',
+    1019: '微信钱包',
+    1020: '公众号 profile 页相关小程序列表',
+    1022: '聊天顶部置顶小程序入口',
+    1023: '安卓系统桌面图标',
+    1024: '小程序 profile 页',
+    1025: '扫描一维码',
+    1028: '我的卡包',
+    1029: '卡券详情页',
+    1031: '长按图片识别一维码',
+    1032: '手机相册选取一维码',
+    1034: '微信支付完成页',
+    1035: '公众号自定义菜单',
+    1036: 'App 分享消息卡片',
+    1042: '添加好友搜索框的搜索结果页',
+    1043: '公众号模板消息',
+    1044: '群聊会话中的小程序消息卡片（带 shareTicket）',
+    1047: '扫描小程序码',
+    1048: '长按图片识别小程序码',
+    1049: '手机相册选取小程序码',
 };
 //# sourceMappingURL=WX.js.map

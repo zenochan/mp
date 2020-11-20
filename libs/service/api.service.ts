@@ -1,12 +1,12 @@
-import {Data} from "../wx/Data";
-import {Observable} from "../rx/Rx";
-import {UI} from "../wx/UI";
+import {Data} from '../wx/Data';
+import {Observable} from '../rx/Rx';
+import {UI} from '../wx/UI';
 
 export interface Res {
-  statusCode: Number
-  data: any
-  header?: { [key: string]: string }
-  cookies?: []
+  statusCode: number;
+  data: any;
+  header?: { [key: string]: string };
+  cookies?: [];
 }
 
 /**
@@ -19,12 +19,12 @@ export interface Res {
  */
 export class API {
   static counter = 0;
-  static API_BASE = "";
-  static IMG_BASE = "";
+  static API_BASE = '';
+  static IMG_BASE = '';
 
-  static resHandler: Function = null;
-  static headerInterceptor: Function = null;
-  static pathInterceptor: Function = null;
+  static resHandler: (res: Res, sub) => void = null;
+  static headerInterceptor: (header: { Authorization?: string, [key: string]: any }) => wx.IData = null;
+  static pathInterceptor: (path: string) => string = null;
 
   static config(config: {
     host: string,
@@ -44,86 +44,92 @@ export class API {
   static get<T>(url, query: wx.IData = null): Observable<T | any> {
     url = this.query(url, query);
     url = API.pathVariable(url, query);
-    return this.buildRequest({method: "GET", url});
+    return this.buildRequest({method: 'GET', url});
   }
 
   static post<T>(url, param: wx.IData = {}): Observable<any | T> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: "POST", url, data: param});
+    return this.buildRequest({method: 'POST', url, data: param});
   }
 
   static put<T>(url, param: string | wx.IData = {}): Observable<T | any> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: "PUT", url, data: param});
+    return this.buildRequest({method: 'PUT', url, data: param});
   }
 
   static patch<T>(url, param: string | wx.IData = {}): Observable<T | any> {
-    if (typeof param == "object") param._method = "PATCH";
+    if (typeof param === 'object') {
+      param._method = 'PATCH';
+    }
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: "POST", url, data: param});
+    return this.buildRequest({method: 'POST', url, data: param});
   }
 
   static delete(url): Observable<any> | any {
-    return this.buildRequest({method: "DELETE", url});
+    return this.buildRequest({method: 'DELETE', url});
   }
 
   static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult> {
-    let url = this.API_BASE + "upload";
-    if (this.pathInterceptor) url = this.pathInterceptor(url);
+    let url = this.API_BASE + 'upload';
+    if (this.pathInterceptor) {
+      url = this.pathInterceptor(url);
+    }
 
     return Observable.create(sub => {
       wx.uploadFile({
         url,
-        filePath: filePath,
+        filePath,
         header: this.tokenHeader(),
-        name: "photo",
+        name: 'photo',
         formData: form,
         success: res => {
-          let data = JSON.parse(res.data);
-          this.handlerRes({statusCode: 200, data: data}, sub);
+          const data = JSON.parse(res.data);
+          this.handlerRes({statusCode: 200, data}, sub);
         },
         fail: e => sub.error(e),
         complete: () => sub.complete()
-      })
+      });
     });
   }
 
   static uploadMore(options: {
     filePaths: string[],
     path?: string,
-    formData?: Object
+    formData?: object
   }): Observable<string[]> {
     let url = this.API_BASE + (options.path || 'upload');
-    if (this.pathInterceptor) url = this.pathInterceptor(url);
+    if (this.pathInterceptor) {
+      url = this.pathInterceptor(url);
+    }
 
     // 上传图片必须 https 请求，这里都直接用 prod 环境
     return Observable.create(sub => {
-      let urls = [];
+      const urls = [];
       let completed = 0;
 
       options.filePaths.forEach(item => {
         wx.uploadFile({
           url,
           filePath: item,
-          name: "photo",
+          name: 'photo',
           formData: options.formData,
           header: this.tokenHeader(),
           success: res => {
-            let data = JSON.parse(res.data);
-            urls.push(data)
+            const data = JSON.parse(res.data);
+            urls.push(data);
           },
           fail: e => console.error(e),
           complete: () => {
             completed++;
-            if (completed == options.filePaths.length) {
+            if (completed === options.filePaths.length) {
               sub.next(this.completeImgUrl(urls));
               sub.complete();
             }
           }
-        })
+        });
       });
 
     });
@@ -132,8 +138,10 @@ export class API {
   // 补全 url 连接
   static completeImgUrl(data): any {
 
-    let dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
-      if (a.indexOf('http') == -1) a = this.IMG_BASE + a;
+    const dataString = JSON.stringify(data).replace(/"([^"]+.(png|jpg|jpeg))"/g, (reg: string, a) => {
+      if (a.indexOf('http') === -1) {
+        a = this.IMG_BASE + a;
+      }
       return `"${a}"`;
     });
     return JSON.parse(dataString);
@@ -141,8 +149,8 @@ export class API {
 
   // 简化 url 连接, 上传数据时不保留图片基础链接
   static simpleImgUrl(data): any {
-    let reg = new RegExp(this.IMG_BASE, 'g');
-    let dataString = JSON.stringify(data).replace(reg, '');
+    const reg = new RegExp(this.IMG_BASE, 'g');
+    const dataString = JSON.stringify(data).replace(reg, '');
     return JSON.parse(dataString);
   }
 
@@ -156,32 +164,34 @@ export class API {
 
   private static handlerRes(res, sub) {
     if (this.resHandler) {
-      this.resHandler(res, sub)
+      this.resHandler(res, sub);
     } else {
       const data = res.data;
       if (res.statusCode < 300) {
         sub.next(data);
-      } else if (res.statusCode == 401) {
+      } else if (res.statusCode === 401) {
         // 授权失败, 重启小程序
         Data.clear();
-        UI.alert("登录已失效").subscribe(res => wx.reLaunch({url: "/pages/account/login/login"}));
-      } else if (res.statusCode == 404) {
-        sub.error("数据不存在或已失效")
+        UI.alert('登录已失效').subscribe(_ => wx.reLaunch({url: '/pages/account/login/login'}));
+      } else if (res.statusCode === 404) {
+        sub.error('数据不存在或已失效');
       } else if (data.errors) {
-        let err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(",")).join(",");
-        sub.error(err)
+        const err = Object.keys(data.errors).map(key => data.errors[key]).map((errorItem: []) => errorItem.join(',')).join(',');
+        sub.error(err);
       } else {
-        sub.error((data || {}).message || "网络请求失败")
+        sub.error((data || {}).message || '网络请求失败');
       }
     }
   }
 
   private static buildRequest<T>(options: wx.RequestOptions): Observable<T> {
-    if (options.url.indexOf('http') != 0) {
-      options.url = this.API_BASE + options.url
+    if (options.url.indexOf('http') !== 0) {
+      options.url = this.API_BASE + options.url;
     }
 
-    if (this.pathInterceptor) options.url = this.pathInterceptor(options.url);
+    if (this.pathInterceptor) {
+      options.url = this.pathInterceptor(options.url);
+    }
     options.header = this.tokenHeader();
 
     this.counter++;
@@ -189,27 +199,27 @@ export class API {
     return Observable.create(sub => {
       // build callback
       options.success = res => this.handlerRes(res, sub);
-      options.fail = e => sub.error("网络请求失败");
+      options.fail = e => sub.error('网络请求失败');
       options.complete = () => {
         sub.complete();
         this.requestComplete();
       };
 
 
-      let task: any = wx.request(options);
+      const task: any = wx.request(options);
       // 返回取消订阅的操作句柄
       return () => {
-        task && task.abort()
-      }
-    })
+        task && task.abort();
+      };
+    });
 
   }
 
   private static pathVariable(url: string, param: any) {
     Object.keys(param || {}).forEach(key => {
-      if (url.indexOf(":" + key) != -1) {
+      if (url.indexOf(':' + key) !== -1) {
         // rest api
-        url = url.replace(":" + key, param[key])
+        url = url.replace(':' + key, param[key]);
       }
     });
 
@@ -218,9 +228,9 @@ export class API {
 
   private static query(url: string, param: any) {
     Object.keys(param || {}).forEach(key => {
-      let value = param[key];
-      if (value != null && typeof value != 'undefined') {
-        url += (url.indexOf('?') == -1 ? '?' : "&") + key + '=' + value
+      const value = param[key];
+      if (value != null && typeof value !== 'undefined') {
+        url += (url.indexOf('?') === -1 ? '?' : '&') + key + '=' + value;
       }
     });
 

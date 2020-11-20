@@ -1,4 +1,4 @@
 <div class="fixed" style="position: {{bodyHeight>0?'fixed':'unset'}}">
-  <slot></slot>
+    <slot></slot>
 </div>
-<div style="height: {{bodyHeight}}px;"></div>
+<div style="height: {{bodyHeight}}px;" wx:if="{{!noPlaceholder}}"></div>

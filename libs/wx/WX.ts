@@ -2,10 +2,10 @@ import Scope = wx.Scope;
 import RequestPaymentOptions = wx.RequestPaymentOptions;
 import CanvasToTempFilePathOptions = wx.CanvasToTempFilePathOptions;
 import ScanCodeResult = wx.ScanCodeResult;
-import {BehaviorSubject, Observable, Subscriber} from "../rx/Rx";
-import {UI} from "./UI";
-import {rxEmpty, rxJust} from "../rx/RxExt";
-import {Events} from "./Events";
+import {BehaviorSubject, Observable, Subscriber} from '../rx/Rx';
+import {UI} from './UI';
+import {rxEmpty, rxJust} from '../rx/RxExt';
+import {Events} from './Events';
 
 /**
  * 微信 API rx 封装
@@ -14,61 +14,61 @@ import {Events} from "./Events";
  */
 export class WX {
   static saveImageToPhotosAlbum(src) {
-    WX.authorize("scope.writePhotosAlbum")
+    WX.authorize('scope.writePhotosAlbum')
       .flatMap(res => WX.getImageInfo(src))
       .subscribe(res => {
         wx.saveImageToPhotosAlbum({
           filePath: res.path,
-          success: () => UI.toastSuccess("图片已保存")
+          success: () => UI.toastSuccess('图片已保存')
         });
       }, e => {
-        if ((e.errMsg || "").indexOf("authorize:fail") != -1) {
+        if ((e.errMsg || '').indexOf('authorize:fail') != -1) {
           UI.showModal({
-            title: "提示",
-            content: "需要保存到相册权限, 是否现在去设置？",
-            confirmText: "打开设置",
-            cancelText: "取消"
-          }).subscribe(res => wx.openSetting())
+            title: '提示',
+            content: '需要保存到相册权限, 是否现在去设置？',
+            confirmText: '打开设置',
+            cancelText: '取消'
+          }).subscribe(res => wx.openSetting());
         } else {
-          UI.toastFail(e)
+          UI.toastFail(e);
         }
-      })
+      });
   }
 
   /**
    * @see Scope
    */
   static SCOPE = {
-    USER_INFO: "scope.userInfo",
-    USER_LOCATION: "scope.userLocation",
-    ADDRESS: "scope.address",
-    INVOICE_TITLE: "scope.invoiceTitle",
-    WE_RUN: "scope.werun",
-    RECORD: "scope.record",
-    WRITE_PHOTOS_ALBUM: "scope.writePhotosAlbum",
-    CAMERA: "scope.camera"
+    USER_INFO: 'scope.userInfo',
+    USER_LOCATION: 'scope.userLocation',
+    ADDRESS: 'scope.address',
+    INVOICE_TITLE: 'scope.invoiceTitle',
+    WE_RUN: 'scope.werun',
+    RECORD: 'scope.record',
+    WRITE_PHOTOS_ALBUM: 'scope.writePhotosAlbum',
+    CAMERA: 'scope.camera'
   };
 
   static page(): IPage {
-    let pages = getCurrentPages();
+    const pages = getCurrentPages();
     return pages[pages.length - 1];
   }
 
   static pagePre(): Observable<IPage> {
-    let pages = getCurrentPages();
+    const pages = getCurrentPages();
     if (pages.length > 1) {
       return rxJust(pages[pages.length - 2]);
     } else {
-      rxEmpty()
+      rxEmpty();
     }
   }
 
   static pagePrePath(): string {
-    let pages = getCurrentPages();
+    const pages = getCurrentPages();
     if (pages.length < 2) {
       return '';
     } else {
-      return pages[pages.length - 2].route
+      return pages[pages.length - 2].route;
     }
   }
 
@@ -77,7 +77,9 @@ export class WX {
    * @param delayMs 延时弹框，安卓上有时候不显示
    */
   static forceUpdate(delayMs: number = 100) {
-    if (delayMs < 0) delayMs = 0;
+    if (delayMs < 0) {
+      delayMs = 0;
+    }
 
     wx.getUpdateManager().onUpdateReady(() => {
       setTimeout(() => {
@@ -98,10 +100,10 @@ export class WX {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
-          sub.next(res.model.indexOf("iPhone X") != -1)
+          sub.next(res.model.indexOf('iPhone X') != -1);
         },
         fail: e => sub.error(e)
-      })
+      });
     });
   }
 
@@ -109,27 +111,27 @@ export class WX {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
-          let menuRounding = wx.getMenuButtonBoundingClientRect();
+          const menuRounding = wx.getMenuButtonBoundingClientRect();
           res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
           if (!res.safeArea) {
-            res.safeArea = {paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0}
+            res.safeArea = {paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0};
           }
           res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
-          sub.next(res)
+          sub.next(res);
         },
         fail: e => sub.error(e)
-      })
+      });
     });
   }
 
   static systemInfoSync(): wx.GetSystemInfoResult {
-    let res = wx.getSystemInfoSync()
+    const res = wx.getSystemInfoSync();
 
-    let menuRounding = wx.getMenuButtonBoundingClientRect();
+    const menuRounding = wx.getMenuButtonBoundingClientRect();
     res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
 
     if (!res.safeArea) {
-      res.safeArea = {paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0}
+      res.safeArea = {paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0};
     }
     res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
     return res;
@@ -141,32 +143,32 @@ export class WX {
    */
   static navHeight(): Observable<number> {
     return WX.systemInfo().map(res => {
-      let menuRounding = wx.getMenuButtonBoundingClientRect();
-      return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height
+      const menuRounding = wx.getMenuButtonBoundingClientRect();
+      return (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
     });
   }
 
-  static EVENT_LOCATION_DENY = "deny:location";
+  static EVENT_LOCATION_DENY = 'deny:location';
 
   static getLocation(options?: { isHighAccuracy: boolean }): Observable<wx.GetLocationResult> {
-    let {isHighAccuracy} = options || {};
+    const {isHighAccuracy} = options || {};
 
     return Observable.create(sub => {
       return wx.getLocation({
         type: 'gcj02',
-        isHighAccuracy: isHighAccuracy,
+        isHighAccuracy,
         // altitude: true,
         success: res => sub.next(res),
         fail: e => {
-          if (e.errMsg.indexOf("auth") > 0) {
-            console.error("用户已拒绝定位授权");
+          if (e.errMsg.indexOf('auth') > 0) {
+            console.error('用户已拒绝定位授权');
             Events.publish(this.EVENT_LOCATION_DENY, true);
           } else {
-            sub.error("获取定位失败，请检查微信是否有定位权限")
+            sub.error('获取定位失败，请检查微信是否有定位权限');
           }
         },
         complete: () => sub.complete()
-      })
+      });
     });
   }
 
@@ -181,18 +183,18 @@ export class WX {
     return Observable.create(sub => {
       return wx.getSystemInfo({
         success: res => {
-          sub.next(res.model.indexOf("iPhone") != -1)
+          sub.next(res.model.indexOf('iPhone') != -1);
         },
         fail: e => sub.error(e)
-      })
+      });
     });
   }
 
   static onPageScroll(handler: (scrollTop) => void) {
 
-    let pages = getCurrentPages();
-    let page = pages[pages.length - 1];
-    let origin = page.onPageScroll;
+    const pages = getCurrentPages();
+    const page = pages[pages.length - 1];
+    const origin = page.onPageScroll;
     page.onPageScroll = function (event) {
       origin && origin(event);
       handler(event.scrollTop);
@@ -209,23 +211,23 @@ export class WX {
   static login(timeout?: number): Observable<string> {
     return Observable.create(emitter => {
       wx.login({
-        timeout: timeout,
+        timeout,
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
         complete: () => emitter.complete()
-      })
-    }).map(res => res.code)
+      });
+    }).map(res => res.code);
   }
 
   static checkSession(): Observable<boolean> {
     return Observable.create(emitter => {
       wx.checkSession({
-        //session_key 未过期，并且在本生命周期一直有效
+        // session_key 未过期，并且在本生命周期一直有效
         success: () => emitter.next(true),
         // session_key 已经失效，需要重新执行登录流程
         fail: () => emitter.next(false),
         complete: () => emitter.complete()
-      })
+      });
     });
   }
 
@@ -238,15 +240,15 @@ export class WX {
    *     - pdf417  PDF417 条码
    * @param onlyFromCamera
    */
-  static scanCode(scanType: string[] = ["qrCode"], onlyFromCamera: boolean = true): Observable<ScanCodeResult> {
+  static scanCode(scanType: string[] = ['qrCode'], onlyFromCamera: boolean = true): Observable<ScanCodeResult> {
     return Observable.create(emitter => {
       wx.scanCode({
-        scanType: scanType,
+        scanType,
         onlyFromCamera,
         success: res => emitter.next(res),
         fail: err => emitter.error(err),
         complete: () => emitter.complete()
-      })
+      });
     });
   }
 
@@ -261,7 +263,7 @@ export class WX {
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
         complete: () => emitter.complete()
-      })
+      });
     }).map(res => {
       const authSetting = res.authSetting;
       return {
@@ -273,8 +275,8 @@ export class WX {
         record: authSetting[WX.SCOPE.RECORD] || false,
         writePhotosAlbum: authSetting[WX.SCOPE.WRITE_PHOTOS_ALBUM] || false,
         camera: authSetting[WX.SCOPE.CAMERA] || false,
-      }
-    })
+      };
+    });
   }
 
 
@@ -284,8 +286,8 @@ export class WX {
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
         complete: () => emitter.complete()
-      })
-    })
+      });
+    });
   }
 
   /**
@@ -294,11 +296,11 @@ export class WX {
   static authorize(scope: string): Observable<any> {
     return Observable.create(emitter => {
       wx.authorize({
-        scope: scope,
+        scope,
         success: res => emitter.next(res),
         fail: error => emitter.error(error),
         complete: () => emitter.complete()
-      })
+      });
 
     });
   }
@@ -308,37 +310,41 @@ export class WX {
       sign.success = () => emitter.next();
       sign.complete = () => emitter.complete();
       sign.fail = (e) => emitter.error(e.errMsg);
-      wx.requestPayment(sign)
-    })
+      wx.requestPayment(sign);
+    });
   }
 
-  static chooseImage(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<Array<string>> {
+  static chooseImage(count: number = 1, sourceType: string[] = ['camera', 'album']): Observable<string[]> {
     return Observable.create(sub => {
       wx.chooseImage({
-        count: count,
-        sourceType: sourceType,
+        count,
+        sourceType,
         success: res => sub.next(res.tempFilePaths),
         fail: e => {
           // 忽略取消错误
-          if (e.errMsg.indexOf('cancel') == -1) sub.error(e)
+          if (e.errMsg.indexOf('cancel') == -1) {
+            sub.error(e);
+          }
         },
         complete: () => sub.complete()
-      })
+      });
     });
 
   }
 
-  static chooseVideo(count: number = 1, sourceType: Array<string> = ['camera', 'album']): Observable<wx.ChooseVideoRes> {
+  static chooseVideo(count: number = 1, sourceType: string[] = ['camera', 'album']): Observable<wx.ChooseVideoRes> {
     return Observable.create(sub => {
       wx.chooseVideo({
-        sourceType: sourceType,
+        sourceType,
         success: res => sub.next(res),
         fail: e => {
           // 忽略取消错误
-          if (e.errMsg.indexOf('cancel') == -1) sub.error(e)
+          if (e.errMsg.indexOf('cancel') == -1) {
+            sub.error(e);
+          }
         },
         complete: () => sub.complete()
-      })
+      });
     });
 
   }
@@ -349,11 +355,11 @@ export class WX {
   static updateShareMenu(withShareTicket: boolean): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.updateShareMenu({
-        withShareTicket: withShareTicket,
+        withShareTicket,
         success: res => sub.next(res),
         fail: e => sub.error(e),
         complete: () => sub.complete()
-      })
+      });
     });
   }
 
@@ -362,10 +368,10 @@ export class WX {
    * @since 1.1.0
    */
   static showShareMenu(withShareTicket: boolean = false): Observable<any> {
-    let sub = new BehaviorSubject().filter(res => res);
+    const sub = new BehaviorSubject().filter(res => res);
 
     wx.showShareMenu({
-      withShareTicket: withShareTicket,
+      withShareTicket,
       success: res => sub.next(res),
       fail: e => sub.error(e),
       complete: () => sub.complete()
@@ -374,7 +380,7 @@ export class WX {
 
   }
 
-  static showActionSheet(items: string[], color: string = "#000000"): Observable<any> {
+  static showActionSheet(items: string[], color: string = '#000000'): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.showActionSheet({
         itemList: items,
@@ -382,7 +388,7 @@ export class WX {
         success: res => sub.next(res),
         fail: e => sub.error(e),
         complete: () => sub.complete()
-      })
+      });
     });
   }
 
@@ -392,7 +398,7 @@ export class WX {
    * @since 1.1.0
    */
   static hideShareMenu(): Observable<any> {
-    let subject = new BehaviorSubject().filter(res => res);
+    const subject = new BehaviorSubject().filter(res => res);
     wx.hideShareMenu({
       success: res => subject.next(res),
       fail: e => subject.error(e),
@@ -410,12 +416,12 @@ export class WX {
   static getShareInfo(shareTicket: string, timeout: number = 5000): Observable<any> {
     return Observable.create((sub: Subscriber<any>) => {
       wx.getShareInfo({
-        shareTicket: shareTicket,
-        timeout: timeout,
+        shareTicket,
+        timeout,
         success: res => sub.next(res),
         fail: e => sub.error(e),
         complete: () => sub.complete()
-      })
+      });
     });
   }
 
@@ -432,10 +438,10 @@ export class WX {
     return Observable.create(sub => {
 
       wx.getImageInfo({
-        src: src,
+        src,
         success: res => sub.next(res),
         fail: e => sub.error(e)
-      })
+      });
     });
   }
 
@@ -444,27 +450,27 @@ export class WX {
       options.success = res => sub.next(res.tempFilePath);
       options.fail = e => sub.error(e);
       options.complete = () => sub.complete();
-      wx.canvasToTempFilePath(options)
-    })
+      wx.canvasToTempFilePath(options);
+    });
 
   }
 
   static parsePageScene(page: IPage): { [key: string]: string } {
-    let sceneObj: { [key: string]: string } = {};
+    const sceneObj: { [key: string]: string } = {};
 
     try {
-      let scene = decodeURIComponent(page.options.scene || "");
+      const scene = decodeURIComponent(page.options.scene || '');
 
       scene.split('&')
         .filter(kv => /^[^=]+=[^=]+$/.test(kv))
         .forEach(kv => {
-          let kvArray = kv.split("=");
+          const kvArray = kv.split('=');
           sceneObj[kvArray[0]] = kvArray[1];
         });
     } catch (e) {
     }
 
-    return sceneObj
+    return sceneObj;
   }
 
   /**
@@ -472,7 +478,7 @@ export class WX {
    * @param appId
    */
   static navWeapp(appId: string) {
-    wx.navigateToMiniProgram({appId})
+    wx.navigateToMiniProgram({appId});
   }
 
 
@@ -484,11 +490,11 @@ export class WX {
    */
   static queryBoundingClientRect(selector: string, comp?: IComponent): Observable<any[]> {
     return Observable.create(sub => {
-      let query = comp ? comp.createSelectorQuery() : wx.createSelectorQuery();
+      const query = comp ? comp.createSelectorQuery() : wx.createSelectorQuery();
       query.selectAll(selector).boundingClientRect();
       query.exec(elements => {
-        sub.next(elements[0])
-      })
+        sub.next(elements[0]);
+      });
     });
   }
 
@@ -501,64 +507,64 @@ export class WX {
    */
   static size(selector: string, comp?: IComponent): Observable<{ width: number, height: number }> {
     return Observable.create(sub => {
-      let query = (comp || wx).createSelectorQuery();
+      const query = (comp || wx).createSelectorQuery();
       query.select(selector).boundingClientRect();
       query.exec(elements => {
-        let el = elements[0];
+        const el = elements[0];
         el && sub.next({width: el.right - el.left, height: el.bottom - el.top});
         sub.complete();
-      })
+      });
     });
   }
 
   static clipboard(data: string): Observable<any> {
     return this.rx(handler => {
       handler.data = data;
-      wx["setClipboardData"](handler)
-    })
+      wx.setClipboardData(handler);
+    });
   }
 
   static rx<T>(handler: (options: BaseOptions) => void): Observable<T> {
-    let options: BaseOptions = {};
+    const options: BaseOptions = {};
     return Observable.create(sub => {
       options.complete = () => sub.complete();
       options.success = (res) => sub.next(res);
       options.fail = (err) => sub.error(err);
       handler(options);
-    })
+    });
   }
 }
 
 wx.sceneName = (scene: number) => sceneMap[scene];
 
 export const sceneMap = {
-  1001: "发现栏小程序主入口",
-  1005: "顶部搜索框的搜索结果页",
-  1006: "发现栏小程序主入口搜索框的搜索结果页",
-  1007: "单人聊天会话中的小程序消息卡片",
-  1008: "群聊会话中的小程序消息卡片",
-  1011: "扫描二维码",
-  1012: "长按图片识别二维码",
-  1013: "手机相册选取二维码",
-  1014: "小程序模版消息",
-  1017: "前往体验版的入口页",
-  1019: "微信钱包",
-  1020: "公众号 profile 页相关小程序列表",
-  1022: "聊天顶部置顶小程序入口",
-  1023: "安卓系统桌面图标",
-  1024: "小程序 profile 页",
-  1025: "扫描一维码",
-  1028: "我的卡包",
-  1029: "卡券详情页",
-  1031: "长按图片识别一维码",
-  1032: "手机相册选取一维码",
-  1034: "微信支付完成页",
-  1035: "公众号自定义菜单",
-  1036: "App 分享消息卡片",
-  1042: "添加好友搜索框的搜索结果页",
-  1043: "公众号模板消息",
-  1044: "群聊会话中的小程序消息卡片（带 shareTicket）",
-  1047: "扫描小程序码",
-  1048: "长按图片识别小程序码",
-  1049: "手机相册选取小程序码",
+  1001: '发现栏小程序主入口',
+  1005: '顶部搜索框的搜索结果页',
+  1006: '发现栏小程序主入口搜索框的搜索结果页',
+  1007: '单人聊天会话中的小程序消息卡片',
+  1008: '群聊会话中的小程序消息卡片',
+  1011: '扫描二维码',
+  1012: '长按图片识别二维码',
+  1013: '手机相册选取二维码',
+  1014: '小程序模版消息',
+  1017: '前往体验版的入口页',
+  1019: '微信钱包',
+  1020: '公众号 profile 页相关小程序列表',
+  1022: '聊天顶部置顶小程序入口',
+  1023: '安卓系统桌面图标',
+  1024: '小程序 profile 页',
+  1025: '扫描一维码',
+  1028: '我的卡包',
+  1029: '卡券详情页',
+  1031: '长按图片识别一维码',
+  1032: '手机相册选取一维码',
+  1034: '微信支付完成页',
+  1035: '公众号自定义菜单',
+  1036: 'App 分享消息卡片',
+  1042: '添加好友搜索框的搜索结果页',
+  1043: '公众号模板消息',
+  1044: '群聊会话中的小程序消息卡片（带 shareTicket）',
+  1047: '扫描小程序码',
+  1048: '长按图片识别小程序码',
+  1049: '手机相册选取小程序码',
 };

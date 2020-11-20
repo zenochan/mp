@@ -1,32 +1,23 @@
-import {WX} from "../../wx/WX";
+import {WX} from '../../wx/WX';
 
 Component({
   data: {bodyHeight: 0},
-  properties: {},
+  properties: {
+    noPlaceholder: {type: Object, value: false}
+  },
   options: {
     addGlobalClass: true
   },
-  relations: {
-    '../zpage/zpage': {
-      type: "parent",
-      linked(target)
-      {
-        this.parent = target;
-      }
-    }
-  },
 
   methods: {
-    calcHeight()
-    {
-      WX.size(".fixed", this).subscribe(size => {
+    calcHeight() {
+      WX.size('.fixed', this).subscribe(size => {
         this.setData({bodyHeight: size.height});
-        this.parent && this.parent.resizeBody()
+        this.parent && this.parent.resizeBody();
       });
     }
   },
-  attached()
-  {
+  attached() {
     this.calcHeight();
     this.sub = WX.page().onDataChange.subscribe(res => {
       this.calcHeight();
@@ -34,8 +25,7 @@ Component({
     });
   },
 
-  detached()
-  {
-    this.sub.unsubscribe()
+  detached() {
+    this.sub.unsubscribe();
   }
 });

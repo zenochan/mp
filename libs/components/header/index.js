@@ -1,24 +1,18 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 Component({
     data: { bodyHeight: 0 },
-    properties: {},
+    properties: {
+        noPlaceholder: { type: Object, value: false }
+    },
     options: {
         addGlobalClass: true
-    },
-    relations: {
-        '../zpage/zpage': {
-            type: "parent",
-            linked: function (target) {
-                this.parent = target;
-            }
-        }
     },
     methods: {
         calcHeight: function () {
             var _this = this;
-            WX_1.WX.size(".fixed", this).subscribe(function (size) {
+            WX_1.WX.size('.fixed', this).subscribe(function (size) {
                 _this.setData({ bodyHeight: size.height });
                 _this.parent && _this.parent.resizeBody();
             });
@@ -36,3 +30,4 @@ Component({
         this.sub.unsubscribe();
     }
 });
+//# sourceMappingURL=index.js.map

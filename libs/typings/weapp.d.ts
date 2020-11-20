@@ -1,40 +1,40 @@
-import {Observable} from "../rx/Rx";
+import {Observable} from '../rx/Rx';
 
 declare global {
 
-  //<editor-fold desc="app and page">
+  // <editor-fold desc="app and page">
   interface LaunchOptions {
     /** 打开小程序的路径 */
-    path: string,
+    path: string;
     /** 打开小程序的场景值 */
-    scene: string,
+    scene: string;
     /** 打开小程序启动参数 query */
-    query: object,
+    query: object;
     /**
      * @see https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/share.html
      */
-    shareTicket: string,
+    shareTicket: string;
     /**
      * 来源信息。
      * 从另一个小程序、公众号或 App 进入小程序时返回。否则返回 {}。
      */
-    referrerInfo: object,
+    referrerInfo: object;
 
     // 小程序直播中产品跳转时携带的产生
-    room_id: number
-    share_openid: string
-    openid: string
-    type: number
-    custom_params: string
+    room_id: number;
+    share_openid: string;
+    openid: string;
+    type: number;
+    custom_params: string;
 
-    [key: string]: any
+    [key: string]: any;
   }
 
   /**
    * App 实现的接口对象
    */
   interface IApp {
-    [key: string]: any
+    [key: string]: any;
 
     /**
      * 生命周期函数--监听小程序初始化。当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
@@ -91,9 +91,9 @@ declare global {
     /**
      * 生命周期事件
      */
-    zzLife?: () => Observable<String> | any
+    zzLife?: () => Observable<String> | any;
 
-    onDataChange?: Observable<any> | any
+    onDataChange?: Observable<any> | any;
     /**
      * 调用 setData 并触发 {@link onDataChange}
      * @param value
@@ -194,16 +194,16 @@ declare global {
    */
   function getCurrentPages(): IPage[];
 
-  //</editor-fold>
+  // </editor-fold>
 
-  //<editor-fold desc="component">
+  // <editor-fold desc="component">
   interface Property {
     /**
      * String Number Boolean Object Array 其一，也可以为 null 表示不限制类型
      */
     type: any;
     value: any;
-    observer?: string | ((newVal, oldVal) => void)
+    observer?: string | ((newVal, oldVal) => void);
   }
 
   /**
@@ -220,73 +220,73 @@ declare global {
      * @param eventDetail detail 对象， 提供给时间监听函数
      * @param eventOption 触发时间的选项
      */
-    triggerEvent?: (event: string, eventDetail?: object, eventOption?: object) => void
+    triggerEvent?: (event: string, eventDetail?: object, eventOption?: object) => void;
 
-    createSelectorQuery?: Function
+    createSelectorQuery?: Function;
 
     /**
      * 组件的对外属性，是属性名到属性设置的映射表，属性设置中可包含三个字段，
      * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
      */
-    properties?: { [key: string]: Property | any }
+    properties?: { [key: string]: Property | any };
 
     /**
      * 组件的内部数据，和 properties 一同用于组件的模板渲染
      */
-    data?: Object
+    data?: Object;
 
     /**
      * 组件的方法，包括事件响应函数和任意的自定义方法，关于事件响应函数的使用，参见 组件事件
      */
     methods?: {
       [key: string]: Function
-    }
+    };
 
     /**
      * 类似于mixins和traits的组件间代码复用机制，参见 behaviors
      */
-    behaviors?: string | string[],
+    behaviors?: string | string[];
 
 
     /**
      * 组件生命周期函数，在组件实例进入页面节点树时执行，注意此时不能调用 setData
      */
-    created?: Function
+    created?: Function;
 
     /**
      * 组件生命周期函数，在组件实例进入页面节点树时执行
      */
-    attached?: Function
+    attached?: Function;
 
     /**
      * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）
      */
-    ready?: Function
+    ready?: Function;
 
     /**
      * 件生命周期函数，在组件实例被移动到节点树另一个位置时执行
      */
-    moved?: Function
+    moved?: Function;
 
     /**
      * 组件生命周期函数，在组件实例被从页面节点树移除时执行
      */
-    detached?: Function
+    detached?: Function;
 
     /**
      * 组件间关系定义
      */
     relations?: {
       [key: string]: {
-        type: "parent" | "child",
+        type: 'parent' | 'child',
         linked?: (target) => void
       }
-    }
+    };
 
     /**
      * 组件接受的外部样式类，参见 外部样式类
      */
-    externalClasses?: string[]
+    externalClasses?: string[];
 
     /**
      * 一些选项（文档中介绍相关特性时会涉及具体的选项设置，这里暂不列举）
@@ -300,7 +300,7 @@ declare global {
        */
       addGlobalClass: boolean,
 
-    }
+    };
 
     /**
      * 组件生命周期声明对象，
@@ -309,33 +309,33 @@ declare global {
      * @since 2.2.3
      */
     lifetimes?: {
-      created?: Function
-      attached?: Function
-      ready?: Function
-      moved?: Function
-      detached?: Function
-    },
+      created?: () => void
+      attached?: () => void
+      ready?: () => void
+      moved?: () => void
+      detached?: () => void
+    };
 
     /**
      * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
      * @since 2.2.3
      */
     pageLifetimes?: {
-      show?: Function
-      hide?: Function
+      show?: () => void
+      hide?: () => void
       /**
        * @since 2.4.0
        */
-      resize?: Function
-    }
+      resize?: (size) => void
+    };
 
     /**
      *  定义段过滤器，用于自定义组件扩展
      *  @since 2.2.3
      */
-    definitionFilter?: Function
+    definitionFilter?: Function;
 
-    [key: string]: any
+    [key: string]: any;
 
   }
 
@@ -344,9 +344,9 @@ declare global {
    */
   function Component(component: IComponent): void;
 
-  //</editor-fold>
+  // </editor-fold>
 
-  //<editor-fold desc="wx">
+  // <editor-fold desc="wx">
   interface BaseOptions {
 
     /**
@@ -366,7 +366,7 @@ declare global {
      */
     complete?: () => void;
 
-    [key: string]: any
+    [key: string]: any;
   }
 
   namespace wx {
@@ -389,24 +389,10 @@ declare global {
        */
       complete?: () => void;
 
-      [key: string]: any
+      [key: string]: any;
     }
 
-
-    //<editor-fold desc="文件API列表">
-    function saveFile()
-
-    function removeSavedFile();
-
-    function getSavedFileList();
-
-    function getSavedFileInfo();
-
-    function openDocument();
-
-
-    //</editor-fold>
-    interface ShareOptions {
+    interface ShareOptions extends BaseOptions<any> {
 
       /**
        * 分享标题, 默认为当前小程序名称
@@ -428,7 +414,6 @@ declare global {
        * 不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
        */
       imageUrl?: string;
-      success?: Function
     }
 
     interface IData {
@@ -438,7 +423,7 @@ declare global {
     function getLaunchOptionsSync(): LaunchOptions;
 
     // ---------------------------------- 网络API列表 ----------------------------------
-    //<editor-fold desc="网络API列表">
+    // <editor-fold desc="网络API列表">
     interface RequestResult {
 
       /**
@@ -641,10 +626,10 @@ declare global {
      */
     function onSocketClose(callback: (res?: any) => void): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 媒体API列表 ----------------------------------
-    //<editor-fold desc="媒体API列表">
+    // <editor-fold desc="媒体API列表">
     interface ChooseImageResult {
 
       /**
@@ -678,7 +663,7 @@ declare global {
 
     interface SaveImageToPhotoAlbumOptions extends BaseOptions<any> {
       // 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径
-      filePath: string
+      filePath: string;
     }
 
     function saveImageToPhotosAlbum(options: SaveImageToPhotoAlbumOptions);
@@ -690,18 +675,18 @@ declare global {
 
 
     interface ChooseVideoOptions extends BaseOptions<any> {
-      sourceType?: string[]     // default
-      compressed?: boolean                  // default true
-      maxDuration?: number                  // default 60
-      camera?: 'back' | 'front'             // default back
+      sourceType?: string[];     // default
+      compressed?: boolean;                  // default true
+      maxDuration?: number;                  // default 60
+      camera?: 'back' | 'front';             // default back
     }
 
     interface ChooseVideoRes {
-      tempFilePath: string
-      duration: number
-      size: number
-      height: number
-      width: number
+      tempFilePath: string;
+      duration: number;
+      size: number;
+      height: number;
+      width: number;
     }
 
     /**
@@ -1050,7 +1035,7 @@ declare global {
       /**
        * 文件的本地路径
        */
-      filePath: string
+      filePath: string;
 
       /**
        * 文件的保存时的时间戳，从1970/01/01 08:00:00 到当前时间的秒数
@@ -1151,10 +1136,10 @@ declare global {
      */
     function openDocument(options: OpenDocumentOptions): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 数据API列表 ----------------------------------
-    //<editor-fold desc="数据API列表">
+    // <editor-fold desc="数据API列表">
     interface SetStorageOptions extends BaseOptions<any> {
       /**
        * 本地缓存中的指定的 key
@@ -1272,10 +1257,10 @@ declare global {
      */
     function clearStorageSync(): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 位置API列表 ----------------------------------
-    //<editor-fold desc="位置API列表">
+    // <editor-fold desc="位置API列表">
     interface Location {
       /**
        * 纬度，浮点数，范围为-90~90，负数表示南纬
@@ -1295,17 +1280,17 @@ declare global {
        */
       speed: number;
 
-      altitude: 0
-      errMsg: string
-      latitude: number
-      longitude: number
+      altitude: 0;
+      errMsg: string;
+      latitude: number;
+      longitude: number;
 
       /**
        * 位置的精确度
        */
       accuracy: number;
-      verticalAccuracy: 65
-      horizontalAccuracy: 65
+      verticalAccuracy: 65;
+      horizontalAccuracy: 65;
     }
 
     interface GetLocationOptions extends BaseOptions<any> {
@@ -1410,10 +1395,10 @@ declare global {
      */
     function createMapContext(mapId: string): MapContext;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 设备API列表 ----------------------------------
-    //<editor-fold desc="设备API列表">
+    // <editor-fold desc="设备API列表">
     interface GetNetworkTypeResult {
 
       /**
@@ -1461,7 +1446,7 @@ declare global {
       statusBarHeight: number;    // 状态栏高度
       navigationHeight: number;   // custom, 导航栏高度
 
-      [key: string]: any
+      [key: string]: any;
     }
 
     interface GetSystemInfoOptions extends BaseOptions<any> {
@@ -1498,7 +1483,7 @@ declare global {
      * wx.canIUse('live-player')
      * wx.canIUse('text.selectable')
      * wx.canIUse('button.open-type.contact')
-     ```
+     * ```
      *
      * @param api 使用${API}.${method}.${param}.${options}或者${component}.${attribute}.${option}方式来调用
      *   <li>${API} 代表 API 名字
@@ -1512,7 +1497,7 @@ declare global {
      * @since v1.1.1
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/api-caniuse.html">can i use</a>
      */
-    function canIUse(api: String): Boolean;
+    function canIUse(api: string): boolean;
 
     interface AccelerometerChangeResponse {
 
@@ -1613,10 +1598,10 @@ declare global {
      */
     function scanCode(options: ScanCodeOptions): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 界面API列表 ----------------------------------
-    //<editor-fold desc="界面API列表">
+    // <editor-fold desc="界面API列表">
     interface ShowToastOptions extends BaseOptions<any> {
 
       /**
@@ -1758,9 +1743,9 @@ declare global {
 
     interface NavbarColorOptions extends BaseOptions<any> {
       /** 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000 */
-      frontColor: string,
+      frontColor: string;
       /** 背景颜色值，有效值为十六进制颜色 */
-      backgroundColor: string,
+      backgroundColor: string;
       /** 动画效果 */
       animation?: {
         /** 动画变化时间，默认0，单位：毫秒 */
@@ -1773,7 +1758,7 @@ declare global {
          * - easeInOut  动画以低速开始和结束。
          */
         timingFunc?: string
-      }
+      };
     }
 
     function setNavigationBarColor(options: NavbarColorOptions);
@@ -1806,7 +1791,7 @@ declare global {
       /**
        * 要打开的小程序 appId
        */
-      appId: string
+      appId: string;
 
       /**
        * 打开的页面路径，如果为空则打开首页。
@@ -1814,19 +1799,19 @@ declare global {
        * 或小游戏的 wx.onShow 回调函数、wx.getLaunchOptionsSync 中可以获取到 query 数据。
        * 对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
        */
-      path?: string
+      path?: string;
       /**
        * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。
        * 如果跳转的是小游戏，可以在 wx.onShow、wx.getLaunchOptionsSync 中可以获取到这份数据数据。
        */
-      extraData?: object
+      extraData?: object;
       /**
        * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。
        * - develop  开发版
        * - trial  体验版
        * - release  正式版
        */
-      envVersion?: "release" | "trial" | "develop"
+      envVersion?: 'release' | 'trial' | 'develop';
     }
 
     function navigateToMiniProgram(options: MiniProgramOptions);
@@ -2357,7 +2342,7 @@ declare global {
        * 本次调用 drawCanvas 绘制的内容覆盖在上面，默认 false。
        * @param callback 绘制完成后执行的回调函数
        */
-      draw(reserve?: boolean, callback?: () => void): void
+      draw(reserve?: boolean, callback?: () => void): void;
     }
 
     /**
@@ -2403,15 +2388,15 @@ declare global {
        */
       canvasId: string;
 
-      x?: number;//	0	否	指定的画布区域的左上角横坐标	>= 1.2.0
-      y?: number;//	0	否	指定的画布区域的左上角纵坐标	>= 1.2.0
-      width?: number;//	canvas宽度-x	否	指定的画布区域的宽度	>= 1.2.0
-      height?: number;//	canvas高度-y	否	指定的画布区域的高度	>= 1.2.0
+      x?: number;// 	0	否	指定的画布区域的左上角横坐标	>= 1.2.0
+      y?: number;// 	0	否	指定的画布区域的左上角纵坐标	>= 1.2.0
+      width?: number;// 	canvas宽度-x	否	指定的画布区域的宽度	>= 1.2.0
+      height?: number;// 	canvas高度-y	否	指定的画布区域的高度	>= 1.2.0
       /** width*屏幕像素密度  否  输出的图片的宽度  >= 1.2.0 */
       destWidth?: number;
-      destHeight?: number;//	height*屏幕像素密度	否	输出的图片的高度	>= 1.2.0
-      fileType?: string;//	png	否	目标文件的类型	>= 1.7.0
-      quality?: number;//		是	图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理。	>= 1.7.0
+      destHeight?: number;// 	height*屏幕像素密度	否	输出的图片的高度	>= 1.2.0
+      fileType?: string;// 	png	否	目标文件的类型	>= 1.7.0
+      quality?: number;// 		是	图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理。	>= 1.7.0
     }
 
     /**
@@ -2421,7 +2406,7 @@ declare global {
      */
     function canvasToTempFilePath(
       options: CanvasToTempFilePathOptions,
-      component?: Object
+      component?: object
     ): string;
 
     /**
@@ -2441,7 +2426,7 @@ declare global {
      */
     function startPullDownRefresh(options?: BaseOptions<any>): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     // ---------------------------------- 开放接口API列表 ----------------------------------
     interface LoginResult {
@@ -2475,55 +2460,55 @@ declare global {
        * 用户信息
        * - wx.getUserInfo
        */
-      userInfo: boolean
+      userInfo: boolean;
 
       /**
        * 地理地理位置
        * - wx.getLocation
        * - wx.chooseLocation
        */
-      userLocation: boolean
+      userLocation: boolean;
 
       /**
        * 通讯地址
        * - wx.chooseAddress
        */
-      address: boolean
+      address: boolean;
 
       /**
        * 发票抬头
        * - wx.chooseInvoiceTitle
        */
-      invoiceTitle: boolean
+      invoiceTitle: boolean;
 
       /**
        * 微信运动步数
        * - wx.getWeRunData
        */
-      werun: boolean
+      werun: boolean;
 
       /**
        * 录音功能
        * - wx.startRecord
        */
-      record: boolean
+      record: boolean;
 
       /**
        * 保存到相册
        * - wx.saveImageToPhotosAlbum
        * - wx.saveVideoToPhotosAlbum
        */
-      writePhotosAlbum: boolean
+      writePhotosAlbum: boolean;
 
       /**
        * 摄像头
        * - <camera />
        */
-      camera: Boolean
+      camera: boolean;
     }
 
     interface AuthorizeOptions extends BaseOptions<any> {
-      scope: string
+      scope: string;
     }
 
     function authorize(options: AuthorizeOptions);
@@ -2539,11 +2524,11 @@ declare global {
     }
 
     interface UserInfo {
-      encryptedData: string
-      errMsg: string
-      iv: string
-      rawData: string
-      signature: string
+      encryptedData: string;
+      errMsg: string;
+      iv: string;
+      rawData: string;
+      signature: string;
       userInfo: {
         avatarUrl: string
         city: string
@@ -2552,7 +2537,7 @@ declare global {
         language: string
         nickName: string
         province: string
-      }
+      };
     }
 
     /**
@@ -2604,7 +2589,7 @@ declare global {
       /**
        * 时间戳从1970年1月1日00:00:00至今的秒数,即当前的时间
        */
-      timeStamp: number;
+      timeStamp: number | string;
 
       /**
        * 随机字符串，长度为32个字符以下。
@@ -2640,10 +2625,10 @@ declare global {
 
     function getShareInfo(option?: any);
 
-    //<editor-fold desc="Tab Bar">
+    // <editor-fold desc="Tab Bar">
     interface TabBarOptions extends BaseOptions<any> {
       /** default: false */
-      animation?: boolean
+      animation?: boolean;
     }
 
     /**
@@ -2668,7 +2653,7 @@ declare global {
 
     function setTabBarStyle(): void;
 
-    //</editor-fold>
+    // </editor-fold>
 
     function sceneName(scene: number);
 
@@ -2676,38 +2661,38 @@ declare global {
 
     function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
 
-    function getUpdateManager(): any
+    function getUpdateManager(): any;
 
 
     function openSetting();
 
     interface MenuButtonBounding {
-      bottom: number
-      height: number
-      left: number
-      right: number
-      top: number
-      width: number
+      bottom: number;
+      height: number;
+      left: number;
+      right: number;
+      top: number;
+      width: number;
     }
 
     function getMenuButtonBoundingClientRect(): MenuButtonBounding;
 
   }
 
-  //</editor-fold>
+  // </editor-fold>
 
   interface Target {
-    id?: string,
-    name?: string,
-    dataset?: any
-    offsetLeft?: number
-    offsetTop?: number
+    id?: string;
+    name?: string;
+    dataset?: any;
+    offsetLeft?: number;
+    offsetTop?: number;
   }
 
   interface WXEvent {
-    currentTarget?: Target
+    currentTarget?: Target;
     // target?: Target
-    detail?: { value?: any } | any,
-    type?: string
+    detail?: { value?: any } | any;
+    type?: string;
   }
 }

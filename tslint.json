@@ -1,0 +1,28 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-var-keyword": true,
+    "no-trailing-whitespace": true,
+    "ban-comma-operator": true,
+    "await-promise": true,
+    "no-console": false,
+    "curly": true,
+    "no-duplicate-super": true,
+    "no-duplicate-imports": true,
+    "no-unused-expression": false,
+    "no-duplicate-switch-case": true,
+    "no-empty": true,
+    "semicolon": true,
+    "no-eval": true,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "prefer-const": true
+  },
+  "rulesDirectory": []
+}
