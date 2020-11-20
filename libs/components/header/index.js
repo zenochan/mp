@@ -4,7 +4,7 @@ var WX_1 = require("../../wx/WX");
 Component({
     data: { bodyHeight: 0 },
     properties: {
-        noPlaceholder: { type: Object, value: false }
+        noPlaceholder: { type: Boolean, value: false }
     },
     options: {
         addGlobalClass: true
