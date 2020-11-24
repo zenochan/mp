@@ -1,18 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var api_service_1 = require("../../service/api.service");
+var mp_1 = require("../../mp");
 var DefaultImageOperator = /** @class */ (function () {
     function DefaultImageOperator() {
     }
+    // eslint-disable-next-line class-methods-use-this
     DefaultImageOperator.prototype.upload = function (options) {
-        return api_service_1.API.uploadMore({ filePaths: options.images });
+        return mp_1.API.uploadMore({ filePaths: options.images });
     };
+    // eslint-disable-next-line class-methods-use-this
     DefaultImageOperator.prototype.remove = function () {
         var images = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             images[_i] = arguments[_i];
         }
-        return api_service_1.API.post("delete", { photos: images });
+        return mp_1.API.post('delete', { photos: images });
     };
     return DefaultImageOperator;
 }());

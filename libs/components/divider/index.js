@@ -1,9 +1,10 @@
 /*
  * Copyright (c) 2020. ZenoChan
  */
+// eslint-disable-next-line no-undef
 Component({
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     properties: {
         background: { type: String, value: 'unset' },
@@ -15,5 +16,6 @@ Component({
         bottom: { type: Number, value: 0 },
         vertical: { type: Number, value: 0 },
         horizontal: { type: Number, value: 0 },
-    }
+    },
 });
+//# sourceMappingURL=index.js.map

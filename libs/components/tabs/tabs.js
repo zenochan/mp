@@ -1,38 +1,42 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
+// eslint-disable-next-line no-undef
 Component({
     properties: {
         flex: { type: Boolean, value: false },
         name: { type: String, value: 'tab' },
         active: {
-            type: Number, value: 0, observer: function () {
+            type: Number,
+            value: 0,
+            observer: function () {
                 this.active(this.data.active);
-            }
-        }
+            },
+        },
     },
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     relations: {
-        'tab-item': { type: "child" }
+        'tab-item': { type: 'child' },
     },
     methods: {
         scrollTo: function (target, width) {
             var scrollLeft = target.offsetLeft - this.data.screenW / 2 + width / 2;
             this.setData({ scrollLeft: scrollLeft });
         },
-        active: function (target) {
+        active: function (_target) {
+            var target = _target;
             var items = this.getRelationNodes('tab-item');
-            if (typeof target == 'number') {
+            if (typeof target === 'number') {
                 target = items[target];
             }
             if (!target)
                 return;
             var active = 0;
             items.forEach(function (item, index) {
-                item.active(item == target);
-                if (item == target)
+                item.active(item === target);
+                if (item === target)
                     active = index;
             });
             this.data.active = active;
@@ -40,13 +44,15 @@ Component({
             data[this.data.name] = active;
             this.page.setData(data);
             this.triggerEvent('change', { active: active, data: target.dataset });
-        }
+        },
     },
     attached: function () {
+        // eslint-disable-next-line no-undef
         this.data.screenW = wx.getSystemInfoSync().windowWidth;
         this.page = WX_1.WX.page();
     },
     ready: function () {
         this.active(this.data.active);
-    }
+    },
 });
+//# sourceMappingURL=tabs.js.map

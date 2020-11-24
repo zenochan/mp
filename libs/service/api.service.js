@@ -70,7 +70,7 @@ var API = /** @class */ (function () {
                     _this.handlerRes({ statusCode: 200, data: data }, sub);
                 },
                 fail: function (e) { return sub.error(e); },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -102,7 +102,7 @@ var API = /** @class */ (function () {
                             sub.next(_this.completeImgUrl(urls));
                             sub.complete();
                         }
-                    }
+                    },
                 });
             });
         });

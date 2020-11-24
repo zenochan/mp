@@ -1,45 +1,57 @@
 // @ts-ignore
-const automator: MiniProgramAutomator = require("miniprogram-automator");
+// tslint:disable-next-line:no-var-requires
+const automator: MiniProgramAutomator = require('miniprogram-automator');
 
 export default class ZzTester {
-  pagePath: string
-  app: MiniProgram
-  page: MiniPage
+  pagePath: string;
+
+  app: MiniProgram;
+
+  page: MiniPage;
 
   constructor(name: string, tests: (zz: ZzTester) => void) {
     // @ts-ignore
     describe(name, () => {
       // @ts-ignore
-      beforeAll(async () => this.app = await this.connect(), 30000)
+      beforeAll(async () => {
+        this.app = await this.connect();
+      }, 30000);
       // @ts-ignore
-      afterAll(async () => await this.app.disconnect(), 30000);
-      tests(this)
-    })
+      afterAll(() => {
+        this.app.disconnect();
+      }, 30000);
+      tests(this);
+    });
   }
 
   static connect(port: number = 9420): Promise<MiniProgram> {
-    return automator.connect({wsEndpoint: `ws://localhost:${port}`})
+    return automator.connect({ wsEndpoint: `ws://localhost:${port}` });
   }
 
   connect(port: number = 9420): Promise<MiniProgram> {
-    return automator.connect({wsEndpoint: `ws://localhost:${port}`})
+    return automator.connect({ wsEndpoint: `ws://localhost:${port}` });
   }
 
   input(values: { [key: string]: string }) {
-    this.app.currentPage().then(page => {
-      Object.keys(values).forEach(key => {
-        page.$(key).then(el => el.input(values[key]))
-      })
-    })
+    this.app.currentPage().then((page) => {
+      Object.keys(values).forEach((key) => {
+        page.$(key).then((el) => el.input(values[key]));
+      });
+    });
   }
 
   tap(selector: string): Promise<void> {
     return this.app.currentPage()
-      .then(page => page.$(selector))
-      .then(el => el.tap())
+      .then((page) => page.$(selector))
+      .then((el) => el.tap());
   }
 
   wait(time: number = 1000) {
-    return this.app.currentPage().then(page => page.waitFor(time))
+    return this.app.currentPage().then((page) => page.waitFor(time));
+  }
+
+  screenshot(path: string = 'screenshot/'): Promise<any> {
+    const today = new Date();
+    return this.app.screenshot({ path: `${path}/${today.getFullYear()}_${today.getMonth() + 1}_${today.getDate()}/` });
   }
 }

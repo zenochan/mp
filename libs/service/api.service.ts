@@ -1,6 +1,6 @@
-import {Data} from '../wx/Data';
-import {Observable} from '../rx/Rx';
-import {UI} from '../wx/UI';
+import { Data } from '../wx/Data';
+import { Observable } from '../rx/Rx';
+import { UI } from '../wx/UI';
 
 export interface Res {
   statusCode: number;
@@ -44,19 +44,19 @@ export class API {
   static get<T>(url, query: wx.IData = null): Observable<T | any> {
     url = this.query(url, query);
     url = API.pathVariable(url, query);
-    return this.buildRequest({method: 'GET', url});
+    return this.buildRequest({ method: 'GET', url });
   }
 
   static post<T>(url, param: wx.IData = {}): Observable<any | T> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: 'POST', url, data: param});
+    return this.buildRequest({ method: 'POST', url, data: param });
   }
 
   static put<T>(url, param: string | wx.IData = {}): Observable<T | any> {
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: 'PUT', url, data: param});
+    return this.buildRequest({ method: 'PUT', url, data: param });
   }
 
   static patch<T>(url, param: string | wx.IData = {}): Observable<T | any> {
@@ -65,11 +65,11 @@ export class API {
     }
     param = this.simpleImgUrl(param);
     url = API.pathVariable(url, param);
-    return this.buildRequest({method: 'POST', url, data: param});
+    return this.buildRequest({ method: 'POST', url, data: param });
   }
 
   static delete(url): Observable<any> | any {
-    return this.buildRequest({method: 'DELETE', url});
+    return this.buildRequest({ method: 'DELETE', url });
   }
 
   static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult> {
@@ -87,10 +87,10 @@ export class API {
         formData: form,
         success: res => {
           const data = JSON.parse(res.data);
-          this.handlerRes({statusCode: 200, data}, sub);
+          this.handlerRes({ statusCode: 200, data }, sub);
         },
         fail: e => sub.error(e),
-        complete: () => sub.complete()
+        complete: () => sub.complete(),
       });
     });
   }
@@ -128,7 +128,7 @@ export class API {
               sub.next(this.completeImgUrl(urls));
               sub.complete();
             }
-          }
+          },
         });
       });
 
@@ -172,7 +172,7 @@ export class API {
       } else if (res.statusCode === 401) {
         // 授权失败, 重启小程序
         Data.clear();
-        UI.alert('登录已失效').subscribe(_ => wx.reLaunch({url: '/pages/account/login/login'}));
+        UI.alert('登录已失效').subscribe(_ => wx.reLaunch({ url: '/pages/account/login/login' }));
       } else if (res.statusCode === 404) {
         sub.error('数据不存在或已失效');
       } else if (data.errors) {

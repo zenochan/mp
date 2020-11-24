@@ -2,10 +2,11 @@
  * Copyright (c) 2020. Zeno Chan.
  */
 
-import {WX} from "../../wx/WX";
+import { WX } from '../../wx/WX';
 
-let paddingBottom = WX.systemInfoSync().safeArea.paddingBottom;
+const { paddingBottom } = WX.systemInfoSync().safeArea;
 
+// eslint-disable-next-line no-undef
 Component({
-  data: {paddingBottom: paddingBottom}
+  data: { paddingBottom },
 });

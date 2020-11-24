@@ -36,28 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
-var automator = require("miniprogram-automator");
+// tslint:disable-next-line:no-var-requires
+var automator = require('miniprogram-automator');
 var ZzTester = /** @class */ (function () {
     function ZzTester(name, tests) {
         var _this = this;
         // @ts-ignore
         describe(name, function () {
             // @ts-ignore
-            beforeAll(function () { return __awaiter(_this, void 0, void 0, function () { var _a; return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.connect()];
-                    case 1: return [2 /*return*/, _a.app = _b.sent()];
-                }
-            }); }); }, 30000);
+            beforeAll(function () { return __awaiter(_this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = this;
+                            return [4 /*yield*/, this.connect()];
+                        case 1:
+                            _a.app = _b.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); }, 30000);
             // @ts-ignore
-            afterAll(function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.app.disconnect()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            }); }); }, 30000);
+            afterAll(function () {
+                _this.app.disconnect();
+            }, 30000);
             tests(_this);
         });
     }
@@ -84,6 +87,11 @@ var ZzTester = /** @class */ (function () {
     ZzTester.prototype.wait = function (time) {
         if (time === void 0) { time = 1000; }
         return this.app.currentPage().then(function (page) { return page.waitFor(time); });
+    };
+    ZzTester.prototype.screenshot = function (path) {
+        if (path === void 0) { path = 'screenshot/'; }
+        var today = new Date();
+        return this.app.screenshot({ path: path + "/" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "/" });
     };
     return ZzTester;
 }());

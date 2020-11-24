@@ -1,4 +1,5 @@
-import {Observable} from '../rx/Rx';
+/* eslint-disable camelcase */
+import { Observable } from '../rx/Rx';
 
 declare global {
 
@@ -86,7 +87,6 @@ declare global {
      * 同 {@link autoRefresh}, 但仅刷新一次，适合跳到详情，数据改变后执行
      */
     onceRefresh?: boolean;
-
 
     /**
      * 生命周期事件
@@ -176,11 +176,9 @@ declare global {
 
     selectComponent?: (selector: string) => any;
 
-
     [key: string]: any;
 
   }
-
 
   /**
    * Page() 函数用来注册一个页面。
@@ -246,7 +244,6 @@ declare global {
      * 类似于mixins和traits的组件间代码复用机制，参见 behaviors
      */
     behaviors?: string | string[];
-
 
     /**
      * 组件生命周期函数，在组件实例进入页面节点树时执行，注意此时不能调用 setData
@@ -673,12 +670,11 @@ declare global {
      */
     function chooseImage(options: ChooseImageOptions): void;
 
-
     interface ChooseVideoOptions extends BaseOptions<any> {
-      sourceType?: string[];     // default
-      compressed?: boolean;                  // default true
-      maxDuration?: number;                  // default 60
-      camera?: 'back' | 'front';             // default back
+      sourceType?: string[]; // default
+      compressed?: boolean; // default true
+      maxDuration?: number; // default 60
+      camera?: 'back' | 'front'; // default back
     }
 
     interface ChooseVideoRes {
@@ -713,15 +709,15 @@ declare global {
     function previewImage(options: PreviewImageOptions): void;
 
     interface GetImageInfoResult {
-      width: number;        // 图片宽度，单位px 不考虑旋转。
-      height: number;       // 图片高度 单位px 不考虑旋转。
-      path: string;         // 图片的本地路径
-      orientation: string;  // 拍照时设备方向  @since 1.9.90
-      type: string;         // 图片格式       @since 1.9.90
+      width: number; // 图片宽度，单位px 不考虑旋转。
+      height: number; // 图片高度 单位px 不考虑旋转。
+      path: string; // 图片的本地路径
+      orientation: string; // 拍照时设备方向  @since 1.9.90
+      type: string; // 图片格式       @since 1.9.90
     }
 
     interface GetImageInfoOptions extends BaseOptions<any> {
-      src: string;                                      //  图片的路径，可以是相对路径，临时文件路径，存储文件路径
+      src: string; //  图片的路径，可以是相对路径，临时文件路径，存储文件路径
 
       /**
        * 接口调用成功的回调函数，包含图片信息
@@ -1421,30 +1417,29 @@ declare global {
     function getNetworkType(options: GetNetworkTypeOptions): void;
 
     interface GetSystemInfoResult {
-      model: string;              // 手机型号
-      pixelRatio: number;         // 设备像素比
-      windowWidth: number;        // 窗口宽度
-      windowHeight: number;       // 窗口高度
-      language: string;           // 微信设置的语言
-      version: string;            // 微信版本号
-      system: string;             // 操作系统版本
-      platform: string;           // 客户端平台
+      model: string; // 手机型号
+      pixelRatio: number; // 设备像素比
+      windowWidth: number; // 窗口宽度
+      windowHeight: number; // 窗口高度
+      language: string; // 微信设置的语言
+      version: string; // 微信版本号
+      system: string; // 操作系统版本
+      platform: string; // 客户端平台
 
       // from v2.6.0
-      locationAuthorized: boolean;    // 允许微信使用定位的开关
-      safeArea: {                     // 竖屏正方向下的安全区域
+      locationAuthorized: boolean; // 允许微信使用定位的开关
+      safeArea: { // 竖屏正方向下的安全区域
         left: number,
         right: number,
         top: number,
         bottom: number,
         width: number,
         height: number,
-        paddingBottom: number        // 自定义附加，底部安全距离
+        paddingBottom: number // 自定义附加，底部安全距离
       };
 
-
-      statusBarHeight: number;    // 状态栏高度
-      navigationHeight: number;   // custom, 导航栏高度
+      statusBarHeight: number; // 状态栏高度
+      navigationHeight: number; // custom, 导航栏高度
 
       [key: string]: any;
     }
@@ -1740,7 +1735,6 @@ declare global {
      */
     function setNavigationBarTitle(options: SetNavigationBarTitleOptions): void;
 
-
     interface NavbarColorOptions extends BaseOptions<any> {
       /** 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000 */
       frontColor: string;
@@ -1823,7 +1817,6 @@ declare global {
        */
       url: string;
     }
-
 
     /**
      * 关闭当前页面，跳转到应用内的某个页面。
@@ -2027,7 +2020,7 @@ declare global {
        * 同 [transform-function matrix3d](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix3d?t=1477656494026)
        */
       matrix3d(a1: number, b1: number, c1: number, d1: number, a2: number, b2: number, c2: number, d2: number,
-               a3: number, b3: number, c3: number, d3: number, a4: number, b4: number, c4: number, d4: number): this;
+        a3: number, b3: number, c3: number, d3: number, a4: number, b4: number, c4: number, d4: number): this;
     }
 
     interface AnimationOptions {
@@ -2145,7 +2138,7 @@ declare global {
        */
       drawImage(
         imageResource: string, sx: number, sy: number, sWidth: number, sHeight: number,
-        dx: number, dy: number, dWidth: number, dHeight: number
+        dx: number, dy: number, dWidth: number, dHeight: number,
       ): void;
 
       /**
@@ -2171,7 +2164,7 @@ declare global {
        */
       closePath(): void;
 
-      /**把路径移动到画布中的指定点，不创建线条。
+      /** 把路径移动到画布中的指定点，不创建线条。
        * @param x 目标位置的x坐标
        * @param y 目标位置的y坐标
        */
@@ -2329,7 +2322,7 @@ declare global {
        */
       setLineJoin(lineJoin: string): void;
 
-      /**设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当setLineJoin为'miter'时才有效。超过最大倾斜长度的，连接处将以lineJoin为bevel来显示
+      /** 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当setLineJoin为'miter'时才有效。超过最大倾斜长度的，连接处将以lineJoin为bevel来显示
        * @param miterLimit 最大斜接长度
        */
       setMiterLimit(miterLimit: number): void;
@@ -2406,7 +2399,7 @@ declare global {
      */
     function canvasToTempFilePath(
       options: CanvasToTempFilePathOptions,
-      component?: object
+      component?: object,
     ): string;
 
     /**
@@ -2444,7 +2437,7 @@ declare global {
     }
 
     interface LoginOptions extends BaseOptions<LoginResult> {
-      timeout?: number;     // 超时时间， ms       @since v1.9.90
+      timeout?: number; // 超时时间， ms       @since v1.9.90
     }
 
     /**
@@ -2520,8 +2513,7 @@ declare global {
      */
     function getSetting(options: BaseOptions<any>): void;
 
-    interface CheckSessionOptions extends BaseOptions<any> {
-    }
+    type CheckSessionOptions = BaseOptions<any>;
 
     interface UserInfo {
       encryptedData: string;
@@ -2659,10 +2651,11 @@ declare global {
 
     function createSelectorQuery();
 
-    function pageScrollTo(param: { scrollTop: ((value: (number | string)) => any) | number | string });
+    function pageScrollTo(param: {
+      scrollTop: ((value: (number | string)) => any) | number | string
+    });
 
     function getUpdateManager(): any;
-
 
     function openSetting();
 

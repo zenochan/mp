@@ -1,55 +1,57 @@
-import {WX} from "../../wx/WX";
+import { WX } from '../../wx/WX';
 
+// eslint-disable-next-line no-undef
 Component({
   data: {
     top: 0,
     offset: 0,
-    sticky: false
+    sticky: false,
   },
 
   options: {
-    addGlobalClass: true
+    addGlobalClass: true,
   },
 
   properties: {
-    offset: {type: Number, value: 0}
+    offset: { type: Number, value: 0 },
   },
   methods: {
-    init()
-    {
-      WX.queryBoundingClientRect(".element", this).subscribe(res => {
+    init() {
+      WX.queryBoundingClientRect('.element', this).subscribe((res) => {
         if (res.length >= 2) {
           this.setData({
             top: this.pageTop + res[0].top,
-            height: res[1].height
+            height: res[1].height,
           });
         }
       });
-    }
+    },
   },
-  attached()
-  {
+  attached() {
     this.pageTop = 0;
-    WX.onPageScroll(top => {
+    WX.onPageScroll((_top) => {
+      let top = _top;
       this.pageTop = top;
       top += this.data.offset;
-      !this.data.sticky && this.data.top < top && this.setData({sticky: true});
-      this.data.sticky && this.data.top > top && this.setData({sticky: false})
+
+      if (!this.data.sticky && this.data.top < top) {
+        this.setData({ sticky: true });
+      } else if (this.data.sticky && this.data.top > top) {
+        this.setData({ sticky: false });
+      }
     });
 
-    this.sub = WX.page().onDataChange.subscribe(res => {
+    this.sub = WX.page().onDataChange.subscribe(() => {
       this.init();
-      setTimeout(() => this.init(), 200)
+      setTimeout(() => this.init(), 200);
     });
   },
 
-  detached()
-  {
+  detached() {
     this.sub.unsubscribe();
   },
 
-  ready()
-  {
-    this.init()
+  ready() {
+    this.init();
   },
 });

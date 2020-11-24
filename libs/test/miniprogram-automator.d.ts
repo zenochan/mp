@@ -2,22 +2,28 @@
  * Copyright (c) 2020. ZenoChan
  */
 
-
 /**
  * {@link https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/element.html}
  */
 interface MiniProgramAutomator {
   connect(options: {
-    wsEndpoint: string    // 开发者工具 WebSocket 地址
+    // 开发者工具 WebSocket 地址
+    wsEndpoint: string
   }): Promise<MiniProgram>;
 
   launch(options: {
-    cliPath?: string	          //否	-	开发者工具命令行工具绝对路径
-    projectPath: string	        //是	-	项目绝对路径
-    timeout?: number	          //否	30000	启动最长等待时间
-    port?: number	              //否	-	WebSocket 端口号
-    account?: string	          //否	-	用户 openid
-    projectConfig?: any	        //否	-	覆盖 project.config.json 中的配置
+    /** 否  -  开发者工具命令行工具绝对路径 */
+    cliPath?: string,
+    /** 是  -  项目绝对路径 */
+    projectPath: string,
+    /** 否  30000  启动最长等待时间 */
+    timeout?: number,
+    /** 否  -  WebSocket 端口号 */
+    port?: number,
+    /** 否  -  用户 openid */
+    account?: string,
+    /** 否  -  覆盖 project.config.json 中的配置 */
+    projectConfig?: any
   }): Promise<MiniProgram>;
 }
 
@@ -102,8 +108,8 @@ interface MiniPage {
    * 页面大小
    */
   size(): Promise<{
-    width: number,     // 滚动宽度
-    height: number     // 滚动高度
+    width: number, // 滚动宽度
+    height: number // 滚动高度
   }>
 
   /**

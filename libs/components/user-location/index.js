@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var mp_1 = require("../../mp");
+// eslint-disable-next-line no-undef
 Component({
-    observers: [],
     data: {
-        deny: false
+        deny: false,
     },
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     lifetimes: {
         attached: function () {
@@ -17,22 +17,21 @@ Component({
                 _this.setData({ deny: true });
             });
         },
-        detached: function () {
-        }
     },
     pageLifetimes: {
         show: function () {
             var _this = this;
             mp_1.WX.getSetting().subscribe(function (res) { return res.userLocation && _this.setData({ deny: false }); });
-        }
+        },
     },
     methods: {
         openSetting: function () {
+            // eslint-disable-next-line no-undef
             wx.openSetting();
         },
         hideModal: function () {
             this.setData({ deny: false });
-        }
-    }
+        },
+    },
 });
 //# sourceMappingURL=index.js.map

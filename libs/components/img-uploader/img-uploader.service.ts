@@ -1,36 +1,29 @@
-import {Observable} from "../../rx/Observable";
-import {API} from "../../service/api.service";
+import { Observable } from '../../rx/Rx';
+import { API } from '../../mp';
 
-
-export interface UploadOptions
-{
+export interface UploadOptions {
   images: string[]
   scope?: string
 }
 
-export interface ImageOperator
-{
+export interface ImageOperator {
   upload(options: UploadOptions): Observable<any>
 
   remove(...images): Observable<any>
 }
 
-export class DefaultImageOperator implements ImageOperator
-{
-  upload(options: UploadOptions): Observable<any>
-  {
-    return API.uploadMore({filePaths: options.images});
+export class DefaultImageOperator implements ImageOperator {
+  // eslint-disable-next-line class-methods-use-this
+  upload(options: UploadOptions): Observable<any> {
+    return API.uploadMore({ filePaths: options.images });
   }
 
-  remove(...images): Observable<any>
-  {
-    return API.post("delete", {photos: images})
+  // eslint-disable-next-line class-methods-use-this
+  remove(...images): Observable<any> {
+    return API.post('delete', { photos: images });
   }
-
 }
 
-export class ImgUploaderService
-{
+export class ImgUploaderService {
   static imageOperator: ImageOperator = new DefaultImageOperator();
-
 }

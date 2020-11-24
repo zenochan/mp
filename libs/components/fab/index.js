@@ -1,9 +1,10 @@
+// eslint-disable-next-line no-undef
 Component({
     data: {
-        open: false
+        open: false,
     },
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     properties: {
         src: { type: String, value: '' },
@@ -13,14 +14,15 @@ Component({
     methods: {
         toggle: function () {
             this.setData({ open: !this.data.open });
-            this.triggerEvent("change", { value: this.data.open });
+            this.triggerEvent('change', { value: this.data.open });
         },
         close: function () {
             this.setData({ open: false });
-            this.triggerEvent("change", { value: this.data.open });
+            this.triggerEvent('change', { value: this.data.open });
         },
-        catTouch: function (e) {
+        catTouch: function () {
+            //
         },
-    }
+    },
 });
 //# sourceMappingURL=index.js.map

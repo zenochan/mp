@@ -1,16 +1,15 @@
 import 'libs/utils/extends.date';
-import {API} from "./libs/mp";
+import { API } from './libs/mp';
+
 wx.cloud.init();
 export const db = wx.cloud.database();
 
-//app.js
+// app.js
 App({
-  onLaunch()
-  {
+  onLaunch() {
   },
-  onShow()
-  {
-  }
+  onShow() {
+  },
 });
 
 API.config({

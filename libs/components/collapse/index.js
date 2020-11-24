@@ -8,13 +8,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var WX_1 = require("../../wx/WX");
 var interceptor_1 = require("../../utils/interceptor");
+// eslint-disable-next-line no-undef
 Component({
     options: {
         multipleSlots: true,
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     properties: {
-        expand: { type: "boolean", value: false }
+        expand: { type: Boolean, value: false },
     },
     data: {
         expand: false,
@@ -28,7 +29,8 @@ Component({
             this.calcHeight(function () {
                 _this.setData({ expand: !_this.data.expand, anim: true });
                 var bodyHeight = _this.data.bodyHeight;
-                interceptor_1.Interceptor.easeOut(300).subscribe(function (timer) {
+                interceptor_1.Interceptor.easeOut(300).subscribe(function (_timer) {
+                    var timer = _timer;
                     if (_this.data.expand)
                         timer = 1 - timer;
                     _this.setData({ marginTop: -bodyHeight * timer, bodyHeight: bodyHeight });
@@ -38,25 +40,27 @@ Component({
         calcHeight: function (next) {
             var _this = this;
             this.setData({ ready: this.data.expand });
-            WX_1.WX.queryBoundingClientRect(".body", this).subscribe(function (res) {
+            WX_1.WX.queryBoundingClientRect('.body', this).subscribe(function (res) {
                 var body = res[0];
                 var bodyHeight = body.bottom - body.top;
+                // eslint-disable-next-line no-undef
                 wx.nextTick(function () {
                     _this.setData({
                         marginTop: _this.data.expand ? 0 : -bodyHeight,
                         bodyHeight: bodyHeight,
-                        ready: true
+                        ready: true,
                     });
                 });
-                next && next();
+                if (typeof next === 'function')
+                    next();
             });
-        }
+        },
     },
     attached: function () {
         var _this = this;
         this.sub = WX_1.WX.page().onDataChange
             .delay(200)
-            .subscribe(function (res) { return _this.calcHeight(); });
+            .subscribe(function () { return _this.calcHeight(); });
     },
     ready: function () {
         this.calcHeight();
