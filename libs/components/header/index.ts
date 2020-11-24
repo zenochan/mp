@@ -5,6 +5,7 @@ Component({
   data: { bodyHeight: 0 },
   properties: {
     noPlaceholder: { type: Boolean, value: false },
+    states: { type: null, value: null, observer: 'calcHeight' },
   },
   options: {
     addGlobalClass: true,
