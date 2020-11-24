@@ -8,24 +8,26 @@ Component({
   attached() {
     WX.isIphoneX().subscribe((res) => this.setData({ iphoneX: res ? 'iphoneX' : '' }));
   },
-  data: {
-    type: null,
-    value: null,
-    observer() {
-      setTimeout(() => this.calcHeight(), 50);
-    },
+  properties: {
+    states: { type: null, value: null },
   },
 
   options: {
     addGlobalClass: true,
   },
+
+  observers: {
+    states() {
+      this.calcHeight();
+    },
+  },
+
   methods: {
     calcHeight() {
       // @ts-ignore
       WX.size('.fixed', this).retry(3, 200).subscribe((res) => {
         if (res.height === 0) throw new Error('zero height');
         this.setData({ bodyHeight: res.height });
-        this.parent && this.parent.resizeBody();
       });
     },
   },

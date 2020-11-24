@@ -1,0 +1,11 @@
+<header states="{{[headerText,headerText]}}">
+  <view>固定内容</view>
+  <view wx:if="{{headerText}}">动态内容:{{headerText}}</view>
+</header>
+
+<input bind:input="onInput" id="headerText" placeholder="headerText"></input>
+<input bind:input="onInput" id="footerText" placeholder="footerText"></input>
+
+<footer states="{{footerText}}">
+  <view wx:if="{{footerText}}">动态内容:{{footerText}}</view>
+</footer>

@@ -5,7 +5,8 @@
     "pages/cropper/index",
     "pages/rich-html/index",
     "pages/wx-charts/index",
-    "pages/uploader/index"
+    "pages/uploader/index",
+    "pages/header-footer/index"
   ],
   "permission": {
     "scope.userLocation": {
