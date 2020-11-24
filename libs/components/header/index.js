@@ -3,9 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
 // eslint-disable-next-line no-undef
 Component({
-    data: {
-        bodyHeight: 0,
-    },
+    data: { bodyHeight: 0 },
     properties: {
         noPlaceholder: { type: Boolean, value: false },
     },
@@ -21,12 +19,15 @@ Component({
         },
     },
     attached: function () {
+        var _this = this;
         this.calcHeight();
+        this.sub = WX_1.WX.page().onDataChange.subscribe(function () {
+            _this.calcHeight();
+            setTimeout(function () { return _this.calcHeight(); }, 200);
+        });
     },
-    pageLifetimes: {
-        resize: function () {
-            this.calcHeight();
-        },
+    detached: function () {
+        this.sub.unsubscribe();
     },
 });
 //# sourceMappingURL=index.js.map
