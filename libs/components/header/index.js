@@ -25,7 +25,7 @@ Component({
     },
     pageLifetimes: {
         resize: function () {
-            this.callMethod();
+            this.calcHeight();
         },
     },
 });
