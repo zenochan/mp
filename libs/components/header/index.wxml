@@ -1,4 +1,4 @@
-<div class="fixed" style="position: {{(noPlaceHolder || bodyHeight>0)?'fixed':'unset'}}">
+<view class="fixed">
   <slot></slot>
-</div>
-<div wx:if="{{!noPlaceholder}}" style="height: {{bodyHeight}}px;"></div>
+</view>
+<view style="height: {{bodyHeight}}px;display: {{noPlaceholder?'none':'visible'}}"></view>
