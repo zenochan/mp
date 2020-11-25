@@ -1,22 +1,31 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var WX_1 = require("../../wx/WX");
+// eslint-disable-next-line no-undef
 Component({
     data: {
-        granted: false
+        granted: false,
+    },
+    properties: {
+        lang: {
+            type: String,
+            value: 'zh_CN',
+        },
     },
     methods: {
         onClick: function () {
-            this.triggerEvent("tap", this.data.userInfo);
+            this.triggerEvent('tap', this.data.userInfo);
         },
         onGetUserInfo: function (e) {
-            if (e.detail.errMsg == "getUserInfo:ok") {
+            if (e.detail.errMsg === 'getUserInfo:ok') {
                 this.data.userInfo = e.detail;
                 this.setData({ granted: true });
                 this.onClick();
             }
         },
-        catchTap: function (e) { }
+        catchTap: function () {
+            // nothing
+        },
     },
     attached: function () {
         var _this = this;
@@ -28,5 +37,6 @@ Component({
                 });
             }
         });
-    }
+    },
 });
+//# sourceMappingURL=index.js.map

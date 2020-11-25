@@ -21,13 +21,13 @@ Component({
             var _this = this;
             WX_1.WX.size('.fixed', this).subscribe(function (size) {
                 _this.setData({ bodyHeight: size.height });
-            }, function (error) {
-                console.warn(error);
             });
         },
     },
     attached: function () {
+        var _this = this;
         this.calcHeight();
+        setTimeout(function () { return _this.calcHeight(); }, 100);
     },
 });
 //# sourceMappingURL=index.js.map

@@ -20,12 +20,12 @@ Component({
     calcHeight() {
       WX.size('.fixed', this).subscribe((size) => {
         this.setData({ bodyHeight: size.height });
-      }, (error) => {
-        console.warn(error);
       });
     },
   },
+
   attached() {
     this.calcHeight();
+    setTimeout(() => this.calcHeight(), 100);
   },
 });

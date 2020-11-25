@@ -18,7 +18,7 @@ var WX = /** @class */ (function () {
             .subscribe(function (res) {
             wx.saveImageToPhotosAlbum({
                 filePath: res.path,
-                success: function () { return UI_1.UI.toastSuccess('图片已保存'); }
+                success: function () { return UI_1.UI.toastSuccess('图片已保存'); },
             });
         }, function (e) {
             if ((e.errMsg || '').indexOf('authorize:fail') != -1) {
@@ -26,7 +26,7 @@ var WX = /** @class */ (function () {
                     title: '提示',
                     content: '需要保存到相册权限, 是否现在去设置？',
                     confirmText: '打开设置',
-                    cancelText: '取消'
+                    cancelText: '取消',
                 }).subscribe(function (res) { return wx.openSetting(); });
             }
             else {
@@ -43,18 +43,14 @@ var WX = /** @class */ (function () {
         if (pages.length > 1) {
             return RxExt_1.rxJust(pages[pages.length - 2]);
         }
-        else {
-            RxExt_1.rxEmpty();
-        }
+        RxExt_1.rxEmpty();
     };
     WX.pagePrePath = function () {
         var pages = getCurrentPages();
         if (pages.length < 2) {
             return '';
         }
-        else {
-            return pages[pages.length - 2].route;
-        }
+        return pages[pages.length - 2].route;
     };
     /**
      * 小程序强制更新
@@ -79,37 +75,37 @@ var WX = /** @class */ (function () {
      * @author Zeno (zenochan@qq.com)
      */
     WX.isIphoneX = function () {
-        return Rx_1.Observable.create(function (sub) {
-            return wx.getSystemInfo({
-                success: function (res) {
-                    sub.next(res.model.indexOf('iPhone X') != -1);
-                },
-                fail: function (e) { return sub.error(e); }
-            });
-        });
+        return Rx_1.Observable.create(function (sub) { return wx.getSystemInfo({
+            success: function (res) {
+                sub.next(res.model.indexOf('iPhone X') != -1);
+            },
+            fail: function (e) { return sub.error(e); },
+        }); });
     };
     WX.systemInfo = function () {
-        return Rx_1.Observable.create(function (sub) {
-            return wx.getSystemInfo({
-                success: function (res) {
-                    var menuRounding = wx.getMenuButtonBoundingClientRect();
-                    res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
-                    if (!res.safeArea) {
-                        res.safeArea = { paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0 };
-                    }
-                    res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
-                    sub.next(res);
-                },
-                fail: function (e) { return sub.error(e); }
-            });
-        });
+        return Rx_1.Observable.create(function (sub) { return wx.getSystemInfo({
+            success: function (res) {
+                var menuRounding = wx.getMenuButtonBoundingClientRect();
+                res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
+                if (!res.safeArea) {
+                    res.safeArea = {
+                        paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0,
+                    };
+                }
+                res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
+                sub.next(res);
+            },
+            fail: function (e) { return sub.error(e); },
+        }); });
     };
     WX.systemInfoSync = function () {
         var res = wx.getSystemInfoSync();
         var menuRounding = wx.getMenuButtonBoundingClientRect();
         res.navigationHeight = (menuRounding.top - res.statusBarHeight) * 2 + menuRounding.height;
         if (!res.safeArea) {
-            res.safeArea = { paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0 };
+            res.safeArea = {
+                paddingBottom: 0, left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0,
+            };
         }
         res.safeArea.paddingBottom = res.screenHeight - res.safeArea.bottom;
         return res;
@@ -126,24 +122,22 @@ var WX = /** @class */ (function () {
     WX.getLocation = function (options) {
         var _this = this;
         var isHighAccuracy = (options || {}).isHighAccuracy;
-        return Rx_1.Observable.create(function (sub) {
-            return wx.getLocation({
-                type: 'gcj02',
-                isHighAccuracy: isHighAccuracy,
-                // altitude: true,
-                success: function (res) { return sub.next(res); },
-                fail: function (e) {
-                    if (e.errMsg.indexOf('auth') > 0) {
-                        console.error('用户已拒绝定位授权');
-                        Events_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
-                    }
-                    else {
-                        sub.error('获取定位失败，请检查微信是否有定位权限');
-                    }
-                },
-                complete: function () { return sub.complete(); }
-            });
-        });
+        return Rx_1.Observable.create(function (sub) { return wx.getLocation({
+            type: 'gcj02',
+            isHighAccuracy: isHighAccuracy,
+            // altitude: true,
+            success: function (res) { return sub.next(res); },
+            fail: function (e) {
+                if (e.errMsg.indexOf('auth') > 0) {
+                    console.error('用户已拒绝定位授权');
+                    Events_1.Events.publish(_this.EVENT_LOCATION_DENY, true);
+                }
+                else {
+                    sub.error('获取定位失败，请检查微信是否有定位权限');
+                }
+            },
+            complete: function () { return sub.complete(); },
+        }); });
     };
     /**
      * 是否是 iPhone
@@ -153,14 +147,12 @@ var WX = /** @class */ (function () {
      * @author Zeno (zenochan@qq.com)
      */
     WX.isIphone = function () {
-        return Rx_1.Observable.create(function (sub) {
-            return wx.getSystemInfo({
-                success: function (res) {
-                    sub.next(res.model.indexOf('iPhone') != -1);
-                },
-                fail: function (e) { return sub.error(e); }
-            });
-        });
+        return Rx_1.Observable.create(function (sub) { return wx.getSystemInfo({
+            success: function (res) {
+                sub.next(res.model.indexOf('iPhone') != -1);
+            },
+            fail: function (e) { return sub.error(e); },
+        }); });
     };
     WX.onPageScroll = function (handler) {
         var pages = getCurrentPages();
@@ -184,7 +176,7 @@ var WX = /** @class */ (function () {
                 timeout: timeout,
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         }).map(function (res) { return res.code; });
     };
@@ -195,7 +187,7 @@ var WX = /** @class */ (function () {
                 success: function () { return emitter.next(true); },
                 // session_key 已经失效，需要重新执行登录流程
                 fail: function () { return emitter.next(false); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         });
     };
@@ -217,7 +209,7 @@ var WX = /** @class */ (function () {
                 onlyFromCamera: onlyFromCamera,
                 success: function (res) { return emitter.next(res); },
                 fail: function (err) { return emitter.error(err); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         });
     };
@@ -230,7 +222,7 @@ var WX = /** @class */ (function () {
             wx.getSetting({
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         }).map(function (res) {
             var authSetting = res.authSetting;
@@ -246,12 +238,14 @@ var WX = /** @class */ (function () {
             };
         });
     };
-    WX.getUserInfo = function () {
+    WX.getUserInfo = function (lang) {
+        if (lang === void 0) { lang = 'zh_CN'; }
         return Rx_1.Observable.create(function (emitter) {
             wx.getUserInfo({
+                lang: lang,
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         });
     };
@@ -264,7 +258,7 @@ var WX = /** @class */ (function () {
                 scope: scope,
                 success: function (res) { return emitter.next(res); },
                 fail: function (error) { return emitter.error(error); },
-                complete: function () { return emitter.complete(); }
+                complete: function () { return emitter.complete(); },
             });
         });
     };
@@ -290,7 +284,7 @@ var WX = /** @class */ (function () {
                         sub.error(e);
                     }
                 },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -307,7 +301,7 @@ var WX = /** @class */ (function () {
                         sub.error(e);
                     }
                 },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -320,7 +314,7 @@ var WX = /** @class */ (function () {
                 withShareTicket: withShareTicket,
                 success: function (res) { return sub.next(res); },
                 fail: function (e) { return sub.error(e); },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -335,7 +329,7 @@ var WX = /** @class */ (function () {
             withShareTicket: withShareTicket,
             success: function (res) { return sub.next(res); },
             fail: function (e) { return sub.error(e); },
-            complete: function () { return sub.complete(); }
+            complete: function () { return sub.complete(); },
         });
         return sub;
     };
@@ -347,7 +341,7 @@ var WX = /** @class */ (function () {
                 itemColor: color,
                 success: function (res) { return sub.next(res); },
                 fail: function (e) { return sub.error(e); },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -360,7 +354,7 @@ var WX = /** @class */ (function () {
         wx.hideShareMenu({
             success: function (res) { return subject.next(res); },
             fail: function (e) { return subject.error(e); },
-            complete: function () { return subject.complete(); }
+            complete: function () { return subject.complete(); },
         });
         return subject;
     };
@@ -377,7 +371,7 @@ var WX = /** @class */ (function () {
                 timeout: timeout,
                 success: function (res) { return sub.next(res); },
                 fail: function (e) { return sub.error(e); },
-                complete: function () { return sub.complete(); }
+                complete: function () { return sub.complete(); },
             });
         });
     };
@@ -395,7 +389,7 @@ var WX = /** @class */ (function () {
             wx.getImageInfo({
                 src: src,
                 success: function (res) { return sub.next(res); },
-                fail: function (e) { return sub.error(e); }
+                fail: function (e) { return sub.error(e); },
             });
         });
     };
@@ -487,7 +481,7 @@ var WX = /** @class */ (function () {
         WE_RUN: 'scope.werun',
         RECORD: 'scope.record',
         WRITE_PHOTOS_ALBUM: 'scope.writePhotosAlbum',
-        CAMERA: 'scope.camera'
+        CAMERA: 'scope.camera',
     };
     WX.EVENT_LOCATION_DENY = 'deny:location';
     return WX;

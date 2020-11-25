@@ -3,6 +3,7 @@
 
   <button wx:if="{{!granted}}"
           catch:tap="catchTap"
+          lang="{{lang}}"
           open-type="getUserInfo"
           class="open-userinfo" bindgetuserinfo="onGetUserInfo"></button>
 </view>
