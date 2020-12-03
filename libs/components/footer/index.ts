@@ -18,7 +18,7 @@ Component({
 
   observers: {
     states() {
-      this.calcHeight();
+      wx.nextTick(() => this.calcHeight());
     },
   },
 

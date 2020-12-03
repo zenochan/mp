@@ -18,7 +18,8 @@ Component({
     },
     observers: {
         states: function () {
-            this.calcHeight();
+            var _this = this;
+            wx.nextTick(function () { return _this.calcHeight(); });
         },
     },
     methods: {
