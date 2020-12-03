@@ -11,17 +11,17 @@ Component({
         WX_1.WX.isIphoneX().subscribe(function (res) { return _this.setData({ iphoneX: res ? 'iphoneX' : '' }); });
     },
     properties: {
-        states: { type: null, value: null },
+        states: {
+            type: null,
+            value: null,
+            observer: function () {
+                var _this = this;
+                wx.nextTick(function () { return _this.calcHeight(); });
+            },
+        },
     },
     options: {
         addGlobalClass: true,
-    },
-    observers: {
-        states: function () {
-            var _this = this;
-            this.calcHeight();
-            setTimeout(function () { return _this.calcHeight(); }, 300);
-        },
     },
     methods: {
         calcHeight: function () {

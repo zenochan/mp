@@ -9,18 +9,17 @@ Component({
     WX.isIphoneX().subscribe((res) => this.setData({ iphoneX: res ? 'iphoneX' : '' }));
   },
   properties: {
-    states: { type: null, value: null },
+    states: {
+      type: null,
+      value: null,
+      observer() {
+        wx.nextTick(() => this.calcHeight());
+      },
+    },
   },
 
   options: {
     addGlobalClass: true,
-  },
-
-  observers: {
-    states() {
-      this.calcHeight();
-      setTimeout(() => this.calcHeight(), 300);
-    },
   },
 
   methods: {
