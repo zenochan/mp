@@ -26,7 +26,6 @@ Component({
     calcHeight() {
       // @ts-ignore
       WX.size('.fixed', this).retry(3, 200).subscribe((res) => {
-        if (res.height === 0) throw new Error('zero height');
         this.setData({ bodyHeight: res.height });
       });
     },

@@ -26,8 +26,6 @@ Component({
             var _this = this;
             // @ts-ignore
             WX_1.WX.size('.fixed', this).retry(3, 200).subscribe(function (res) {
-                if (res.height === 0)
-                    throw new Error('zero height');
                 _this.setData({ bodyHeight: res.height });
             });
         },
