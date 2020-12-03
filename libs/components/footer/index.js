@@ -19,14 +19,15 @@ Component({
     observers: {
         states: function () {
             var _this = this;
-            wx.nextTick(function () { return _this.calcHeight(); });
+            this.calcHeight();
+            setTimeout(function () { return _this.calcHeight(); }, 300);
         },
     },
     methods: {
         calcHeight: function () {
             var _this = this;
             // @ts-ignore
-            WX_1.WX.size('.fixed', this).retry(3, 200).subscribe(function (res) {
+            WX_1.WX.size('.fixed', this).subscribe(function (res) {
                 _this.setData({ bodyHeight: res.height });
             });
         },

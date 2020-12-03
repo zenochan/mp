@@ -18,14 +18,15 @@ Component({
 
   observers: {
     states() {
-      wx.nextTick(() => this.calcHeight());
+      this.calcHeight();
+      setTimeout(() => this.calcHeight(), 300);
     },
   },
 
   methods: {
     calcHeight() {
       // @ts-ignore
-      WX.size('.fixed', this).retry(3, 200).subscribe((res) => {
+      WX.size('.fixed', this).subscribe((res) => {
         this.setData({ bodyHeight: res.height });
       });
     },
