@@ -2,6 +2,7 @@
   <!--  七牛-->
   <block wx:if="{{qiniu}}">
     <image class="zz-img__holder" wx:if="{{_src && size}}"
+           lazy-load="{{lazyLoad}}"
            src="{{_src}}?imageView2/0/w/{{size.width}}/h/{{size.height}}" mode="{{mode}}"
            onload="loadSuccess" onerror="loadFail"
            bind:tap="preview"></image>
@@ -11,9 +12,13 @@
 
   <!--  普通-->
   <block wx:else>
-    <image wx:if="{{mode=='widthFix' && specialSize}}" class="zz-img__holder" src="{{_src}}" mode="{{mode}}"
+    <image wx:if="{{mode=='widthFix' && specialSize}}"
+           class="zz-img__holder"
+           src="{{_src}}"
+           mode="{{mode}}"
            bind:tap="preview"
            style="{{specialSize}}"
+           lazy-load="{{lazyLoad}}"
            onload="loadSuccess" onerror="loadFail"
     ></image>
 
@@ -21,7 +26,6 @@
            onload="loadSuccess" onerror="loadFail"
     ></image>
   </block>
-
 
   <div class="zz-img__placeholder" wx:if="{{placeholder}}">
     <image class="zz-img__placeholder-icon" src="img-holder.svg" qiniu></image>

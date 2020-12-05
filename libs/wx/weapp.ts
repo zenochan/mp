@@ -1,10 +1,10 @@
-import {Nav} from "./nav";
-import {UI} from "./UI";
-import {Data} from "./Data";
-import {BehaviorSubject} from "../rx/Rx";
-import {API, WX} from "../mp";
+import { Nav } from './nav';
+import { UI } from './UI';
+import { Data } from './Data';
+import { BehaviorSubject } from '../rx/Rx';
+import { API, WX } from '../mp';
 
-export const HOOK_CONF = {log: true};
+export const HOOK_CONF = { log: true };
 
 /**
  * @field clear 清除输入框内容
@@ -41,20 +41,20 @@ export function HookPage(page: IPage = {}) {
   hookNav(page);
   hookInputEvent(page);
 
-  PageInjectors.forEach(item => {
+  PageInjectors.forEach((item) => {
     if (item.init) {
-      item.init(page)
+      item.init(page);
     }
-  })
+  });
 
   page.zzLife = function () {
     if (!this.__zzLife__) {
-      this.__zzLife__ = new BehaviorSubject("onInit")
+      this.__zzLife__ = new BehaviorSubject('onInit');
     }
-    return this.__zzLife__
+    return this.__zzLife__;
   };
 
-  page.onDataChange = new BehaviorSubject("");
+  page.onDataChange = new BehaviorSubject('');
   page.zzSetData = function () {
     this.setData.apply(this, arguments);
     page.onDataChange.next(arguments);
@@ -62,69 +62,71 @@ export function HookPage(page: IPage = {}) {
 
   // 是否打印周期函数日志
   [
-    "onLoad", "onReady", "onShow", "onHide", "onUnload",
-    "onReachBottom", "onPullDownRefresh", "onPageScroll"
-  ].forEach(method => {
-    let native = page[method];
+    'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload',
+    'onReachBottom', 'onPullDownRefresh', 'onPageScroll',
+  ].forEach((method) => {
+    const native = page[method];
     page[method] = function () {
       page.zzLife.apply(this).next(method);
 
-      if (method == "onLoad") {
+      if (method === 'onLoad') {
         this.options.scene = WX.parsePageScene(this);
-        this.setData({options: this.options});
+        this.setData({ options: this.options });
 
         this.navParams = Nav.navData() || {};
-        Object.keys(this.options).forEach(key => {
+        Object.keys(this.options).forEach((key) => {
           if (!this.navParams.hasOwnProperty(key)) {
             this.navParams[key] = decodeURIComponent(this.options[key]);
           }
         });
 
-        this.route = '/' + this.route;
+        this.route = `/${this.route}`;
 
         if (this.navTitle) UI.navTitle(this.navTitle);
       }
 
-      if (method == "onUnload") {
+      if (method === 'onUnload') {
         // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
         page.onHide.apply(this);
       }
 
-      let args = arguments;
+      const args = arguments;
       if (native) {
         native.apply(this, arguments);
       }
 
-      PageInjectors.forEach(injector => {
+      PageInjectors.forEach((injector) => {
         try {
-          let injectorMethod = injector[method];
-          injectorMethod && injectorMethod(this, args)
+          const injectorMethod = injector[method];
+          injectorMethod && injectorMethod(this, args);
         } catch (ignore) {
         }
       });
 
-      HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
+      if (HOOK_CONF.log && method !== 'onPageScroll') {
+        console.log(method, this.route, this.navTitle);
+      }
     };
   });
 
-  let shareMethod = "onShareAppMessage";
+  const shareMethod = 'onShareAppMessage';
   if (page[shareMethod]) {
-    let native = page[shareMethod];
+    const native = page[shareMethod];
     page[shareMethod] = function () {
-      let message: wx.ShareOptions = native.apply(this, arguments);
+      const message: wx.ShareOptions = native.apply(this, arguments);
 
-      //在分享链接后追加 p={userId}
-      let userId = Data.getUser<any>().id;
+      // 在分享链接后追加 p={userId}
+      const userId = Data.getUser<any>().id;
       if (!message.path) {
         this.options.p = userId;
-        let options = Object.keys(this.options).map(key => `${key}=${this.options[key]}`).join("&");
+        const options = Object.keys(this.options).map((key) => `${key}=${this.options[key]}`).join('&');
         message.path = `${this.route}?${options}`;
-      } else if (message.path.indexOf("p=") == -1) {
-        let separator = message.path.indexOf("?") == -1 ? '?' : '&';
-        message.path += `${separator}p=${userId}`
+      } else if (message.path.indexOf('p=') === -1) {
+        const separator = message.path.indexOf('?') === -1 ? '?' : '&';
+        message.path += `${separator}p=${userId}`;
       }
 
-      console.log("onShareMessage", message);
+      console.log('onShareMessage', message);
       return message;
     };
   }
@@ -139,105 +141,113 @@ export function HookPage(page: IPage = {}) {
  */
 function hookInputEvent(page) {
   // 伪双数据绑定
-  let originInput = page.onInput;
-  page['onInput'] = function (e: WXEvent) {
-    let id = e.currentTarget.id;
+  const originInput = page.onInput;
+  page.onInput = function (e: WXEvent) {
+    const { id } = e.currentTarget;
     if (id) {
-      let rootData = {};
+      const rootData = {};
       let node = rootData;
 
-      let fields = id.split(".");
+      const fields = id.split('.');
       if (fields.length > 1) {
         node = this.data[fields[0]] || {};
         rootData[fields[0]] = node;
         // 去头去尾取节点
         for (let i = 1; i < fields.length - 1; i++) {
-          node = node[fields[i]]
+          node = node[fields[i]];
         }
       }
 
       // vant field 组件detail即value, value 为空时  {value:'' , cursor:0,keyCode:8}
       let value = e.detail;
-      if (value.hasOwnProperty('value')) {
+      if (Object.prototype.hasOwnProperty.call(value, 'value')) {
         value = e.detail.value;
       }
       node[fields[fields.length - 1]] = value;
 
       if (e.detail.code) {
-        node[id + "Code"] = e.detail.code
+        node[`${id}Code`] = e.detail.code;
       }
 
       this.setData(rootData);
     }
-    originInput && originInput.apply(this, arguments);
+    if (typeof originInput === 'function') {
+      originInput.apply(this, arguments);
+    }
   };
 
-
-  let originToggle = page.toggle;
-  page['toggle'] = function (e: WXEvent) {
-    let id = e.currentTarget.id;
+  const originToggle = page.toggle;
+  page.toggle = function (e: WXEvent) {
+    const { id } = e.currentTarget;
     if (id) {
-      let data = {};
+      const data = {};
       data[id] = !this.data[id];
       this.setData(data);
     }
-    originToggle && originToggle.apply(this, arguments);
+    if (typeof originToggle === 'function') {
+      originToggle.apply(this, arguments);
+    }
   };
 
   page.clear = function (e: WXEvent) {
-    let id = e.currentTarget.dataset.name;
+    const id = e.currentTarget.dataset.name;
     if (id) {
-      let rootData = {};
+      const rootData = {};
       let node = rootData;
 
-      let fields = id.split(".");
+      const fields = id.split('.');
       if (fields.length > 1) {
         node = this.data[fields[0]] || {};
         rootData[fields[0]] = node;
         // 去头去尾取节点
         for (let i = 1; i < fields.length - 1; i++) {
-          node = node[fields[i]]
+          node = node[fields[i]];
         }
       }
       node[fields[fields.length - 1]] = null;
       this.setData(rootData);
     }
-    originInput && originInput.apply(this, arguments);
+
+    if (typeof originInput === 'function') {
+      originInput.apply(this, arguments);
+    }
   };
 
-  let originFocus = page.onFocus;
+  const originFocus = page.onFocus;
   page.onFocus = function (e: WXEvent) {
     this.setData({
       focus: e.currentTarget.id || null,
-      keyboardHeight: e.detail.height
+      keyboardHeight: e.detail.height,
     });
-    originFocus && originFocus.apply(this, arguments);
+    if (typeof originFocus === 'function') {
+      originFocus.apply(this, arguments);
+    }
   };
 
   page.view = function (e: WXEvent) {
     let options = {
       current: e.currentTarget.dataset.url,
-      urls: e.currentTarget.dataset.urls
+      urls: e.currentTarget.dataset.urls,
     };
     options = API.completeImgUrl(options);
     wx.previewImage(options);
   };
 
   page.call = function (e: WXEvent) {
-    let mobile = e.currentTarget.dataset.mobile;
+    const { mobile } = e.currentTarget.dataset;
     if (mobile) {
-      wx.makePhoneCall({phoneNumber: mobile})
+      wx.makePhoneCall({ phoneNumber: mobile });
     }
   };
 
-  page.clearFocus = function (e: WXEvent) {
+  page.clearFocus = function () {
     this.setData({
       focus: null,
-      hideKeyboard: true
+      hideKeyboard: true,
     });
     setTimeout(() => {
-      this.setData({hideKeyboard: false})
-    }, 200)
+      this.setData({ hideKeyboard: false });
+    }, 200);
   };
 
   // let originBlur = page.onBlur;
@@ -246,12 +256,13 @@ function hookInputEvent(page) {
   //   originBlur && originBlur.apply(this, arguments);
   // };
 
-  let originBlur = page.onBlur;
-  page.onBlur = function (e: WXEvent) {
-    this.setData({focus: null, keyboardHeight: 0});
-    originBlur && originBlur.apply(this, arguments);
+  const originBlur = page.onBlur;
+  page.onBlur = function () {
+    this.setData({ focus: null, keyboardHeight: 0 });
+    if (typeof originBlur === 'function') {
+      originBlur.apply(this, arguments);
+    }
   };
-
 }
 
 /**
@@ -265,7 +276,7 @@ function hookInputEvent(page) {
  */
 function hookNav(page: IPage) {
   page.nav = function (url: string | WXEvent, data?: any) {
-    if (typeof url == "object") {
+    if (typeof url === 'object') {
       data = url.currentTarget.dataset;
       url = url.currentTarget.dataset.url;
     }
@@ -274,49 +285,49 @@ function hookNav(page: IPage) {
 
     url = url.toString();
 
-    if (url.indexOf("tab:") == 0) {
-      Nav.switchTab(url.replace("tab:", ""))
+    if (url.indexOf('tab:') === 0) {
+      Nav.switchTab(url.replace('tab:', ''));
     } else if (url) {
-      Nav.navForResult(this, url, data)
+      Nav.navForResult(this, url, data);
     }
   };
 
   page.replace = function (url: string) {
-    wx.redirectTo({url: url})
-  }
+    wx.redirectTo({ url });
+  };
 }
 
 PageInjectors.push({
   onShow(page) {
     if (page.showed) {
       if (page.autoRefresh || page.onceRefresh) {
-        page.onPullDownRefresh();         // 满足条件，刷新数据
-        page.onceRefresh = false;         // 重置刷新条件
+        page.onPullDownRefresh(); // 满足条件，刷新数据
+        page.onceRefresh = false; // 重置刷新条件
       }
     } else {
       page.showed = true;
     }
     wx.hideNavigationBarLoading();
-  }
+  },
 });
 
 // 注入 showModal, hideModal
 PageInjectors.push({
   onLoad(page: IPage) {
     page.showModal = (event: WXEvent | string) => {
-      const target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      const {modal = {}} = page.data;
+      const target = typeof event === 'string' ? event : event.currentTarget.dataset.modal;
+      const { modal = {} } = page.data;
       modal[target] = true;
-      page.setData({modal});
+      page.setData({ modal });
 
       modal[target] = false;
     };
 
     page.hideModal = (event: WXEvent | string) => {
-      const target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
-      const {modal = {}} = page.data;
+      const target = typeof event === 'string' ? event : event.currentTarget.dataset.modal;
+      const { modal = {} } = page.data;
       modal[target] = false;
-      page.setData({modal: page.data.modal});
+      page.setData({ modal: page.data.modal });
     };
-  }
+  },
 });

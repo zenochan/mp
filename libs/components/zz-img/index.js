@@ -7,10 +7,10 @@ Component({
         placeholder: true,
         mode: 'aspectFill',
         width: null,
-        specialSize: null
+        specialSize: null,
     },
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     properties: {
         src: {
@@ -21,7 +21,7 @@ Component({
                 else if (!src) {
                     this.setData({ _src: null });
                 }
-                else if (src.indexOf('http') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
+                else if (src.indexOf('http') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf('http') == 0) {
                     this.setData({ _src: config_1.ZZ_IMG_CONFIG.BASE_URL + src });
                 }
                 else {
@@ -30,31 +30,32 @@ Component({
                 this.getImgSize();
             },
         },
+        lazyLoad: { type: Boolean, value: false },
         view: { type: Boolean, value: false },
         qiniu: { type: Boolean, value: false },
         mode: {
             type: String, value: null, observer: function (value) {
                 if (value)
                     this.setData({ mode: value });
-            }
+            },
         },
         scaleToFill: {
             type: Boolean, value: false, observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'scaleToFill' }); });
-            }
+            },
         },
         aspectFit: {
             type: Boolean, value: false, observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFit' }); });
-            }
+            },
         },
         aspectFill: {
             type: Boolean, value: false, observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFill' }); });
-            }
+            },
         },
         widthFix: {
             type: Boolean, value: false, observer: function (value) {
@@ -63,7 +64,7 @@ Component({
                     _this.setData({ mode: 'widthFix' });
                     _this.getImgSize();
                 });
-            }
+            },
         },
     },
     methods: {
@@ -101,14 +102,14 @@ Component({
                         }
                     };
                     fun();
-                }
+                },
             });
-        }
+        },
     },
     ready: function () {
         var _this = this;
-        mp_1.WX.size(".zz-img__ctn", this).subscribe(function (res) { return _this.data.width = res.width; });
-        this.data.qiniu && mp_1.WX.size(".zz-img__size", this).subscribe(function (res) {
+        mp_1.WX.size('.zz-img__ctn', this).subscribe(function (res) { return _this.data.width = res.width; });
+        this.data.qiniu && mp_1.WX.size('.zz-img__size', this).subscribe(function (res) {
             res.width = res.width * config_1.ZZ_IMG_CONFIG.ratio;
             res.height = res.height * config_1.ZZ_IMG_CONFIG.ratio;
             _this.setData({ size: res });

@@ -24,25 +24,25 @@ function HookPage(page) {
     });
     page.zzLife = function () {
         if (!this.__zzLife__) {
-            this.__zzLife__ = new Rx_1.BehaviorSubject("onInit");
+            this.__zzLife__ = new Rx_1.BehaviorSubject('onInit');
         }
         return this.__zzLife__;
     };
-    page.onDataChange = new Rx_1.BehaviorSubject("");
+    page.onDataChange = new Rx_1.BehaviorSubject('');
     page.zzSetData = function () {
         this.setData.apply(this, arguments);
         page.onDataChange.next(arguments);
     };
     // 是否打印周期函数日志
     [
-        "onLoad", "onReady", "onShow", "onHide", "onUnload",
-        "onReachBottom", "onPullDownRefresh", "onPageScroll"
+        'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload',
+        'onReachBottom', 'onPullDownRefresh', 'onPageScroll',
     ].forEach(function (method) {
         var native = page[method];
         page[method] = function () {
             var _this = this;
             page.zzLife.apply(this).next(method);
-            if (method == "onLoad") {
+            if (method === 'onLoad') {
                 this.options.scene = mp_1.WX.parsePageScene(this);
                 this.setData({ options: this.options });
                 this.navParams = nav_1.Nav.navData() || {};
@@ -51,11 +51,11 @@ function HookPage(page) {
                         _this.navParams[key] = decodeURIComponent(_this.options[key]);
                     }
                 });
-                this.route = '/' + this.route;
+                this.route = "/" + this.route;
                 if (this.navTitle)
                     UI_1.UI.navTitle(this.navTitle);
             }
-            if (method == "onUnload") {
+            if (method === 'onUnload') {
                 // 微信 page 框架再 onUnload 周期之前不会调用 onHide，手动调用
                 page.onHide.apply(this);
             }
@@ -71,27 +71,29 @@ function HookPage(page) {
                 catch (ignore) {
                 }
             });
-            exports.HOOK_CONF.log && method != "onPageScroll" && console.log(method, this.route, this.navTitle);
+            if (exports.HOOK_CONF.log && method !== 'onPageScroll') {
+                console.log(method, this.route, this.navTitle);
+            }
         };
     });
-    var shareMethod = "onShareAppMessage";
+    var shareMethod = 'onShareAppMessage';
     if (page[shareMethod]) {
         var native_1 = page[shareMethod];
         page[shareMethod] = function () {
             var _this = this;
             var message = native_1.apply(this, arguments);
-            //在分享链接后追加 p={userId}
+            // 在分享链接后追加 p={userId}
             var userId = Data_1.Data.getUser().id;
             if (!message.path) {
                 this.options.p = userId;
-                var options = Object.keys(this.options).map(function (key) { return key + "=" + _this.options[key]; }).join("&");
+                var options = Object.keys(this.options).map(function (key) { return key + "=" + _this.options[key]; }).join('&');
                 message.path = this.route + "?" + options;
             }
-            else if (message.path.indexOf("p=") == -1) {
-                var separator = message.path.indexOf("?") == -1 ? '?' : '&';
+            else if (message.path.indexOf('p=') === -1) {
+                var separator = message.path.indexOf('?') === -1 ? '?' : '&';
                 message.path += separator + "p=" + userId;
             }
-            console.log("onShareMessage", message);
+            console.log('onShareMessage', message);
             return message;
         };
     }
@@ -106,12 +108,12 @@ exports.HookPage = HookPage;
 function hookInputEvent(page) {
     // 伪双数据绑定
     var originInput = page.onInput;
-    page['onInput'] = function (e) {
+    page.onInput = function (e) {
         var id = e.currentTarget.id;
         if (id) {
             var rootData = {};
             var node = rootData;
-            var fields = id.split(".");
+            var fields = id.split('.');
             if (fields.length > 1) {
                 node = this.data[fields[0]] || {};
                 rootData[fields[0]] = node;
@@ -122,7 +124,7 @@ function hookInputEvent(page) {
             }
             // vant field 组件detail即value, value 为空时  {value:'' , cursor:0,keyCode:8}
             var value = e.detail;
-            if (value.hasOwnProperty('value')) {
+            if (Object.prototype.hasOwnProperty.call(value, 'value')) {
                 value = e.detail.value;
             }
             node[fields[fields.length - 1]] = value;
@@ -131,24 +133,28 @@ function hookInputEvent(page) {
             }
             this.setData(rootData);
         }
-        originInput && originInput.apply(this, arguments);
+        if (typeof originInput === 'function') {
+            originInput.apply(this, arguments);
+        }
     };
     var originToggle = page.toggle;
-    page['toggle'] = function (e) {
+    page.toggle = function (e) {
         var id = e.currentTarget.id;
         if (id) {
             var data = {};
             data[id] = !this.data[id];
             this.setData(data);
         }
-        originToggle && originToggle.apply(this, arguments);
+        if (typeof originToggle === 'function') {
+            originToggle.apply(this, arguments);
+        }
     };
     page.clear = function (e) {
         var id = e.currentTarget.dataset.name;
         if (id) {
             var rootData = {};
             var node = rootData;
-            var fields = id.split(".");
+            var fields = id.split('.');
             if (fields.length > 1) {
                 node = this.data[fields[0]] || {};
                 rootData[fields[0]] = node;
@@ -160,20 +166,24 @@ function hookInputEvent(page) {
             node[fields[fields.length - 1]] = null;
             this.setData(rootData);
         }
-        originInput && originInput.apply(this, arguments);
+        if (typeof originInput === 'function') {
+            originInput.apply(this, arguments);
+        }
     };
     var originFocus = page.onFocus;
     page.onFocus = function (e) {
         this.setData({
             focus: e.currentTarget.id || null,
-            keyboardHeight: e.detail.height
+            keyboardHeight: e.detail.height,
         });
-        originFocus && originFocus.apply(this, arguments);
+        if (typeof originFocus === 'function') {
+            originFocus.apply(this, arguments);
+        }
     };
     page.view = function (e) {
         var options = {
             current: e.currentTarget.dataset.url,
-            urls: e.currentTarget.dataset.urls
+            urls: e.currentTarget.dataset.urls,
         };
         options = mp_1.API.completeImgUrl(options);
         wx.previewImage(options);
@@ -184,11 +194,11 @@ function hookInputEvent(page) {
             wx.makePhoneCall({ phoneNumber: mobile });
         }
     };
-    page.clearFocus = function (e) {
+    page.clearFocus = function () {
         var _this = this;
         this.setData({
             focus: null,
-            hideKeyboard: true
+            hideKeyboard: true,
         });
         setTimeout(function () {
             _this.setData({ hideKeyboard: false });
@@ -200,9 +210,11 @@ function hookInputEvent(page) {
     //   originBlur && originBlur.apply(this, arguments);
     // };
     var originBlur = page.onBlur;
-    page.onBlur = function (e) {
+    page.onBlur = function () {
         this.setData({ focus: null, keyboardHeight: 0 });
-        originBlur && originBlur.apply(this, arguments);
+        if (typeof originBlur === 'function') {
+            originBlur.apply(this, arguments);
+        }
     };
 }
 /**
@@ -216,15 +228,15 @@ function hookInputEvent(page) {
  */
 function hookNav(page) {
     page.nav = function (url, data) {
-        if (typeof url == "object") {
+        if (typeof url === 'object') {
             data = url.currentTarget.dataset;
             url = url.currentTarget.dataset.url;
         }
         if (!url)
             return;
         url = url.toString();
-        if (url.indexOf("tab:") == 0) {
-            nav_1.Nav.switchTab(url.replace("tab:", ""));
+        if (url.indexOf('tab:') === 0) {
+            nav_1.Nav.switchTab(url.replace('tab:', ''));
         }
         else if (url) {
             nav_1.Nav.navForResult(this, url, data);
@@ -246,24 +258,24 @@ exports.PageInjectors.push({
             page.showed = true;
         }
         wx.hideNavigationBarLoading();
-    }
+    },
 });
 // 注入 showModal, hideModal
 exports.PageInjectors.push({
     onLoad: function (page) {
         page.showModal = function (event) {
-            var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
+            var target = typeof event === 'string' ? event : event.currentTarget.dataset.modal;
             var _a = page.data.modal, modal = _a === void 0 ? {} : _a;
             modal[target] = true;
             page.setData({ modal: modal });
             modal[target] = false;
         };
         page.hideModal = function (event) {
-            var target = typeof event == "string" ? event : event.currentTarget.dataset.modal;
+            var target = typeof event === 'string' ? event : event.currentTarget.dataset.modal;
             var _a = page.data.modal, modal = _a === void 0 ? {} : _a;
             modal[target] = false;
             page.setData({ modal: page.data.modal });
         };
-    }
+    },
 });
 //# sourceMappingURL=weapp.js.map

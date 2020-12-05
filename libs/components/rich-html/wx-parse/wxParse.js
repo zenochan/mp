@@ -24,7 +24,7 @@ wx.getSystemInfo({
     success: function (res) {
         realWindowWidth = res.windowWidth;
         realWindowHeight = res.windowHeight;
-    }
+    },
 });
 /**
  * 主函数入口区
@@ -56,7 +56,7 @@ function wxParseImgTap(e) {
     if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
         wx.previewImage({
             current: nowImgUrl,
-            urls: that.data[tagFrom].imageUrls // 需要预览的图片http链接列表
+            urls: that.data[tagFrom].imageUrls,
         });
     }
 }
