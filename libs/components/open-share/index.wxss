@@ -1,1 +1,1 @@
-:host{position:relative;display:block;text-align:center;overflow:hidden}.open_button{position:absolute;width:100%;display:block;opacity:0;z-index:999;left:0;right:0;top:0;bottom:0}
+:host{position:relative;display:block;text-align:center;overflow:hidden;z-index:0}.open_button{position:absolute;width:100%;display:block;opacity:0;z-index:1;left:0;right:0;top:0;bottom:0}
