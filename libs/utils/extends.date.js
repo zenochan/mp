@@ -16,26 +16,30 @@ Date.prototype.weekOfYear = function () {
 };
 Date.prototype.format = function (fmt) {
     var o = {
-        "M+": this.getMonth() + 1,
-        "d+": this.getDate(),
-        "h+": this.getHours() % 12 == 0 ? 12 : this.getHours() % 12,
-        "H+": this.getHours(),
-        "m+": this.getMinutes(),
-        "s+": this.getSeconds(),
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S": this.getMilliseconds() //毫秒
+        'M+': this.getMonth() + 1,
+        'd+': this.getDate(),
+        'h+': this.getHours() % 12 === 0 ? 12 : this.getHours() % 12,
+        'H+': this.getHours(),
+        'm+': this.getMinutes(),
+        's+': this.getSeconds(),
+        'q+': Math.floor((this.getMonth() + 3) / 3),
+        S: this.getMilliseconds(),
     };
-    //年
+    // 年
     if (/(y+)/.test(fmt))
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    //星期
+        fmt = fmt.replace(RegExp.$1, ("" + this.getFullYear()).substr(4 - RegExp.$1.length));
+    // 星期
     if (/(E+)/.test(fmt)) {
-        var week = ["日", "一", "二", "三", "四", "五", "六"];
-        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "星期" : "周") : "") + week[this.getDay()]);
+        var week = ['日', '一', '二', '三', '四', '五', '六'];
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? '星期' : '周') : '') + week[this.getDay()]);
     }
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt))
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1)
+                ? (o[k])
+                : (("00" + o[k]).substr((o[k].toString()).length)));
+        }
+    }
     return fmt;
 };
 Date.prototype.addDay = function (days) {
@@ -43,18 +47,23 @@ Date.prototype.addDay = function (days) {
     return this;
 };
 function now(format) {
-    return new Date().format(format || "yyyy/MM/dd HH:mm:ss");
+    return new Date().format(format || 'yyyy/MM/dd HH:mm:ss');
 }
 exports.now = now;
+// eslint-disable-next-line func-names,no-extend-native
 String.prototype.dateFormat = function (fmt) {
-    if (fmt === void 0) { fmt = "yyyy-MM-dd"; }
+    if (fmt === void 0) { fmt = 'yyyy-MM-dd'; }
     var dateStr = this;
     // yyyy-MM-dd
     if (dateStr.length === 10)
         dateStr += ' 00:00:00';
     // yyyy-MM
-    if (dateStr.length == 7)
+    if (dateStr.length === 7)
         dateStr += '-01 00:00:00';
-    return new Date(dateStr.replace(/-/g, '/')).format(fmt);
+    var date = new Date(dateStr.replace(/-/g, '/'));
+    if (date.toString() === 'Invalid Date') {
+        date = new Date(dateStr);
+    }
+    return date.format(fmt);
 };
 //# sourceMappingURL=extends.date.js.map

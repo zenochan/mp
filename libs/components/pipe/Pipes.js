@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 require("../../utils/extends.date");
+// eslint-disable-next-line import/prefer-default-export
 exports.Pipes = {
     /**
      * 时间处理管道
@@ -15,7 +16,7 @@ exports.Pipes = {
         if (Array.isArray(val)) {
             return val.map(function (item) { return item[key]; });
         }
-        else if (typeof val === 'object') {
+        if (typeof val === 'object') {
             return val[key];
         }
         return '';
@@ -24,22 +25,22 @@ exports.Pipes = {
         return val.join(septor) || '';
     },
     number: function (val, format) {
-        if (val == 0)
+        if (val === 0)
             return '0';
-        var ab = format.split(".");
-        if (ab.length == 2) {
+        var ab = format.split('.');
+        if (ab.length === 2) {
             ab = parseInt(ab[1]);
         }
         else {
             ab = 0;
         }
-        return parseFloat(val + "").toFixed(ab);
+        return parseFloat("" + val).toFixed(ab);
     },
     bigNumber: function (val) {
-        var unit = "W";
-        val = parseInt(val + "");
+        val = parseInt("" + val);
         if (val < 10000)
             return val;
-        return (val / 10000).toFixed(1) + 'W';
-    }
+        return (val / 10000).toFixed(1) + "W";
+    },
 };
+//# sourceMappingURL=Pipes.js.map
