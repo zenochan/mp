@@ -1,23 +1,19 @@
-export class Keywords
-{
-  private static KEY = "keywords:";
+export class Keywords {
+  private static KEY = 'keywords:';
 
-  static data(type: string = 'default')
-  {
-    return wx.getStorageSync(this.KEY + type) || []
+  static data(type: string = 'default') {
+    return wx.getStorageSync(this.KEY + type) || [];
   }
 
-  static save(keyword, type: string = 'default')
-  {
+  static save(keyword, type: string = 'default') {
     let records = this.data(type);
     records.unshift(keyword);
     // @ts-ignore
     records = Array.from(new Set(records));
-    wx.setStorageSync(this.KEY + type, records)
+    wx.setStorageSync(this.KEY + type, records);
   }
 
-  static clear(type?: string)
-  {
-    wx.setStorageSync(type || this.KEY, [])
+  static clear(type: string = 'default') {
+    wx.setStorageSync(this.KEY + type, []);
   }
 }

@@ -16,9 +16,10 @@ var Keywords = /** @class */ (function () {
         wx.setStorageSync(this.KEY + type, records);
     };
     Keywords.clear = function (type) {
-        wx.setStorageSync(type || this.KEY, []);
+        if (type === void 0) { type = 'default'; }
+        wx.setStorageSync(this.KEY + type, []);
     };
-    Keywords.KEY = "keywords:";
+    Keywords.KEY = 'keywords:';
     return Keywords;
 }());
 exports.Keywords = Keywords;
