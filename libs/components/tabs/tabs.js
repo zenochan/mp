@@ -25,7 +25,8 @@ Component({
             var scrollLeft = target.offsetLeft - this.data.screenW / 2 + width / 2;
             this.setData({ scrollLeft: scrollLeft });
         },
-        active: function (_target) {
+        active: function (_target, trigger) {
+            if (trigger === void 0) { trigger = true; }
             var target = _target;
             var items = this.getRelationNodes('tab-item');
             if (typeof target === 'number') {
@@ -43,7 +44,9 @@ Component({
             var data = {};
             data[this.data.name] = active;
             this.page.setData(data);
-            this.triggerEvent('change', { active: active, data: target.dataset });
+            if (trigger) {
+                this.triggerEvent('change', { active: active, data: target.dataset });
+            }
         },
     },
     attached: function () {
@@ -52,7 +55,7 @@ Component({
         this.page = WX_1.WX.page();
     },
     ready: function () {
-        this.active(this.data.active);
+        this.active(this.data.active, false);
     },
 });
 //# sourceMappingURL=tabs.js.map

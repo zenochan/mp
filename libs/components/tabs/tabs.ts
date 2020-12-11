@@ -27,7 +27,7 @@ Component({
       this.setData({ scrollLeft });
     },
 
-    active(_target: any | number) {
+    active(_target: any | number, trigger: boolean = true) {
       let target = _target;
       const items = this.getRelationNodes('tab-item');
       if (typeof target === 'number') {
@@ -47,7 +47,9 @@ Component({
       data[this.data.name] = active;
       this.page.setData(data);
 
-      this.triggerEvent('change', { active, data: target.dataset });
+      if (trigger) {
+        this.triggerEvent('change', { active, data: target.dataset });
+      }
     },
   },
 
@@ -56,7 +58,8 @@ Component({
     this.data.screenW = wx.getSystemInfoSync().windowWidth;
     this.page = WX.page();
   },
+
   ready() {
-    this.active(this.data.active);
+    this.active(this.data.active, false);
   },
 });
