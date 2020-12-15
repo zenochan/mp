@@ -34,12 +34,12 @@ export class Nav {
     const options = {
       url: to.page(),
       fail: (res) => {
-        if (res.errMsg.indexOf('can not navigateTo a tab bar page') != -1) {
+        if (res.errMsg.indexOf('can not navigateTo a tab bar page') !== -1) {
           this.switchTab(to.page());
-        } else if (res.errMsg.indexOf('fail page') != -1) {
+        } else if (res.errMsg.indexOf('fail page') !== -1) {
           UI.toastFail('页面不存在');
           console.warn(`页面不存在：${to.page()}`);
-        } else if (res.errMsg.contains('tabbar')) {
+        } else if (res.errMsg.indexOf('tabbar') !== -1) {
           this.switchTab(to.page());
         } else {
           UI.toastFail(res.errMsg, 3000);
