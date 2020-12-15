@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var UI_1 = require("./UI");
 var WX_1 = require("./WX");
+var UI_1 = require("./UI");
 var Nav = /** @class */ (function () {
     function Nav() {
     }
     Nav.nav = function (options) {
         var _this = this;
         var op;
-        if (typeof options == 'string') {
+        if (typeof options === 'string') {
             op = { url: options };
         }
         else {
@@ -33,19 +33,22 @@ var Nav = /** @class */ (function () {
         var options = {
             url: to.page(),
             fail: function (res) {
-                if (res.errMsg.indexOf("can not navigateTo a tab bar page") != -1) {
+                if (res.errMsg.indexOf('can not navigateTo a tab bar page') != -1) {
                     _this.switchTab(to.page());
                 }
-                else if (res.errMsg.indexOf("fail page") != -1) {
-                    UI_1.UI.toastFail("页面不存在");
-                    console.warn("页面不存在：" + to.page());
+                else if (res.errMsg.indexOf('fail page') != -1) {
+                    UI_1.UI.toastFail('页面不存在');
+                    console.warn("\u9875\u9762\u4E0D\u5B58\u5728\uFF1A" + to.page());
+                }
+                else if (res.errMsg.contains('tabbar')) {
+                    _this.switchTab(to.page());
                 }
                 else {
                     UI_1.UI.toastFail(res.errMsg, 3000);
                 }
-            }
+            },
         };
-        if (redirect || to.url == from.url) {
+        if (redirect || to.url === from.url) {
             wx.redirectTo(options);
         }
         else {
@@ -80,23 +83,27 @@ var Nav = /** @class */ (function () {
     Nav.switchTab = function (page) {
         wx.switchTab({
             url: page,
-            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); }
+            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); },
         });
     };
     /**
      * 数据有变化， 上一个页面需要刷新
      */
     Nav.refreshPre = function () {
-        WX_1.WX.pagePre().subscribe(function (page) { return page.onceRefresh = true; });
+        WX_1.WX.pagePre().subscribe(function (page) {
+            page.onceRefresh = true;
+        });
     };
     Nav.navBack = function (data) {
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 2];
         if (prePage && prePage.holder) {
             // 需要等待上衣页面 onShow 后再传回参数, 否则后续页面的 modal 会在当前页面出现，然后跟随页面消失
-            prePage.zzLife().filter(function (res) { return res == "onShow"; }).take(1).subscribe(function (res) {
+            prePage.zzLife().filter(function (res) { return res === 'onShow'; }).take(1).subscribe(function () {
                 var cb = prePage.holder.onResult;
-                cb && cb(data);
+                if (typeof cb === 'function') {
+                    cb(data);
+                }
                 prePage.holder.onResult = null;
             });
         }
@@ -110,7 +117,7 @@ var Nav = /** @class */ (function () {
             wx.reLaunch({ url: this.INDEX });
         }
     };
-    Nav.INDEX = "/pages/index/index";
+    Nav.INDEX = '/pages/index/index';
     return Nav;
 }());
 exports.Nav = Nav;
@@ -120,7 +127,7 @@ var Route = /** @class */ (function () {
     Route.prototype.page = function () {
         var url = this.url;
         if (this.query) {
-            url += '?' + this.query;
+            url += "?" + this.query;
         }
         return url;
     };
@@ -132,11 +139,11 @@ var Route = /** @class */ (function () {
     };
     Route.checkUrl = function (url) {
         if (/^(pages|package)/.test(url)) {
-            url = '/' + url;
+            url = "/" + url;
         }
         if (!/^\//.test(url)) {
-            var currUrl = '/' + WX_1.WX.page().route;
-            url = currUrl.substring(0, currUrl.lastIndexOf('/')) + '/' + url;
+            var currUrl = "/" + WX_1.WX.page().route;
+            url = currUrl.substring(0, currUrl.lastIndexOf('/')) + "/" + url;
             url = url.replace(/[^/]+\/\.\.\//, '')
                 .replace(/\/\//g, '/');
         }
@@ -151,13 +158,11 @@ function runQueue(queue, fn, cb) {
         if (index >= queue.length) {
             cb();
         }
+        else if (queue[index]) {
+            fn(queue[index], function () { return step(index + 1); });
+        }
         else {
-            if (queue[index]) {
-                fn(queue[index], function () { return step(index + 1); });
-            }
-            else {
-                step(index + 1);
-            }
+            step(index + 1);
         }
     };
     step(0);

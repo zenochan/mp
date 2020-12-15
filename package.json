@@ -33,7 +33,9 @@
       "no-param-reassign": "warn",
       "no-undef": "warn",
       "prefer-rest-params": "warn",
-      "no-plusplus": "warn"
+      "no-plusplus": "warn",
+      "eqeqeq": "warn",
+      "no-use-before-define": "warn"
     }
   },
   "dependencies": {
