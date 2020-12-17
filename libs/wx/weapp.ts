@@ -4,7 +4,10 @@ import { Data } from './Data';
 import { BehaviorSubject } from '../rx/Rx';
 import { API, WX } from '../mp';
 
-export const HOOK_CONF = { log: true };
+export const HOOK_CONF = {
+  log: true,
+  shareUserIdKey: 'p',
+};
 
 /**
  * @field clear 清除输入框内容
@@ -121,9 +124,9 @@ export function HookPage(page: IPage = {}) {
         this.options.p = userId;
         const options = Object.keys(this.options).map((key) => `${key}=${this.options[key]}`).join('&');
         message.path = `${this.route}?${options}`;
-      } else if (message.path.indexOf('p=') === -1) {
+      } else if (message.path.indexOf(`${HOOK_CONF.shareUserIdKey}=`) === -1) {
         const separator = message.path.indexOf('?') === -1 ? '?' : '&';
-        message.path += `${separator}p=${userId}`;
+        message.path += `${separator}${HOOK_CONF.shareUserIdKey}=${userId}`;
       }
 
       console.log('onShareMessage', message);

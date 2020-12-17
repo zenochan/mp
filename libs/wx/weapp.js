@@ -5,7 +5,10 @@ var UI_1 = require("./UI");
 var Data_1 = require("./Data");
 var Rx_1 = require("../rx/Rx");
 var mp_1 = require("../mp");
-exports.HOOK_CONF = { log: true };
+exports.HOOK_CONF = {
+    log: true,
+    shareUserIdKey: 'p',
+};
 exports.PageInjectors = [];
 /**
  * 在 Page 的基础上加入周期函数 hook
@@ -89,9 +92,9 @@ function HookPage(page) {
                 var options = Object.keys(this.options).map(function (key) { return key + "=" + _this.options[key]; }).join('&');
                 message.path = this.route + "?" + options;
             }
-            else if (message.path.indexOf('p=') === -1) {
+            else if (message.path.indexOf(exports.HOOK_CONF.shareUserIdKey + "=") === -1) {
                 var separator = message.path.indexOf('?') === -1 ? '?' : '&';
-                message.path += separator + "p=" + userId;
+                message.path += "" + separator + exports.HOOK_CONF.shareUserIdKey + "=" + userId;
             }
             console.log('onShareMessage', message);
             return message;
