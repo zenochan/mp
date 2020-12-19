@@ -42,7 +42,7 @@ var UI = /** @class */ (function () {
     };
     /** 不能通过点击遮罩消失 */
     UI.showModal = function (options, ignoreCancel) {
-        if (ignoreCancel === void 0) { ignoreCancel = false; }
+        if (ignoreCancel === void 0) { ignoreCancel = true; }
         if (typeof options.content === 'object')
             options.content = JSON.stringify(options.content);
         if (!options.confirmColor)

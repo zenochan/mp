@@ -42,7 +42,7 @@ export class UI {
   }
 
   /** 不能通过点击遮罩消失 */
-  static showModal(options: ModalOptions, ignoreCancel: boolean = false): Rx.Observable<boolean> {
+  static showModal(options: ModalOptions, ignoreCancel: boolean = true): Rx.Observable<boolean> {
     if (typeof options.content === 'object') options.content = JSON.stringify(options.content);
 
     if (!options.confirmColor) options.confirmColor = UI.colorPrimary;
