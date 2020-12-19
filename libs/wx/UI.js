@@ -4,16 +4,16 @@ var Rx = require("../rx/Rx");
 var UI = /** @class */ (function () {
     function UI() {
     }
-    //<editor-fold desc="交互反馈">
+    // <editor-fold desc="交互反馈">
     UI.showLoading = function (msgOrOptions) {
-        if (msgOrOptions === void 0) { msgOrOptions = "加载中"; }
+        if (msgOrOptions === void 0) { msgOrOptions = '加载中'; }
         var options;
-        if (typeof msgOrOptions == 'object') {
+        if (typeof msgOrOptions === 'object') {
             options = msgOrOptions;
         }
         else {
             options = {
-                title: msgOrOptions
+                title: msgOrOptions,
             };
         }
         options.mask = true;
@@ -25,15 +25,15 @@ var UI = /** @class */ (function () {
     UI.loading = function (show) {
         if (show === void 0) { show = false; }
         if (show) {
-            wx.showLoading({ title: typeof show === "string" ? show : "加载中..." });
+            wx.showLoading({ title: typeof show === 'string' ? show : '加载中...' });
         }
         else {
             wx.hideLoading();
         }
     };
     UI.showToast = function (msgOrOptions) {
-        var options = typeof msgOrOptions !== "object"
-            ? { title: msgOrOptions + "" }
+        var options = typeof msgOrOptions !== 'object'
+            ? { title: "" + msgOrOptions }
             : msgOrOptions;
         wx.showToast(options);
     };
@@ -41,12 +41,14 @@ var UI = /** @class */ (function () {
         wx.hideToast();
     };
     /** 不能通过点击遮罩消失 */
-    UI.showModal = function (options) {
-        if (typeof options.content == "object")
+    UI.showModal = function (options, ignoreCancel) {
+        if (ignoreCancel === void 0) { ignoreCancel = false; }
+        if (typeof options.content === 'object')
             options.content = JSON.stringify(options.content);
         if (!options.confirmColor)
             options.confirmColor = UI.colorPrimary;
-        var behavor = new Rx.BehaviorSubject("ignore").filter(function (res) { return res == true; });
+        var behavor = new Rx.BehaviorSubject('ignore')
+            .filter(function (res) { return (ignoreCancel && res === true) || res !== 'ignore'; });
         options.success = function (res) {
             if (res.confirm)
                 behavor.next(true);
@@ -65,11 +67,11 @@ var UI = /** @class */ (function () {
     };
     /** 不能通过点击遮罩消失 */
     UI.showModalWithCancel = function (options) {
-        if (typeof options.content == "object")
+        if (typeof options.content === 'object')
             options.content = JSON.stringify(options.content);
         if (!options.confirmColor)
             options.confirmColor = UI.colorPrimary;
-        var sub = new Rx.BehaviorSubject("ignore").filter(function (res) { return res != "ignore"; });
+        var sub = new Rx.BehaviorSubject('ignore').filter(function (res) { return res != 'ignore'; });
         options.success = function (res) {
             if (res.confirm)
                 sub.next(true);
@@ -83,12 +85,12 @@ var UI = /** @class */ (function () {
     };
     /** 不能通过点击遮罩消失 */
     UI.alert = function (content, confirm, title) {
-        if (confirm === void 0) { confirm = "确定"; }
-        if (title === void 0) { title = "提示"; }
+        if (confirm === void 0) { confirm = '确定'; }
+        if (title === void 0) { title = '提示'; }
         UI.loading();
-        if (typeof content == "object")
+        if (typeof content === 'object')
             content = JSON.stringify(content);
-        var sub = new Rx.BehaviorSubject("ignore").filter(function (res) { return res == true; });
+        var sub = new Rx.BehaviorSubject('ignore').filter(function (res) { return res == true; });
         UI.showModal({
             title: title,
             content: content,
@@ -98,21 +100,21 @@ var UI = /** @class */ (function () {
             complete: function () {
                 sub.next(true);
                 sub.complete();
-            }
+            },
         });
         return sub;
     };
     /** 不能通过点击遮罩消失 */
     UI.confirm = function (content, confirm, title) {
         if (confirm === void 0) { confirm = '确定'; }
-        if (title === void 0) { title = "提示"; }
-        if (typeof content == "object")
+        if (title === void 0) { title = '提示'; }
+        if (typeof content === 'object')
             content = JSON.stringify(content);
         return UI.showModal({
             title: title,
             content: content,
             confirmText: confirm,
-            confirmColor: UI.colorPrimary
+            confirmColor: UI.colorPrimary,
         });
     };
     /**
@@ -127,11 +129,11 @@ var UI = /** @class */ (function () {
                     sub.next(res.tapIndex);
                     sub.complete();
                 },
-                fail: function (res) { return sub.error(res.errMsg); }
+                fail: function (res) { return sub.error(res.errMsg); },
             });
         });
     };
-    //</editor-fold>
+    // </editor-fold>
     /**
      * @param {"#ffffff" | "#000000"} frontColor 导航栏前景色，包括标题，按钮, 状态栏
      * @param {String} bgColor 导航栏背景色
@@ -156,7 +158,7 @@ var UI = /** @class */ (function () {
         }
     };
     UI.navLoadingHandler = function (page, count) {
-        var key = "netCount";
+        var key = 'netCount';
         if (!page[key])
             page[key] = 0;
         page[key] += count;
@@ -165,27 +167,27 @@ var UI = /** @class */ (function () {
         this.navLoading(page[key] > 0);
     };
     UI.toastSuccess = function (msg, complete) {
-        if (complete === void 0) { complete = function () { }; }
-        if (typeof msg != "string")
+        if (complete === void 0) { complete = (function () { return undefined; }); }
+        if (typeof msg !== 'string')
             msg = JSON.stringify(msg);
         wx.showToast({
             title: msg,
             icon: 'success',
             duration: 1000,
-            complete: function () { return complete(); }
+            complete: function () { return complete(); },
         });
     };
     UI.toastFail = function (msg, duration) {
         if (duration === void 0) { duration = 1000; }
-        if (typeof msg != "string")
+        if (typeof msg !== 'string')
             msg = JSON.stringify(msg);
         wx.showToast({
             title: msg,
             icon: 'none',
-            duration: duration
+            duration: duration,
         });
     };
-    UI.colorPrimary = "#9A52D3";
+    UI.colorPrimary = '#9A52D3';
     return UI;
 }());
 exports.UI = UI;

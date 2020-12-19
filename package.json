@@ -35,7 +35,9 @@
       "prefer-rest-params": "warn",
       "no-plusplus": "warn",
       "eqeqeq": "warn",
-      "no-use-before-define": "warn"
+      "no-use-before-define": "warn",
+      "no-tabs": "off",
+      "no-multi-spaces": "off"
     }
   },
   "dependencies": {
