@@ -66,4 +66,7 @@ String.prototype.dateFormat = function (fmt) {
     }
     return date.format(fmt);
 };
+String.prototype.dateParse = function () {
+    return Date.parse(this.replace(/-/g, '/'));
+};
 //# sourceMappingURL=extends.date.js.map

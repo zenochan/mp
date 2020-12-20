@@ -11,7 +11,8 @@ declare global {
     /**
      * @param fmt "yyyy-MM-dd HH:mm:ss EE"
      */
-    dateFormat: Function
+    dateFormat: (fmt: string) => string
+    dateParse: () => number
   }
 }
 
@@ -85,4 +86,8 @@ String.prototype.dateFormat = function (fmt: string = 'yyyy-MM-dd') {
     date = new Date(dateStr);
   }
   return date.format(fmt);
+};
+
+String.prototype.dateParse = function () {
+  return Date.parse(this.replace(/-/g, '/'));
 };
