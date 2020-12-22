@@ -13,9 +13,9 @@ import ScanCodeResult = wx.ScanCodeResult;
  * # 开放接口
  */
 export class WX {
-  static saveImageToPhotosAlbum(src) {
+  static saveImageToPhotosAlbum(src, denied: () => void) {
     WX.authorize('scope.writePhotosAlbum')
-      .flatMap((res) => WX.getImageInfo(src))
+      .flatMap(() => WX.getImageInfo(src))
       .subscribe((res) => {
         wx.saveImageToPhotosAlbum({
           filePath: res.path,
@@ -23,12 +23,7 @@ export class WX {
         });
       }, (e) => {
         if ((e.errMsg || '').indexOf('authorize:fail') != -1) {
-          UI.showModal({
-            title: '提示',
-            content: '需要保存到相册权限, 是否现在去设置？',
-            confirmText: '打开设置',
-            cancelText: '取消',
-          }).subscribe((res) => wx.openSetting());
+          denied();
         } else {
           UI.toastFail(e);
         }

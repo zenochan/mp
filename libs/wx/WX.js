@@ -12,9 +12,9 @@ var Events_1 = require("./Events");
 var WX = /** @class */ (function () {
     function WX() {
     }
-    WX.saveImageToPhotosAlbum = function (src) {
+    WX.saveImageToPhotosAlbum = function (src, denied) {
         WX.authorize('scope.writePhotosAlbum')
-            .flatMap(function (res) { return WX.getImageInfo(src); })
+            .flatMap(function () { return WX.getImageInfo(src); })
             .subscribe(function (res) {
             wx.saveImageToPhotosAlbum({
                 filePath: res.path,
@@ -22,12 +22,7 @@ var WX = /** @class */ (function () {
             });
         }, function (e) {
             if ((e.errMsg || '').indexOf('authorize:fail') != -1) {
-                UI_1.UI.showModal({
-                    title: '提示',
-                    content: '需要保存到相册权限, 是否现在去设置？',
-                    confirmText: '打开设置',
-                    cancelText: '取消',
-                }).subscribe(function (res) { return wx.openSetting(); });
+                denied();
             }
             else {
                 UI_1.UI.toastFail(e);
