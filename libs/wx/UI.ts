@@ -48,7 +48,7 @@ export class UI {
     if (!options.confirmColor) options.confirmColor = UI.colorPrimary;
 
     const behavor = new Rx.BehaviorSubject('ignore')
-      .filter((res) => (ignoreCancel && res === true) || res !== 'ignore');
+      .filter((res) => res !== 'ignore' && (ignoreCancel || res === true));
 
     options.success = (res) => {
       if (res.confirm) behavor.next(true);

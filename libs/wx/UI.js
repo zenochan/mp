@@ -48,7 +48,7 @@ var UI = /** @class */ (function () {
         if (!options.confirmColor)
             options.confirmColor = UI.colorPrimary;
         var behavor = new Rx.BehaviorSubject('ignore')
-            .filter(function (res) { return (ignoreCancel && res === true) || res !== 'ignore'; });
+            .filter(function (res) { return res !== 'ignore' && (ignoreCancel || res === true); });
         options.success = function (res) {
             if (res.confirm)
                 behavor.next(true);
