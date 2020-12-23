@@ -42,17 +42,16 @@ export class UI {
   }
 
   /** 不能通过点击遮罩消失 */
-  static showModal(options: ModalOptions, ignoreCancel: boolean = true): Rx.Observable<boolean> {
+  static showModal(options: ModalOptions): Rx.Observable<boolean> {
     if (typeof options.content === 'object') options.content = JSON.stringify(options.content);
 
     if (!options.confirmColor) options.confirmColor = UI.colorPrimary;
 
     const behavor = new Rx.BehaviorSubject('ignore')
-      .filter((res) => res !== 'ignore' && (ignoreCancel || res === true));
+      .filter((res) => res !== 'ignore');
 
     options.success = (res) => {
       if (res.confirm) behavor.next(true);
-      if (res.cancel) behavor.next(false);
       behavor.complete();
     };
 
@@ -73,7 +72,7 @@ export class UI {
 
     if (!options.confirmColor) options.confirmColor = UI.colorPrimary;
 
-    const sub = new Rx.BehaviorSubject('ignore').filter((res) => res != 'ignore');
+    const sub = new Rx.BehaviorSubject('ignore').filter((res) => res !== 'ignore');
 
     options.success = (res) => {
       if (res.confirm) sub.next(true);

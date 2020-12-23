@@ -41,19 +41,16 @@ var UI = /** @class */ (function () {
         wx.hideToast();
     };
     /** 不能通过点击遮罩消失 */
-    UI.showModal = function (options, ignoreCancel) {
-        if (ignoreCancel === void 0) { ignoreCancel = true; }
+    UI.showModal = function (options) {
         if (typeof options.content === 'object')
             options.content = JSON.stringify(options.content);
         if (!options.confirmColor)
             options.confirmColor = UI.colorPrimary;
         var behavor = new Rx.BehaviorSubject('ignore')
-            .filter(function (res) { return res !== 'ignore' && (ignoreCancel || res === true); });
+            .filter(function (res) { return res !== 'ignore'; });
         options.success = function (res) {
             if (res.confirm)
                 behavor.next(true);
-            if (res.cancel)
-                behavor.next(false);
             behavor.complete();
         };
         options.fail = function (res) {
@@ -71,7 +68,7 @@ var UI = /** @class */ (function () {
             options.content = JSON.stringify(options.content);
         if (!options.confirmColor)
             options.confirmColor = UI.colorPrimary;
-        var sub = new Rx.BehaviorSubject('ignore').filter(function (res) { return res != 'ignore'; });
+        var sub = new Rx.BehaviorSubject('ignore').filter(function (res) { return res !== 'ignore'; });
         options.success = function (res) {
             if (res.confirm)
                 sub.next(true);
