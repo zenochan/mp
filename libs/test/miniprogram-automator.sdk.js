@@ -35,8 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-ignore
-// tslint:disable-next-line:no-var-requires
+// eslint-disable-next-line import/no-unresolved
 var automator = require('miniprogram-automator');
 var ZzTester = /** @class */ (function () {
     function ZzTester(name, tests) {
@@ -73,7 +72,7 @@ var ZzTester = /** @class */ (function () {
         return automator.connect({ wsEndpoint: "ws://localhost:" + port });
     };
     ZzTester.prototype.input = function (values) {
-        this.app.currentPage().then(function (page) {
+        return this.app.currentPage().then(function (page) {
             Object.keys(values).forEach(function (key) {
                 page.$(key).then(function (el) { return el.input(values[key]); });
             });

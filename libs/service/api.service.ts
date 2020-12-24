@@ -24,7 +24,7 @@ export class API {
 
   static resHandler: (res: Res, sub) => void = null;
   static headerInterceptor: (header: { Authorization?: string, [key: string]: any }) => wx.IData = null;
-  static pathInterceptor: (path: string) => string = null;
+  static pathInterceptor: (path: string, data?: any) => string = null;
 
   static config(config: {
     host: string,
@@ -190,7 +190,7 @@ export class API {
     }
 
     if (this.pathInterceptor) {
-      options.url = this.pathInterceptor(options.url);
+      options.url = this.pathInterceptor(options.url, options.data);
     }
     options.header = this.tokenHeader();
 

@@ -1,5 +1,4 @@
-// @ts-ignore
-// tslint:disable-next-line:no-var-requires
+// eslint-disable-next-line import/no-unresolved
 const automator: MiniProgramAutomator = require('miniprogram-automator');
 
 export default class ZzTester {
@@ -33,7 +32,7 @@ export default class ZzTester {
   }
 
   input(values: { [key: string]: string }) {
-    this.app.currentPage().then((page) => {
+    return this.app.currentPage().then((page) => {
       Object.keys(values).forEach((key) => {
         page.$(key).then((el) => el.input(values[key]));
       });

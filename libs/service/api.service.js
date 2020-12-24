@@ -163,7 +163,7 @@ var API = /** @class */ (function () {
             options.url = this.API_BASE + options.url;
         }
         if (this.pathInterceptor) {
-            options.url = this.pathInterceptor(options.url);
+            options.url = this.pathInterceptor(options.url, options.data);
         }
         options.header = this.tokenHeader();
         this.counter++;
