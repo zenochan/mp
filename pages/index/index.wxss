@@ -1,1 +1,1 @@
-:host{background:white}.name{line-height:80rpx;font-weight:600;padding:0 32rpx;font-size:32rpx;color:#333;text-align:center}.item{font-size:28rpx;padding:0 32rpx;color:#333;line-height:80rpx}
+:host{background:white}.name{line-height:80px;font-weight:600;padding:0 32px;font-size:32px;color:#333;text-align:center}.item{font-size:28px;padding:0 32px;color:#333;line-height:80px}

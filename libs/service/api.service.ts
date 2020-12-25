@@ -31,7 +31,7 @@ export class API {
     imgBase: string,
     resHandler?: (res: Res, sub) => void,
     headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => wx.IData
-    pathInterceptor?: (path: string) => string
+    pathInterceptor?: (path: string, data: any) => string
   }) {
     this.API_BASE = config.host;
     this.IMG_BASE = config.imgBase;

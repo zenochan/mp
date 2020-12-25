@@ -65,3 +65,4 @@ Component({
         this.setData({ show: getCurrentPages().length == 1 });
     },
 });
+//# sourceMappingURL=index.js.map
