@@ -189,6 +189,12 @@ export class API {
       options.url = this.API_BASE + options.url;
     }
 
+    if (options.data) {
+      options.data = JSON.stringify(options.data);
+    } else {
+      options.data = '';
+    }
+
     if (this.pathInterceptor) {
       options.url = this.pathInterceptor(options.url, options.data);
     }
