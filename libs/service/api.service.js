@@ -20,6 +20,7 @@ var API = /** @class */ (function () {
         this.resHandler = config.resHandler;
         this.headerInterceptor = config.headerInterceptor;
         this.pathInterceptor = config.pathInterceptor;
+        this.optionsInterceptor = config.optionsInterceptor;
     };
     API.get = function (url, query) {
         if (query === void 0) { query = null; }
@@ -171,6 +172,9 @@ var API = /** @class */ (function () {
         if (this.pathInterceptor) {
             options.url = this.pathInterceptor(options.url, options.data);
         }
+        if (this.optionsInterceptor) {
+            options = this.optionsInterceptor(options);
+        }
         options.header = this.tokenHeader();
         this.counter++;
         wx.showNavigationBarLoading();
@@ -218,7 +222,11 @@ var API = /** @class */ (function () {
     API.IMG_BASE = '';
     API.resHandler = null;
     API.headerInterceptor = null;
+    /**
+     * @deprecated use {@link optionsInterceptor} instead
+     */
     API.pathInterceptor = null;
+    API.optionsInterceptor = null;
     return API;
 }());
 exports.API = API;

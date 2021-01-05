@@ -1,6 +1,7 @@
 import { Data } from '../wx/Data';
 import { Observable } from '../rx/Rx';
 import { UI } from '../wx/UI';
+import RequestOption = WechatMiniprogram.RequestOption;
 
 export interface Res {
   statusCode: number;
@@ -24,13 +25,21 @@ export class API {
 
   static resHandler: (res: Res, sub) => void = null;
   static headerInterceptor: (header: { Authorization?: string, [key: string]: any }) => wx.IData = null;
+  /**
+   * @deprecated use {@link optionsInterceptor} instead
+   */
   static pathInterceptor: (path: string, data?: any) => string = null;
+  private static optionsInterceptor?: (options: RequestOption) => RequestOption = null;
 
   static config(config: {
     host: string,
     imgBase: string,
     resHandler?: (res: Res, sub) => void,
     headerInterceptor?: (header: { Authorization?: string, [key: string]: any }) => wx.IData
+    optionsInterceptor?: (options: RequestOption) => RequestOption
+    /**
+     * @deprecated use {@link optionsInterceptor} instead
+     */
     pathInterceptor?: (path: string, data: any) => string
   }) {
     this.API_BASE = config.host;
@@ -38,6 +47,7 @@ export class API {
     this.resHandler = config.resHandler;
     this.headerInterceptor = config.headerInterceptor;
     this.pathInterceptor = config.pathInterceptor;
+    this.optionsInterceptor = config.optionsInterceptor;
   }
 
 
@@ -198,6 +208,11 @@ export class API {
     if (this.pathInterceptor) {
       options.url = this.pathInterceptor(options.url, options.data);
     }
+
+    if (this.optionsInterceptor) {
+      options = this.optionsInterceptor(options);
+    }
+
     options.header = this.tokenHeader();
 
     this.counter++;
