@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
@@ -56,23 +64,24 @@ var API = /** @class */ (function () {
         var _this = this;
         if (form === void 0) { form = {}; }
         var url = this.API_BASE + 'upload';
+        var options = {
+            url: url,
+            filePath: filePath,
+            header: this.tokenHeader(),
+            name: 'photo',
+            formData: form,
+        };
         if (this.pathInterceptor) {
-            url = this.pathInterceptor(url);
+            options.url = this.pathInterceptor(options.url);
+        }
+        if (this.optionsInterceptor) {
+            options = this.optionsInterceptor(options);
         }
         return Rx_1.Observable.create(function (sub) {
-            wx.uploadFile({
-                url: url,
-                filePath: filePath,
-                header: _this.tokenHeader(),
-                name: 'photo',
-                formData: form,
-                success: function (res) {
+            wx.uploadFile(__assign({}, options, { success: function (res) {
                     var data = JSON.parse(res.data);
                     _this.handlerRes({ statusCode: 200, data: data }, sub);
-                },
-                fail: function (e) { return sub.error(e); },
-                complete: function () { return sub.complete(); },
-            });
+                }, fail: function (e) { return sub.error(e); }, complete: function () { return sub.complete(); } }));
         });
     };
     API.uploadMore = function (options) {

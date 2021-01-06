@@ -33,8 +33,8 @@ export default class ZzTester {
 
   input(values: { [key: string]: string }) {
     return this.app.currentPage().then((page) => {
-      Object.keys(values).forEach((key) => {
-        page.$(key).then((el) => el.input(values[key]));
+      Object.keys(values).forEach(async (key) => {
+        await page.$(key).then((el) => el.input(values[key]));
       });
     });
   }

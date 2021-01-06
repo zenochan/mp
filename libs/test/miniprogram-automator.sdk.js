@@ -72,10 +72,18 @@ var ZzTester = /** @class */ (function () {
         return automator.connect({ wsEndpoint: "ws://localhost:" + port });
     };
     ZzTester.prototype.input = function (values) {
+        var _this = this;
         return this.app.currentPage().then(function (page) {
-            Object.keys(values).forEach(function (key) {
-                page.$(key).then(function (el) { return el.input(values[key]); });
-            });
+            Object.keys(values).forEach(function (key) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, page.$(key).then(function (el) { return el.input(values[key]); })];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
         });
     };
     ZzTester.prototype.tap = function (selector) {

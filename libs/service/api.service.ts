@@ -84,17 +84,26 @@ export class API {
 
   static upload(filePath: string, form: { old_file?: string } = {}): Observable<wx.UploadFileResult> {
     let url = this.API_BASE + 'upload';
+
+    let options: any = {
+      url,
+      filePath,
+      header: this.tokenHeader(),
+      name: 'photo',
+      formData: form,
+    };
+
     if (this.pathInterceptor) {
-      url = this.pathInterceptor(url);
+      options.url = this.pathInterceptor(options.url);
+    }
+
+    if (this.optionsInterceptor) {
+      options = this.optionsInterceptor(options);
     }
 
     return Observable.create(sub => {
       wx.uploadFile({
-        url,
-        filePath,
-        header: this.tokenHeader(),
-        name: 'photo',
-        formData: form,
+        ...options,
         success: res => {
           const data = JSON.parse(res.data);
           this.handlerRes({ statusCode: 200, data }, sub);
