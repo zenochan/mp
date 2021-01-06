@@ -34,7 +34,7 @@ export class Nav {
     const options = {
       url: to.page(),
       fail: (res) => {
-        if (res.errMsg.indexOf('can not navigateTo a tab bar page') !== -1) {
+        if (res.errMsg.indexOf('tab') !== -1) {
           this.switchTab(to.page());
         } else if (res.errMsg.indexOf('fail page') !== -1) {
           UI.toastFail('页面不存在');

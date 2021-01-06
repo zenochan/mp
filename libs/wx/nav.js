@@ -33,7 +33,7 @@ var Nav = /** @class */ (function () {
         var options = {
             url: to.page(),
             fail: function (res) {
-                if (res.errMsg.indexOf('can not navigateTo a tab bar page') !== -1) {
+                if (res.errMsg.indexOf('tab') !== -1) {
                     _this.switchTab(to.page());
                 }
                 else if (res.errMsg.indexOf('fail page') !== -1) {
