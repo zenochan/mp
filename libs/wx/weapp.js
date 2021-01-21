@@ -88,7 +88,7 @@ function HookPage(page) {
             // 在分享链接后追加 p={userId}
             var userId = Data_1.Data.getUser().id;
             if (!message.path) {
-                this.options.p = userId;
+                this.options[exports.HOOK_CONF.shareUserIdKey] = userId;
                 var options = Object.keys(this.options).map(function (key) { return key + "=" + _this.options[key]; }).join('&');
                 message.path = this.route + "?" + options;
             }

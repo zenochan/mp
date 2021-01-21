@@ -121,7 +121,7 @@ export function HookPage(page: IPage = {}) {
       // 在分享链接后追加 p={userId}
       const userId = Data.getUser<any>().id;
       if (!message.path) {
-        this.options.p = userId;
+        this.options[HOOK_CONF.shareUserIdKey] = userId;
         const options = Object.keys(this.options).map((key) => `${key}=${this.options[key]}`).join('&');
         message.path = `${this.route}?${options}`;
       } else if (message.path.indexOf(`${HOOK_CONF.shareUserIdKey}=`) === -1) {
