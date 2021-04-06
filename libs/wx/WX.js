@@ -400,12 +400,15 @@ var WX = /** @class */ (function () {
         var sceneObj = {};
         try {
             var scene = decodeURIComponent(page.options.scene || '');
-            scene.split('&')
-                .filter(function (kv) { return /^[^=]+=[^=]+$/.test(kv); })
-                .forEach(function (kv) {
-                var kvArray = kv.split('=');
-                sceneObj[kvArray[0]] = kvArray[1];
-            });
+            sceneObj.origin = scene;
+            if (scene.includes('=')) {
+                scene.split('&')
+                    .filter(function (kv) { return /^[^=]+=[^=]+$/.test(kv); })
+                    .forEach(function (kv) {
+                    var kvArray = kv.split('=');
+                    sceneObj[kvArray[0]] = kvArray[1];
+                });
+            }
         }
         catch (e) {
         }

@@ -439,12 +439,16 @@ export class WX {
     try {
       const scene = decodeURIComponent(page.options.scene || '');
 
-      scene.split('&')
-        .filter((kv) => /^[^=]+=[^=]+$/.test(kv))
-        .forEach((kv) => {
-          const kvArray = kv.split('=');
-          sceneObj[kvArray[0]] = kvArray[1];
-        });
+      sceneObj.origin = scene;
+      if (scene.includes('=')) {
+        scene.split('&')
+          .filter((kv) => /^[^=]+=[^=]+$/.test(kv))
+          .forEach((kv) => {
+            const kvArray = kv.split('=');
+            sceneObj[kvArray[0]] = kvArray[1];
+          });
+      }
+
     } catch (e) {
     }
 
