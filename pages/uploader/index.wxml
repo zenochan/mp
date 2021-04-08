@@ -1,1 +1,6 @@
+<view>图片(默认)</view>
 <uploader></uploader>
+<view>视频</view>
+<uploader type="video" text="视频"></uploader>
+<view>图片/视频</view>
+<uploader type="media" text="图片/视频"></uploader>

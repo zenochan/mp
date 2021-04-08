@@ -665,10 +665,10 @@ declare global {
 
     function saveImageToPhotosAlbum(options: SaveImageToPhotoAlbumOptions);
 
-    /**
-     * 从本地相册选择图片或使用相机拍照。
-     */
-    function chooseImage(options: ChooseImageOptions): void;
+    // /**
+    //  * 从本地相册选择图片或使用相机拍照。
+    //  */
+    // function chooseImage(options: ChooseImageOptions): void;
 
     interface ChooseVideoOptions extends BaseOptions<any> {
       sourceType?: string[]; // default
@@ -685,29 +685,29 @@ declare global {
       width: number;
     }
 
-    /**
-     * 拍摄视频或从手机相册中选视频。
-     */
-    function chooseVideo(options: ChooseVideoOptions): void;
+    // /**
+    //  * 拍摄视频或从手机相册中选视频。
+    //  */
+    // function chooseVideo(options: ChooseVideoOptions): void;
 
-    interface PreviewImageOptions extends BaseOptions<any> {
+    // interface PreviewImageOptions extends BaseOptions<any> {
+    //
+    //   /**
+    //    * 当前显示图片的链接，不填则默认为 urls 的第一张
+    //    */
+    //   current?: string;
+    //
+    //   /**
+    //    * 需要预览的图片链接列表
+    //    */
+    //   urls: string[];
+    // }
 
-      /**
-       * 当前显示图片的链接，不填则默认为 urls 的第一张
-       */
-      current?: string;
-
-      /**
-       * 需要预览的图片链接列表
-       */
-      urls: string[];
-    }
-
-    /**
-     * 预览图片。
-     */
-    function previewImage(options: PreviewImageOptions): void;
-
+    // /**
+    //  * 预览图片。
+    //  */
+    // function previewImage(options: PreviewImageOptions): void;
+    //
     interface GetImageInfoResult {
       width: number; // 图片宽度，单位px 不考虑旋转。
       height: number; // 图片高度 单位px 不考虑旋转。
@@ -933,10 +933,10 @@ declare global {
       success?: (res?: ChooseVideoResult) => void;
     }
 
-    /**
-     * 拍摄视频或从手机相册中选视频，返回视频的临时文件路径。
-     */
-    function chooseVideo(options: ChooseVideoOptions): void;
+    // /**
+    //  * 拍摄视频或从手机相册中选视频，返回视频的临时文件路径。
+    //  */
+    // function chooseVideo(options: ChooseVideoOptions): void;
 
     /**
      * `audioContext` 通过 audioId 跟一个 audio 组件绑定，通过它可以操作一个 audio 组件。

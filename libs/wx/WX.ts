@@ -306,7 +306,7 @@ export class WX {
         success: (res) => sub.next(res.tempFilePaths),
         fail: (e) => {
           // 忽略取消错误
-          if (e.errMsg.indexOf('cancel') == -1) {
+          if (e.errMsg.indexOf('cancel') === -1) {
             sub.error(e);
           }
         },
@@ -328,6 +328,84 @@ export class WX {
         },
         complete: () => sub.complete(),
       });
+    });
+  }
+
+  static chooseMedia(options: {
+    count?: number,
+    sourceType?: ('camera' | 'album')[],
+    mediaType?: ('image' | 'video')[]
+  }): Observable<any[]> {
+    const {
+      count = 1,
+      sourceType = ['camera', 'album'],
+      mediaType = ['image', 'video'],
+    } = options;
+
+    return Observable.create((sub) => {
+      const chooseOptions = {
+        count,
+        mediaType,
+        sourceType,
+        success: (res: {
+          tempFiles?: {
+            path: string,                 // image
+            tempFilePath: string,         // media
+            size: number,                 // image,media
+            duration: number,             // media.video
+            height: number,               // media.video
+            width: number,                // media.video
+            thumbTempFilePath?: string    // media.video
+          }[],
+        } | any) => {
+          const files = res.tempFiles || [{
+            ...res,
+            fileType: 'video',
+          }];
+          files.forEach((file) => {
+            if (file.path) {
+              file.tempFilePath = file.path;
+              delete file.path;
+            }
+            if (!Object.prototype.hasOwnProperty.call(file, 'fileType')) {
+              file.fileType = 'image';
+            }
+          });
+          sub.next(files);
+        },
+        fail: (e) => {
+          // 忽略取消错误
+          if (e.errMsg.indexOf('cancel') === -1) {
+            sub.error(e);
+          }
+        },
+        complete: () => sub.complete(),
+      };
+
+      if (wx.chooseMedia) {     // 2.10.0
+        wx.chooseMedia(chooseOptions);
+      } else if (mediaType.length === 2) {
+        UI.showActionSheet(['拍图片', '拍视频', '从相册选择图片', '从相册选择视频']).subscribe((index) => {
+          switch (index) {
+            case 0:
+              wx.chooseImage({ ...chooseOptions, sourceType: ['camera'] });
+              break;
+            case 1:
+              wx.chooseVideo({ ...chooseOptions, sourceType: ['camera'] });
+              break;
+            case 2:
+              wx.chooseImage({ ...chooseOptions, sourceType: ['album'] });
+              break;
+            default:
+              wx.chooseVideo({ ...chooseOptions, sourceType: ['album'] });
+              break;
+          }
+        });
+      } else if (mediaType[0] === 'video') {
+        wx.chooseVideo(chooseOptions);
+      } else {
+        wx.chooseImage(chooseOptions);
+      }
     });
   }
 
@@ -448,7 +526,6 @@ export class WX {
             sceneObj[kvArray[0]] = kvArray[1];
           });
       }
-
     } catch (e) {
     }
 

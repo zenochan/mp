@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("./UI");
@@ -275,7 +283,7 @@ var WX = /** @class */ (function () {
                 success: function (res) { return sub.next(res.tempFilePaths); },
                 fail: function (e) {
                     // 忽略取消错误
-                    if (e.errMsg.indexOf('cancel') == -1) {
+                    if (e.errMsg.indexOf('cancel') === -1) {
                         sub.error(e);
                     }
                 },
@@ -298,6 +306,63 @@ var WX = /** @class */ (function () {
                 },
                 complete: function () { return sub.complete(); },
             });
+        });
+    };
+    WX.chooseMedia = function (options) {
+        var _a = options.count, count = _a === void 0 ? 1 : _a, _b = options.sourceType, sourceType = _b === void 0 ? ['camera', 'album'] : _b, _c = options.mediaType, mediaType = _c === void 0 ? ['image', 'video'] : _c;
+        return Rx_1.Observable.create(function (sub) {
+            var chooseOptions = {
+                count: count,
+                mediaType: mediaType,
+                sourceType: sourceType,
+                success: function (res) {
+                    var files = res.tempFiles || [__assign({}, res, { fileType: 'video' })];
+                    files.forEach(function (file) {
+                        if (file.path) {
+                            file.tempFilePath = file.path;
+                            delete file.path;
+                        }
+                        if (!Object.prototype.hasOwnProperty.call(file, 'fileType')) {
+                            file.fileType = 'image';
+                        }
+                    });
+                    sub.next(files);
+                },
+                fail: function (e) {
+                    // 忽略取消错误
+                    if (e.errMsg.indexOf('cancel') === -1) {
+                        sub.error(e);
+                    }
+                },
+                complete: function () { return sub.complete(); },
+            };
+            if (wx.chooseMedia) { // 2.10.0
+                wx.chooseMedia(chooseOptions);
+            }
+            else if (mediaType.length === 2) {
+                UI_1.UI.showActionSheet(['拍图片', '拍视频', '从相册选择图片', '从相册选择视频']).subscribe(function (index) {
+                    switch (index) {
+                        case 0:
+                            wx.chooseImage(__assign({}, chooseOptions, { sourceType: ['camera'] }));
+                            break;
+                        case 1:
+                            wx.chooseVideo(__assign({}, chooseOptions, { sourceType: ['camera'] }));
+                            break;
+                        case 2:
+                            wx.chooseImage(__assign({}, chooseOptions, { sourceType: ['album'] }));
+                            break;
+                        default:
+                            wx.chooseVideo(__assign({}, chooseOptions, { sourceType: ['album'] }));
+                            break;
+                    }
+                });
+            }
+            else if (mediaType[0] === 'video') {
+                wx.chooseVideo(chooseOptions);
+            }
+            else {
+                wx.chooseImage(chooseOptions);
+            }
         });
     };
     /**

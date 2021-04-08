@@ -1,15 +1,22 @@
 <div class="img-uploader">
-  <div class="item" wx:for="{{urls}}" wx:key="index"
-       catch:tap="view" data-urls="{{urls}}" data-url="{{item}}"
+  <div class="item" wx:for="{{files}}" wx:key="index"
+       catch:tap="view" data-index="{{index}}"
   >
-    <image class="item-image" src="{{item + '?imageView2/0/w/200'}}" mode="aspectFill"></image>
+    <image class="item-image"
+           wx:if="{{item.isImage}}"
+           src="{{item.url + '?imageView2/0/w/200'}}" mode="aspectFill"></image>
+
+    <image class="item-image"
+           wx:if="{{item.isVideo}}"
+           src="{{item.url + '?vframe/jpg/offset/1/w/400/h/200'}}" mode="aspectFill"></image>
+
     <image class="item-image delete" src="imgs/delete.png"
-           wx:if="{{!disabled}}" catch:tap="removeImage" data-index="{{index}}"
+           wx:if="{{!disabled}}" catch:tap="removeItem" data-index="{{index}}"
     ></image>
   </div>
 
   <div class="item" wx:for="{{uploading}}" wx:key="index">
-    <image class="item-image" src="{{item}}" mode="aspectFill"></image>
+    <image class="item-image" src="{{item.thumbTempFilePath || item.TempFilePath }}" mode="aspectFill"></image>
 
     <div class="progress add-div">
 
@@ -25,7 +32,7 @@
   </div>
 
   <!--  add -->
-  <div class="item add" catch:tap="chooseImage" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
+  <div class="item add" catch:tap="chooseMedia" wx:if="{{!disabled && count> urls.length && uploading.length == 0}}">
     <image class="add-image" src="imgs/upload.png" mode="widthFixed"></image>
     <div class="add-div">{{text}}</div>
   </div>

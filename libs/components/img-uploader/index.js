@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * # properties
  *
@@ -21,104 +21,133 @@ var config_1 = require("../zz-img/config");
 Component({
     data: {
         uploading: [],
+        files: [],
     },
     options: {
-        addGlobalClass: true
+        addGlobalClass: true,
     },
     properties: {
         urls: {
-            type: Array, value: [], observer: function (newVal) {
-                if (!newVal) {
-                    this.setData({ urls: [] });
-                }
-                this.completeImgUrl();
-            }
+            type: Array,
+            value: [],
+            observer: function (newVal) {
+                this.handleUrls(newVal);
+            },
         },
         url: {
-            type: String, value: "", observer: function (newVal) {
+            type: String,
+            value: '',
+            observer: function (newVal) {
                 if (newVal) {
-                    this.setData({ urls: [newVal] });
-                    this.completeImgUrl();
+                    this.handleUrls([newVal]);
                 }
                 else {
-                    this.setData({ urls: [] });
+                    this.setData({ urls: [], files: [] });
                 }
-            }
+            },
+        },
+        /**
+         * - image
+         * - video
+         * - media
+         */
+        type: {
+            type: String, value: 'image',
         },
         disabled: { type: Boolean, value: false },
         /** 最大数量, 默认 9 */
         count: { type: Number, value: 9 },
         /** 是否允许从相册选择 */
         cameraOnly: { type: Boolean, value: false },
-        text: { type: String, value: "上传图片" },
-        scope: { type: String, value: "" }
+        text: { type: String, value: '上传图片' },
+        scope: { type: String, value: '' },
     },
     methods: {
-        chooseImage: function () {
+        chooseMedia: function () {
             var _this = this;
-            var from = ['camera'];
-            if (!this.data.cameraOnly) {
-                from.unshift("album");
+            var _a = this.data, urls = _a.urls, count = _a.count, cameraOnly = _a.cameraOnly, type = _a.type;
+            var sourceType = ['camera'];
+            if (!cameraOnly) {
+                sourceType.unshift('album');
             }
-            WX_1.WX.chooseImage(this.data.count - this.data.urls.length, from)
-                .flatMap(function (filePaths) {
-                _this.setData({ uploading: filePaths });
-                return img_uploader_service_1.ImgUploaderService.imageOperator.upload({ images: filePaths, scope: _this.data.scope });
+            var mediaType = {
+                media: ['image', 'video'],
+                image: ['image'],
+                video: ['video'],
+            }[type];
+            WX_1.WX.chooseMedia({ count: count - urls.length, sourceType: sourceType, mediaType: mediaType })
+                .flatMap(function (tempFiles) {
+                var tempFilePaths = tempFiles.map(function (file) { return file.tempFilePath; });
+                _this.setData({ uploading: tempFiles });
+                return img_uploader_service_1.ImgUploaderService.imageOperator.upload({ images: tempFilePaths, scope: _this.data.scope });
             }) // 上传
                 .subscribe(function (res) {
                 var _a;
-                (_a = _this.data.urls).push.apply(_a, res);
+                (_a = _this.data.files).push.apply(_a, _this.mapUrlsToFiles(res));
                 _this.setData({
-                    urls: _this.data.urls,
-                    uploading: []
+                    files: _this.data.files,
+                    uploading: [],
                 });
                 _this.triggerChange();
             }, function (e) {
-                if (typeof e == "string")
+                if (typeof e === 'string')
                     UI_1.UI.toastFail(e, 2000);
                 _this.setData({ uploading: [] });
             });
         },
-        removeImage: function (event) {
+        removeItem: function (event) {
             var _this = this;
-            UI_1.UI.confirm("是否要删除图片?").subscribe(function (res) {
-                var deleted = _this.data.urls.splice(event.currentTarget.dataset.index, 1);
-                img_uploader_service_1.ImgUploaderService.imageOperator.remove(deleted)
-                    .subscribe(function (res) { }, function (e) { return console.error("图片删除失败", e); });
-                _this.setData({ urls: _this.data.urls });
+            UI_1.UI.confirm('是否删除?').subscribe(function () {
+                var deleted = _this.data.files.splice(event.currentTarget.dataset.index, 1);
+                _this.setData({ files: _this.data.files });
                 _this.triggerChange();
+                img_uploader_service_1.ImgUploaderService.imageOperator.remove(deleted[0].url)
+                    .subscribe(function () { return null; }, function (e) { return console.error('删除失败', e); });
             });
         },
         triggerChange: function () {
-            if (this.data.count == 1) {
-                this.triggerEvent("change", { value: this.data.urls[0] || null });
-            }
-            else {
-                this.triggerEvent("change", { value: this.data.urls });
-            }
+            var urls = this.data.files.map(function (file) { return file.url; });
+            var value = this.data.count === 1 ? urls[0] || null : urls;
+            this.triggerEvent('change', { value: value });
         },
         view: function (e) {
-            var url = e.currentTarget.dataset.url;
-            var urls = e.currentTarget.dataset.urls;
-            wx.previewImage({
-                current: url,
-                urls: urls
+            var index = e.currentTarget.dataset.index;
+            var current = this.data.files[index];
+            if (wx.previewMedia) {
+                wx.previewMedia({
+                    url: current.url,
+                    sources: this.data.files.map(function (file) { return ({
+                        url: file.url,
+                        type: file.isImage ? 'image' : 'video',
+                    }); }),
+                });
+            }
+            else if (current.isImage) {
+                var urls = this.data.files.filter(function (file) { return file.isImage; }).map(function (file) { return file.url; });
+                wx.previewImage({ current: current.url, urls: urls });
+            }
+            else {
+                UI_1.UI.toastFail('您的微信版本不支持预览视频');
+            }
+        },
+        handleUrls: function (urls) {
+            this.setData({ files: this.mapUrlsToFiles(urls) });
+        },
+        mapUrlsToFiles: function (urls) {
+            return urls.map(function (url) {
+                var validUrl = url;
+                var invalidUrl = !url.startsWith('http') && !url.includes('assets');
+                var validBaseUrl = config_1.ZZ_IMG_CONFIG.BASE_URL.startsWith('http');
+                if (invalidUrl && validBaseUrl) {
+                    validUrl = config_1.ZZ_IMG_CONFIG.BASE_URL + url;
+                }
+                return {
+                    url: validUrl,
+                    isVideo: /.(mp4|avi|flv|mov|rm|rmvb|3gp)/.test(url.toLowerCase()),
+                    isImage: /.(jpg|jpeg|png|gif)/.test(url.toLowerCase()),
+                };
             });
         },
-        completeImgUrl: function () {
-            var _this = this;
-            var change = false;
-            var urls = [];
-            this.data.urls.forEach(function (url) {
-                if (url.indexOf('http') != 0 && url.indexOf('/assets/') != 0 && config_1.ZZ_IMG_CONFIG.BASE_URL.indexOf("http") == 0) {
-                    url = config_1.ZZ_IMG_CONFIG.BASE_URL + url;
-                    change = true;
-                }
-                urls.push(url);
-            });
-            if (change) {
-                setTimeout(function () { return _this.setData({ urls: urls }); }, 200);
-            }
-        }
     },
 });
+//# sourceMappingURL=index.js.map

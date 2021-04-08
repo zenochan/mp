@@ -6,7 +6,7 @@
   "main": "./libs/index.js",
   "miniprogram": "libs",
   "scripts": {
-    "run": "cli auto --project $(pwd) --auto-port 9421"
+    "open": "cli open --project $(pwd)"
   },
   "files": [
     "libs/",
@@ -38,6 +38,10 @@
       "no-plusplus": 1,
       "eqeqeq": 1,
       "no-use-before-define": 1,
+      "max-len": [
+        2,
+        120
+      ],
       "no-tabs": 0,
       "no-multi-spaces": 0
     }
