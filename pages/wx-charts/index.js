@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../libs/mp");
 var wx_charts_1 = require("../../libs/sdk/wx-charts/wx-charts");
 var pieChart;
@@ -43,7 +43,7 @@ mp_1.HookPage({
             ],
             width: windowWidth,
             height: 300,
-            dataLabel: true,
+            dataLabel: true
         });
     },
     ringChart: function () {
@@ -65,7 +65,7 @@ mp_1.HookPage({
             ],
             width: windowWidth,
             height: 300,
-            dataLabel: true,
+            dataLabel: true
         });
     },
     createSimulationData: function () {
@@ -120,6 +120,5 @@ mp_1.HookPage({
                 lineStyle: 'curve'
             }
         });
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * <collapse>
  *   <view slot="header">header</view>
@@ -12,14 +12,14 @@ var interceptor_1 = require("../../utils/interceptor");
 Component({
     options: {
         multipleSlots: true,
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
-        expand: { type: Boolean, value: false },
+        expand: { type: Boolean, value: false }
     },
     data: {
         expand: false,
-        marginTop: 0,
+        marginTop: 0
     },
     methods: {
         clickHeader: function () {
@@ -48,13 +48,13 @@ Component({
                     _this.setData({
                         marginTop: _this.data.expand ? 0 : -bodyHeight,
                         bodyHeight: bodyHeight,
-                        ready: true,
+                        ready: true
                     });
                 });
                 if (typeof next === 'function')
                     next();
             });
-        },
+        }
     },
     attached: function () {
         var _this = this;
@@ -67,6 +67,5 @@ Component({
     },
     detached: function () {
         this.sub.unsubscribe();
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

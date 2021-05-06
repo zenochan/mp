@@ -1,15 +1,15 @@
 // eslint-disable-next-line no-undef
 Component({
     data: {
-        open: false,
+        open: false
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
         src: { type: String, value: '' },
         right: { type: Number, value: 88 },
-        bottom: { type: Number, value: 88 },
+        bottom: { type: Number, value: 88 }
     },
     methods: {
         toggle: function () {
@@ -22,7 +22,6 @@ Component({
         },
         catTouch: function () {
             //
-        },
-    },
+        }
+    }
 });
-//# sourceMappingURL=index.js.map

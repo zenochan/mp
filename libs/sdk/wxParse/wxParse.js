@@ -10,6 +10,7 @@
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */
 exports.__esModule = true;
+exports.WxParse = exports.WX_PARSE_LOG = void 0;
 /**
  * utils函数引入
  **/

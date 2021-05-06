@@ -12,5 +12,5 @@ mp_1.HookPage({
     },
     openSetting: function () {
         wx.openSetting();
-    },
+    }
 });

@@ -189,4 +189,3 @@ module.exports = {
     strDiscode: strDiscode,
     urlToHttpUrl: urlToHttpUrl
 };
-//# sourceMappingURL=wxDiscode.js.map

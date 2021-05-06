@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.assign = void 0;
 // Object.assign polyfill
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 function assign(target, varArgs) {
@@ -21,4 +22,3 @@ function assign(target, varArgs) {
     return to;
 }
 exports.assign = assign;
-//# sourceMappingURL=polyfill.js.map

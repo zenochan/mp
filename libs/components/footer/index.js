@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * 兼容 iPhoneX 底部导航
  */
@@ -17,11 +17,11 @@ Component({
             observer: function () {
                 var _this = this;
                 wx.nextTick(function () { return _this.calcHeight(); });
-            },
-        },
+            }
+        }
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     methods: {
         calcHeight: function () {
@@ -30,10 +30,9 @@ Component({
             WX_1.WX.size('.fixed', this).subscribe(function (res) {
                 _this.setData({ bodyHeight: res.height });
             });
-        },
+        }
     },
     ready: function () {
         this.calcHeight();
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

@@ -1,5 +1,8 @@
 import { WX } from '../../wx/WX';
 
+// 小程序登录、用户信息相关接口调整说明
+// https://developers.weixin.qq.com/community/develop/doc/000cacfa20ce88df04cb468bc52801?highLine=login
+//
 // eslint-disable-next-line no-undef
 Component({
   data: {
@@ -10,6 +13,10 @@ Component({
       type: String,
       value: 'zh_CN',
     },
+    desc: {
+      type: String,
+      value: '小程序需要获取您的头像和昵称',
+    },
   },
   methods: {
     onClick() {
@@ -17,7 +24,15 @@ Component({
     },
 
     onGetUserInfo(e: WXEvent) {
-      if (e.detail.errMsg === 'getUserInfo:ok') {
+      if (wx.getUserProfile) {
+        wx.getUserProfile({
+          lang: 'zh_CN',
+          desc: this.data.desc,
+          success: (res) => {
+            this.data.userInfo = res.userInfo;
+          },
+        });
+      } else if (e.detail.errMsg === 'getUserInfo:ok') {
         this.data.userInfo = e.detail;
         this.setData({ granted: true });
         this.onClick();
@@ -28,13 +43,15 @@ Component({
     },
   },
   attached() {
-    WX.getSetting().subscribe((res) => {
-      this.setData({ granted: res.userInfo });
-      if (this.data.granted) {
-        WX.getUserInfo().subscribe((userInfo) => {
-          this.data.userInfo = userInfo;
-        });
-      }
-    });
+    if (!wx.getUserProfile) {
+      WX.getSetting().subscribe((res) => {
+        this.setData({ granted: res.userInfo });
+        if (this.data.granted) {
+          WX.getUserInfo().subscribe((userInfo) => {
+            this.data.userInfo = userInfo;
+          });
+        }
+      });
+    }
   },
 });

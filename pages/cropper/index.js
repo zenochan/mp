@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../libs/mp");
 mp_1.HookPage({
     navTitle: "图片裁剪",
@@ -34,7 +34,7 @@ mp_1.HookPage({
                 //生成文件的临时路径
                 console.log(res.tempFilePath);
                 wx.previewImage({
-                    urls: [res.tempFilePath],
+                    urls: [res.tempFilePath]
                 });
             },
             //剪裁失败的回调
@@ -48,4 +48,3 @@ mp_1.HookPage({
         });
     }
 });
-//# sourceMappingURL=index.js.map

@@ -1,18 +1,18 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 // eslint-disable-next-line no-undef
 Component({
     data: {
         top: 0,
         offset: 0,
-        sticky: false,
+        sticky: false
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
-        offset: { type: Number, value: 0 },
+        offset: { type: Number, value: 0 }
     },
     methods: {
         init: function () {
@@ -21,11 +21,11 @@ Component({
                 if (res.length >= 2) {
                     _this.setData({
                         top: _this.pageTop + res[0].top,
-                        height: res[1].height,
+                        height: res[1].height
                     });
                 }
             });
-        },
+        }
     },
     attached: function () {
         var _this = this;
@@ -51,6 +51,5 @@ Component({
     },
     ready: function () {
         this.init();
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

@@ -2,7 +2,8 @@
 /*
  * Copyright (c) 2020. Zeno Chan.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.HtmlToJson = void 0;
 /**
  * html2Json 改造来自: https://github.com/Jxck/html2json
  *
@@ -77,7 +78,7 @@ function html2json(html, bindName) {
             // node for this element
             var node = {
                 node: 'element',
-                tag: tag,
+                tag: tag
             };
             if (bufArray.length === 0) {
                 node.index = index.toString();
@@ -248,7 +249,7 @@ function html2json(html, bindName) {
             //     parent.nodes = [];
             // }
             // parent.nodes.push(node);
-        },
+        }
     });
     return results;
 }
@@ -301,4 +302,3 @@ var HtmlToJson = /** @class */ (function () {
     return HtmlToJson;
 }());
 exports.HtmlToJson = HtmlToJson;
-//# sourceMappingURL=html2json.js.map

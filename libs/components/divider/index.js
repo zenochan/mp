@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-undef
 Component({
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
         background: { type: String, value: 'unset' },
@@ -15,7 +15,6 @@ Component({
         top: { type: Number, value: 0 },
         bottom: { type: Number, value: 0 },
         vertical: { type: Number, value: 0 },
-        horizontal: { type: Number, value: 0 },
-    },
+        horizontal: { type: Number, value: 0 }
+    }
 });
-//# sourceMappingURL=index.js.map

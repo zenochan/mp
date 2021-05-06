@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.ChartAnimation = void 0;
 var timing_1 = require("./timing");
 var ChartAnimation = /** @class */ (function () {
     function ChartAnimation(opts) {
@@ -28,10 +29,10 @@ var ChartAnimation = /** @class */ (function () {
             this.startTimeStamp = timestamp;
         }
         if (timestamp - this.startTimeStamp < this.opts.duration) {
-            var process = (timestamp - this.startTimeStamp) / this.opts.duration;
+            var process_1 = (timestamp - this.startTimeStamp) / this.opts.duration;
             var timingFunction = timing_1.Timing[this.opts.timing];
-            process = timingFunction(process);
-            this.opts.onProcess && this.opts.onProcess(process);
+            process_1 = timingFunction(process_1);
+            this.opts.onProcess && this.opts.onProcess(process_1);
             this.animationFrame(this.step, this.delay);
         }
         else {
@@ -48,4 +49,3 @@ var ChartAnimation = /** @class */ (function () {
     return ChartAnimation;
 }());
 exports.ChartAnimation = ChartAnimation;
-//# sourceMappingURL=chartAnimation.js.map

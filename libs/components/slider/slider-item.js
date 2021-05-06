@@ -7,7 +7,7 @@ Component({
         currentX: 0,
         width: 0,
         bodyHeight: 0,
-        buttonWidth: 0,
+        buttonWidth: 0
     },
     options: { multipleSlots: true },
     relations: {

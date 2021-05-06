@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.ImgUploaderService = exports.DefaultImageOperator = void 0;
 var mp_1 = require("../../mp");
 var DefaultImageOperator = /** @class */ (function () {
     function DefaultImageOperator() {
@@ -26,4 +27,3 @@ var ImgUploaderService = /** @class */ (function () {
     return ImgUploaderService;
 }());
 exports.ImgUploaderService = ImgUploaderService;
-//# sourceMappingURL=img-uploader.service.js.map

@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.drawToolTip = exports.drawToolTipSplitLine = void 0;
 var charts_util_1 = require("./charts-util");
 function drawToolTipSplitLine(offsetX, opts, config, context) {
     var startY = config.padding;
@@ -81,4 +82,3 @@ function drawToolTip(textList, offset, opts, config, context) {
     context.closePath();
 }
 exports.drawToolTip = drawToolTip;
-//# sourceMappingURL=draw-tooltip.js.map

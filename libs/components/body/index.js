@@ -9,23 +9,23 @@ Component({
     properties: {
         pullText: {
             type: String,
-            value: '下拉可以刷新',
+            value: '下拉可以刷新'
         },
         releaseText: {
             type: String,
-            value: '松开立即刷新',
+            value: '松开立即刷新'
         },
         loadingText: {
             type: String,
-            value: '正在刷新数据中',
+            value: '正在刷新数据中'
         },
         finishText: {
             type: String,
-            value: '刷新完成',
+            value: '刷新完成'
         },
         pullDownHeight: {
             type: Number,
-            value: 60,
+            value: 60
         },
         scroll: { type: Boolean, value: false }
     },
@@ -49,5 +49,5 @@ Component({
         onTouchStart: function (e) { this.refresher && this.refresher.onTouchStart(e); },
         onTouchMove: function (e) { this.refresher && this.refresher.onTouchMove(e); },
         onTouchEnd: function (e) { this.refresher && this.refresher.onTouchEnd(e); }
-    },
+    }
 });

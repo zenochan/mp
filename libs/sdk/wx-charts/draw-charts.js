@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.drawCharts = void 0;
 var draw_1 = require("./draw");
 var charts_data_1 = require("./charts-data");
 var chartAnimation_1 = require("./chartAnimation");
@@ -117,4 +118,3 @@ function drawCharts(chart, type, opts, config, context) {
     }
 }
 exports.drawCharts = drawCharts;
-//# sourceMappingURL=draw-charts.js.map

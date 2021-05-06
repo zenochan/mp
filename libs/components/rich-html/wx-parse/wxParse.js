@@ -9,7 +9,8 @@
  * for: 微信小程序富文本解析
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.WxParse = exports.WX_PARSE_LOG = void 0;
 /**
  * utils函数引入
  **/
@@ -24,7 +25,7 @@ wx.getSystemInfo({
     success: function (res) {
         realWindowWidth = res.windowWidth;
         realWindowHeight = res.windowHeight;
-    },
+    }
 });
 /**
  * 主函数入口区
@@ -56,7 +57,7 @@ function wxParseImgTap(e) {
     if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
         wx.previewImage({
             current: nowImgUrl,
-            urls: that.data[tagFrom].imageUrls,
+            urls: that.data[tagFrom].imageUrls
         });
     }
 }
@@ -168,4 +169,3 @@ var WxParse = /** @class */ (function () {
     return WxParse;
 }());
 exports.WxParse = WxParse;
-//# sourceMappingURL=wxParse.js.map

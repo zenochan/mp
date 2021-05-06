@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.Event = void 0;
 var Event = /** @class */ (function () {
     function Event() {
         this.events = {};
@@ -29,4 +30,3 @@ var Event = /** @class */ (function () {
     return Event;
 }());
 exports.Event = Event;
-//# sourceMappingURL=Event.js.map

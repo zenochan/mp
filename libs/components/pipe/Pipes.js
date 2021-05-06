@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.Pipes = void 0;
 require("../../utils/extends.date");
 // eslint-disable-next-line import/prefer-default-export
 exports.Pipes = {
@@ -41,6 +42,5 @@ exports.Pipes = {
         if (val < 10000)
             return val;
         return (val / 10000).toFixed(1) + "W";
-    },
+    }
 };
-//# sourceMappingURL=Pipes.js.map

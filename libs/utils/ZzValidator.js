@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.ZzValidator = void 0;
 var ZzValidator = /** @class */ (function () {
     function ZzValidator() {
     }
@@ -60,4 +61,3 @@ var ZzValidator = /** @class */ (function () {
     return ZzValidator;
 }());
 exports.ZzValidator = ZzValidator;
-//# sourceMappingURL=ZzValidator.js.map

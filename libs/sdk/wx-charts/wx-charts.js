@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.WxCharts = void 0;
 var config_1 = require("./config");
 var Event_1 = require("./Event");
 var draw_charts_1 = require("./draw-charts");
@@ -117,4 +118,3 @@ var WxCharts = /** @class */ (function () {
     return WxCharts;
 }());
 exports.WxCharts = WxCharts;
-//# sourceMappingURL=wx-charts.js.map

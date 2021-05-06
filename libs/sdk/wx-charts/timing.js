@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.Timing = void 0;
 var Timing = /** @class */ (function () {
     function Timing() {
     }
@@ -23,4 +24,3 @@ var Timing = /** @class */ (function () {
     return Timing;
 }());
 exports.Timing = Timing;
-//# sourceMappingURL=timing.js.map

@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+exports.CartService = void 0;
 var mp_1 = require("../libs/mp");
 /**
  * 购物车工具类

@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.runQueue = exports.NavInjectors = exports.Route = exports.Nav = void 0;
 var WX_1 = require("./WX");
 var UI_1 = require("./UI");
 var Nav = /** @class */ (function () {
@@ -46,7 +47,7 @@ var Nav = /** @class */ (function () {
                 else {
                     UI_1.UI.toastFail(res.errMsg, 3000);
                 }
-            },
+            }
         };
         if (redirect || to.url === from.url) {
             wx.redirectTo(options);
@@ -83,7 +84,7 @@ var Nav = /** @class */ (function () {
     Nav.switchTab = function (page) {
         wx.switchTab({
             url: page,
-            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); },
+            fail: function (res) { return UI_1.UI.toastFail(res.errMsg, 2000); }
         });
     };
     /**
@@ -168,4 +169,3 @@ function runQueue(queue, fn, cb) {
     step(0);
 }
 exports.runQueue = runQueue;
-//# sourceMappingURL=nav.js.map

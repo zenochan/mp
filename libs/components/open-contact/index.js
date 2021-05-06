@@ -4,5 +4,5 @@ Component({
          * {@link MessageCard}
          */
         "messageCard": { type: Object, value: null }
-    },
+    }
 });

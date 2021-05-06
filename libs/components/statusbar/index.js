@@ -8,5 +8,5 @@ if (!h) {
 }
 Component({
     data: { h: h },
-    options: { addGlobalClass: true },
+    options: { addGlobalClass: true }
 });

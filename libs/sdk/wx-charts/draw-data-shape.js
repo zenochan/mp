@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 function drawPointShape(points, color, shape, context) {
     context.beginPath();
     context.setStrokeStyle("#ffffff");
@@ -46,5 +46,4 @@ function drawPointShape(points, color, shape, context) {
     context.fill();
     context.stroke();
 }
-exports.default = drawPointShape;
-//# sourceMappingURL=draw-data-shape.js.map
+exports["default"] = drawPointShape;

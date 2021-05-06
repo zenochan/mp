@@ -1,10 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
+exports.__esModule = true;
 var Pipes_1 = require("./Pipes");
 Component({
     properties: {
         value: {
-            type: Array, value: [], observer: function (arrays) {
+            type: Array, value: [],
+            observer: function (arrays) {
                 try {
                     var val_1 = arrays[0];
                     if (!val_1 && val_1 !== 0) {
@@ -20,7 +26,7 @@ Component({
                         var pipeArr = pipe.split("|");
                         var method = pipeArr.shift();
                         if (Pipes_1.Pipes[method]) {
-                            val_1 = Pipes_1.Pipes[method].apply(Pipes_1.Pipes, [val_1].concat(pipeArr));
+                            val_1 = Pipes_1.Pipes[method].apply(Pipes_1.Pipes, __spreadArray([val_1], pipeArr));
                         }
                     });
                     this.setData({ text: val_1 });
@@ -35,6 +41,5 @@ Component({
             type: null,
             value: null
         }
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

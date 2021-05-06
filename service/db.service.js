@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+exports.DbService = void 0;
 var app_1 = require("../app");
 var DbService = /** @class */ (function () {
     function DbService() {

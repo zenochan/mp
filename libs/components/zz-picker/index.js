@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 require("../../utils/extends.date");
 /**
  * # Event
@@ -20,7 +20,7 @@ Component({
         dateFields: 'day',
         dateEnd: '',
         datetimeStart: '',
-        datetimeEnd: '',
+        datetimeEnd: ''
     },
     externalClasses: ["zclass"],
     properties: {
@@ -41,7 +41,7 @@ Component({
         },
         rangekey: { type: String, value: '' },
         disabled: { type: Boolean, value: false },
-        value: { type: null, value: null, },
+        value: { type: null, value: null },
         placeholder: { type: String, value: '请选择' },
         date: {
             type: Boolean,
@@ -59,7 +59,8 @@ Component({
             }
         },
         datetimeStart: {
-            type: String, value: '2010-01-01 00:00', observer: function (newVal, oldVal) {
+            type: String, value: '2010-01-01 00:00',
+            observer: function (newVal, oldVal) {
                 if (newVal == 'today') {
                     this.data.datetimeStart = new Date().format('yyyy-MM-dd HH:mm');
                 }
@@ -68,7 +69,8 @@ Component({
             }
         },
         datetimeEnd: {
-            type: String, value: null, observer: function (newVal, oldVal) {
+            type: String, value: null,
+            observer: function (newVal, oldVal) {
                 if (newVal == 'today') {
                     this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm');
                 }
@@ -77,19 +79,22 @@ Component({
             }
         },
         region: {
-            type: Boolean, value: false, observer: function (newVal, oldVal) {
+            type: Boolean, value: false,
+            observer: function (newVal, oldVal) {
                 this.setData({ mode: 'region' });
             }
         },
         dateStart: {
-            type: String, value: "", observer: function (newVal) {
+            type: String, value: "",
+            observer: function (newVal) {
                 if (newVal == 'today') {
                     this.setData({ dateStart: new Date().format('yyyy-MM-dd') });
                 }
             }
         },
         dateEnd: {
-            type: String, value: "", observer: function (newVal) {
+            type: String, value: "",
+            observer: function (newVal) {
                 if (newVal == 'today') {
                     this.setData({ dateEnd: new Date().format('yyyy-MM-dd') });
                 }
@@ -197,7 +202,7 @@ Component({
                 this.data.multiIndex[column] = value;
                 this.initDatetime();
             }
-        },
+        }
     },
     ready: function () {
     }
@@ -228,4 +233,3 @@ function monthDays(year, month, dayStart, dayEnd) {
     }
     return stringArray(dayStart, dayEnd);
 }
-//# sourceMappingURL=index.js.map

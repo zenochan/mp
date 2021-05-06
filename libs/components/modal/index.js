@@ -26,7 +26,7 @@ Component({
                     this.setData({ dismissing: false });
                 }
             }
-        },
+        }
     },
     options: {
         addGlobalClass: true
@@ -52,7 +52,6 @@ Component({
                 _this.triggerEvent("dismiss");
             }, 300);
         },
-        catch: function (e) { }
-    },
+        "catch": function (e) { }
+    }
 });
-//# sourceMappingURL=index.js.map

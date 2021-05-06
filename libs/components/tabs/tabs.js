@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 // eslint-disable-next-line no-undef
 Component({
@@ -11,14 +11,14 @@ Component({
             value: 0,
             observer: function () {
                 this.active(this.data.active);
-            },
-        },
+            }
+        }
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     relations: {
-        'tab-item': { type: 'child' },
+        'tab-item': { type: 'child' }
     },
     methods: {
         scrollTo: function (target, width) {
@@ -47,7 +47,7 @@ Component({
             if (trigger) {
                 this.triggerEvent('change', { active: active, data: target.dataset });
             }
-        },
+        }
     },
     attached: function () {
         // eslint-disable-next-line no-undef
@@ -56,6 +56,5 @@ Component({
     },
     ready: function () {
         this.active(this.data.active, false);
-    },
+    }
 });
-//# sourceMappingURL=tabs.js.map

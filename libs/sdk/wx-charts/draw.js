@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.drawCanvas = exports.drawRadarDataPoints = exports.drawPieDataPoints = exports.drawLegend = exports.drawYAxis = exports.drawYAxisGrid = exports.drawXAxis = exports.drawToolTipBridge = exports.drawLineDataPoints = exports.drawAreaDataPoints = exports.drawColumnDataPoints = void 0;
 var charts_data_1 = require("./charts-data");
 var charts_util_1 = require("./charts-util");
 var draw_data_shape_1 = require("./draw-data-shape");
@@ -126,7 +127,7 @@ function drawAreaDataPoints(series, opts, config, context, process) {
         });
         if (opts.dataPointShape !== false) {
             var shape = config.dataPointShape[seriesIndex % config.dataPointShape.length];
-            draw_data_shape_1.default(points, eachSeries.color, shape, context);
+            draw_data_shape_1["default"](points, eachSeries.color, shape, context);
         }
     });
     if (opts.dataLabel !== false && process === 1) {
@@ -195,7 +196,7 @@ function drawLineDataPoints(series, opts, config, context, process) {
         });
         if (opts.dataPointShape !== false) {
             var shape = config.dataPointShape[seriesIndex % config.dataPointShape.length];
-            draw_data_shape_1.default(points, eachSeries.color, shape, context);
+            draw_data_shape_1["default"](points, eachSeries.color, shape, context);
         }
     });
     if (opts.dataLabel !== false && process === 1) {
@@ -551,7 +552,7 @@ function drawRadarDataPoints(series, opts, config, context, process) {
             var points = eachSeries.data.map(function (item) {
                 return item.position;
             });
-            draw_data_shape_1.default(points, eachSeries.color, shape, context);
+            draw_data_shape_1["default"](points, eachSeries.color, shape, context);
         }
     });
     // draw label text
@@ -567,4 +568,3 @@ function drawCanvas(opts, context) {
     context.draw();
 }
 exports.drawCanvas = drawCanvas;
-//# sourceMappingURL=draw.js.map

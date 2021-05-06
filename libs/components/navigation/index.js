@@ -4,7 +4,7 @@ var WX_1 = require("../../wx/WX");
 var mp_1 = require("../../mp");
 Component({
     data: {
-        height: '',
+        height: ''
     },
     properties: {
         title: { type: String, value: null },

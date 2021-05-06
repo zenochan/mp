@@ -1,7 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../libs/mp");
 mp_1.HookPage({
-    data: {},
+    data: {}
 });
-//# sourceMappingURL=index.js.map

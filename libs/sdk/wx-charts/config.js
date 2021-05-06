@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.WX_CHARTS_CONFIG = void 0;
 exports.WX_CHARTS_CONFIG = {
     yAxisWidth: 15,
     yAxisSplit: 5,
@@ -30,4 +31,3 @@ exports.WX_CHARTS_CONFIG = {
     radarGridCount: 3,
     radarLabelTextMargin: 15
 };
-//# sourceMappingURL=config.js.map

@@ -1,13 +1,17 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.API = void 0;
 var Data_1 = require("../wx/Data");
 var Rx_1 = require("../rx/Rx");
 var UI_1 = require("../wx/UI");
@@ -57,7 +61,7 @@ var API = /** @class */ (function () {
         url = API.pathVariable(url, param);
         return this.buildRequest({ method: 'POST', url: url, data: param });
     };
-    API.delete = function (url) {
+    API["delete"] = function (url) {
         return this.buildRequest({ method: 'DELETE', url: url });
     };
     API.upload = function (filePath, form) {
@@ -69,7 +73,7 @@ var API = /** @class */ (function () {
             filePath: filePath,
             header: this.tokenHeader(),
             name: 'photo',
-            formData: form,
+            formData: form
         };
         if (this.pathInterceptor) {
             options.url = this.pathInterceptor(options.url);
@@ -78,7 +82,7 @@ var API = /** @class */ (function () {
             options = this.optionsInterceptor(options);
         }
         return Rx_1.Observable.create(function (sub) {
-            wx.uploadFile(__assign({}, options, { success: function (res) {
+            wx.uploadFile(__assign(__assign({}, options), { success: function (res) {
                     var data = JSON.parse(res.data);
                     _this.handlerRes({ statusCode: 200, data: data }, sub);
                 }, fail: function (e) { return sub.error(e); }, complete: function () { return sub.complete(); } }));
@@ -112,7 +116,7 @@ var API = /** @class */ (function () {
                             sub.next(_this.completeImgUrl(urls));
                             sub.complete();
                         }
-                    },
+                    }
                 });
             });
         });
@@ -239,4 +243,3 @@ var API = /** @class */ (function () {
     return API;
 }());
 exports.API = API;
-//# sourceMappingURL=api.service.js.map

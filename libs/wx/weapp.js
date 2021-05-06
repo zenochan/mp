@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.HookPage = exports.PageInjectors = exports.HOOK_CONF = void 0;
 var nav_1 = require("./nav");
 var UI_1 = require("./UI");
 var Data_1 = require("./Data");
@@ -7,7 +8,7 @@ var Rx_1 = require("../rx/Rx");
 var mp_1 = require("../mp");
 exports.HOOK_CONF = {
     log: true,
-    shareUserIdKey: 'p',
+    shareUserIdKey: 'p'
 };
 exports.PageInjectors = [];
 /**
@@ -177,7 +178,7 @@ function hookInputEvent(page) {
     page.onFocus = function (e) {
         this.setData({
             focus: e.currentTarget.id || null,
-            keyboardHeight: e.detail.height,
+            keyboardHeight: e.detail.height
         });
         if (typeof originFocus === 'function') {
             originFocus.apply(this, arguments);
@@ -186,7 +187,7 @@ function hookInputEvent(page) {
     page.view = function (e) {
         var options = {
             current: e.currentTarget.dataset.url,
-            urls: e.currentTarget.dataset.urls,
+            urls: e.currentTarget.dataset.urls
         };
         options = mp_1.API.completeImgUrl(options);
         wx.previewImage(options);
@@ -201,7 +202,7 @@ function hookInputEvent(page) {
         var _this = this;
         this.setData({
             focus: null,
-            hideKeyboard: true,
+            hideKeyboard: true
         });
         setTimeout(function () {
             _this.setData({ hideKeyboard: false });
@@ -261,7 +262,7 @@ exports.PageInjectors.push({
             page.showed = true;
         }
         wx.hideNavigationBarLoading();
-    },
+    }
 });
 // 注入 showModal, hideModal
 exports.PageInjectors.push({
@@ -279,6 +280,5 @@ exports.PageInjectors.push({
             modal[target] = false;
             page.setData({ modal: page.data.modal });
         };
-    },
+    }
 });
-//# sourceMappingURL=weapp.js.map

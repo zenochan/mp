@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.UI = void 0;
 var Rx = require("../rx/Rx");
 var UI = /** @class */ (function () {
     function UI() {
@@ -13,7 +14,7 @@ var UI = /** @class */ (function () {
         }
         else {
             options = {
-                title: msgOrOptions,
+                title: msgOrOptions
             };
         }
         options.mask = true;
@@ -97,7 +98,7 @@ var UI = /** @class */ (function () {
             complete: function () {
                 sub.next(true);
                 sub.complete();
-            },
+            }
         });
         return sub;
     };
@@ -111,7 +112,7 @@ var UI = /** @class */ (function () {
             title: title,
             content: content,
             confirmText: confirm,
-            confirmColor: UI.colorPrimary,
+            confirmColor: UI.colorPrimary
         });
     };
     /**
@@ -126,7 +127,7 @@ var UI = /** @class */ (function () {
                     sub.next(res.tapIndex);
                     sub.complete();
                 },
-                fail: function (res) { return sub.error(res.errMsg); },
+                fail: function (res) { return sub.error(res.errMsg); }
             });
         });
     };
@@ -171,7 +172,7 @@ var UI = /** @class */ (function () {
             title: msg,
             icon: 'success',
             duration: 1000,
-            complete: function () { return complete(); },
+            complete: function () { return complete(); }
         });
     };
     UI.toastFail = function (msg, duration) {
@@ -181,11 +182,10 @@ var UI = /** @class */ (function () {
         wx.showToast({
             title: msg,
             icon: 'none',
-            duration: duration,
+            duration: duration
         });
     };
     UI.colorPrimary = '#9A52D3';
     return UI;
 }());
 exports.UI = UI;
-//# sourceMappingURL=UI.js.map

@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.drawPieText = exports.drawRadarLabel = exports.drawPointText = exports.drawRingTitle = void 0;
 var charts_util_1 = require("./charts-util");
 var util_1 = require("./util");
 function drawRingTitle(opts, config, context) {
@@ -177,4 +178,3 @@ function drawPieText(series, opts, config, context, radius, center) {
     });
 }
 exports.drawPieText = drawPieText;
-//# sourceMappingURL=draw-data-text.js.map

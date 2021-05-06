@@ -1,18 +1,18 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var WX_1 = require("../../wx/WX");
 // eslint-disable-next-line no-undef
 Component({
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     relations: {
         './tabs': {
             type: 'parent',
             linked: function (target) {
                 this.parent = target;
-            },
-        },
+            }
+        }
     },
     methods: {
         onClick: function (e) {
@@ -22,11 +22,10 @@ Component({
         active: function (active) {
             if (this.data.active !== active)
                 this.setData({ active: active });
-        },
+        }
     },
     ready: function () {
         var _this = this;
         WX_1.WX.size('#body', this).subscribe(function (size) { return _this.setData({ width: size.width }); });
-    },
+    }
 });
-//# sourceMappingURL=tab-item.js.map

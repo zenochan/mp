@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
+exports.now = void 0;
 Date.prototype.ONE_DAY = 86400000;
 // 周次
 Date.prototype.weekOfYear = function () {
@@ -23,7 +24,7 @@ Date.prototype.format = function (fmt) {
         'm+': this.getMinutes(),
         's+': this.getSeconds(),
         'q+': Math.floor((this.getMonth() + 3) / 3),
-        S: this.getMilliseconds(),
+        S: this.getMilliseconds()
     };
     // 年
     if (/(y+)/.test(fmt))
@@ -69,4 +70,3 @@ String.prototype.dateFormat = function (fmt) {
 String.prototype.dateParse = function () {
     return Date.parse(this.replace(/-/g, '/'));
 };
-//# sourceMappingURL=extends.date.js.map

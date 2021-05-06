@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * # properties
  *
@@ -21,10 +21,10 @@ var config_1 = require("../zz-img/config");
 Component({
     data: {
         uploading: [],
-        files: [],
+        files: []
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
         urls: {
@@ -32,7 +32,7 @@ Component({
             value: [],
             observer: function (newVal) {
                 this.handleUrls(newVal);
-            },
+            }
         },
         url: {
             type: String,
@@ -44,7 +44,7 @@ Component({
                 else {
                     this.setData({ urls: [], files: [] });
                 }
-            },
+            }
         },
         /**
          * - image
@@ -52,7 +52,7 @@ Component({
          * - media
          */
         type: {
-            type: String, value: 'image',
+            type: String, value: 'image'
         },
         disabled: { type: Boolean, value: false },
         /** 最大数量, 默认 9 */
@@ -60,7 +60,7 @@ Component({
         /** 是否允许从相册选择 */
         cameraOnly: { type: Boolean, value: false },
         text: { type: String, value: '上传图片' },
-        scope: { type: String, value: '' },
+        scope: { type: String, value: '' }
     },
     methods: {
         chooseMedia: function () {
@@ -73,7 +73,7 @@ Component({
             var mediaType = {
                 media: ['image', 'video'],
                 image: ['image'],
-                video: ['video'],
+                video: ['video']
             }[type];
             WX_1.WX.chooseMedia({ count: count - urls.length, sourceType: sourceType, mediaType: mediaType })
                 .flatMap(function (tempFiles) {
@@ -86,7 +86,7 @@ Component({
                 (_a = _this.data.files).push.apply(_a, _this.mapUrlsToFiles(res));
                 _this.setData({
                     files: _this.data.files,
-                    uploading: [],
+                    uploading: []
                 });
                 _this.triggerChange();
             }, function (e) {
@@ -118,8 +118,8 @@ Component({
                     url: current.url,
                     sources: this.data.files.map(function (file) { return ({
                         url: file.url,
-                        type: file.isImage ? 'image' : 'video',
-                    }); }),
+                        type: file.isImage ? 'image' : 'video'
+                    }); })
                 });
             }
             else if (current.isImage) {
@@ -144,10 +144,9 @@ Component({
                 return {
                     url: validUrl,
                     isVideo: /.(mp4|avi|flv|mov|rm|rmvb|3gp)/.test(url.toLowerCase()),
-                    isImage: /.(jpg|jpeg|png|gif)/.test(url.toLowerCase()),
+                    isImage: /.(jpg|jpeg|png|gif)/.test(url.toLowerCase())
                 };
             });
-        },
-    },
+        }
+    }
 });
-//# sourceMappingURL=index.js.map

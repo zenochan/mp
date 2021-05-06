@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var config_1 = require("./config");
 var mp_1 = require("../../mp");
 Component({
@@ -7,14 +7,15 @@ Component({
         placeholder: true,
         mode: 'aspectFill',
         width: null,
-        specialSize: null,
+        specialSize: null
     },
     options: {
-        addGlobalClass: true,
+        addGlobalClass: true
     },
     properties: {
         src: {
-            type: String, value: '', observer: function (src) {
+            type: String, value: '',
+            observer: function (src) {
                 if (src.indexOf('assets') != -1) {
                     this.setData({ _src: src, placeholder: false });
                 }
@@ -28,7 +29,7 @@ Component({
                     this.setData({ _src: src });
                 }
                 this.getImgSize();
-            },
+            }
         },
         lazyLoad: { type: Boolean, value: false },
         view: { type: Boolean, value: false },
@@ -37,35 +38,39 @@ Component({
             type: String, value: null, observer: function (value) {
                 if (value)
                     this.setData({ mode: value });
-            },
+            }
         },
         scaleToFill: {
-            type: Boolean, value: false, observer: function (value) {
+            type: Boolean, value: false,
+            observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'scaleToFill' }); });
-            },
+            }
         },
         aspectFit: {
-            type: Boolean, value: false, observer: function (value) {
+            type: Boolean, value: false,
+            observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFit' }); });
-            },
+            }
         },
         aspectFill: {
-            type: Boolean, value: false, observer: function (value) {
+            type: Boolean, value: false,
+            observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () { return _this.setData({ mode: 'aspectFill' }); });
-            },
+            }
         },
         widthFix: {
-            type: Boolean, value: false, observer: function (value) {
+            type: Boolean, value: false,
+            observer: function (value) {
                 var _this = this;
                 value && wx.nextTick(function () {
                     _this.setData({ mode: 'widthFix' });
                     _this.getImgSize();
                 });
-            },
-        },
+            }
+        }
     },
     methods: {
         preview: function () {
@@ -102,9 +107,9 @@ Component({
                         }
                     };
                     fun();
-                },
+                }
             });
-        },
+        }
     },
     ready: function () {
         var _this = this;
@@ -117,6 +122,5 @@ Component({
                 _this.setData({ qiniu: false });
             }
         });
-    },
+    }
 });
-//# sourceMappingURL=index.js.map

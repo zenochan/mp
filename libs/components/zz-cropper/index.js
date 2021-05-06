@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var mp_1 = require("../../mp");
 var Rx_1 = require("../../rx/Rx");
 function fnLog() {
@@ -364,4 +364,3 @@ Component({
         }
     }
 });
-//# sourceMappingURL=index.js.map
