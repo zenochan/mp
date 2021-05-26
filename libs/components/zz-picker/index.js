@@ -22,7 +22,7 @@ Component({
         datetimeStart: '',
         datetimeEnd: ''
     },
-    externalClasses: ["zclass"],
+    externalClasses: ['zclass'],
     properties: {
         range: {
             type: Array,
@@ -85,7 +85,7 @@ Component({
             }
         },
         dateStart: {
-            type: String, value: "",
+            type: String, value: '',
             observer: function (newVal) {
                 if (newVal == 'today') {
                     this.setData({ dateStart: new Date().format('yyyy-MM-dd') });
@@ -93,14 +93,14 @@ Component({
             }
         },
         dateEnd: {
-            type: String, value: "",
+            type: String, value: '',
             observer: function (newVal) {
                 if (newVal == 'today') {
                     this.setData({ dateEnd: new Date().format('yyyy-MM-dd') });
                 }
             }
         },
-        dateFields: { type: String, value: "day" }
+        dateFields: { type: String, value: 'day' }
     },
     methods: {
         onChange: function (event) {
@@ -124,11 +124,11 @@ Component({
             var hours = [];
             var minutes = [];
             var today = new Date();
-            var now = today.format("yyyy:MM:dd:HH:mm").split(":").map(function (item) { return parseInt(item); });
-            var start = this.data.datetimeStart.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(function (item) { return parseInt(item); });
+            var now = today.format('yyyy:MM:dd:HH:mm').split(':').map(function (item) { return parseInt(item); });
+            var start = this.data.datetimeStart.dateFormat('yyyy:MM:dd:HH:mm').split(':').map(function (item) { return parseInt(item); });
             var end = null;
             if (this.data.datetimeEnd) {
-                end = this.data.datetimeEnd.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(function (item) { return parseInt(item); });
+                end = this.data.datetimeEnd.dateFormat('yyyy:MM:dd:HH:mm').split(':').map(function (item) { return parseInt(item); });
             }
             years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
             var _a = this.data, choose_year = _a.choose_year, choose_month = _a.choose_month, choose_day = _a.choose_day, choose_h = _a.choose_h, choose_m = _a.choose_m;
@@ -210,7 +210,7 @@ Component({
 function stringArray(from, to) {
     var array = [];
     for (var i = from; i <= to; i++) {
-        array.push((i >= 10 ? "" : '0') + i);
+        array.push((i >= 10 ? '' : '0') + i);
     }
     return array;
 }

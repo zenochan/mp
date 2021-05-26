@@ -7,6 +7,7 @@ import { WX } from '../../wx/WX';
 Component({
   data: {
     granted: false,
+    profile: false,
   },
   properties: {
     lang: {
@@ -24,20 +25,31 @@ Component({
     },
 
     onGetUserInfo(e: WXEvent) {
-      if (wx.getUserProfile) {
-        wx.getUserProfile({
-          lang: 'zh_CN',
-          desc: this.data.desc,
-          success: (res) => {
-            this.data.userInfo = res.userInfo;
-          },
-        });
-      } else if (e.detail.errMsg === 'getUserInfo:ok') {
+      if (e.detail.errMsg === 'getUserInfo:ok') {
         this.data.userInfo = e.detail;
         this.setData({ granted: true });
         this.onClick();
       }
     },
+
+    getUserProfile() {
+      if (this.data.userInfo) {
+        this.onClick();
+      } else {
+        wx.getUserProfile({
+          lang: 'zh_CN',
+          desc: this.data.desc,
+          success: (res) => {
+            this.data.userInfo = res.userInfo;
+            this.onClick();
+          },
+          fail(e) {
+            console.error('getUserProfile::fail', e);
+          },
+        });
+      }
+    },
+
     catchTap() {
       // nothing
     },
@@ -52,6 +64,8 @@ Component({
           });
         }
       });
+    } else {
+      this.setData({ profile: true });
     }
   },
 });

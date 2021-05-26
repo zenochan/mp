@@ -103,6 +103,7 @@ export function HookPage(page: IPage = {}) {
           const injectorMethod = injector[method];
           injectorMethod && injectorMethod(this, args);
         } catch (ignore) {
+          // ignore
         }
       });
 

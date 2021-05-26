@@ -15,14 +15,14 @@ Component({
     value: null,
     mode: 'selector',
     // mode = date
-    dateStart: '',// yyyy-MM-dd
+    dateStart: '',        // yyyy-MM-dd
     dateFields: 'day',
-    dateEnd: '',// yyyy-MM-dd
-    datetimeStart: '',// yyyy-MM-dd HH:mm:ss
-    datetimeEnd: '',// yyyy-MM-dd HH:mm:ss
+    dateEnd: '',          // yyyy-MM-dd
+    datetimeStart: '',    // yyyy-MM-dd HH:mm:ss
+    datetimeEnd: '',      // yyyy-MM-dd HH:mm:ss
   },
 
-  externalClasses: ["zclass"],
+  externalClasses: ['zclass'],
 
   properties: {
     range: {
@@ -34,75 +34,75 @@ Component({
         if (!this.data.rangekey && first && typeof first == 'object') {
           Object.keys(first).forEach(key => {
             if (first.hasOwnProperty(key) && typeof first[key] == 'string') {
-              this.setData({rangekey: key});
+              this.setData({ rangekey: key });
             }
           });
         }
-      }
+      },
     },
 
-    rangekey: {type: String, value: ''},
-    disabled: {type: Boolean, value: false},
-    value: {type: null, value: null,},
-    placeholder: {type: String, value: '请选择'},
+    rangekey: { type: String, value: '' },
+    disabled: { type: Boolean, value: false },
+    value: { type: null, value: null },
+    placeholder: { type: String, value: '请选择' },
 
     date: {
       type: Boolean,
       value: false,
       observer: function (newVal, oldVal) {
-        this.setData({mode: 'date'});
-      }
+        this.setData({ mode: 'date' });
+      },
     },
 
     datetime: {
       type: Boolean,
       value: false,
       observer: function (newVal, oldVal) {
-        this.setData({range: null, mode: 'multiSelector'});
+        this.setData({ range: null, mode: 'multiSelector' });
         this.initDatetime();
-      }
+      },
     },
     datetimeStart: {
       type: String, value: '2010-01-01 00:00', observer(newVal, oldVal) {
         if (newVal == 'today') {
-          this.data.datetimeStart = new Date().format('yyyy-MM-dd HH:mm')
+          this.data.datetimeStart = new Date().format('yyyy-MM-dd HH:mm');
         }
         this.data.multiIndex = null;
         this.initDatetime();
-      }
+      },
     },
     datetimeEnd: {
       type: String, value: null, observer(newVal, oldVal) {
         if (newVal == 'today') {
-          this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm')
+          this.data.datetimeEnd = new Date().format('yyyy-MM-dd HH:mm');
         }
         this.data.multiIndex = null;
         this.initDatetime();
-      }
+      },
     },
 
     region: {
       type: Boolean, value: false, observer(newVal, oldVal) {
-        this.setData({mode: 'region'});
-      }
+        this.setData({ mode: 'region' });
+      },
     },
 
 
     dateStart: {
-      type: String, value: "", observer(newVal) {
+      type: String, value: '', observer(newVal) {
         if (newVal == 'today') {
-          this.setData({dateStart: new Date().format('yyyy-MM-dd')});
+          this.setData({ dateStart: new Date().format('yyyy-MM-dd') });
         }
-      }
+      },
     },
     dateEnd: {
-      type: String, value: "", observer(newVal) {
+      type: String, value: '', observer(newVal) {
         if (newVal == 'today') {
-          this.setData({dateEnd: new Date().format('yyyy-MM-dd')});
+          this.setData({ dateEnd: new Date().format('yyyy-MM-dd') });
         }
-      }
+      },
     },
-    dateFields: {type: String, value: "day"}
+    dateFields: { type: String, value: 'day' },
   },
 
   methods: {
@@ -120,7 +120,7 @@ Component({
         value = `${year}-${month}-${day} ${hour}:${minute}`;
       }
 
-      this.triggerEvent('change', {value, code});
+      this.triggerEvent('change', { value, code });
     },
 
     initDatetime() {
@@ -132,16 +132,16 @@ Component({
 
 
       let today = new Date();
-      let now = today.format("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
-      let start = this.data.datetimeStart.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
+      let now = today.format('yyyy:MM:dd:HH:mm').split(':').map(item => parseInt(item));
+      let start = this.data.datetimeStart.dateFormat('yyyy:MM:dd:HH:mm').split(':').map(item => parseInt(item));
       let end = null;
       if (this.data.datetimeEnd) {
-        end = this.data.datetimeEnd.dateFormat("yyyy:MM:dd:HH:mm").split(":").map(item => parseInt(item));
+        end = this.data.datetimeEnd.dateFormat('yyyy:MM:dd:HH:mm').split(':').map(item => parseInt(item));
       }
 
       years = stringArray(start[0], end ? end[0] : today.getFullYear() + 5);
 
-      let {choose_year, choose_month, choose_day, choose_h, choose_m} = this.data;
+      let { choose_year, choose_month, choose_day, choose_h, choose_m } = this.data;
       choose_year = choose_year || (end || start || now)[0];
       choose_month = choose_month || (end || start || now)[1];
       choose_day = choose_day || (end || start || now)[2];
@@ -152,21 +152,21 @@ Component({
       let monthEnd = 12;
 
       if (start && choose_year == start[0]) {
-        monthStart = start[1]
+        monthStart = start[1];
       }
       if (end && choose_year == end[0]) {
-        monthEnd = end[1]
+        monthEnd = end[1];
       }
       months = stringArray(monthStart, monthEnd);
 
       let dayStart = 1;
       let dayEnd = 31;
       if (start && choose_year == start[0] && choose_month == start[1]) {
-        dayStart = start[2]
+        dayStart = start[2];
       }
 
       if (end && choose_year == end[0] && choose_month == end[1]) {
-        dayEnd = end[2]
+        dayEnd = end[2];
       }
 
 
@@ -176,10 +176,10 @@ Component({
       let hStart = 0;
       let hEnd = 23;
       if (start && choose_year == start[0] && choose_month == start[1] && choose_day == start[2]) {
-        hStart = start[3]
+        hStart = start[3];
       }
       if (end && choose_year == end[0] && choose_month == end[1] && choose_day == end[2]) {
-        hEnd = end[3]
+        hEnd = end[3];
       }
 
       hours = stringArray(hStart, hEnd);
@@ -188,10 +188,10 @@ Component({
       let mStart = 0;
       let mEnd = 59;
       if (start && choose_year == start[0] && choose_month == start[1] && choose_day == start[2] && choose_h == start[3]) {
-        mStart = start[4]
+        mStart = start[4];
       }
       if (end && choose_year == end[0] && choose_month == end[1] && choose_day == end[2] && choose_h == end[3]) {
-        mEnd = end[4]
+        mEnd = end[4];
       }
 
       minutes = stringArray(mStart, mEnd);
@@ -216,13 +216,13 @@ Component({
       }
 
 
-      this.setData({multiArray, multiIndex});
+      this.setData({ multiArray, multiIndex });
     },
 
     onColumnChange(e: WXEvent) {
       if (this.data.datetime) {
         let key = ['choose_year', 'choose_month', 'choose_day', 'choose_h', 'choose_m'];
-        let {column, value} = e.detail;
+        let { column, value } = e.detail;
         let data: any = {};
         data[key[column]] = this.data.multiArray[column][value];
         this.setData(data);
@@ -235,14 +235,14 @@ Component({
   },
 
   ready() {
-  }
+  },
 });
 
 
 function stringArray(from: number, to: number) {
   let array = [];
   for (let i = from; i <= to; i++) {
-    array.push((i >= 10 ? "" : '0') + i);
+    array.push((i >= 10 ? '' : '0') + i);
   }
 
   return array;

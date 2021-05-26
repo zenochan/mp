@@ -1,10 +1,15 @@
 <view catch:tap="onClick" class="oepn-userinfo-ctn">
   <slot></slot>
 
-  <button wx:if="{{!granted}}"
+  <!--  新版本-->
+  <button wx:if="{{profile}}"
+          catch:tap="getUserProfile"
+          lang="{{lang}}"
+          class="open-userinfo"/>
+
+  <button wx:elif="{{!granted}}"
           catch:tap="catchTap"
           lang="{{lang}}"
           open-type="getUserInfo"
           class="open-userinfo" bindgetuserinfo="onGetUserInfo"></button>
 </view>
-

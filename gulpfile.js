@@ -17,7 +17,7 @@ function sassToWxss(src) {
   }
 
   return gulp.src(src)
-    .pipe(sass())
+    .pipe(sass({outputStyle:'compressed'}))
     .on('error',function (e){
       console.error(e.message);
       this.end();

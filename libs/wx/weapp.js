@@ -73,6 +73,7 @@ function HookPage(page) {
                     injectorMethod && injectorMethod(_this, args);
                 }
                 catch (ignore) {
+                    // ignore
                 }
             });
             if (exports.HOOK_CONF.log && method !== 'onPageScroll') {

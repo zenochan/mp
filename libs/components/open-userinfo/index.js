@@ -7,7 +7,8 @@ var WX_1 = require("../../wx/WX");
 // eslint-disable-next-line no-undef
 Component({
     data: {
-        granted: false
+        granted: false,
+        profile: false
     },
     properties: {
         lang: {
@@ -24,20 +25,29 @@ Component({
             this.triggerEvent('tap', this.data.userInfo);
         },
         onGetUserInfo: function (e) {
+            if (e.detail.errMsg === 'getUserInfo:ok') {
+                this.data.userInfo = e.detail;
+                this.setData({ granted: true });
+                this.onClick();
+            }
+        },
+        getUserProfile: function () {
             var _this = this;
-            if (wx.getUserProfile) {
+            if (this.data.userInfo) {
+                this.onClick();
+            }
+            else {
                 wx.getUserProfile({
                     lang: 'zh_CN',
                     desc: this.data.desc,
                     success: function (res) {
                         _this.data.userInfo = res.userInfo;
+                        _this.onClick();
+                    },
+                    fail: function (e) {
+                        console.error('getUserProfile::fail', e);
                     }
                 });
-            }
-            else if (e.detail.errMsg === 'getUserInfo:ok') {
-                this.data.userInfo = e.detail;
-                this.setData({ granted: true });
-                this.onClick();
             }
         },
         catchTap: function () {
@@ -55,6 +65,9 @@ Component({
                     });
                 }
             });
+        }
+        else {
+            this.setData({ profile: true });
         }
     }
 });
