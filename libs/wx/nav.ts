@@ -34,13 +34,11 @@ export class Nav {
     const options = {
       url: to.page(),
       fail: (res) => {
-        if (res.errMsg.indexOf('tab') !== -1) {
+        if (res.errMsg.includes('tab')) {
           this.switchTab(to.page());
-        } else if (res.errMsg.indexOf('fail page') !== -1) {
+        } else if (res.errMsg.includes('fail page')) {
           UI.toastFail('页面不存在');
           console.warn(`页面不存在：${to.page()}`);
-        } else if (res.errMsg.indexOf('tabbar') !== -1) {
-          this.switchTab(to.page());
         } else {
           UI.toastFail(res.errMsg, 3000);
         }

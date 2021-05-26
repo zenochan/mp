@@ -34,15 +34,12 @@ var Nav = /** @class */ (function () {
         var options = {
             url: to.page(),
             fail: function (res) {
-                if (res.errMsg.indexOf('tab') !== -1) {
+                if (res.errMsg.includes('tab')) {
                     _this.switchTab(to.page());
                 }
-                else if (res.errMsg.indexOf('fail page') !== -1) {
+                else if (res.errMsg.includes('fail page')) {
                     UI_1.UI.toastFail('页面不存在');
                     console.warn("\u9875\u9762\u4E0D\u5B58\u5728\uFF1A" + to.page());
-                }
-                else if (res.errMsg.indexOf('tabbar') !== -1) {
-                    _this.switchTab(to.page());
                 }
                 else {
                     UI_1.UI.toastFail(res.errMsg, 3000);
