@@ -14,12 +14,13 @@ Component({
     properties: {
         src: {
             type: String,
-            value: "",
+            value: '',
             observer: function (newVal, oldVal) {
                 if (newVal == oldVal)
                     return;
-                wxParse_1.WxParse.wxParse("__html", newVal, this);
+                wxParse_1.WxParse.wxParse('__html', newVal, this);
             }
-        }
+        },
+        preview: { type: Boolean, value: true }
     }
 });

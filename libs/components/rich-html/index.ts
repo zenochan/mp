@@ -2,23 +2,24 @@
  * Copyright (c) 2020. Zeno Chan.
  */
 
-import {WxParse} from "./wx-parse/wxParse";
+import { WxParse } from './wx-parse/wxParse';
 
 /**
  * <rich-html src="{{html data}}"></rich-html>
  */
 Component({
   options: {
-    addGlobalClass: true
+    addGlobalClass: true,
   },
   properties: {
     src: {
       type: String,
-      value: "",
-      observer: function (newVal, oldVal) {
+      value: '',
+      observer(newVal, oldVal) {
         if (newVal == oldVal) return;
-        WxParse.wxParse("__html", newVal, this);
-      }
-    }
-  }
+        WxParse.wxParse('__html', newVal, this);
+      },
+    },
+    preview: { type: Boolean, value: true },
+  },
 });

@@ -13,12 +13,12 @@ exports.__esModule = true;
 exports.WxParse = exports.WX_PARSE_LOG = void 0;
 /**
  * utils函数引入
- **/
+ * */
 var html2json_1 = require("./html2json");
 exports.WX_PARSE_LOG = false;
 /**
  * 配置及公有属性
- **/
+ * */
 var realWindowWidth = 0;
 var realWindowHeight = 0;
 wx.getSystemInfo({
@@ -29,18 +29,18 @@ wx.getSystemInfo({
 });
 /**
  * 主函数入口区
- **/
+ * */
 function wxParse(bindName, data, target, imagePadding) {
     if (bindName === void 0) { bindName = 'wxParseData'; }
     if (data === void 0) { data = '<div class="color:red;">数据不能为空</div>'; }
     if (imagePadding === void 0) { imagePadding = 0; }
     var that = target;
-    var transData = {}; //存放转化后的数据
+    var transData = {}; // 存放转化后的数据
     transData = html2json_1.HtmlToJson.html2json(data, bindName);
     exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
     transData.view = {};
     transData.view.imagePadding = 0;
-    if (typeof (imagePadding) != 'undefined') {
+    if (typeof (imagePadding) !== 'undefined') {
         transData.view.imagePadding = imagePadding;
     }
     var bindData = {};
@@ -54,7 +54,7 @@ function wxParseImgTap(e) {
     var that = this;
     var nowImgUrl = e.target.dataset.src;
     var tagFrom = e.target.dataset.from;
-    if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
+    if (that.data.preview && typeof (tagFrom) !== 'undefined' && tagFrom.length > 0) {
         wx.previewImage({
             current: nowImgUrl,
             urls: that.data[tagFrom].imageUrls
@@ -63,12 +63,12 @@ function wxParseImgTap(e) {
 }
 /**
  * 图片视觉宽高计算函数区
- **/
+ * */
 function wxParseImgLoad(e) {
     var that = this;
     var tagFrom = e.target.dataset.from;
     var idx = e.target.dataset.idx;
-    if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
+    if (typeof (tagFrom) !== 'undefined' && tagFrom.length > 0) {
         calMoreImageInfo(e, idx, that, tagFrom);
     }
 }
@@ -80,7 +80,7 @@ function calMoreImageInfo(e, idx, that, bindName) {
         return;
     }
     var temImages = temData.images;
-    //因为无法获取view宽度 需要自定义padding进行计算，稍后处理
+    // 因为无法获取view宽度 需要自定义padding进行计算，稍后处理
     var recal = wxAutoImageCal(e.detail.width, e.detail.height, that, bindName);
     // temImages[idx].width = recal.imageWidth;
     // temImages[idx].height = recal.imageheight;
@@ -94,8 +94,8 @@ function calMoreImageInfo(e, idx, that, bindName) {
         var i = _b[_i];
         key += ".nodes[" + i + "]";
     }
-    var keyW = key + '.width';
-    var keyH = key + '.height';
+    var keyW = key + ".width";
+    var keyH = key + ".height";
     that.setData((_a = {},
         _a[keyW] = recal.imageWidth,
         _a[keyH] = recal.imageheight,
@@ -103,16 +103,18 @@ function calMoreImageInfo(e, idx, that, bindName) {
 }
 // 计算视觉优先的图片宽高
 function wxAutoImageCal(originalWidth, originalHeight, that, bindName) {
-    //获取图片的原始长宽
-    var windowWidth = 0, windowHeight = 0;
-    var autoWidth = 0, autoHeight = 0;
+    // 获取图片的原始长宽
+    var windowWidth = 0;
+    var windowHeight = 0;
+    var autoWidth = 0;
+    var autoHeight = 0;
     var results = {};
     var padding = that.data[bindName].view.imagePadding;
     windowWidth = realWindowWidth - 2 * padding;
     windowHeight = realWindowHeight;
-    //判断按照那种方式进行缩放
+    // 判断按照那种方式进行缩放
     // console.log("windowWidth" + windowWidth);
-    if (originalWidth > windowWidth) { //在图片width大于手机屏幕width时候
+    if (originalWidth > windowWidth) { // 在图片width大于手机屏幕width时候
         autoWidth = windowWidth;
         // console.log("autoWidth" + autoWidth);
         autoHeight = (autoWidth * originalHeight) / originalWidth;
@@ -120,7 +122,7 @@ function wxAutoImageCal(originalWidth, originalHeight, that, bindName) {
         results.imageWidth = autoWidth;
         results.imageheight = autoHeight;
     }
-    else { //否则展示原来的数据
+    else { // 否则展示原来的数据
         results.imageWidth = originalWidth;
         results.imageheight = originalHeight;
     }
@@ -135,7 +137,7 @@ function wxParseTemArray(temArrayName, bindNameReg, total, that) {
         array.push(simArr);
     }
     temArrayName = temArrayName || 'wxParseTemArray';
-    obj = JSON.parse('{"' + temArrayName + '":""}');
+    obj = JSON.parse("{\"" + temArrayName + "\":\"\"}");
     obj[temArrayName] = array;
     that.setData(obj);
 }
@@ -144,18 +146,18 @@ var WxParse = /** @class */ (function () {
     }
     /**
      * 主函数入口区
-     **/
+     * */
     WxParse.wxParse = function (bindName, data, target, imagePadding) {
         if (bindName === void 0) { bindName = 'wxParseData'; }
         if (data === void 0) { data = '<div class="color:red;">数据不能为空</div>'; }
         if (imagePadding === void 0) { imagePadding = 0; }
         var that = target;
-        var transData = {}; //存放转化后的数据
+        var transData = {}; // 存放转化后的数据
         transData = html2json_1.HtmlToJson.html2json(data, bindName);
         exports.WX_PARSE_LOG && console.log(JSON.stringify(transData, null, 2));
         transData.view = {};
         transData.view.imagePadding = 0;
-        if (typeof (imagePadding) != 'undefined') {
+        if (typeof (imagePadding) !== 'undefined') {
             transData.view.imagePadding = imagePadding;
         }
         var bindData = {};
