@@ -1,7 +1,8 @@
 {
-  "name": "mp",
-  "version": "1.1.0",
+  "name": "@zenochan/mp",
+  "version": "1.0.0",
   "author": "Zeno",
+  "private": false,
   "description": "Zeno 的小程序开发包",
   "main": "./libs/index.js",
   "miniprogram": "libs",
@@ -29,26 +30,5 @@
     "gulp-replace": "^1.1.2",
     "gulp-sass": "^4.1.0",
     "typescript": "^4.0.3"
-  },
-  "eslintConfig": {
-    "extends": [
-      "ts-base",
-      "airbnb"
-    ],
-    "rules": {
-      "prefer-destructuring": 1,
-      "no-param-reassign": 1,
-      "no-undef": 1,
-      "prefer-rest-params": 1,
-      "no-plusplus": 1,
-      "eqeqeq": 1,
-      "no-use-before-define": 1,
-      "max-len": [
-        2,
-        120
-      ],
-      "no-tabs": 0,
-      "no-multi-spaces": 0
-    }
   }
 }
